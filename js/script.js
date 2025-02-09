@@ -592,6 +592,209 @@ class IngredientsManager {
     }
 }
 
+     // ===============================
+    // TestimonialsManager
+    // ===============================
+    // Testimonials Section Manager
+class TestimonialsManager {
+    constructor() {
+        this.currentSlide = 0;
+        this.testimonials = [];
+        this.results = [];
+        this.initializeTestimonials();
+    }
+
+    initializeTestimonials() {
+        // Initialize elements
+        this.slider = document.querySelector('.testimonials-slider');
+        this.resultsSlider = document.querySelector('.results-slider');
+        this.prevBtn = document.querySelector('.nav-btn.prev');
+        this.nextBtn = document.querySelector('.nav-btn.next');
+
+        // Set up testimonial data
+        this.testimonials = [
+            {
+                name: "Sarah J.",
+                location: "New York, USA",
+                rating: 5,
+                text: "Absolutely transformative experience. The results were noticeable within weeks, and the discrete shipping was much appreciated.",
+                satisfaction: 95,
+                results: 90
+            },
+            {
+                name: "Dr. Emma M.",
+                location: "Medical Professional",
+                rating: 5,
+                text: "As a medical professional, I'm impressed by the scientific approach and quality of ingredients. The results speak for themselves.",
+                isExpert: true
+            },
+            // Add more testimonials here
+        ];
+
+        this.results = [
+            {
+                satisfaction: 94,
+                days: 28,
+                recommend: 97
+            },
+            {
+                satisfaction: 92,
+                days: 30,
+                recommend: 95
+            }
+            // Add more results here
+        ];
+
+        this.setupEventListeners();
+        this.setupAnimations();
+        this.initializeMetrics();
+    }
+
+    setupEventListeners() {
+        // Navigation buttons
+        if (this.prevBtn && this.nextBtn) {
+            this.prevBtn.addEventListener('click', () => this.navigate('prev'));
+            this.nextBtn.addEventListener('click', () => this.navigate('next'));
+        }
+
+        // Touch events for mobile swipe
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        this.slider?.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        this.slider?.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            this.handleSwipe(touchStartX, touchEndX);
+        });
+    }
+
+    handleSwipe(startX, endX) {
+        const swipeThreshold = 50;
+        const diff = startX - endX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                this.navigate('next');
+            } else {
+                this.navigate('prev');
+            }
+        }
+    }
+
+    navigate(direction) {
+        const previousSlide = this.currentSlide;
+        
+        if (direction === 'next') {
+            this.currentSlide = (this.currentSlide + 1) % this.results.length;
+        } else {
+            this.currentSlide = (this.currentSlide - 1 + this.results.length) % this.results.length;
+        }
+
+        this.updateSlides(previousSlide);
+    }
+
+    updateSlides(previousSlide) {
+        // Animate results transition
+        this.animateResultsTransition(previousSlide);
+        
+        // Update navigation buttons state
+        this.updateNavigationState();
+    }
+
+    animateResultsTransition(previousSlide) {
+        const resultCard = document.querySelector('.result-card');
+        if (!resultCard) return;
+
+        // Add exit animation
+        resultCard.classList.add('slide-exit');
+
+        // After exit animation, update content and animate entrance
+        setTimeout(() => {
+            this.updateResultsContent(this.results[this.currentSlide]);
+            resultCard.classList.remove('slide-exit');
+            resultCard.classList.add('slide-enter');
+
+            // Remove entrance animation class
+            setTimeout(() => {
+                resultCard.classList.remove('slide-enter');
+            }, 300);
+        }, 300);
+    }
+
+    updateResultsContent(result) {
+        const resultCard = document.querySelector('.result-card');
+        if (!resultCard) return;
+
+        resultCard.innerHTML = `
+            <div class="result-stats">
+                <div class="stat">
+                    <span class="stat-value">${result.satisfaction}%</span>
+                    <span class="stat-label">Satisfaction Rate</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">${result.days}</span>
+                    <span class="stat-label">Days Average</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">${result.recommend}%</span>
+                    <span class="stat-label">Would Recommend</span>
+                </div>
+            </div>
+        `;
+    }
+
+    updateNavigationState() {
+        if (this.prevBtn && this.nextBtn) {
+            this.prevBtn.disabled = this.currentSlide === 0;
+            this.nextBtn.disabled = this.currentSlide === this.results.length - 1;
+        }
+    }
+
+    setupAnimations() {
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    if (entry.target.classList.contains('metric-fill')) {
+                        this.animateMetric(entry.target);
+                    }
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        // Observe testimonial cards
+        document.querySelectorAll('.testimonial-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe metrics
+        document.querySelectorAll('.metric-fill').forEach(metric => {
+            observer.observe(metric);
+        });
+    }
+
+    initializeMetrics() {
+        document.querySelectorAll('.metric-fill').forEach(metric => {
+            const width = metric.style.width;
+            metric.style.width = '0';
+            setTimeout(() => {
+                metric.style.width = width;
+            }, 100);
+        });
+    }
+
+    animateMetric(metricElement) {
+        const targetWidth = metricElement.getAttribute('data-width') || metricElement.style.width;
+        metricElement.style.width = targetWidth;
+    }
+}
+
     // ===============================
     // Initialize Everything
     // ===============================
@@ -604,6 +807,7 @@ class IngredientsManager {
         const smoothScroll = new SmoothScroll();
         const howItWorksManager = new HowItWorksManager();
         const ingredientsManager = new IngredientsManager();
+        const testimonialsManager = new TestimonialsManager();
 
         // Setup performance optimizations
         setupPerformanceOptimizations();
