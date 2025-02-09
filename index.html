@@ -20,62 +20,50 @@
         </div>
     </div>
 
- <header class="header">
-        <div class="header-backdrop"></div>
-        <div class="header-container">
-            <div class="logo-container">
-                <a href="/" class="logo-link">
-                    <img src="logo.png" alt="Company Logo" class="logo-image">
-                    <div class="logo-glow"></div>
-                </a>
-            </div>
-            
-            <!-- Primary Navigation -->
-            <nav class="primary-navigation" id="primary-navigation">
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link active">
-                            <span class="nav-text">Home</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#products" class="nav-link">
-                            <span class="nav-text">Products</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#services" class="nav-link">
-                            <span class="nav-text">Services</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link">
-                            <span class="nav-text">About</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link contact-btn">
-                            <span class="nav-text">Contact</span>
-                            <span class="btn-icon">→</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- Mobile Navigation Toggle -->
-            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
-                <div class="hamburger">
-                    <span class="line"></span>
-                    <span class="line"></span>
-                    <span class="line"></span>
-                </div>
-            </button>
+ <!-- Header HTML -->
+<header class="main-header">
+    <div class="header-container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="Logo" class="logo">
+            </a>
         </div>
-    </header>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Products</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link contact-btn">Contact</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button class="hamburger" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <!-- Mobile Navigation -->
+        <nav class="nav-mobile">
+            <ul class="mobile-nav-list">
+                <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Home</a></li>
+                <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Products</a></li>
+                <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="#" class="mobile-nav-link">About</a></li>
+                <li class="mobile-nav-item">
+                    <a href="#" class="mobile-nav-link mobile-contact-btn">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
     
    <!-- Hero Section -->
 <section class="hero">
