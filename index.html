@@ -15,30 +15,24 @@
         <div class="loader"></div>
     </div>
 
- <header class="main-header" id="mainHeader">
+<!-- Header & Hero Section -->
+<header class="main-header" id="mainHeader">
     <div class="header-container">
         <div class="logo-wrapper">
-            <a href="/" class="brand">
-                <span class="brand-text">S-Cream</span>
-            </a>
-        </div>
+            <a href="/" class="logo">
+                <img src="assets/logo.png" alt="S-Cream" class="logo-image">
+            </div>
         
         <nav class="main-nav">
             <ul class="nav-list">
-                <li><a href="#product" class="nav-link">Product</a></li>
-                <li><a href="#science" class="nav-link">Science</a></li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#reviews">Results</a></li>
+                <li><a href="#order" class="nav-cta">Get Started</a></li>
             </ul>
         </nav>
 
-        <div class="header-actions">
-            <button class="btn btn-track">Track Order</button>
-            <button class="btn btn-primary">Get Started</button>
-        </div>
-
-        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
-            <span></span>
+        <button class="menu-toggle" aria-label="Toggle Menu">
             <span></span>
             <span></span>
         </button>
@@ -48,32 +42,61 @@
 <section class="hero">
     <div class="video-container">
         <video autoplay muted loop playsinline id="heroVideo">
-            <source src="promocream1.mp4" type="video/mp4">
+            <source src="assets/hero-video.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
     
     <div class="hero-content">
-        <div class="hero-text-wrapper">
-            <h1 class="hero-title">
-                <span class="title-line">Experience</span>
-                <span class="title-line">Pure Luxury</span>
-            </h1>
-            <p class="hero-subtitle">Elevate your intimate moments with scientific precision</p>
-            <div class="hero-cta">
-                <button class="btn btn-primary btn-large">Begin Your Journey</button>
+        <div class="hero-grid">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="accent-text">Enhance</span>
+                    Your Intimate
+                    <span class="gradient-text">Moments</span>
+                </h1>
+                <p class="hero-tagline">Experience pleasure beyond imagination</p>
+                
                 <div class="hero-features">
-                    <span class="feature-tag">Clinically Proven</span>
-                    <span class="feature-tag">Professional Care</span>
-                    <span class="feature-tag">Discrete Shipping</span>
+                    <div class="feature-bubble">
+                        <span class="feature-icon">✧</span>
+                        <span>Clinically Proven</span>
+                    </div>
+                    <div class="feature-bubble">
+                        <span class="feature-icon">✧</span>
+                        <span>Fast Acting</span>
+                    </div>
+                    <div class="feature-bubble">
+                        <span class="feature-icon">✧</span>
+                        <span>Doctor Approved</span>
+                    </div>
+                </div>
+
+                <div class="cta-group">
+                    <button class="primary-btn pulse-btn">
+                        <span class="btn-text">Experience Now</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                    <div class="trust-badge">
+                        <img src="assets/secure-badge.png" alt="Secure Purchase">
+                        <span>Discrete Shipping</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-product">
+                <div class="product-showcase">
+                    <img src="assets/product.png" alt="S-Cream Product" class="floating-product">
+                    <div class="glow-effect"></div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="scroll-indicator">
-        <div class="scroll-line"></div>
-        <span>Discover More</span>
+
+    <div class="floating-elements">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
     </div>
 </section>
     
