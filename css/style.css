@@ -8,6 +8,11 @@
     --warm-brown: #8B5E3C;
     --dark: #1A1A1A;
     --light: #FFFFFF;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --bubble-glow: rgba(255, 105, 180, 0.3);
+    --transition-speed: 0.3s;
+}
     
     /* Gradient Palettes */
     --gradient-primary: linear-gradient(135deg, var(--rose-gold) 0%, var(--warm-brown) 100%);
@@ -92,57 +97,245 @@ body {
     border-top-color: var(--warm-brown);
     animation: spin 2s linear infinite reverse;
 }
-
-/* Ultra Modern Navigation */
-.nav-transparent {
+/* Header and Navigation */
+.main-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 20px 0;
-    transition: var(--transition-medium);
-    background: transparent;
 }
 
-.nav-scrolled {
-    background: rgba(255, 255, 255, 0.8);
+.bubble-nav {
+    padding: 1rem 0;
+    transition: all var(--transition-speed) ease;
+}
+
+.nav-container.glass {
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    padding: 15px 0;
-    box-shadow: var(--shadow-md);
-}
-
-.nav-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 30px;
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    margin: 1rem 2rem;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all var(--transition-speed) ease;
 }
 
-.nav-links a {
-    position: relative;
-    margin: 0 20px;
+/* Logo Styles */
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     text-decoration: none;
-    color: var(--dark);
-    font-weight: 500;
-    transition: var(--transition-fast);
 }
 
-.nav-links a::after {
+.logo-bubble {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.logo-bubble::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--rose-gold);
-    transition: var(--transition-medium);
+    inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    filter: blur(8px);
+    opacity: 0.5;
+    z-index: -1;
 }
 
-.nav-links a:hover::after {
-    width: 100%;
+.logo-letter {
+    color: var(--text-light);
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.bubble-link {
+    position: relative;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: all var(--transition-speed) ease;
+}
+
+.bubble-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--glass-bg);
+    border-radius: 15px;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all var(--transition-speed) ease;
+}
+
+.bubble-link:hover::before {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Buttons */
+.glass-button {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.glass-button.primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+}
+
+.glass-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hamburger-lines span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--text-light);
+    transition: all var(--transition-speed) ease;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Bubble Particles */
+.bubble-particles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--text-light);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.bubble-particles span:nth-child(1) {
+    top: -15px;
+    left: 50%;
+    animation: particle1 2s infinite;
+}
+
+.bubble-particles span:nth-child(2) {
+    top: 50%;
+    right: -15px;
+    animation: particle2 2.5s infinite;
+}
+
+.bubble-particles span:nth-child(3) {
+    bottom: -15px;
+    left: 50%;
+    animation: particle3 3s infinite;
+}
+
+@keyframes particle1 {
+    0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
+    50% { transform: translate(-50%, -10px); opacity: 0; }
+}
+
+@keyframes particle2 {
+    0%, 100% { transform: translate(0, -50%); opacity: 0.5; }
+    50% { transform: translate(10px, -50%); opacity: 0; }
+}
+
+@keyframes particle3 {
+    0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
+    50% { transform: translate(-50%, 10px); opacity: 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .glass-button {
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container.glass {
+        margin: 0.5rem 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
 }
 
 /* Premium Hero Section */
