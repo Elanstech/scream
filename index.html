@@ -20,50 +20,70 @@
         </div>
     </div>
 
-    <!-- Header -->
-    <header class="main-header" id="mainHeader">
-        <div class="header-glass"></div>
-        <div class="header-container">
-            <div class="logo-wrapper">
-                <a href="/" class="logo">
-                    <img src="logo.png" alt="S-Cream" class="logo-image">
+    <!-- Header Section -->
+<header class="site-header">
+    <div class="header-backdrop"></div>
+    
+    <!-- Animated Background -->
+    <div class="header-particles"></div>
+    
+    <div class="container">
+        <nav class="main-nav">
+            <!-- Logo Section -->
+            <div class="logo-container" data-aos="fade-down">
+                <a href="/" class="logo-link">
+                    <img src="logo.png" alt="Elanstech" class="main-logo">
+                    <div class="logo-glow"></div>
+                </a>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links" data-aos="fade-down" data-aos-delay="100">
+                <a href="#about" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span>About</span>
+                </a>
+                <a href="#products" class="nav-link">
+                    <span class="nav-icon">🛍️</span>
+                    <span>Products</span>
+                </a>
+                <a href="#testimonials" class="nav-link">
+                    <span class="nav-icon">⭐</span>
+                    <span>Reviews</span>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <span class="nav-icon">📱</span>
+                    <span>Contact</span>
                 </a>
             </div>
 
-            <nav class="main-nav">
-                <div class="nav-backdrop"></div>
-                <div class="nav-content">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="#benefits" class="nav-link">Our Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#ingredients" class="nav-link">FAQ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#results" class="nav-link">Reviews</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#science" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-
-                    <div class="nav-actions">
-                        <button class="btn-track">
-                            <span class="btn-icon">📦</span>
-                            <span class="btn-text">Track Order</span>
-                        </button>
-                    </div>
-                </div>
-            </nav>
-
-            <button class="menu-toggle" aria-label="Toggle Menu">
-                <span class="toggle-line"></span>
-                <span class="toggle-line"></span>
-            </button>
-        </div>
-    </header>
-
+            <!-- Action Buttons -->
+            <div class="header-actions" data-aos="fade-down" data-aos-delay="200">
+                <button class="track-order-btn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        <path d="M13 16V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2h7a2 2 0 002-2z"/>
+                        <path d="M9 17h6"/>
+                    </svg>
+                    Track Order
+                </button>
+                <button class="cart-btn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </button>
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+</header>
+    
    <!-- Hero Section -->
 <section class="hero">
     <div class="video-container">
