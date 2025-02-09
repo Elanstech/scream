@@ -21,9 +21,59 @@
         </div>
     </div>
 
-    <!-- Header (copied from index.html) -->
-    <header class="header">
-        <!-- Header content copied from index.html -->
+  <header class="header">
+        <div class="header-backdrop"></div>
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="/" class="logo-link">
+                    <img src="logo.png" alt="Company Logo" class="logo-image">
+                    <div class="logo-glow"></div>
+                </a>
+            </div>
+            
+            <nav class="primary-navigation" id="primary-navigation">
+                <ul class="nav-list">
+                   <li class="nav-item">
+                        <a href="index.html" class="nav-link">
+                            <span class="nav-text">Home</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="product.html" class="nav-link active">
+                            <span class="nav-text">Our Product</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#services" class="nav-link">
+                            <span class="nav-text">How It Works</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#portfolio" class="nav-link">
+                            <span class="nav-text">FAQ</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link contact-btn">
+                            <span class="nav-text">Order Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
+                <div class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </button>
+        </div>
     </header>
 
     <!-- Product Hero Section -->
