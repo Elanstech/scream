@@ -15,67 +15,67 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Hero Section with Integrated Header -->
-    <section class="hero-section">
-        <!-- Minimal Header -->
-        <header class="floating-header">
-            <div class="header-container">
-                <a href="/" class="logo-wrapper">
-                    <img src="logo.png" alt="S-Cream" class="logo">
-                    <div class="logo-text">
-                        <span class="brand">S-Cream</span>
-                        <span class="tagline">Luxury Enhancement</span>
-                    </div>
-                </a>
-                
-                <div class="header-actions">
-                    <button class="menu-trigger" aria-label="Menu">
-                        <span></span>
-                        <span></span>
-                    </button>
+ <header class="main-header" id="mainHeader">
+    <div class="header-container">
+        <div class="logo-wrapper">
+            <a href="/" class="brand">
+                <span class="brand-text">S-Cream</span>
+            </a>
+        </div>
+        
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="#product" class="nav-link">Product</a></li>
+                <li><a href="#science" class="nav-link">Science</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+            <button class="btn btn-track">Track Order</button>
+            <button class="btn btn-primary">Get Started</button>
+        </div>
+
+        <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="video-container">
+        <video autoplay muted loop playsinline id="heroVideo">
+            <source src="assets/hero-video.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="hero-content">
+        <div class="hero-text-wrapper">
+            <h1 class="hero-title">
+                <span class="title-line">Experience</span>
+                <span class="title-line">Pure Luxury</span>
+            </h1>
+            <p class="hero-subtitle">Elevate your intimate moments with scientific precision</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary btn-large">Begin Your Journey</button>
+                <div class="hero-features">
+                    <span class="feature-tag">Clinically Proven</span>
+                    <span class="feature-tag">Professional Care</span>
+                    <span class="feature-tag">Discrete Shipping</span>
                 </div>
             </div>
-
-            <!-- Modern Fullscreen Menu -->
-            <div class="fullscreen-menu">
-                <nav class="menu-content">
-                    <div class="menu-links">
-                        <a href="#product" class="menu-link">Product</a>
-                        <a href="#science" class="menu-link">Science</a>
-                        <a href="#reviews" class="menu-link">Reviews</a>
-                        <a href="#faq" class="menu-link">FAQ</a>
-                    </div>
-                    <div class="menu-actions">
-                        <button class="track-order">Track Order</button>
-                        <button class="get-started">Get Started</button>
-                    </div>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Hero Content -->
-        <div class="hero-content">
-            <h1 class="hero-title">Elevate Your Experience</h1>
-            <p class="hero-subtitle">Premium Enhancement. Professional Care.</p>
-            <button class="cta-button">Begin Your Journey</button>
         </div>
-
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-text">Scroll to explore</div>
-            <div class="scroll-line">
-                <div class="scroll-dot"></div>
-            </div>
-        </div>
-
-        <!-- Video Background -->
-        <div class="video-background">
-            <video autoplay muted loop playsinline>
-                <source src="promocream1.mp4" type="video/mp4">
-            </video>
-            <div class="overlay"></div>
-        </div>
-    </section>
+    </div>
+    
+    <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Discover More</span>
+    </div>
+</section>
     
     <!-- Product Introduction -->
     <section class="product-intro" data-aos="fade-up">
