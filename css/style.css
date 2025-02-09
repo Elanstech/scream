@@ -184,7 +184,7 @@ button {
 }
 
 .logo-image {
-    height: 40px;
+    height: 100px;
     width: auto;
     filter: drop-shadow(0 0 10px var(--glow-color));
     transition: transform var(--transition);
