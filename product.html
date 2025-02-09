@@ -288,73 +288,116 @@
 <section class="usage-section">
     <div class="container">
         <div class="section-header">
-            <span class="section-icon">📝</span>
+            <span class="section-icon">✨</span>
             <h2 class="section-title">Application Guide</h2>
-            <p class="section-subtitle">Simple steps for optimal results</p>
+            <p class="section-subtitle">Interactive guide for optimal results</p>
         </div>
 
-        <div class="usage-timeline">
-            <div class="timeline-step">
-                <div class="step-number">01</div>
-                <div class="step-content">
-                    <h3>Preparation</h3>
-                    <div class="step-details">
-                        <p>Ensure the application area is clean and dry</p>
-                        <ul class="step-tips">
-                            <li>Use mild soap and warm water</li>
-                            <li>Pat dry gently with a clean towel</li>
-                            <li>Wait 5 minutes before application</li>
-                        </ul>
-                        <div class="step-warning">
-                            <span class="warning-icon">⚠️</span>
-                            <p>Avoid using harsh soaps or exfoliants before application</p>
+        <div class="usage-interactive">
+            <!-- Interactive Timeline Steps -->
+            <div class="steps-timeline">
+                <div class="timeline-progress">
+                    <div class="progress-bar"></div>
+                </div>
+
+                <div class="steps-container">
+                    <!-- Step 1: Preparation -->
+                    <div class="step-card" data-step="1">
+                        <div class="step-marker">
+                            <div class="step-number">01</div>
+                            <div class="step-pulse"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Preparation</h3>
+                            <div class="step-details">
+                                <div class="step-checklist">
+                                    <label class="check-item">
+                                        <input type="checkbox" class="step-check">
+                                        <span>Clean the area gently</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="step-check">
+                                        <span>Pat dry with clean towel</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="step-check">
+                                        <span>Wait 5 minutes</span>
+                                    </label>
+                                </div>
+                                <div class="step-timer" data-time="300">
+                                    <div class="timer-circle">
+                                        <svg class="timer-svg" viewBox="0 0 100 100">
+                                            <circle class="timer-background" cx="50" cy="50" r="45"/>
+                                            <circle class="timer-progress" cx="50" cy="50" r="45"/>
+                                        </svg>
+                                        <span class="timer-display">5:00</span>
+                                    </div>
+                                    <button class="timer-control">Start Timer</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="timeline-step">
-                <div class="step-number">02</div>
-                <div class="step-content">
-                    <h3>Application</h3>
-                    <div class="step-details">
-                        <p>Apply the recommended amount to desired areas</p>
-                        <div class="dosage-guide">
-                            <h4>Recommended Dosage</h4>
-                            <div class="dosage-indicator">
-                                <span class="dot active"></span>
-                                <span class="dot active"></span>
-                                <span class="dot"></span>
-                                <span class="label">2 pumps</span>
+                    <!-- Step 2: Application -->
+                    <div class="step-card" data-step="2">
+                        <div class="step-marker">
+                            <div class="step-number">02</div>
+                            <div class="step-pulse"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Application</h3>
+                            <div class="step-details">
+                                <div class="dosage-guide">
+                                    <h4>Recommended Amount</h4>
+                                    <div class="dosage-simulator">
+                                        <div class="pump-counter">
+                                            <span class="pump-number">0</span>
+                                            <span class="pump-text">pumps</span>
+                                        </div>
+                                        <button class="pump-button">
+                                            <span class="pump-icon"></span>
+                                            <span>Press to Simulate</span>
+                                        </button>
+                                    </div>
+                                    <div class="dosage-indicator">
+                                        <div class="indicator-dots">
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                            <span class="dot"></span>
+                                        </div>
+                                        <span class="dosage-label">2 pumps recommended</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <ul class="step-tips">
-                            <li>Use gentle, circular motions</li>
-                            <li>Ensure even distribution</li>
-                            <li>Allow 2-3 minutes for absorption</li>
-                        </ul>
                     </div>
-                </div>
-            </div>
 
-            <div class="timeline-step">
-                <div class="step-number">03</div>
-                <div class="step-content">
-                    <h3>Activation</h3>
-                    <div class="step-details">
-                        <p>The formula begins working within minutes</p>
-                        <div class="activation-timeline">
-                            <div class="time-point">
-                                <span>5 min</span>
-                                <p>Initial sensation</p>
-                            </div>
-                            <div class="time-point">
-                                <span>15 min</span>
-                                <p>Peak effect</p>
-                            </div>
-                            <div class="time-point">
-                                <span>4 hrs</span>
-                                <p>Duration</p>
+                    <!-- Step 3: Activation -->
+                    <div class="step-card" data-step="3">
+                        <div class="step-marker">
+                            <div class="step-number">03</div>
+                            <div class="step-pulse"></div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Activation</h3>
+                            <div class="step-details">
+                                <div class="activation-timeline">
+                                    <div class="time-marker active" data-time="5">
+                                        <span class="time">5 min</span>
+                                        <span class="effect">Initial Sensation</span>
+                                        <div class="effect-wave"></div>
+                                    </div>
+                                    <div class="time-marker" data-time="15">
+                                        <span class="time">15 min</span>
+                                        <span class="effect">Peak Effect</span>
+                                        <div class="effect-wave"></div>
+                                    </div>
+                                    <div class="time-marker" data-time="240">
+                                        <span class="time">4 hrs</span>
+                                        <span class="effect">Duration</span>
+                                        <div class="effect-wave"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -363,7 +406,7 @@
         </div>
     </div>
 </section>
-
+    
 <!-- Benefits Section -->
 <section class="benefits-section">
     <div class="container">
