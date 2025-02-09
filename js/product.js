@@ -1,244 +1,225 @@
-// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize components
+    // Initialize all components
     initPreloader();
-    initMobileNav();
-    initProductGallery();
-    initPurchaseOptions();
-    initTabs();
-    initAOS();
-    updateFooterYear();
-    initScrollEffects();
+    initHeroAnimations();
+    initProductHighlights();
+    initStatistics();
+    initParticles();
+    initScrollAnimations();
+    initSmoothScroll();
+    initIngredientsInteraction();
 });
 
 // Preloader
 function initPreloader() {
     const preloader = document.querySelector('.preloader');
-    
-    window.addEventListener('load', () => {
-        preloader.classList.add('fade-out');
+    if (preloader) {
+        window.addEventListener('load', () => {
+            preloader.classList.add('fade-out');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                // Start hero animations after preloader
+                triggerHeroEntrance();
+            }, 500);
+        });
+    }
+}
+
+// Hero Animations
+function initHeroAnimations() {
+    const productImage = document.querySelector('.product-image');
+    const rings = document.querySelectorAll('.ring');
+    const titleLines = document.querySelectorAll('.title-line');
+
+    // Product float animation
+    if (productImage) {
+        productImage.style.opacity = '0';
+        productImage.style.transform = 'translateY(30px)';
+    }
+
+    // Rings animation
+    rings.forEach((ring, index) => {
+        ring.style.opacity = '0';
+        ring.style.transform = 'scale(0.8)';
+    });
+
+    // Title lines animation
+    titleLines.forEach((line, index) => {
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(20px)';
+    });
+}
+
+function triggerHeroEntrance() {
+    const productImage = document.querySelector('.product-image');
+    const rings = document.querySelectorAll('.ring');
+    const titleLines = document.querySelectorAll('.title-line');
+    const features = document.querySelectorAll('.feature-item');
+
+    // Animate product image
+    if (productImage) {
         setTimeout(() => {
-            preloader.style.display = 'none';
+            productImage.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            productImage.style.opacity = '1';
+            productImage.style.transform = 'translateY(0)';
         }, 300);
-    });
-}
-
-// Mobile Navigation
-function initMobileNav() {
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const primaryNav = document.querySelector('.primary-navigation');
-    const header = document.querySelector('.header');
-    let lastScroll = 0;
-
-    if (mobileNavToggle && primaryNav) {
-        mobileNavToggle.addEventListener('click', () => {
-            const isExpanded = mobileNavToggle.getAttribute('aria-expanded') === 'true';
-            mobileNavToggle.setAttribute('aria-expanded', !isExpanded);
-            primaryNav.setAttribute('data-visible', !isExpanded);
-            document.body.style.overflow = isExpanded ? '' : 'hidden';
-        });
     }
 
-    // Header scroll behavior
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll <= 0) {
-            header.classList.remove('scroll-up');
-            return;
-        }
-        
-        if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
-            header.classList.remove('scroll-up');
-            header.classList.add('scroll-down');
-        } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
-            header.classList.remove('scroll-down');
-            header.classList.add('scroll-up');
-        }
-        
-        lastScroll = currentScroll;
+    // Animate rings
+    rings.forEach((ring, index) => {
+        setTimeout(() => {
+            ring.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            ring.style.opacity = '1';
+            ring.style.transform = 'scale(1)';
+        }, 500 + (index * 200));
+    });
+
+    // Animate title lines
+    titleLines.forEach((line, index) => {
+        setTimeout(() => {
+            line.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            line.style.opacity = '1';
+            line.style.transform = 'translateY(0)';
+        }, 800 + (index * 200));
+    });
+
+    // Animate features
+    features.forEach((feature, index) => {
+        setTimeout(() => {
+            feature.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            feature.style.opacity = '1';
+            feature.style.transform = 'translateY(0)';
+        }, 1200 + (index * 150));
     });
 }
 
-// Product Gallery
-function initProductGallery() {
-    const mainImage = document.querySelector('.product-image');
-    const galleryItems = document.querySelectorAll('.gallery-item');
+// Product Highlights
+function initProductHighlights() {
+    const highlights = document.querySelectorAll('.highlight-point');
     
-    galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Remove active class from all items
-            galleryItems.forEach(i => i.classList.remove('active'));
-            
-            // Add active class to clicked item
-            item.classList.add('active');
-            
-            // Update main image with animation
-            const newImageSrc = item.querySelector('img').src;
-            mainImage.style.opacity = '0';
-            
-            setTimeout(() => {
-                mainImage.src = newImageSrc;
-                mainImage.style.opacity = '1';
-            }, 300);
+    highlights.forEach((point, index) => {
+        // Create connecting lines
+        const line = point.querySelector('.point-line');
+        const content = point.querySelector('.point-content');
+        
+        // Calculate line angle based on position
+        const angle = index % 2 === 0 ? -30 : 30;
+        line.style.transform = `rotate(${angle}deg)`;
+        
+        // Add hover effects
+        point.addEventListener('mouseenter', () => {
+            point.style.zIndex = '10';
+            content.style.transform = 'scale(1.1)';
+            line.style.width = '60px';
+        });
+        
+        point.addEventListener('mouseleave', () => {
+            point.style.zIndex = '1';
+            content.style.transform = 'scale(1)';
+            line.style.width = '50px';
         });
     });
-
-    // Image zoom effect on hover
-    if (mainImage) {
-        const imageWrapper = mainImage.parentElement;
-        
-        imageWrapper.addEventListener('mousemove', (e) => {
-            const { left, top, width, height } = imageWrapper.getBoundingClientRect();
-            const x = (e.clientX - left) / width;
-            const y = (e.clientY - top) / height;
-            
-            mainImage.style.transform = `scale(1.1) translate(${-x * 20}px, ${-y * 20}px)`;
-        });
-        
-        imageWrapper.addEventListener('mouseleave', () => {
-            mainImage.style.transform = '';
-        });
-    }
 }
 
-// Purchase Options
-function initPurchaseOptions() {
-    const subscriptionOptions = document.querySelectorAll('.subscription-option');
-    const addToCartBtn = document.querySelector('.add-to-cart-btn');
-    let selectedPrice = '89'; // Default price
-
-    subscriptionOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            // Update active state
-            subscriptionOptions.forEach(opt => opt.classList.remove('active'));
-            option.classList.add('active');
-            
-            // Update price
-            selectedPrice = option.querySelector('.option-price').textContent.match(/\d+/)[0];
-            updateAddToCartButton();
-            
-            // Add animation effect
-            option.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                option.style.transform = '';
-            }, 150);
-        });
-    });
-
-    function updateAddToCartButton() {
-        const animation = addToCartBtn.animate([
-            { transform: 'scale(0.95)' },
-            { transform: 'scale(1)' }
-        ], {
-            duration: 300,
-            easing: 'ease-out'
-        });
-        
-        animation.onfinish = () => {
-            addToCartBtn.innerHTML = `
-                <span>Add to Cart - $${selectedPrice}</span>
-                <svg class="btn-icon" viewBox="0 0 24 24">
-                    <path d="M9 20a1 1 0 100-2 1 1 0 000 2z"/>
-                    <path d="M20 20a1 1 0 100-2 1 1 0 000 2z"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
-                </svg>
-            `;
-        };
-    }
-
-    // Add to Cart Animation
-    if (addToCartBtn) {
-        addToCartBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Create success notification
-            const notification = document.createElement('div');
-            notification.className = 'cart-notification';
-            notification.innerHTML = `
-                <svg class="check-icon" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"/>
-                </svg>
-                <span>Added to Cart!</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Trigger animation
-            setTimeout(() => {
-                notification.classList.add('show');
+// Statistics Animation
+function initStatistics() {
+    const statRings = document.querySelectorAll('.progress-ring');
+    const statValues = document.querySelectorAll('.stat-value');
+    
+    // Animate stat rings when in view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const ring = entry.target;
+                const value = ring.nextElementSibling.textContent;
+                const percentage = parseInt(value) || 100;
                 
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 2000);
-            }, 100);
-        });
-    }
-}
-
-// Product Tabs
-function initTabs() {
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabPanels = document.querySelectorAll('.tab-panel');
-    
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetTab = btn.dataset.tab;
-            
-            // Update active states
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabPanels.forEach(p => p.classList.remove('active'));
-            
-            btn.classList.add('active');
-            document.getElementById(targetTab).classList.add('active');
-            
-            // Smooth scroll to content on mobile
-            if (window.innerWidth < 768) {
-                document.getElementById(targetTab).scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                // Animate the ring fill
+                const circumference = 283; // 2 * π * r where r = 45
+                const offset = circumference - (percentage / 100 * circumference);
+                ring.style.strokeDashoffset = offset;
+                
+                // Animate the number
+                animateNumber(ring.nextElementSibling, percentage);
             }
         });
-    });
-}
-
-// Initialize AOS (Animate on Scroll)
-function initAOS() {
-    AOS.init({
-        duration: 800,
-        offset: 100,
-        once: true,
-        easing: 'ease-out'
-    });
-}
-
-// Update Footer Year
-function updateFooterYear() {
-    const yearElement = document.getElementById('currentYear');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
-}
-
-// Scroll Effects
-function initScrollEffects() {
-    const header = document.querySelector('.header');
-    let lastScroll = 0;
+    }, { threshold: 0.5 });
     
-    // Parallax effect for product image
-    const productImage = document.querySelector('.product-image');
-    if (productImage) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            productImage.style.transform = `translateY(${scrolled * 0.1}px)`;
-        });
-    }
+    statRings.forEach(ring => observer.observe(ring));
+}
 
-    // Smooth scroll for anchor links
+function animateNumber(element, final, duration = 2000) {
+    const start = 0;
+    const increment = final / (duration / 16);
+    let current = start;
+    
+    const animate = () => {
+        current += increment;
+        element.textContent = Math.floor(current);
+        
+        if (current < final) {
+            requestAnimationFrame(animate);
+        } else {
+            element.textContent = final;
+        }
+    };
+    
+    animate();
+}
+
+// Particle Background
+function initParticles() {
+    const container = document.querySelector('.particles-container');
+    const particlesConfig = {
+        particles: 50,
+        size: { min: 1, max: 3 },
+        speed: { min: 0.5, max: 1.5 }
+    };
+    
+    if (container) {
+        for (let i = 0; i < particlesConfig.particles; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Random size
+            const size = Math.random() * (particlesConfig.size.max - particlesConfig.size.min) + particlesConfig.size.min;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Random position
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            // Random speed
+            const speed = Math.random() * (particlesConfig.speed.max - particlesConfig.speed.min) + particlesConfig.speed.min;
+            particle.style.animation = `float ${speed}s infinite linear`;
+            
+            container.appendChild(particle);
+        }
+    }
+}
+
+// Scroll Animations
+function initScrollAnimations() {
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    elements.forEach(element => observer.observe(element));
+}
+
+// Smooth Scroll
+function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -251,61 +232,71 @@ function initScrollEffects() {
             }
         });
     });
+}
 
-    // Add intersection observer for fade-in effects
-    const fadeElements = document.querySelectorAll('.fade-in');
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                fadeObserver.unobserve(entry.target);
+// Ingredients Section Interaction
+function initIngredientsInteraction() {
+    const ingredientCards = document.querySelectorAll('.ingredient-card');
+    
+    ingredientCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            // Highlight the ingredient
+            ingredientCards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            
+            // Update molecule visualization if exists
+            const moleculeVis = document.querySelector('.molecule-visualization');
+            if (moleculeVis) {
+                moleculeVis.dataset.activeIngredient = card.dataset.ingredient;
+                updateMoleculeVisualization(card.dataset.ingredient);
             }
         });
-    }, {
-        threshold: 0.1
-    });
-
-    fadeElements.forEach(element => {
-        fadeObserver.observe(element);
     });
 }
 
-// Cart Notification Styles
-const style = document.createElement('style');
-style.textContent = `
-    .cart-notification {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: var(--rose-gold);
-        color: white;
-        padding: 16px 24px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        transform: translateY(100px);
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 1000;
-    }
+function updateMoleculeVisualization(ingredient) {
+    const molecule = document.querySelector('.molecule-structure');
+    if (!molecule) return;
+    
+    // Update molecule structure based on ingredient
+    const atoms = molecule.querySelectorAll('.atom');
+    const bonds = molecule.querySelectorAll('.bond');
+    
+    // Different configurations for different ingredients
+    const configurations = {
+        aminophylline: {
+            atomPositions: [[20, 20], [50, 50], [80, 20]],
+            bondAngles: [45, -45]
+        },
+        ergoloid: {
+            atomPositions: [[50, 20], [20, 80], [80, 80]],
+            bondAngles: [60, -60]
+        },
+        larginine: {
+            atomPositions: [[50, 20], [20, 50], [80, 50]],
+            bondAngles: [30, -30]
+        }
+    };
+    
+    const config = configurations[ingredient] || configurations.aminophylline;
+    
+    // Update atom positions
+    atoms.forEach((atom, i) => {
+        if (config.atomPositions[i]) {
+            atom.style.left = `${config.atomPositions[i][0]}%`;
+            atom.style.top = `${config.atomPositions[i][1]}%`;
+        }
+    });
+    
+    // Update bond angles
+    bonds.forEach((bond, i) => {
+        if (config.bondAngles[i]) {
+            bond.style.transform = `rotate(${config.bondAngles[i]}deg)`;
+        }
+    });
+}
 
-    .cart-notification.show {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    .check-icon {
-        width: 20px;
-        height: 20px;
-        stroke: currentColor;
-        stroke-width: 2;
-        fill: none;
-    }
-`;
-document.head.appendChild(style);
-
-// Handle errors gracefully
+// Error handling
 window.addEventListener('error', function(e) {
     console.error('An error occurred:', e.message);
     // Implement error tracking or reporting here
