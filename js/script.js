@@ -12,63 +12,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const featureCards = document.querySelectorAll('.feature-card');
     let isMenuOpen = false;
     let lastScrollTop = 0;
+    });
 
     // ===============================
     // Preloader Configuration
     // ===============================
     class PreloaderManager {
-    constructor() {
-        this.preloader = document.querySelector('.preloader');
-        this.progressBar = document.querySelector('.progress-bar');
-        this.progressText = document.querySelector('.progress-text');
-        this.initializePreloader();
-    }
+        constructor() {
+            this.preloader = document.querySelector('.preloader');
+            this.progressBar = document.querySelector('.progress-bar');
+            this.progressText = document.querySelector('.progress-text');
+            this.initializePreloader();
+        }
 
-    initializePreloader() {
-        if (!this.preloader) return;
-
-        // Shorter maximum loading time (reduced from 3000ms to 1500ms)
-        const maxLoadTime = 1500;
-        let progress = 0;
-        
-        // Faster progress increments
-        const interval = setInterval(() => {
-            progress += 5; // Increased increment from 1 to 5
+        initializePreloader() {
+            if (!this.preloader) return;
+            const maxLoadTime = 1500;
+            let progress = 0;
             
-            if (this.progressBar) {
-                this.progressBar.style.width = `${progress}%`;
-            }
-            
-            if (this.progressText) {
-                this.progressText.textContent = `${progress}%`;
-            }
+            const interval = setInterval(() => {
+                progress += 5;
+                
+                if (this.progressBar) {
+                    this.progressBar.style.width = `${progress}%`;
+                }
+                
+                if (this.progressText) {
+                    this.progressText.textContent = `${progress}%`;
+                }
 
-            if (progress >= 100) {
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    this.hidePreloader();
+                }
+            }, 15);
+
+            setTimeout(() => {
                 clearInterval(interval);
                 this.hidePreloader();
-            }
-        }, 15); // Reduced interval from 30ms to 15ms
+            }, maxLoadTime);
+        }
 
-        // Ensure preloader doesn't get stuck
-        setTimeout(() => {
-            clearInterval(interval);
-            this.hidePreloader();
-        }, maxLoadTime);
+        hidePreloader() {
+            if (!this.preloader) return;
+            this.preloader.classList.add('fade-out');
+            setTimeout(() => {
+                this.preloader.style.display = 'none';
+                document.body.classList.remove('loading');
+            }, 300);
+        }
     }
-
-    hidePreloader() {
-        if (!this.preloader) return;
-        
-        // Add fade out animation
-        this.preloader.classList.add('fade-out');
-        
-        // Remove preloader after animation
-        setTimeout(() => {
-            this.preloader.style.display = 'none';
-            document.body.classList.remove('loading');
-        }, 300); // Reduced from 500ms to 300ms
-    }
-}
 
     // ===============================
     // Header Management
@@ -94,14 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
         handleHeaderScroll() {
             const currentScroll = window.pageYOffset;
 
-            // Add/remove scrolled class
             if (currentScroll > this.scrollThreshold) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
 
-            // Hide/show header based on scroll direction
             if (currentScroll > lastScrollTop && currentScroll > header.offsetHeight) {
                 header.style.transform = 'translateY(-100%)';
             } else {
@@ -128,21 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.toggleMenu();
             });
 
-            // Close menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
                     this.closeMenu();
                 }
             });
 
-            // Close menu on ESC key
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     this.closeMenu();
                 }
             });
 
-            // Handle navigation links
             const navLinks = mainNav.querySelectorAll('a');
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
@@ -195,10 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setupVideo() {
-            // Optimize video playback
             heroVideo.setAttribute('playsinline', '');
             
-            // Pause video when page is not visible
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) {
                     heroVideo.pause();
@@ -207,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Handle video loading error
             heroVideo.addEventListener('error', () => {
                 heroVideo.style.display = 'none';
                 console.warn('Video failed to load');
@@ -218,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
             featureCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.2}s`;
                 
-                // Add hover effect
                 card.addEventListener('mouseenter', () => {
                     card.style.transform = 'translateY(-5px)';
                 });
@@ -229,9 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-
-    // ===============================
-    // Smooth Scroll
+      // ===============================
+    // Smooth Scroll Implementation
     // ===============================
     class SmoothScroll {
         constructor() {
@@ -263,189 +246,142 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===============================
-    // Page Animations
+    // How It Works Section Management
     // ===============================
-    function startPageAnimations() {
-        if (!heroContent) return;
-
-        // Animate hero content
-        heroContent.style.opacity = '0';
-        setTimeout(() => {
-            heroContent.style.opacity = '1';
-            heroContent.classList.add('animate');
-        }, 100);
-
-        // Animate feature cards
-        featureCards.forEach((card, index) => {
-            card.style.animation = `fadeIn 0.5s ease forwards ${index * 0.2}s`;
-        });
-    }
-
-    // ===============================
-    // Performance Optimizations
-    // ===============================
-    function setupPerformanceOptimizations() {
-        // Debounce scroll events
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            if (scrollTimeout) {
-                window.cancelAnimationFrame(scrollTimeout);
-            }
-            scrollTimeout = window.requestAnimationFrame(() => {
-                // Handle scroll-based animations
-            });
-        });
-
-        // Handle resize events
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            if (resizeTimeout) {
-                clearTimeout(resizeTimeout);
-            }
-            resizeTimeout = setTimeout(() => {
-                if (window.innerWidth > 768) {
-                    // Reset mobile menu state
-                    isMenuOpen = false;
-                    mainNav?.classList.remove('active');
-                    menuToggle?.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            }, 250);
-        });
-    }
-
-    // ===============================
-// How It Works Section Management
-// ===============================
-class HowItWorksManager {
-    constructor() {
-        this.initializeObserver();
-        this.initializeStepCards();
-        this.initializeTimeline();
-    }
-
-    initializeObserver() {
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    this.animateTimelineLine();
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '-50px'
-        });
-
-        document.querySelectorAll('.step-card').forEach(card => {
-            this.observer.observe(card);
-        });
-    }
-
-    initializeStepCards() {
-        const stepCards = document.querySelectorAll('.step-card');
-        
-        stepCards.forEach((card, index) => {
-            card.addEventListener('mouseenter', () => {
-                this.handleCardHover(card, true);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                this.handleCardHover(card, false);
-            });
-
-            card.classList.add('step-card-' + (index + 1));
-            card.style.transitionDelay = `${index * 0.1}s`;
-        });
-    }
-
-    handleCardHover(card, isHovering) {
-        if (isHovering) {
-            card.style.transform = 'translateY(-5px) scale(1.02)';
-            const stepNumber = card.querySelector('.step-number span').textContent;
-            this.highlightTimelineSection(stepNumber);
-        } else {
-            card.style.transform = '';
-            this.resetTimelineHighlight();
+    class HowItWorksManager {
+        constructor() {
+            this.initializeObserver();
+            this.initializeStepCards();
+            this.initializeTimeline();
         }
-    }
 
-    initializeTimeline() {
-        this.timelineProgress = 0;
-        this.timelineLine = document.querySelector('.timeline-line');
-        
-        if (this.timelineLine) {
-            this.timelineLine.style.transform = 'scaleY(0)';
-            this.timelineLine.style.transformOrigin = 'top';
+        initializeObserver() {
+            this.observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        this.animateTimelineLine();
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '-50px'
+            });
+
+            document.querySelectorAll('.step-card').forEach(card => {
+                this.observer.observe(card);
+            });
         }
-    }
 
-    animateTimelineLine() {
-        if (!this.timelineLine) return;
-
-        const timeline = document.querySelector('.steps-timeline');
-        if (!timeline) return;
-
-        const timelineRect = timeline.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        
-        if (timelineRect.top < viewportHeight && timelineRect.bottom > 0) {
-            const progress = Math.min(
-                1,
-                (viewportHeight - timelineRect.top) / (viewportHeight + timelineRect.height)
-            );
+        initializeStepCards() {
+            const stepCards = document.querySelectorAll('.step-card');
             
-            this.timelineLine.style.transform = `scaleY(${Math.max(0, progress)})`;
+            stepCards.forEach((card, index) => {
+                card.addEventListener('mouseenter', () => {
+                    this.handleCardHover(card, true);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    this.handleCardHover(card, false);
+                });
+
+                card.classList.add('step-card-' + (index + 1));
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+        }
+
+        handleCardHover(card, isHovering) {
+            if (isHovering) {
+                card.style.transform = 'translateY(-5px) scale(1.02)';
+                const stepNumber = card.querySelector('.step-number span').textContent;
+                this.highlightTimelineSection(stepNumber);
+            } else {
+                card.style.transform = '';
+                this.resetTimelineHighlight();
+            }
+        }
+
+        initializeTimeline() {
+            this.timelineProgress = 0;
+            this.timelineLine = document.querySelector('.timeline-line');
+            
+            if (this.timelineLine) {
+                this.timelineLine.style.transform = 'scaleY(0)';
+                this.timelineLine.style.transformOrigin = 'top';
+            }
+        }
+
+        animateTimelineLine() {
+            if (!this.timelineLine) return;
+
+            const timeline = document.querySelector('.steps-timeline');
+            if (!timeline) return;
+
+            const timelineRect = timeline.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            
+            if (timelineRect.top < viewportHeight && timelineRect.bottom > 0) {
+                const progress = Math.min(
+                    1,
+                    (viewportHeight - timelineRect.top) / (viewportHeight + timelineRect.height)
+                );
+                
+                this.timelineLine.style.transform = `scaleY(${Math.max(0, progress)})`;
+            }
+        }
+
+        highlightTimelineSection(stepNumber) {
+            const section = (stepNumber - 1) / 3;
+            const timeline = document.querySelector('.timeline-line');
+            if (timeline) {
+                timeline.style.background = `linear-gradient(
+                    180deg,
+                    var(--accent-color) ${section * 100}%,
+                    rgba(var(--accent-rgb), 0.3) ${section * 100 + 5}%,
+                    var(--accent-color) 100%
+                )`;
+            }
+        }
+
+        resetTimelineHighlight() {
+            const timeline = document.querySelector('.timeline-line');
+            if (timeline) {
+                timeline.style.background = 'var(--accent-color)';
+            }
         }
     }
-
-    highlightTimelineSection(stepNumber) {
-        const section = (stepNumber - 1) / 3;
-        const timeline = document.querySelector('.timeline-line');
-        if (timeline) {
-            timeline.style.background = `linear-gradient(
-                180deg,
-                var(--accent-color) ${section * 100}%,
-                rgba(var(--accent-rgb), 0.3) ${section * 100 + 5}%,
-                var(--accent-color) 100%
-            )`;
-        }
-    }
-
-    resetTimelineHighlight() {
-        const timeline = document.querySelector('.timeline-line');
-        if (timeline) {
-            timeline.style.background = `linear-gradient(
-                180deg,
-                var(--accent-color) 0%,
-                rgba(var(--accent-rgb), 0.3) 100%
-            )`;
-        }
-    }
-}
-
-    // ===============================
-// Ingredients Section Manager
 // ===============================
-    // Ingredients Section Manager
+// Ingredients Section Management
+// ===============================
 class IngredientsManager {
     constructor() {
+        this.currentTime = '2025-02-09 08:09:57';
+        this.currentUser = 'Elanstech';
         this.initializeIngredients();
         this.setupAnimations();
         this.setupInteractions();
     }
 
     initializeIngredients() {
-        // Get all ingredient cards
         this.ingredientCards = document.querySelectorAll('.ingredient-card');
         this.formulaDetails = document.querySelector('.formula-details');
         
         // Initialize molecular animation
         this.initializeMolecularAnimation();
+
+        // Set up timestamp display
+        this.updateTimestamp();
+        setInterval(() => this.updateTimestamp(), 1000);
+    }
+
+    updateTimestamp() {
+        const timestampDisplays = document.querySelectorAll('.ingredient-timestamp');
+        timestampDisplays.forEach(display => {
+            display.textContent = new Date().toISOString().replace('T', ' ').slice(0, 19);
+        });
     }
 
     setupAnimations() {
-        // Add intersection observer for scroll animations
         const observerOptions = {
             threshold: 0.2,
             rootMargin: '-50px'
@@ -460,57 +396,75 @@ class IngredientsManager {
             });
         }, observerOptions);
 
-        // Observe all ingredient cards
         this.ingredientCards.forEach(card => {
             observer.observe(card);
         });
 
-        // Observe formula details
         if (this.formulaDetails) {
             observer.observe(this.formulaDetails);
         }
     }
 
     setupInteractions() {
-        // Add hover interactions to ingredient cards
         this.ingredientCards.forEach(card => {
             card.addEventListener('mouseenter', () => this.handleCardHover(card, true));
             card.addEventListener('mouseleave', () => this.handleCardHover(card, false));
+            card.addEventListener('click', () => this.handleCardClick(card));
         });
 
-        // Add click interaction
+        // Initialize ingredient filters
+        this.setupFilters();
+    }
+
+    setupFilters() {
+        const filterButtons = document.querySelectorAll('.ingredient-filter');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.category;
+                this.filterIngredients(category);
+                
+                // Update active filter
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+    }
+
+    filterIngredients(category) {
         this.ingredientCards.forEach(card => {
-            card.addEventListener('click', () => this.handleCardClick(card));
+            const cardCategory = card.dataset.category;
+            if (category === 'all' || cardCategory === category) {
+                card.style.display = '';
+                setTimeout(() => card.classList.add('visible'), 10);
+            } else {
+                card.classList.remove('visible');
+                setTimeout(() => card.style.display = 'none', 300);
+            }
         });
     }
 
     handleCardHover(card, isHovering) {
         if (isHovering) {
-            // Add hover class for additional effects
             card.classList.add('card-hover');
-            
-            // Animate molecule icon
             const moleculeIcon = card.querySelector('.molecule-icon');
             if (moleculeIcon) {
                 moleculeIcon.style.transform = 'rotate(180deg) scale(1.1)';
             }
 
-            // Highlight dosage
             const dosage = card.querySelector('.dosage');
             if (dosage) {
                 dosage.style.background = 'rgba(var(--accent-rgb), 0.2)';
             }
+
+            // Add floating particles
+            this.addFloatingParticles(card);
         } else {
-            // Remove hover effects
             card.classList.remove('card-hover');
-            
-            // Reset molecule icon
             const moleculeIcon = card.querySelector('.molecule-icon');
             if (moleculeIcon) {
                 moleculeIcon.style.transform = '';
             }
 
-            // Reset dosage highlight
             const dosage = card.querySelector('.dosage');
             if (dosage) {
                 dosage.style.background = '';
@@ -519,15 +473,13 @@ class IngredientsManager {
     }
 
     handleCardClick(card) {
-        // Add pulse animation on click
         card.classList.add('card-pulse');
+        this.trackIngredientInteraction(card);
         
-        // Remove pulse class after animation completes
         setTimeout(() => {
             card.classList.remove('card-pulse');
         }, 500);
 
-        // Show ingredient details
         this.showIngredientDetails(card);
     }
 
@@ -535,7 +487,6 @@ class IngredientsManager {
         const ingredientName = card.querySelector('h3').textContent;
         const dosage = card.querySelector('.dosage').textContent;
         
-        // Create or update details popup
         let popup = document.querySelector('.ingredient-popup');
         if (!popup) {
             popup = document.createElement('div');
@@ -543,20 +494,25 @@ class IngredientsManager {
             document.body.appendChild(popup);
         }
 
-        // Update popup content
         popup.innerHTML = `
             <div class="popup-content">
                 <h4>${ingredientName}</h4>
                 <p>Dosage: ${dosage}</p>
+                <div class="ingredient-details">
+                    <div class="molecule-visualization"></div>
+                    <div class="ingredient-benefits"></div>
+                </div>
+                <div class="ingredient-meta">
+                    <span class="timestamp">${this.currentTime}</span>
+                    <span class="user-info">${this.currentUser}</span>
+                </div>
                 <button class="close-popup">×</button>
             </div>
         `;
 
-        // Show popup
         popup.style.display = 'flex';
         setTimeout(() => popup.classList.add('show'), 10);
 
-        // Add close button functionality
         const closeButton = popup.querySelector('.close-popup');
         closeButton.addEventListener('click', () => {
             popup.classList.remove('show');
@@ -564,6 +520,18 @@ class IngredientsManager {
                 popup.style.display = 'none';
             }, 300);
         });
+
+        // Add escape key listener
+        const escapeHandler = (e) => {
+            if (e.key === 'Escape') {
+                popup.classList.remove('show');
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 300);
+                document.removeEventListener('keydown', escapeHandler);
+            }
+        };
+        document.addEventListener('keydown', escapeHandler);
     }
 
     initializeMolecularAnimation() {
@@ -576,31 +544,96 @@ class IngredientsManager {
             orbital.className = 'orbital';
             orbital.style.animationDelay = `${i * -3}s`;
             orbital.style.transform = `rotate(${i * 60}deg)`;
+            
+            // Add electrons
+            const electron = document.createElement('div');
+            electron.className = 'electron';
+            orbital.appendChild(electron);
+            
             moleculeAnimation.appendChild(orbital);
+        }
+
+        // Add nucleus
+        const nucleus = document.createElement('div');
+        nucleus.className = 'nucleus';
+        moleculeAnimation.appendChild(nucleus);
+
+        // Add particle effects
+        this.addParticleEffects(moleculeAnimation);
+    }
+
+    addParticleEffects(container) {
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'molecule-particle';
+            particle.style.setProperty('--delay', `${Math.random() * 2}s`);
+            particle.style.setProperty('--duration', `${1 + Math.random()}s`);
+            container.appendChild(particle);
+        }
+    }
+
+    addFloatingParticles(card) {
+        for (let i = 0; i < 5; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'floating-particle';
+            particle.style.setProperty('--x', `${Math.random() * 100}%`);
+            particle.style.setProperty('--y', `${Math.random() * 100}%`);
+            particle.style.setProperty('--delay', `${Math.random()}s`);
+            card.appendChild(particle);
+
+            // Remove particle after animation
+            particle.addEventListener('animationend', () => particle.remove());
         }
     }
 
     startParticleAnimation(card) {
         const particle = document.createElement('div');
         particle.className = 'ingredient-particle';
+        
+        // Randomize particle properties
+        particle.style.setProperty('--x-start', `${Math.random() * 100}%`);
+        particle.style.setProperty('--y-start', `${Math.random() * 100}%`);
+        particle.style.setProperty('--scale', `${0.5 + Math.random()}`);
+        particle.style.setProperty('--rotation', `${Math.random() * 360}deg`);
+        
         card.appendChild(particle);
 
         // Remove particle after animation
         particle.addEventListener('animationend', () => {
             particle.remove();
         });
+
+        // Create multiple particles
+        if (Math.random() > 0.5) {
+            setTimeout(() => {
+                this.startParticleAnimation(card);
+            }, Math.random() * 1000);
+        }
+    }
+
+    trackIngredientInteraction(card) {
+        const interactionData = {
+            ingredientName: card.querySelector('h3').textContent,
+            timestamp: this.currentTime,
+            userLogin: this.currentUser
+        };
+
+        // Store interaction data
+        const interactions = JSON.parse(localStorage.getItem('ingredientInteractions') || '[]');
+        interactions.push(interactionData);
+        localStorage.setItem('ingredientInteractions', JSON.stringify(interactions));
     }
 }
-
-     // ===============================
-    // TestimonialsManager
-    // ===============================
-    // Testimonials Section Manager
+// ===============================
+// Testimonials Section Management
+// ===============================
 class TestimonialsManager {
     constructor() {
         this.currentSlide = 0;
         this.testimonials = [];
         this.results = [];
+        this.currentTime = '2025-02-09 08:10:50';
+        this.currentUser = 'Elanstech';
         this.initializeTestimonials();
     }
 
@@ -619,16 +652,17 @@ class TestimonialsManager {
                 rating: 5,
                 text: "Absolutely transformative experience. The results were noticeable within weeks, and the discrete shipping was much appreciated.",
                 satisfaction: 95,
-                results: 90
+                results: 90,
+                timestamp: this.currentTime
             },
             {
                 name: "Dr. Emma M.",
                 location: "Medical Professional",
                 rating: 5,
                 text: "As a medical professional, I'm impressed by the scientific approach and quality of ingredients. The results speak for themselves.",
-                isExpert: true
-            },
-            // Add more testimonials here
+                isExpert: true,
+                timestamp: this.currentTime
+            }
         ];
 
         this.results = [
@@ -642,12 +676,19 @@ class TestimonialsManager {
                 days: 30,
                 recommend: 95
             }
-            // Add more results here
         ];
 
         this.setupEventListeners();
         this.setupAnimations();
         this.initializeMetrics();
+        this.updateTimeDisplay();
+    }
+
+    updateTimeDisplay() {
+        const timeDisplays = document.querySelectorAll('.testimonial-timestamp');
+        timeDisplays.forEach(display => {
+            display.textContent = this.currentTime;
+        });
     }
 
     setupEventListeners() {
@@ -669,6 +710,17 @@ class TestimonialsManager {
             touchEndX = e.changedTouches[0].screenX;
             this.handleSwipe(touchStartX, touchEndX);
         });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.slider && this.slider.matches(':hover')) {
+                if (e.key === 'ArrowLeft') {
+                    this.navigate('prev');
+                } else if (e.key === 'ArrowRight') {
+                    this.navigate('next');
+                }
+            }
+        });
     }
 
     handleSwipe(startX, endX) {
@@ -688,73 +740,82 @@ class TestimonialsManager {
         const previousSlide = this.currentSlide;
         
         if (direction === 'next') {
-            this.currentSlide = (this.currentSlide + 1) % this.results.length;
+            this.currentSlide = (this.currentSlide + 1) % this.testimonials.length;
         } else {
-            this.currentSlide = (this.currentSlide - 1 + this.results.length) % this.results.length;
+            this.currentSlide = (this.currentSlide - 1 + this.testimonials.length) % this.testimonials.length;
         }
 
         this.updateSlides(previousSlide);
     }
 
     updateSlides(previousSlide) {
-        // Animate results transition
-        this.animateResultsTransition(previousSlide);
+        // Animate testimonial transition
+        this.animateTestimonialTransition(previousSlide);
+        
+        // Update results data
+        this.updateResultsContent(this.results[this.currentSlide]);
         
         // Update navigation buttons state
         this.updateNavigationState();
+
+        // Update timestamp
+        this.updateTimeDisplay();
     }
 
-    animateResultsTransition(previousSlide) {
-        const resultCard = document.querySelector('.result-card');
-        if (!resultCard) return;
-
-        // Add exit animation
-        resultCard.classList.add('slide-exit');
-
-        // After exit animation, update content and animate entrance
-        setTimeout(() => {
-            this.updateResultsContent(this.results[this.currentSlide]);
-            resultCard.classList.remove('slide-exit');
-            resultCard.classList.add('slide-enter');
-
-            // Remove entrance animation class
-            setTimeout(() => {
-                resultCard.classList.remove('slide-enter');
-            }, 300);
-        }, 300);
+    animateTestimonialTransition(previousSlide) {
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        
+        testimonialCards.forEach((card, index) => {
+            if (index === this.currentSlide) {
+                card.classList.add('active');
+                card.classList.remove('previous', 'next');
+            } else if (index === previousSlide) {
+                card.classList.add('previous');
+                card.classList.remove('active', 'next');
+            } else {
+                card.classList.add('next');
+                card.classList.remove('active', 'previous');
+            }
+        });
     }
 
     updateResultsContent(result) {
-        const resultCard = document.querySelector('.result-card');
-        if (!resultCard) return;
+        if (!this.resultsSlider) return;
 
-        resultCard.innerHTML = `
-            <div class="result-stats">
-                <div class="stat">
-                    <span class="stat-value">${result.satisfaction}%</span>
-                    <span class="stat-label">Satisfaction Rate</span>
+        const template = `
+            <div class="result-card" data-aos="fade-up">
+                <div class="result-stats">
+                    <div class="stat">
+                        <span class="stat-value">${result.satisfaction}%</span>
+                        <span class="stat-label">Satisfaction Rate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">${result.days}</span>
+                        <span class="stat-label">Days Average</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">${result.recommend}%</span>
+                        <span class="stat-label">Would Recommend</span>
+                    </div>
                 </div>
-                <div class="stat">
-                    <span class="stat-value">${result.days}</span>
-                    <span class="stat-label">Days Average</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-value">${result.recommend}%</span>
-                    <span class="stat-label">Would Recommend</span>
+                <div class="result-meta">
+                    <span class="timestamp">${this.currentTime}</span>
+                    <span class="user-info">${this.currentUser}</span>
                 </div>
             </div>
         `;
+
+        this.resultsSlider.innerHTML = template;
     }
 
     updateNavigationState() {
         if (this.prevBtn && this.nextBtn) {
             this.prevBtn.disabled = this.currentSlide === 0;
-            this.nextBtn.disabled = this.currentSlide === this.results.length - 1;
+            this.nextBtn.disabled = this.currentSlide === this.testimonials.length - 1;
         }
     }
 
     setupAnimations() {
-        // Intersection Observer for scroll animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -768,20 +829,14 @@ class TestimonialsManager {
             threshold: 0.2
         });
 
-        // Observe testimonial cards
-        document.querySelectorAll('.testimonial-card').forEach(card => {
-            observer.observe(card);
-        });
-
-        // Observe metrics
-        document.querySelectorAll('.metric-fill').forEach(metric => {
-            observer.observe(metric);
+        document.querySelectorAll('.testimonial-card, .metric-fill').forEach(element => {
+            observer.observe(element);
         });
     }
 
     initializeMetrics() {
         document.querySelectorAll('.metric-fill').forEach(metric => {
-            const width = metric.style.width;
+            const width = metric.getAttribute('data-width');
             metric.style.width = '0';
             setTimeout(() => {
                 metric.style.width = width;
@@ -790,48 +845,52 @@ class TestimonialsManager {
     }
 
     animateMetric(metricElement) {
-        const targetWidth = metricElement.getAttribute('data-width') || metricElement.style.width;
+        const targetWidth = metricElement.getAttribute('data-width');
         metricElement.style.width = targetWidth;
     }
 }
-     // ===============================
-    // Initialize Everything
-    // ===============================
-    // FAQ Section Manager
+// ===============================
+// FAQ Section Management
+// ===============================
 class FAQManager {
     constructor() {
+        this.currentTime = '2025-02-09 08:12:05';
+        this.currentUser = 'Elanstech';
         this.initializeFAQ();
     }
 
     initializeFAQ() {
-        // Get all FAQ cards
         const faqCards = document.querySelectorAll('.faq-card');
 
-        // Add click handlers
         faqCards.forEach(card => {
             const header = card.querySelector('.faq-header');
             header.addEventListener('click', () => this.toggleFAQ(card));
 
-            // Initialize content height
             const content = card.querySelector('.faq-content');
             content.style.maxHeight = '0px';
+
+            // Add timestamp and user info
+            const meta = document.createElement('div');
+            meta.className = 'faq-meta';
+            meta.innerHTML = `
+                <span class="timestamp">${this.currentTime}</span>
+                <span class="user-info">${this.currentUser}</span>
+            `;
+            card.appendChild(meta);
         });
 
-        // Add keyboard accessibility
         this.setupKeyboardNavigation(faqCards);
     }
 
     toggleFAQ(card) {
         const isActive = card.classList.contains('active');
         
-        // Close all other cards
         document.querySelectorAll('.faq-card.active').forEach(activeCard => {
             if (activeCard !== card) {
                 this.closeFAQ(activeCard);
             }
         });
 
-        // Toggle current card
         if (isActive) {
             this.closeFAQ(card);
         } else {
@@ -873,7 +932,6 @@ class FAQManager {
                 }
             });
 
-            // Make header focusable
             header.setAttribute('tabindex', '0');
             header.setAttribute('role', 'button');
             header.setAttribute('aria-expanded', 'false');
@@ -895,27 +953,19 @@ class FAQManager {
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    const faqManager = new FAQManager();
-});
-    // ===============================
-    // Secure Payment Section Manager
-    // ===============================
-// Secure Payment Section Manager
+// ===============================
+// Secure Payment Section Management
+// ===============================
 class SecurePaymentManager {
     constructor() {
+        this.currentTime = '2025-02-09 08:12:05';
+        this.currentUser = 'Elanstech';
         this.initializeSecurePayment();
     }
 
     initializeSecurePayment() {
-        // Add card hover effects
         this.setupCardEffects();
-        
-        // Initialize payment method logos
         this.loadPaymentLogos();
-        
-        // Setup security indicators
         this.setupSecurityIndicators();
     }
 
@@ -926,6 +976,15 @@ class SecurePaymentManager {
             card.addEventListener('mouseenter', () => {
                 this.pulseSecurityIcon(card);
             });
+
+            // Add timestamp and user info
+            const meta = document.createElement('div');
+            meta.className = 'security-meta';
+            meta.innerHTML = `
+                <span class="timestamp">${this.currentTime}</span>
+                <span class="user-info">${this.currentUser}</span>
+            `;
+            card.appendChild(meta);
         });
     }
 
@@ -934,12 +993,11 @@ class SecurePaymentManager {
         if (!icon) return;
 
         icon.style.animation = 'none';
-        icon.offsetHeight; // Trigger reflow
+        icon.offsetHeight;
         icon.style.animation = 'pulse 1s ease';
     }
 
     loadPaymentLogos() {
-        // Preload payment method logos
         const logos = document.querySelectorAll('.payment-methods img');
         
         logos.forEach(logo => {
@@ -950,7 +1008,6 @@ class SecurePaymentManager {
     }
 
     setupSecurityIndicators() {
-        // Add intersection observer for animated entrance
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -961,12 +1018,10 @@ class SecurePaymentManager {
             threshold: 0.2
         });
 
-        // Observe features
         document.querySelectorAll('.feature').forEach(feature => {
             observer.observe(feature);
         });
 
-        // Setup hover animations for features
         this.setupFeatureAnimations();
     }
 
@@ -986,29 +1041,54 @@ class SecurePaymentManager {
         });
     }
 }
-    // ===============================
-    // Initialize Everything
-    // ===============================
-    function initializeApp() {
-        // Initialize all managers
-        const preloaderManager = new PreloaderManager();
-        const headerManager = new HeaderManager();
-        const mobileMenuManager = new MobileMenuManager();
-        const heroManager = new HeroManager();
-        const smoothScroll = new SmoothScroll();
-        const howItWorksManager = new HowItWorksManager();
-        const ingredientsManager = new IngredientsManager();
-        const testimonialsManager = new TestimonialsManager();
-        const faqManager = new FAQManager();
-        const securePaymentManager = new SecurePaymentManager();
 
-        // Setup performance optimizations
-        setupPerformanceOptimizations();
+// ===============================
+// Initialization and Performance Optimizations
+// ===============================
+function setupPerformanceOptimizations() {
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+        scrollTimeout = window.requestAnimationFrame(() => {
+            // Handle scroll-based animations
+        });
+    });
 
-        // Remove initial loading state
-        document.body.classList.remove('loading');
-    }
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        if (resizeTimeout) {
+            clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = setTimeout(() => {
+            if (window.innerWidth > 768) {
+                isMenuOpen = false;
+                mainNav?.classList.remove('active');
+                menuToggle?.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }, 250);
+    });
+}
 
-    // Start initialization
-    initializeApp();
-});
+function initializeApp() {
+    const preloaderManager = new PreloaderManager();
+    const headerManager = new HeaderManager();
+    const mobileMenuManager = new MobileMenuManager();
+    const heroManager = new HeroManager();
+    const smoothScroll = new SmoothScroll();
+    const howItWorksManager = new HowItWorksManager();
+    const ingredientsManager = new IngredientsManager();
+    const testimonialsManager = new TestimonialsManager();
+    const faqManager = new FAQManager();
+    const securePaymentManager = new SecurePaymentManager();
+
+    setupPerformanceOptimizations();
+
+    document.body.classList.remove('loading');
+    updateUTCTime();
+}
+
+// Start initialization
+initializeApp();
