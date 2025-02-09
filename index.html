@@ -660,34 +660,105 @@
     </div>
 </section>
     
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h3>S-Cream</h3>
-                    <p>Luxury Enhancement Solutions</p>
+<!-- Footer Section -->
+<footer class="site-footer">
+    <!-- Video Background -->
+    <div class="footer-video-container">
+        <video autoplay loop muted playsinline class="footer-background-video">
+            <source src="assets/videos/particles-rose.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="container">
+        <div class="footer-grid">
+            <!-- Company Info -->
+            <div class="footer-column brand-column">
+                <div class="footer-logo">
+                    <img src="assets/logo.png" alt="Elanstech Logo">
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <a href="#product">Product</a>
-                    <a href="#science">Science</a>
-                    <a href="#faq">FAQ</a>
+                <div class="company-info">
+                    <div class="time-display">
+                        <span class="time" id="utcTime">2025-02-09 07:52:58</span>
+                        <span class="timezone">UTC</span>
+                    </div>
+                    <div class="user-display">
+                        <span class="user-icon">👤</span>
+                        <span class="user-name" id="userLogin">Elanstech</span>
+                    </div>
                 </div>
-                <div class="footer-contact">
-                    <h4>Support</h4>
-                    <a href="#contact">Contact Us</a>
-                    <a href="#track">Track Order</a>
-                    <a href="#privacy">Privacy Policy</a>
-                </div>
+                <p class="company-description">
+                    Leading the way in innovative wellness solutions. 
+                    Trusted by customers worldwide since 2025.
+                </p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 S-Cream. All rights reserved.</p>
+
+            <!-- Support -->
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/track">Track Order</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="/support">Help Center</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Service</a></li>
+                    <li><a href="/shipping">Shipping Info</a></li>
+                    <li><a href="/returns">Returns Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="footer-column">
+                <h3>Stay Updated</h3>
+                <p class="newsletter-text">Subscribe for exclusive offers and updates</p>
+                <form class="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="subscribe-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-    </footer>
 
-    <!-- Scripts -->
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-info">
+                <p>&copy; <span id="currentYear">2025</span> Elanstech. All rights reserved.</p>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/script.js"></script>
 </body>
