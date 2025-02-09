@@ -73,111 +73,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===============================
     // Header Management
     // ===============================
-    class HeaderManager {
-        constructor() {
-            this.scrollThreshold = 50;
-            this.scrollTimeout = null;
-            this.initializeHeader();
+   document.addEventListener('DOMContentLoaded', () => {
+    // Elements
+    const header = document.querySelector('.header');
+    const primaryNav = document.querySelector('.primary-navigation');
+    const navToggle = document.querySelector('.mobile-nav-toggle');
+    const navLinks = document.querySelectorAll('.nav-list a');
+
+    // Toggle mobile navigation
+    navToggle.addEventListener('click', () => {
+        const visibility = primaryNav.getAttribute('data-visible');
+        
+        if (visibility === "true") {
+            primaryNav.setAttribute('data-visible', false);
+            navToggle.setAttribute('aria-expanded', false);
+            navToggle.innerHTML = '<span class="sr-only">Menu</span><i class="fa-solid fa-bars"></i>';
+        } else {
+            primaryNav.setAttribute('data-visible', true);
+            navToggle.setAttribute('aria-expanded', true);
+            navToggle.innerHTML = '<span class="sr-only">Close</span><i class="fa-solid fa-xmark"></i>';
         }
+    });
 
-        initializeHeader() {
-            window.addEventListener('scroll', () => {
-                if (this.scrollTimeout) {
-                    window.cancelAnimationFrame(this.scrollTimeout);
-                }
-                this.scrollTimeout = window.requestAnimationFrame(() => {
-                    this.handleHeaderScroll();
-                });
-            });
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!primaryNav.contains(e.target) && !navToggle.contains(e.target)) {
+            primaryNav.setAttribute('data-visible', false);
+            navToggle.setAttribute('aria-expanded', false);
+            navToggle.innerHTML = '<span class="sr-only">Menu</span><i class="fa-solid fa-bars"></i>';
         }
+    });
 
-        handleHeaderScroll() {
-            const currentScroll = window.pageYOffset;
-
-            // Add/remove scrolled class
-            if (currentScroll > this.scrollThreshold) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-
-            // Hide/show header based on scroll direction
-            if (currentScroll > lastScrollTop && currentScroll > header.offsetHeight) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-
-            lastScrollTop = currentScroll;
+    // Add scrolled class to header on scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
         }
-    }
+    });
 
-    // ===============================
-    // Mobile Menu Management
-    // ===============================
-    class MobileMenuManager {
-        constructor() {
-            this.initializeMenu();
-        }
-
-        initializeMenu() {
-            if (!menuToggle || !mainNav) return;
-
-            menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.toggleMenu();
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                    this.closeMenu();
-                }
-            });
-
-            // Close menu on ESC key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    this.closeMenu();
-                }
-            });
-
-            // Handle navigation links
-            const navLinks = mainNav.querySelectorAll('a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    this.closeMenu();
-                });
-            });
-        }
-
-        toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            menuToggle.classList.toggle('active');
-            mainNav.classList.toggle('active');
-            document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-            
-            if (isMenuOpen) {
-                this.animateMenuItems();
-            }
-        }
-
-        closeMenu() {
-            if (!isMenuOpen) return;
-            
-            isMenuOpen = false;
-            menuToggle.classList.remove('active');
-            mainNav.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        animateMenuItems() {
-            const navItems = mainNav.querySelectorAll('.nav-list a');
-            navItems.forEach((item, index) => {
-                item.style.animation = `fadeInNav 0.5s ease forwards ${index * 0.1}s`;
-            });
-        }
-    }
+    // Active link highlighting
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        });
+    });
+});
 
     // ===============================
     // Hero Section Management
