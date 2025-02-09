@@ -669,16 +669,27 @@ button {
     font-size: 2.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #333 0%, #000 100%);
+    /* Change from the dark gradient to rose gold gradient */
+    background: linear-gradient(135deg, #B76E79 0%, #E6C3C3 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 4px rgba(183, 110, 121, 0.1);
 }
 
+
 .section-subtitle {
-    font-size: 1.125rem;
-    color: #666;
+     font-size: 1.125rem;
+    /* Change from #666 to a softer rose gold shade */
+    color: #C69FA6;
     max-width: 600px;
     margin: 0 auto;
+    font-weight: 400;
+}
+
+.section-header:hover .section-title {
+    background: linear-gradient(135deg, #E6C3C3 0%, #B76E79 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .steps-container {
