@@ -141,7 +141,8 @@ button {
     padding: 0;
     box-sizing: border-box;
 }
-/* Header Styles */
+
+/* Header Base Styles */
 .header {
     position: fixed;
     top: 0;
@@ -198,6 +199,14 @@ button {
     transition: opacity var(--transition);
 }
 
+.logo-link:hover .logo-image {
+    transform: scale(1.05);
+}
+
+.logo-link:hover .logo-glow {
+    opacity: 0.5;
+}
+
 /* Navigation Styles */
 .primary-navigation {
     height: 100%;
@@ -209,6 +218,8 @@ button {
     align-items: center;
     gap: 2rem;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-item {
@@ -242,12 +253,36 @@ button {
     transition: width var(--transition);
 }
 
+.nav-link:hover .nav-indicator,
+.nav-link.active .nav-indicator {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
 /* Contact Button */
 .contact-btn {
     background: var(--primary-color);
     border-radius: 24px;
     padding: 0.75rem 1.5rem;
+    color: var(--light);
+    text-decoration: none;
     transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(183, 110, 121, 0.3);
+}
+
+.contact-btn i {
+    transition: transform var(--transition);
+}
+
+.contact-btn:hover i {
+    transform: translateX(4px);
 }
 
 /* Mobile Navigation Toggle */
@@ -257,7 +292,7 @@ button {
     border: none;
     cursor: pointer;
     padding: 0.5rem;
-    z-index: 1001; /* Increased z-index */
+    z-index: 1001;
 }
 
 .hamburger {
@@ -275,11 +310,15 @@ button {
     background: var(--text-color);
     transition: var(--transition);
     position: relative;
-    z-index: 1002; /* Ensure lines are above blur */
+    z-index: 1002;
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
+    .header-container {
+        padding: 0 1.5rem;
+    }
+
     .mobile-nav-toggle {
         display: block;
     }
@@ -287,11 +326,12 @@ button {
     .primary-navigation {
         position: fixed;
         inset: var(--header-height) 0 0 0;
-        background: rgba(26, 26, 26, 0.95);
+        background: var(--mobile-nav-bg);
         padding: 2rem;
         transform: translateX(100%);
         transition: transform var(--transition);
         z-index: 999;
+        overflow-y: auto;
     }
 
     .primary-navigation[data-visible="true"] {
@@ -300,7 +340,7 @@ button {
 
     .nav-list {
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
         gap: 1.5rem;
         height: auto;
     }
@@ -313,6 +353,19 @@ button {
     .nav-link {
         width: 100%;
         padding: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .nav-indicator {
+        display: none;
+    }
+
+    .contact-btn {
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     /* Hamburger Animation */
@@ -326,6 +379,89 @@ button {
 
     .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Body Lock when menu is open */
+    body[data-menu-open="true"] {
+        overflow: hidden;
+    }
+}
+
+/* Header Scroll Animation */
+@keyframes headerSlideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.header.scrolled {
+    animation: headerSlideDown 0.3s ease forwards;
+    background: var(--header-bg);
+}
+
+/* Optional: Hide header on scroll down, show on scroll up */
+.header.hidden {
+    transform: translateY(-100%);
+}
+
+/* Tablet Adjustments */
+@media (max-width: 1024px) {
+    .nav-list {
+        gap: 1.5rem;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0 1rem;
+    }
+
+    .logo-image {
+        height: 80px;
+    }
+
+    .mobile-nav-toggle {
+        padding: 0.25rem;
+    }
+
+    .hamburger {
+        width: 22px;
+        height: 18px;
+    }
+}
+
+/* High-DPI Screen Optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo-image {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .header-backdrop {
+        background: rgba(18, 18, 18, 0.98);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .header,
+    .logo-image,
+    .nav-link,
+    .nav-indicator,
+    .contact-btn,
+    .line {
+        transition: none;
     }
 }
 
