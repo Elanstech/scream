@@ -4,119 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S-Cream | Luxury Female Enhancement</title>
-    <meta name="description" content="Experience premium female enhancement with S-Cream's revolutionary prescription-based formula.">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <script src="https://js.stripe.com/v3/"></script>
+    <meta name="description" content="Experience premium female enhancement with S-Cream's revolutionary formula.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Preloader -->
     <div class="preloader">
-        <div class="loader"></div>
-    </div>
-
-<!-- Header Section -->
-<header class="main-header" id="mainHeader">
-    <div class="header-glass-bg"></div>
-    <div class="header-container">
-        <div class="logo-section">
-            <a href="/" class="logo">
-                <img src="assets/logo.png" alt="S-Cream" class="logo-image">
-            </a>
-        </div>
-        
-        <nav class="main-nav">
-            <div class="nav-wrapper">
-                <ul class="nav-list">
-                    <li><a href="#benefits" class="nav-link">Benefits</a></li>
-                    <li><a href="#experience" class="nav-link">Experience</a></li>
-                    <li><a href="#reviews" class="nav-link">Results</a></li>
-                </ul>
-                
-                <div class="nav-action">
-                    <button class="track-order-btn">
-                        <span class="btn-icon">📦</span>
-                        <span>Track</span>
-                    </button>
-                    <button class="shop-now-btn">
-                        <span class="pulse-ring"></span>
-                        <span>Shop Now</span>
-                    </button>
-                </div>
-            </div>
-        </nav>
-
-        <button class="menu-toggle" aria-label="Toggle Menu">
-            <svg class="menu-icon" viewBox="0 0 24 24">
-                <path class="line-1" d="M3 7h18"></path>
-                <path class="line-2" d="M3 12h18"></path>
-                <path class="line-3" d="M3 17h18"></path>
+        <div class="loader">
+            <svg class="loader-icon" viewBox="0 0 50 50">
+                <circle class="loader-circle" cx="25" cy="25" r="20" fill="none" stroke-width="3"/>
             </svg>
-        </button>
-    </div>
-</header>
-    
-
-<section class="hero">
-    <div class="video-container">
-        <video autoplay muted loop playsinline id="heroVideo">
-            <source src="promocream1.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
-    
-    <div class="hero-content">
-        <div class="hero-grid">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="accent-text">Enhance</span>
-                    Your Intimate
-                    <span class="gradient-text">Moments</span>
-                </h1>
-                <p class="hero-tagline">Experience pleasure beyond imagination</p>
-                
-                <div class="hero-features">
-                    <div class="feature-bubble">
-                        <span class="feature-icon">✧</span>
-                        <span>Clinically Proven</span>
-                    </div>
-                    <div class="feature-bubble">
-                        <span class="feature-icon">✧</span>
-                        <span>Fast Acting</span>
-                    </div>
-                    <div class="feature-bubble">
-                        <span class="feature-icon">✧</span>
-                        <span>Doctor Approved</span>
-                    </div>
-                </div>
-
-                <div class="cta-group">
-                    <button class="primary-btn pulse-btn">
-                        <span class="btn-text">Experience Now</span>
-                        <span class="btn-icon">→</span>
-                    </button>
-                    <div class="trust-badge">
-                        <img src="assets/secure-badge.png" alt="Secure Purchase">
-                        <span>Discrete Shipping</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-product">
-                <div class="product-showcase">
-                    <img src="assets/product.png" alt="S-Cream Product" class="floating-product">
-                    <div class="glow-effect"></div>
-                </div>
-            </div>
         </div>
     </div>
 
-    <div class="floating-elements">
-        <div class="bubble bubble-1"></div>
-        <div class="bubble bubble-2"></div>
-        <div class="bubble bubble-3"></div>
-    </div>
-</section>
+    <!-- Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="header-glass"></div>
+        <div class="header-container">
+            <div class="logo-wrapper">
+                <a href="/" class="logo">
+                    <img src="assets/logo.png" alt="S-Cream" class="logo-image">
+                </a>
+            </div>
+
+            <nav class="main-nav">
+                <div class="nav-backdrop"></div>
+                <div class="nav-content">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#benefits" class="nav-link">Benefits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#ingredients" class="nav-link">Ingredients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#results" class="nav-link">Results</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#science" class="nav-link">Science</a>
+                        </li>
+                    </ul>
+
+                    <div class="nav-actions">
+                        <button class="btn-track">
+                            <span class="btn-icon">📦</span>
+                            <span class="btn-text">Track Order</span>
+                        </button>
+                        <button class="btn-shop">
+                            <span class="btn-text">Shop Now</span>
+                            <span class="btn-shine"></span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <button class="menu-toggle" aria-label="Toggle Menu">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="video-container">
+            <video autoplay muted loop playsinline id="heroVideo">
+                <source src="assets/hero-video.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+
+        <div class="hero-wrapper">
+            <div class="hero-content">
+                <div class="hero-grid">
+                    <div class="hero-text-column">
+                        <span class="hero-eyebrow">Premium Enhancement Cream</span>
+                        <h1 class="hero-title">
+                            <span class="title-line">Elevate Your</span>
+                            <span class="title-line accent">Intimate Moments</span>
+                        </h1>
+                        <p class="hero-description">
+                            Experience a revolutionary enhancement formula designed for the modern woman's desires
+                        </p>
+
+                        <div class="hero-features">
+                            <div class="feature-card">
+                                <div class="feature-icon">✧</div>
+                                <div class="feature-content">
+                                    <h3>Clinically Proven</h3>
+                                    <p>FDA Approved</p>
+                                </div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">✧</div>
+                                <div class="feature-content">
+                                    <h3>Fast Acting</h3>
+                                    <p>Quick Results</p>
+                                </div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">✧</div>
+                                <div class="feature-content">
+                                    <h3>All Natural</h3>
+                                    <p>Pure Ingredients</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-cta">
+                            <button class="cta-button">
+                                <span class="btn-text">Experience Now</span>
+                                <span class="btn-arrow">→</span>
+                                <div class="btn-glow"></div>
+                            </button>
+                            <div class="trust-badges">
+                                <img src="assets/secure.svg" alt="Secure" class="badge-icon">
+                                <span class="badge-text">Discrete Shipping</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-product-column">
+                        <div class="product-showcase">
+                            <div class="product-orbit">
+                                <span class="orbit-particle"></span>
+                                <span class="orbit-particle"></span>
+                                <span class="orbit-particle"></span>
+                            </div>
+                            <img src="assets/product.png" alt="S-Cream Product" class="product-image">
+                            <div class="product-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>Explore More</span>
+        </div>
+    </section>
     
     <!-- Product Introduction -->
     <section class="product-intro" data-aos="fade-up">
