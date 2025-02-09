@@ -420,6 +420,174 @@ class HowItWorksManager {
 }
 
     // ===============================
+// Ingredients Section Manager
+// ===============================
+    // Ingredients Section Manager
+class IngredientsManager {
+    constructor() {
+        this.initializeIngredients();
+        this.setupAnimations();
+        this.setupInteractions();
+    }
+
+    initializeIngredients() {
+        // Get all ingredient cards
+        this.ingredientCards = document.querySelectorAll('.ingredient-card');
+        this.formulaDetails = document.querySelector('.formula-details');
+        
+        // Initialize molecular animation
+        this.initializeMolecularAnimation();
+    }
+
+    setupAnimations() {
+        // Add intersection observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '-50px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                    this.startParticleAnimation(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all ingredient cards
+        this.ingredientCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe formula details
+        if (this.formulaDetails) {
+            observer.observe(this.formulaDetails);
+        }
+    }
+
+    setupInteractions() {
+        // Add hover interactions to ingredient cards
+        this.ingredientCards.forEach(card => {
+            card.addEventListener('mouseenter', () => this.handleCardHover(card, true));
+            card.addEventListener('mouseleave', () => this.handleCardHover(card, false));
+        });
+
+        // Add click interaction
+        this.ingredientCards.forEach(card => {
+            card.addEventListener('click', () => this.handleCardClick(card));
+        });
+    }
+
+    handleCardHover(card, isHovering) {
+        if (isHovering) {
+            // Add hover class for additional effects
+            card.classList.add('card-hover');
+            
+            // Animate molecule icon
+            const moleculeIcon = card.querySelector('.molecule-icon');
+            if (moleculeIcon) {
+                moleculeIcon.style.transform = 'rotate(180deg) scale(1.1)';
+            }
+
+            // Highlight dosage
+            const dosage = card.querySelector('.dosage');
+            if (dosage) {
+                dosage.style.background = 'rgba(var(--accent-rgb), 0.2)';
+            }
+        } else {
+            // Remove hover effects
+            card.classList.remove('card-hover');
+            
+            // Reset molecule icon
+            const moleculeIcon = card.querySelector('.molecule-icon');
+            if (moleculeIcon) {
+                moleculeIcon.style.transform = '';
+            }
+
+            // Reset dosage highlight
+            const dosage = card.querySelector('.dosage');
+            if (dosage) {
+                dosage.style.background = '';
+            }
+        }
+    }
+
+    handleCardClick(card) {
+        // Add pulse animation on click
+        card.classList.add('card-pulse');
+        
+        // Remove pulse class after animation completes
+        setTimeout(() => {
+            card.classList.remove('card-pulse');
+        }, 500);
+
+        // Show ingredient details
+        this.showIngredientDetails(card);
+    }
+
+    showIngredientDetails(card) {
+        const ingredientName = card.querySelector('h3').textContent;
+        const dosage = card.querySelector('.dosage').textContent;
+        
+        // Create or update details popup
+        let popup = document.querySelector('.ingredient-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.className = 'ingredient-popup';
+            document.body.appendChild(popup);
+        }
+
+        // Update popup content
+        popup.innerHTML = `
+            <div class="popup-content">
+                <h4>${ingredientName}</h4>
+                <p>Dosage: ${dosage}</p>
+                <button class="close-popup">×</button>
+            </div>
+        `;
+
+        // Show popup
+        popup.style.display = 'flex';
+        setTimeout(() => popup.classList.add('show'), 10);
+
+        // Add close button functionality
+        const closeButton = popup.querySelector('.close-popup');
+        closeButton.addEventListener('click', () => {
+            popup.classList.remove('show');
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        });
+    }
+
+    initializeMolecularAnimation() {
+        const moleculeAnimation = document.querySelector('.molecule-animation');
+        if (!moleculeAnimation) return;
+
+        // Create dynamic orbitals
+        for (let i = 0; i < 3; i++) {
+            const orbital = document.createElement('div');
+            orbital.className = 'orbital';
+            orbital.style.animationDelay = `${i * -3}s`;
+            orbital.style.transform = `rotate(${i * 60}deg)`;
+            moleculeAnimation.appendChild(orbital);
+        }
+    }
+
+    startParticleAnimation(card) {
+        const particle = document.createElement('div');
+        particle.className = 'ingredient-particle';
+        card.appendChild(particle);
+
+        // Remove particle after animation
+        particle.addEventListener('animationend', () => {
+            particle.remove();
+        });
+    }
+}
+
+    // ===============================
     // Initialize Everything
     // ===============================
     function initializeApp() {
@@ -430,6 +598,7 @@ class HowItWorksManager {
         const heroManager = new HeroManager();
         const smoothScroll = new SmoothScroll();
         const howItWorksManager = new HowItWorksManager();
+        const ingredientsManager = new IngredientsManager();
 
         // Setup performance optimizations
         setupPerformanceOptimizations();
