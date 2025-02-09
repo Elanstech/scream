@@ -73,53 +73,199 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===============================
     // Header Management
     // ===============================
-   document.addEventListener('DOMContentLoaded', () => {
-    // Elements
-    const header = document.querySelector('.header');
-    const primaryNav = document.querySelector('.primary-navigation');
-    const navToggle = document.querySelector('.mobile-nav-toggle');
-    const navLinks = document.querySelectorAll('.nav-list a');
-
-    // Toggle mobile navigation
-    navToggle.addEventListener('click', () => {
-        const visibility = primaryNav.getAttribute('data-visible');
+class HeaderManager {
+    constructor() {
+        // Elements
+        this.header = document.querySelector('.header');
+        this.mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        this.primaryNav = document.querySelector('.primary-navigation');
+        this.navLinks = document.querySelectorAll('.nav-link');
+        this.currentDate = document.querySelector('.current-date');
         
-        if (visibility === "true") {
-            primaryNav.setAttribute('data-visible', false);
-            navToggle.setAttribute('aria-expanded', false);
-            navToggle.innerHTML = '<span class="sr-only">Menu</span><i class="fa-solid fa-bars"></i>';
-        } else {
-            primaryNav.setAttribute('data-visible', true);
-            navToggle.setAttribute('aria-expanded', true);
-            navToggle.innerHTML = '<span class="sr-only">Close</span><i class="fa-solid fa-xmark"></i>';
-        }
-    });
+        // State
+        this.lastScrollTop = 0;
+        this.scrollThreshold = 100;
+        this.isMenuOpen = false;
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!primaryNav.contains(e.target) && !navToggle.contains(e.target)) {
-            primaryNav.setAttribute('data-visible', false);
-            navToggle.setAttribute('aria-expanded', false);
-            navToggle.innerHTML = '<span class="sr-only">Menu</span><i class="fa-solid fa-bars"></i>';
-        }
-    });
+        // Initialize
+        this.init();
+    }
 
-    // Add scrolled class to header on scroll
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+    init() {
+        this.setupEventListeners();
+        this.updateDateTime();
+        this.checkActiveSection();
+        this.setupIntersectionObserver();
+    }
 
-    // Active link highlighting
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
+    setupEventListeners() {
+        // Mobile menu toggle
+        this.mobileNavToggle?.addEventListener('click', () => this.toggleMobileMenu());
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (this.isMenuOpen && 
+                !this.primaryNav?.contains(e.target) && 
+                !this.mobileNavToggle?.contains(e.target)) {
+                this.closeMobileMenu();
+            }
         });
-    });
+
+        // Scroll handling with throttle
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    this.handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Navigation link clicks
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => this.handleNavClick(e));
+        });
+
+        // Window resize handling with debounce
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => this.handleResize(), 250);
+        });
+    }
+
+    toggleMobileMenu() {
+        this.isMenuOpen = !this.isMenuOpen;
+        this.mobileNavToggle.setAttribute('aria-expanded', this.isMenuOpen);
+        this.primaryNav.setAttribute('data-visible', this.isMenuOpen);
+        document.body.style.overflow = this.isMenuOpen ? 'hidden' : '';
+    }
+
+    closeMobileMenu() {
+        this.isMenuOpen = false;
+        this.mobileNavToggle.setAttribute('aria-expanded', 'false');
+        this.primaryNav.setAttribute('data-visible', 'false');
+        document.body.style.overflow = '';
+    }
+
+    handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Add/remove scrolled class
+        if (scrollTop > this.scrollThreshold) {
+            this.header.classList.add('scrolled');
+        } else {
+            this.header.classList.remove('scrolled');
+        }
+
+        // Hide/show header on scroll
+        if (scrollTop > this.lastScrollTop && scrollTop > this.header.offsetHeight) {
+            // Scrolling down
+            this.header.classList.add('hidden');
+        } else {
+            // Scrolling up
+            this.header.classList.remove('hidden');
+        }
+
+        this.lastScrollTop = scrollTop;
+        this.checkActiveSection();
+    }
+
+    handleNavClick(e) {
+        const link = e.currentTarget;
+        const href = link.getAttribute('href');
+
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            
+            if (target) {
+                // Close mobile menu if open
+                this.closeMobileMenu();
+
+                // Smooth scroll to target
+                const headerOffset = this.header.offsetHeight;
+                const targetPosition = target.getBoundingClientRect().top;
+                const offsetPosition = targetPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    handleResize() {
+        if (window.innerWidth > 768 && this.isMenuOpen) {
+            this.closeMobileMenu();
+        }
+    }
+
+    updateDateTime() {
+        if (this.currentDate) {
+            const updateTime = () => {
+                const now = new Date();
+                const formattedDate = now.toISOString().slice(0, 19).replace('T', ' ');
+                this.currentDate.textContent = formattedDate;
+            };
+
+            // Update immediately and then every second
+            updateTime();
+            setInterval(updateTime, 1000);
+        }
+    }
+
+    setupIntersectionObserver() {
+        // Observe sections for active state
+        const sections = document.querySelectorAll('section[id]');
+        const observerOptions = {
+            rootMargin: `-${this.header.offsetHeight}px 0px 0px 0px`,
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.updateActiveLink(entry.target.id);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    updateActiveLink(sectionId) {
+        this.navLinks.forEach(link => {
+            const href = link.getAttribute('href').substring(1);
+            if (href === sectionId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    checkActiveSection() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPosition = window.scrollY + this.header.offsetHeight + 100;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                this.updateActiveLink(section.id);
+            }
+        });
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const headerManager = new HeaderManager();
 });
 
     // ===============================
