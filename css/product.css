@@ -601,8 +601,8 @@ section {
     }
 }
 
-/* Usage Section Styles */
-.usage-section {
+/* Application Section Base Styles */
+.application-section {
     background: linear-gradient(135deg,
         rgba(26, 26, 26, 0.98),
         rgba(183, 110, 121, 0.05) 50%,
@@ -613,436 +613,239 @@ section {
     overflow: hidden;
 }
 
-/* Timeline Progress */
-.timeline-progress {
-    position: absolute;
-    left: 50px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-}
-
-.progress-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-    background: var(--rose-gold);
-    transition: height 0.5s ease;
-}
-
-/* Step Cards */
-.steps-container {
-    position: relative;
-    padding-left: 100px;
-}
-
-.step-card {
-    position: relative;
-    margin-bottom: 60px;
-    opacity: 0.5;
-    transform: translateX(-20px);
-    transition: all 0.5s ease;
-}
-
-.step-card.active {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.step-marker {
-    position: absolute;
-    left: -100px;
-    width: 60px;
-    height: 60px;
-    background: var(--dark);
-    border: 2px solid var(--rose-gold);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.step-number {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--rose-gold);
-}
-
-.step-pulse {
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    border: 2px solid var(--rose-gold);
-    opacity: 0;
-}
-
-.step-card.active .step-pulse {
-    animation: pulse 2s infinite;
-}
-
-/* Checklist Styles */
-.step-checklist {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.check-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
-.step-check {
-    appearance: none;
-    width: 24px;
-    height: 24px;
-    border: 2px solid var(--rose-gold);
-    border-radius: 6px;
-    position: relative;
-    cursor: pointer;
-}
-
-.step-check:checked::before {
-    content: '✓';
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--rose-gold);
-    font-size: 1.2rem;
-}
-
-/* Timer Styles */
-.timer-circle {
-    position: relative;
-    width: 120px;
-    height: 120px;
+.application-container {
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
-.timer-svg {
-    transform: rotate(-90deg);
-}
-
-.timer-background,
-.timer-progress {
-    fill: none;
-    stroke-width: 8;
-}
-
-.timer-background {
-    stroke: rgba(183, 110, 121, 0.1);
-}
-
-.timer-progress {
-    stroke: var(--rose-gold);
-    stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear;
-}
-
-.timer-display {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    color: var(--rose-gold);
-}
-
-/* Dosage Simulator */
-.dosage-simulator {
-    text-align: center;
-    margin: 30px 0;
-}
-
-.pump-button {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: var(--rose-gold);
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.pump-button:active {
-    transform: scale(0.95);
-}
-
-.pump-counter {
-    font-size: 2rem;
-    color: var(--rose-gold);
-    margin-bottom: 20px;
-}
-
-/* Activation Timeline */
-.activation-timeline {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-}
-
-.time-marker {
-    text-align: center;
-    position: relative;
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
-}
-
-.time-marker.active {
-    opacity: 1;
-}
-
-.effect-wave {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--rose-gold);
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: -60px;
-    transform: translateX(-50%);
-}
-
-.time-marker.active .effect-wave::before,
-.time-marker.active .effect-wave::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border: 2px solid var(--rose-gold);
-    border-radius: 50%;
-    animation: wave 2s infinite;
-}
-
-.time-marker.active .effect-wave::after {
-    animation-delay: 1s;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(1.5); opacity: 0; }
-}
-
-@keyframes wave {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .steps-container {
-        padding-left: 60px;
-    }
-
-    .step-marker {
-        left: -60px;
-        width: 40px;
-        height: 40px;
-    }
-
-    .step-number {
-        font-size: 1.2rem;
-    }
-
-    .activation-timeline {
-        flex-direction: column;
-        gap: 40px;
-    }
-}
-
-/* Benefits Section */
-.benefits-section {
-    background: linear-gradient(to right,
-        rgba(26, 26, 26, 0.98),
-        rgba(183, 110, 121, 0.05) 50%,
-        rgba(26, 26, 26, 0.98)
-    );
-}
-
-.benefits-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px;
-}
-
-.benefit-category {
-    text-align: center;
-}
-
-.benefit-category h3 {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    color: var(--rose-gold);
-}
-
-.benefit-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.benefit-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: var(--card-radius);
-    padding: 30px;
-    transition: var(--transition-smooth);
-}
-
-.benefit-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.benefit-icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.effectiveness-bar {
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-.bar-fill {
-    height: 100%;
-    background: var(--premium-gradient);
-    transform-origin: left;
-    animation: fillBar 1.5s ease-out;
-}
-
-/* Research Section */
-.research-section {
-    background: linear-gradient(135deg,
-        rgba(26, 26, 26, 0.98),
-        rgba(26, 26, 26, 0.95)
-    );
-}
-
-.study-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: var(--card-radius);
-    padding: 40px;
-    margin-bottom: 60px;
-}
-
-.study-stats {
+/* Steps Grid Layout */
+.steps-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    margin: 40px 0;
+    margin-top: 60px;
 }
 
-.stat {
+.step-card {
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(183, 110, 121, 0.2);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--rose-gold), var(--rose-gold-light));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.step-card:hover::before {
+    opacity: 1;
+}
+
+/* Step Header */
+.step-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.step-number {
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-right: 20px;
+}
+
+.step-title {
+    font-size: 1.5rem;
+    color: var(--light);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Step Content */
+.step-content {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Interactive Elements */
+.interactive-element {
+    background: rgba(183, 110, 121, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Timer Styles */
+.timer-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.time-unit {
     text-align: center;
 }
 
-.stat-number {
-    font-size: 2.5rem;
+.time-value {
+    font-size: 2rem;
     font-weight: 700;
-    background: var(--premium-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 10px;
+    color: var(--rose-gold);
+    line-height: 1;
+    margin-bottom: 5px;
 }
 
-.methodology-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
+.time-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.methodology-step {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: var(--card-radius);
-    padding: 30px;
-    transition: var(--transition-smooth);
+/* Pump Counter */
+.pump-simulator {
+    text-align: center;
 }
 
-.methodology-step:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.pump-counter {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--rose-gold);
+    margin-bottom: 20px;
 }
 
-/* Animations */
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.pump-button {
+    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
+    border: none;
+    border-radius: 30px;
+    padding: 15px 40px;
+    color: var(--light);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-@keyframes fillMeter {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
+.pump-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(183, 110, 121, 0.2);
 }
 
-@keyframes fillBar {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
+.pump-button:active {
+    transform: translateY(0);
+}
+
+/* Progress Indicators */
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(183, 110, 121, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.progress-dot.active {
+    background: var(--rose-gold);
+}
+
+/* Effect Timeline */
+.effect-timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(183, 110, 121, 0.1);
+    border-radius: 15px;
+}
+
+.timeline-point {
+    text-align: center;
+    position: relative;
+}
+
+.timeline-point::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 15px;
+    background: var(--rose-gold);
+}
+
+.time-marker {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--rose-gold);
+    margin-bottom: 5px;
+}
+
+.effect-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 /* Responsive Design */
 @media (max-width: 992px) {
-    .section-title {
-        font-size: 2.5rem;
-    }
-
-    .ingredients-grid,
-    .benefit-cards,
-    .methodology-steps {
-        grid-template-columns: 1fr;
-    }
-
-    .study-stats {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .section-spacing {
-        padding: 80px 0;
-    }
-
-    .timeline-step {
+    .steps-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
-
+    
+    .step-card {
+        padding: 30px;
+    }
+    
     .step-number {
-        margin: 0 auto;
+        font-size: 3rem;
     }
-
-    .timeline-step::before {
-        left: 50%;
-        transform: translateX(-50%);
+    
+    .step-title {
+        font-size: 1.2rem;
     }
 }
 
-/* Print Styles */
-@media print {
-    section {
-        page-break-inside: avoid;
-    }
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
 
-    .ingredient-card,
-    .benefit-card,
-    .methodology-step {
-        break-inside: avoid;
-    }
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
