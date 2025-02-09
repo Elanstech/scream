@@ -380,115 +380,224 @@ section {
     margin: 0 auto;
 }
 
-/* Ingredients Section */
+/* Ingredients Section Styles */
 .ingredients-section {
-    background: linear-gradient(to bottom,
-        rgba(26, 26, 26, 0.95),
+    background: linear-gradient(135deg,
+        rgba(26, 26, 26, 0.98),
         rgba(183, 110, 121, 0.05) 50%,
-        rgba(26, 26, 26, 0.95)
+        rgba(26, 26, 26, 0.98)
+    );
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.ingredients-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--rose-gold),
+        transparent
     );
 }
 
-.ingredients-showcase {
-    position: relative;
+.ingredients-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.ingredient-molecule {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    height: 500px;
-    opacity: 0.1;
-    pointer-events: none;
+.ingredients-header {
+    text-align: center;
+    margin-bottom: 80px;
 }
 
-.molecule-structure {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    animation: rotate 20s linear infinite;
+.ingredients-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--rose-gold) 0%, var(--nude-beige) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.atom {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: var(--rose-gold);
-    border-radius: 50%;
-    filter: blur(5px);
-}
-
-.atom:nth-child(1) { top: 20%; left: 20%; }
-.atom:nth-child(2) { top: 50%; right: 20%; }
-.atom:nth-child(3) { bottom: 20%; left: 50%; }
-
-.bond {
-    position: absolute;
-    width: 100px;
-    height: 2px;
-    background: var(--rose-gold);
-    opacity: 0.3;
-    transform-origin: left center;
+.ingredients-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .ingredients-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
     position: relative;
-    z-index: 1;
 }
 
 .ingredient-card {
-    background: var(--glass-bg);
+    background: rgba(26, 26, 26, 0.5);
     backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: var(--card-radius);
-    padding: 30px;
-    transition: var(--transition-smooth);
+    border: 1px solid rgba(183, 110, 121, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.ingredient-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+        rgba(183, 110, 121, 0.1),
+        rgba(183, 110, 121, 0.05)
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
 .ingredient-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(183, 110, 121, 0.3);
 }
 
-.ingredient-header {
+.ingredient-card:hover::before {
+    opacity: 1;
+}
+
+.ingredient-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--rose-gold) 0%, var(--warm-brown) 100%);
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
-.ingredient-header h3 {
-    font-size: 1.5rem;
+.ingredient-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+
+.ingredient-name {
+    font-size: 1.8rem;
     font-weight: 600;
-    color: var(--rose-gold);
+    color: var(--light);
+    margin-bottom: 15px;
 }
 
-.dosage {
-    background: rgba(183, 110, 121, 0.1);
+.ingredient-concentration {
+    display: inline-block;
     padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.875rem;
+    background: rgba(183, 110, 121, 0.1);
+    border-radius: 20px;
+    font-size: 0.9rem;
     color: var(--rose-gold);
+    margin-bottom: 25px;
 }
 
-.effectiveness-meter {
+.efficacy-meter {
     height: 4px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 2px;
-    margin: 20px 0;
+    margin: 25px 0;
     overflow: hidden;
 }
 
-.meter-fill {
+.efficacy-fill {
     height: 100%;
-    background: var(--premium-gradient);
+    background: linear-gradient(90deg, var(--rose-gold) 0%, var(--warm-brown) 100%);
     transform-origin: left;
-    animation: fillMeter 1.5s ease-out;
+    animation: fillWidth 1.5s ease-out forwards;
+}
+
+.ingredient-description {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 12px;
+}
+
+.benefit-item::before {
+    content: '→';
+    color: var(--rose-gold);
+    margin-right: 10px;
+}
+
+.molecular-visual {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    pointer-events: none;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.molecule-ring {
+    position: absolute;
+    border: 1px solid var(--rose-gold);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.ring-1 { width: 200px; height: 200px; }
+.ring-2 { width: 400px; height: 400px; }
+.ring-3 { width: 600px; height: 600px; }
+
+@keyframes fillWidth {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .ingredients-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .ingredients-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ingredients-title {
+        font-size: 2.5rem;
+    }
+    
+    .molecular-visual {
+        width: 300px;
+        height: 300px;
+    }
 }
 
 /* Usage Section */
