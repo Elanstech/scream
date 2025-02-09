@@ -875,3 +875,239 @@ button {
         height: 40px;
     }
 }
+/* Ingredients Section Styles */
+.ingredients-section {
+    padding: 120px 0;
+    background: linear-gradient(180deg, 
+        rgba(var(--accent-rgb), 0.03) 0%,
+        rgba(var(--accent-rgb), 0.06) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.ingredients-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(var(--accent-rgb), 0.2) 50%,
+        transparent 100%);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.section-eyebrow {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #B76E79 0%, #E6C3C3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: #C69FA6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.formula-showcase {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.ingredient-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 
+        0 4px 20px rgba(var(--accent-rgb), 0.1),
+        0 0 0 1px rgba(var(--accent-rgb), 0.05);
+    transition: all 0.3s ease;
+}
+
+.ingredient-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 8px 30px rgba(var(--accent-rgb), 0.15),
+        0 0 0 1px rgba(var(--accent-rgb), 0.1);
+}
+
+.ingredient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.1);
+}
+
+.ingredient-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.dosage {
+    font-size: 0.875rem;
+    color: var(--accent-color);
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    background: rgba(var(--accent-rgb), 0.1);
+    border-radius: 100px;
+}
+
+.ingredient-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.molecule-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+.ingredient-content p {
+    color: #666;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.formula-details {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 100px;
+    box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.1);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.detail-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+/* Molecule Animation */
+.molecule-animation {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.orbital {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    border: 2px solid rgba(var(--accent-rgb), 0.3);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.orbital::before,
+.orbital::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(var(--accent-rgb), 0.3);
+    border-radius: 50%;
+    transform: rotate(60deg);
+}
+
+.orbital::after {
+    transform: rotate(-60deg);
+}
+
+@keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .ingredients-section {
+        padding: 80px 0;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .ingredients-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .formula-details {
+        flex-direction: column;
+        gap: 1.5rem;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ingredient-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .dosage {
+        font-size: 0.75rem;
+    }
+}
