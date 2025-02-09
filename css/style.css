@@ -75,6 +75,16 @@ button {
     align-items: center;
 }
 
+.preloader.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Reduced from 0.5s to 0.3s */
+}
+
+.progress-bar {
+    transition: width 0.15s ease-out; /* Reduced from 0.3s to 0.15s */
+
+}
+
 .loader {
     width: 60px;
     height: 60px;
