@@ -15,29 +15,47 @@
         <div class="loader"></div>
     </div>
 
-<!-- Header & Hero Section -->
+<!-- Header Section -->
 <header class="main-header" id="mainHeader">
+    <div class="header-glass-bg"></div>
     <div class="header-container">
-        <div class="logo-wrapper">
+        <div class="logo-section">
             <a href="/" class="logo">
-                <img src="logo.png" alt="S-Cream" class="logo-image">
-            </div>
+                <img src="assets/logo.png" alt="S-Cream" class="logo-image">
+            </a>
+        </div>
         
         <nav class="main-nav">
-            <ul class="nav-list">
-                <li><a href="#benefits">Benefits</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#reviews">Results</a></li>
-                <li><a href="#order" class="nav-cta">Get Started</a></li>
-            </ul>
+            <div class="nav-wrapper">
+                <ul class="nav-list">
+                    <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#reviews" class="nav-link">Results</a></li>
+                </ul>
+                
+                <div class="nav-action">
+                    <button class="track-order-btn">
+                        <span class="btn-icon">📦</span>
+                        <span>Track</span>
+                    </button>
+                    <button class="shop-now-btn">
+                        <span class="pulse-ring"></span>
+                        <span>Shop Now</span>
+                    </button>
+                </div>
+            </div>
         </nav>
 
         <button class="menu-toggle" aria-label="Toggle Menu">
-            <span></span>
-            <span></span>
+            <svg class="menu-icon" viewBox="0 0 24 24">
+                <path class="line-1" d="M3 7h18"></path>
+                <path class="line-2" d="M3 12h18"></path>
+                <path class="line-3" d="M3 17h18"></path>
+            </svg>
         </button>
     </div>
 </header>
+    
 
 <section class="hero">
     <div class="video-container">
