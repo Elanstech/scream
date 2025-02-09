@@ -319,16 +319,23 @@ button {
         display: block;
     }
 
-    .primary-navigation {
+   .primary-navigation {
         position: fixed;
         inset: var(--header-height) 0 0 0;
         background: var(--header-bg);
         padding: 2rem;
-        transform: translateX(100%);
+        transform: translateX(100%); /* This ensures the menu is hidden by default */
         visibility: hidden;
         transition: transform 0.3s ease, visibility 0.3s ease;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
+        height: 100vh; /* Add this to ensure full height coverage */
+        z-index: 999; /* Add this to ensure menu appears above other content */
+    }
+    
+    .primary-navigation.active {
+        transform: translateX(0);
+        visibility: visible;
     }
 
     .primary-navigation[data-visible="true"] {
@@ -336,7 +343,7 @@ button {
         visibility: visible;
     }
 
-    .nav-list {
+     .nav-list {
         flex-direction: column;
         align-items: flex-start;
         gap: 1.5rem;
