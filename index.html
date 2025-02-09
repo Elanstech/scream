@@ -20,26 +20,58 @@
         </div>
     </div>
 
- <header class="header">
+<header class="header">
+        <div class="header-backdrop"></div>
         <div class="header-container">
-            <div class="logo">
-                <a href="/">SCREAM</a>
+            <div class="logo-container">
+                <a href="/" class="logo-link">
+                    <img src="logo.png" alt="Company Logo" class="logo-image">
+                    <div class="logo-glow"></div>
+                </a>
             </div>
             
-            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
-                <span class="sr-only">Menu</span>
-                <i class="fa-solid fa-bars"></i>
-            </button>
-
             <nav class="primary-navigation" id="primary-navigation">
                 <ul class="nav-list">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active">
+                            <span class="nav-text">Home</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">
+                            <span class="nav-text">About</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#services" class="nav-link">
+                            <span class="nav-text">Services</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#portfolio" class="nav-link">
+                            <span class="nav-text">Portfolio</span>
+                            <span class="nav-indicator"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link contact-btn">
+                            <span class="nav-text">Contact</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
                 </ul>
             </nav>
+
+            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
+                <div class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </button>
         </div>
     </header>
     
