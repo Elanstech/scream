@@ -5,95 +5,134 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===============================
     const preloader = document.querySelector('.preloader');
     const header = document.getElementById('mainHeader');
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.main-nav');
     const heroVideo = document.getElementById('heroVideo');
-    const heroButton = document.getElementById('heroButton');
-    const questionnaireModal = document.getElementById('questionnaireModal');
-    const modalClose = document.querySelector('.close-modal');
-    const medicalForm = document.getElementById('medicalQuestionnaire');
-    let isModalOpen = false;
-
+    const heroContent = document.querySelector('.hero-content');
+    const heroFeatures = document.querySelectorAll('.feature-bubble');
+    
     // ===============================
     // Preloader Configuration
     // ===============================
+    let videoLoaded = false;
+    let domLoaded = false;
+
     function hidePreloader() {
-        if (preloader) {
+        if (videoLoaded && domLoaded) {
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.display = 'none';
-                // Start hero animations after preloader
+                document.body.classList.remove('loading');
                 startHeroAnimations();
             }, 500);
         }
     }
 
-    // Handle preloader based on video and content loading
+    // Video load handling
     if (heroVideo) {
-        heroVideo.addEventListener('loadeddata', hidePreloader);
+        heroVideo.addEventListener('loadeddata', () => {
+            videoLoaded = true;
+            hidePreloader();
+        });
+
+        // Fallback if video takes too long
+        setTimeout(() => {
+            if (!videoLoaded) {
+                videoLoaded = true;
+                hidePreloader();
+            }
+        }, 5000);
     } else {
-        window.addEventListener('load', hidePreloader);
+        videoLoaded = true;
+        hidePreloader();
     }
 
-    // Fallback for preloader
-    setTimeout(hidePreloader, 5000); // Maximum wait time
+    // DOM content loaded
+    window.addEventListener('load', () => {
+        domLoaded = true;
+        hidePreloader();
+    });
 
     // ===============================
-    // Header & Navigation
+    // Header Scroll Effect
     // ===============================
+    let lastScroll = 0;
+    const scrollThreshold = 50;
+
     function handleHeaderScroll() {
-        if (window.scrollY > 50) {
-            header?.classList.add('scrolled');
+        const currentScroll = window.pageYOffset;
+
+        // Add/remove scrolled class based on scroll position
+        if (currentScroll > scrollThreshold) {
+            header.classList.add('scrolled');
         } else {
-            header?.classList.remove('scrolled');
+            header.classList.remove('scrolled');
         }
+
+        // Optional: Hide/show header based on scroll direction
+        if (currentScroll > lastScroll && currentScroll > header.offsetHeight) {
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
+
+        lastScroll = currentScroll;
     }
 
     window.addEventListener('scroll', handleHeaderScroll);
 
-    // Mobile Menu Toggle
+    // ===============================
+    // Mobile Menu Configuration
+    // ===============================
     function setupMobileMenu() {
-        if (menuToggle && mainNav) {
-            menuToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleMobileMenu();
-            });
+        if (!menuToggle || !mainNav) return;
 
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                    closeMobileMenu();
-                }
-            });
-        }
+        menuToggle.addEventListener('click', toggleMobileMenu);
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu when pressing escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+            }
+        });
+
+        // Close menu when clicking nav links
+        const navLinks = mainNav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
     }
 
     function toggleMobileMenu() {
-        menuToggle?.classList.toggle('active');
-        mainNav?.classList.toggle('active');
+        const isOpen = menuToggle.classList.contains('active');
+        
+        menuToggle.classList.toggle('active');
+        mainNav.classList.toggle('active');
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+
+        // Animate nav items if menu is opening
+        if (!isOpen) {
+            animateNavItems();
+        }
     }
 
     function closeMobileMenu() {
-        menuToggle?.classList.remove('active');
-        mainNav?.classList.remove('active');
+        menuToggle.classList.remove('active');
+        mainNav.classList.remove('active');
+        document.body.style.overflow = '';
     }
 
-    // ===============================
-    // Smooth Scroll
-    // ===============================
-    function initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    closeMobileMenu();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+    function animateNavItems() {
+        const navItems = mainNav.querySelectorAll('.nav-list a');
+        navItems.forEach((item, index) => {
+            item.style.animation = `fadeInNav 0.5s ease forwards ${index * 0.1}s`;
         });
     }
 
@@ -101,200 +140,95 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hero Section Animations
     // ===============================
     function startHeroAnimations() {
-        const heroContent = document.querySelector('.hero-content');
-        if (heroContent) {
-            heroContent.style.opacity = '0';
-            setTimeout(() => {
-                heroContent.style.opacity = '1';
-                heroContent.classList.add('animate');
-            }, 500);
-        }
-    }
+        if (!heroContent) return;
 
-    // ===============================
-    // Modal Handling
-    // ===============================
-    function setupModal() {
-        if (heroButton && questionnaireModal) {
-            heroButton.addEventListener('click', openModal);
-        }
+        // Animate hero content
+        heroContent.style.opacity = '0';
+        setTimeout(() => {
+            heroContent.style.opacity = '1';
+            heroContent.classList.add('animate');
+        }, 100);
 
-        if (modalClose) {
-            modalClose.addEventListener('click', closeModal);
-        }
-
-        // Close modal on outside click
-        window.addEventListener('click', (e) => {
-            if (e.target === questionnaireModal) {
-                closeModal();
-            }
-        });
-
-        // Close modal on ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isModalOpen) {
-                closeModal();
-            }
+        // Animate feature bubbles
+        heroFeatures.forEach((bubble, index) => {
+            bubble.style.animation = `fadeIn 0.5s ease forwards ${index * 0.2}s`;
         });
     }
 
-    function openModal() {
-        if (questionnaireModal) {
-            questionnaireModal.style.display = 'flex';
-            setTimeout(() => {
-                questionnaireModal.classList.add('show');
-                isModalOpen = true;
-            }, 10);
-        }
-    }
-
-    function closeModal() {
-        if (questionnaireModal) {
-            questionnaireModal.classList.remove('show');
-            setTimeout(() => {
-                questionnaireModal.style.display = 'none';
-                isModalOpen = false;
-            }, 300);
-        }
-    }
-
     // ===============================
-    // Medical Questionnaire Form
+    // Smooth Scroll Configuration
     // ===============================
-    function setupQuestionnaire() {
-        if (medicalForm) {
-            const questions = [
-                {
-                    type: 'radio',
-                    question: 'Are you over 18 years of age?',
-                    options: ['Yes', 'No'],
-                    required: true
-                },
-                {
-                    type: 'checkbox',
-                    question: 'Do you have any of the following conditions?',
-                    options: [
-                        'High blood pressure',
-                        'Heart conditions',
-                        'Allergies',
-                        'None of the above'
-                    ]
-                },
-                {
-                    type: 'text',
-                    question: 'Are you currently taking any medications?',
-                    placeholder: 'Please list any medications'
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                if (target) {
+                    const headerOffset = header.offsetHeight;
+                    const elementPosition = target.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
                 }
-            ];
-
-            populateQuestionnaire(questions);
-        }
-    }
-
-    function populateQuestionnaire(questions) {
-        questions.forEach((q, index) => {
-            const fieldset = document.createElement('fieldset');
-            const legend = document.createElement('legend');
-            legend.textContent = q.question;
-            fieldset.appendChild(legend);
-
-            if (q.type === 'radio' || q.type === 'checkbox') {
-                q.options.forEach(option => {
-                    const label = document.createElement('label');
-                    const input = document.createElement('input');
-                    input.type = q.type;
-                    input.name = `question_${index}`;
-                    input.value = option;
-                    if (q.required) input.required = true;
-                    label.appendChild(input);
-                    label.appendChild(document.createTextNode(option));
-                    fieldset.appendChild(label);
-                });
-            } else if (q.type === 'text') {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.name = `question_${index}`;
-                input.placeholder = q.placeholder || '';
-                if (q.required) input.required = true;
-                fieldset.appendChild(input);
-            }
-
-            medicalForm.appendChild(fieldset);
-        });
-
-        // Add submit button
-        const submitBtn = document.createElement('button');
-        submitBtn.type = 'submit';
-        submitBtn.className = 'submit-btn';
-        submitBtn.textContent = 'Submit';
-        medicalForm.appendChild(submitBtn);
-    }
-
-    // ===============================
-    // Reviews Slider
-    // ===============================
-    function initReviewsSlider() {
-        const reviewsSlider = document.getElementById('reviewsSlider');
-        if (!reviewsSlider) return;
-
-        const reviews = [
-            {
-                text: "An incredible product that exceeded my expectations.",
-                author: "Sarah M.",
-                rating: 5,
-                date: "January 2025"
-            },
-            {
-                text: "Professional service and amazing results.",
-                author: "Jennifer K.",
-                rating: 5,
-                date: "December 2024"
-            },
-            {
-                text: "Life-changing results. Highly recommended!",
-                author: "Michelle R.",
-                rating: 5,
-                date: "February 2025"
-            }
-        ];
-
-        reviews.forEach(review => {
-            const reviewCard = createReviewCard(review);
-            reviewsSlider.appendChild(reviewCard);
-        });
-    }
-
-    function createReviewCard(review) {
-        const card = document.createElement('div');
-        card.className = 'review-card';
-        card.setAttribute('data-aos', 'fade-up');
-        
-        card.innerHTML = `
-            <div class="review-content">
-                <div class="review-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
-                <p class="review-text">"${review.text}"</p>
-                <div class="review-meta">
-                    <p class="review-author">${review.author}</p>
-                    <p class="review-date">${review.date}</p>
-                </div>
-            </div>
-        `;
-        return card;
-    }
-
-    // ===============================
-    // Scroll Animations (AOS)
-    // ===============================
-    function initAOS() {
-        if (typeof AOS !== 'undefined') {
-            AOS.init({
-                duration: 1000,
-                once: true,
-                offset: 100,
-                easing: 'ease-in-out'
             });
-        }
+        });
     }
+
+    // ===============================
+    // Video Background Optimization
+    // ===============================
+    function setupVideoBackground() {
+        if (!heroVideo) return;
+
+        // Pause video if page is not visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                heroVideo.pause();
+            } else {
+                heroVideo.play();
+            }
+        });
+
+        // Reduce video quality on mobile
+        function checkMobileVideo() {
+            if (window.innerWidth <= 768) {
+                heroVideo.setAttribute('playsinline', '');
+                heroVideo.setAttribute('preload', 'none');
+            }
+        }
+
+        window.addEventListener('resize', checkMobileVideo);
+        checkMobileVideo();
+    }
+
+    // ===============================
+    // Performance Optimizations
+    // ===============================
+    function debouncedResize(func, wait = 100) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    const handleResize = debouncedResize(() => {
+        if (window.innerWidth > 768) {
+            document.body.style.overflow = '';
+            mainNav?.classList.remove('active');
+            menuToggle?.classList.remove('active');
+        }
+    }, 250);
+
+    window.addEventListener('resize', handleResize);
 
     // ===============================
     // Initialize Everything
@@ -302,13 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function init() {
         setupMobileMenu();
         initSmoothScroll();
-        setupModal();
-        setupQuestionnaire();
-        initReviewsSlider();
-        initAOS();
-
-        // Remove preloader class from body after initialization
-        document.body.classList.remove('loading');
+        setupVideoBackground();
     }
 
     // Start initialization
