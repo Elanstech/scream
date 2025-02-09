@@ -21,572 +21,362 @@
     --pulse-animation: pulse 2s ease-in-out infinite;
 }
 
-/* Futuristic Hero Section Styles */
+/* Advanced Hero Section Styles */
 .product-hero {
-    position: relative;
     min-height: 100vh;
-    background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+    position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
     display: flex;
     align-items: center;
 }
 
-/* 3D Space Environment */
-.hero-3d-space {
+/* Background Effects */
+.hero-bg {
     position: absolute;
     inset: 0;
-    perspective: 1000px;
+    overflow: hidden;
 }
 
-.floating-particles {
+.particles-container {
     position: absolute;
     inset: 0;
-    background-image: 
-        radial-gradient(circle at center, var(--rose-gold) 1px, transparent 1px),
-        radial-gradient(circle at center, var(--rose-gold) 1px, transparent 1px);
-    background-size: 40px 40px;
-    background-position: 0 0, 20px 20px;
-    opacity: 0.1;
-    animation: particleFloat 20s linear infinite;
+    background: radial-gradient(circle at center,
+        rgba(183, 110, 121, 0.1) 0%,
+        transparent 70%);
 }
 
-.geometric-shapes {
+.gradient-sphere {
     position: absolute;
-    inset: 0;
-    transform-style: preserve-3d;
-}
-
-.shape {
-    position: absolute;
-    border: 1px solid rgba(183, 110, 121, 0.3);
-}
-
-.ring {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    top: 20%;
-    left: 10%;
-    transform: rotateX(60deg) rotateY(0deg);
-    animation: ringRotate 20s linear infinite;
-}
-
-.sphere {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    top: 60%;
-    right: 15%;
-    transform: rotate(45deg);
-    animation: spherePulse 4s ease-in-out infinite;
-}
-
-.pyramid {
-    width: 100px;
-    height: 100px;
-    top: 30%;
-    right: 25%;
-    transform: rotate(45deg);
-    animation: pyramidFloat 6s ease-in-out infinite;
-}
-
-/* Holographic Product Display */
-.product-hologram {
-    position: absolute;
-    right: 10%;
+    width: 600px;
+    height: 600px;
     top: 50%;
-    transform: translateY(-50%);
-    width: 500px;
-    height: 500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle at center,
+        rgba(183, 110, 121, 0.1) 0%,
+        transparent 70%);
+    filter: blur(60px);
+    animation: spherePulse 8s ease-in-out infinite;
 }
 
-.hologram-container {
-    position: relative;
+/* Main Content Grid */
+.hero-container {
     width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-}
-
-.hologram-scanline {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(183, 110, 121, 0.2) 50%,
-        transparent 100%
-    );
-    animation: scanline 2s linear infinite;
-}
-
-.hologram-product {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
     position: relative;
-    width: 100%;
-    height: 100%;
+    z-index: 1;
+}
+
+.hero-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+/* Product Showcase */
+.product-showcase {
+    position: relative;
+}
+
+.product-stage {
+    position: relative;
+    height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.product-image {
-    width: 60%;
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(183, 110, 121, 0.3));
-    animation: productFloat 6s ease-in-out infinite;
+.stage-platform {
+    position: relative;
+    width: 300px;
+    height: 300px;
 }
 
-.hologram-data {
+.platform-rings {
     position: absolute;
     inset: 0;
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    pointer-events: none;
+    justify-content: center;
 }
 
-.data-point {
-    text-align: center;
-    color: var(--rose-gold);
+.ring {
+    position: absolute;
+    border: 1px solid rgba(183, 110, 121, 0.3);
+    border-radius: 50%;
+    animation: ringRotate 20s linear infinite;
 }
 
-.progress-ring {
-    width: 60px;
-    height: 60px;
-    position: relative;
+.ring:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    animation-duration: 20s;
 }
 
-.progress-ring svg {
-    transform: rotate(-90deg);
+.ring:nth-child(2) {
+    width: 300px;
+    height: 300px;
+    animation-duration: 25s;
 }
 
-.progress-ring path {
-    fill: none;
-    stroke: var(--rose-gold);
-    stroke-width: 2;
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    animation: progressRing 2s ease-out forwards;
+.ring:nth-child(3) {
+    width: 400px;
+    height: 400px;
+    animation-duration: 30s;
 }
 
-/* Hero Content */
-.hero-content {
+.platform-surface {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 10px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(183, 110, 121, 0.5),
+        transparent);
+    filter: blur(3px);
+}
+
+.product-display {
     position: relative;
     z-index: 2;
-    padding-left: 10%;
-    max-width: 600px;
 }
 
-.brand-marker {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
+.product-image {
+    width: 300px;
+    height: auto;
+    filter: drop-shadow(0 20px 50px rgba(183, 110, 121, 0.3));
+    animation: productFloat 6s ease-in-out infinite;
 }
 
-.marker-dot {
+/* Product Highlights */
+.highlight-point {
+    position: absolute;
+    opacity: 0;
+    animation: pointFadeIn 0.5s ease-out forwards;
+}
+
+.highlight-point:nth-child(1) {
+    top: 20%;
+    left: -100px;
+    animation-delay: 0.5s;
+}
+
+.highlight-point:nth-child(2) {
+    top: 50%;
+    right: -100px;
+    animation-delay: 1s;
+}
+
+.highlight-point:nth-child(3) {
+    bottom: 20%;
+    left: -100px;
+    animation-delay: 1.5s;
+}
+
+.point-dot {
     width: 8px;
     height: 8px;
     background: var(--rose-gold);
     border-radius: 50%;
-    animation: dotPulse 2s infinite;
+    display: block;
 }
 
-.glitch-title {
-    font-size: 4rem;
-    font-weight: 800;
-    position: relative;
-    color: var(--light);
-    text-shadow: 2px 2px 20px rgba(183, 110, 121, 0.2);
-}
-
-.glitch-text {
+.point-line {
     position: absolute;
-    top: 0;
-    left: 0;
-    color: var(--rose-gold);
-    clip-path: inset(0 0 0 0);
-    animation: glitchText 3s infinite linear alternate-reverse;
+    width: 50px;
+    height: 1px;
+    background: var(--rose-gold);
+    opacity: 0.5;
 }
 
-.tagline-container {
-    height: 40px;
-    overflow: hidden;
-    margin: 24px 0;
+.point-content {
+    position: absolute;
+    left: 60px;
+    top: -10px;
+    white-space: nowrap;
 }
 
-.tagline-slider {
-    animation: slideTaglines 9s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-}
-
-.tagline {
-    height: 40px;
+/* Stats Display */
+.product-stats {
     display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    color: var(--rose-gold);
+    justify-content: space-around;
+    margin-top: 40px;
 }
 
-/* Spec Grid */
-.spec-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin: 40px 0;
-}
-
-.spec-item {
+.stat-item {
     text-align: center;
 }
 
-.spec-icon {
+.stat-ring {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.progress-ring {
+    fill: none;
+    stroke: var(--rose-gold);
+    stroke-width: 4;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    animation: progressRing 2s ease-out forwards;
+    transform: rotate(-90deg);
+    transform-origin: center;
+}
+
+.stat-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--rose-gold);
+}
+
+/* Hero Content */
+.hero-content {
+    color: var(--light);
+}
+
+.brand-tag {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.tag-line {
+    width: 40px;
+    height: 2px;
+    background: var(--rose-gold);
+}
+
+.tag-text {
+    font-size: 0.875rem;
+    letter-spacing: 2px;
+    color: var(--rose-gold);
+}
+
+.hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.title-line {
+    display: block;
+}
+
+.title-line.emphasized {
+    font-size: 5rem;
+    background: var(--premium-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+/* Feature Grid */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.feature-icon {
     width: 40px;
     height: 40px;
-    margin: 0 auto 12px;
+    color: var(--rose-gold);
 }
 
-.tech-path {
-    stroke: var(--rose-gold);
-    stroke-width: 2;
+.feature-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
     fill: none;
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    animation: drawPath 2s ease-out forwards;
+    stroke-width: 2;
 }
 
-/* Neo-Brutalism Button */
-.neo-button {
+.feature-text h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.feature-text p {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* CTA Button */
+.explore-btn {
     position: relative;
     padding: 16px 32px;
-    background: var(--rose-gold);
+    background: transparent;
     border: none;
-    border-radius: 4px;
     font-size: 1.125rem;
-    font-weight: 600;
     color: var(--light);
     cursor: pointer;
-    transform: translateY(0);
-    transition: transform 0.3s ease;
     overflow: hidden;
 }
 
-.button-glows span {
+.btn-backdrop {
     position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
+    inset: 0;
+    background: var(--premium-gradient);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
 }
 
-.glow-1 {
-    width: 100px;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.1);
-    top: -50px;
-    left: -50px;
-    animation: moveGlow1 4s infinite linear;
+.btn-text, .btn-icon {
+    position: relative;
+    z-index: 1;
 }
 
-.glow-2 {
-    width: 150px;
-    height: 150px;
-    background: rgba(255, 255, 255, 0.05);
-    bottom: -75px;
-    right: -75px;
-    animation: moveGlow2 5s infinite linear;
+.btn-icon {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+.explore-btn:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+.explore-btn:hover .btn-backdrop {
+    opacity: 1;
 }
 
 /* Animations */
-@keyframes particleFloat {
-    0% { background-position: 0 0, 20px 20px; }
-    100% { background-position: 40px 40px, 60px 60px; }
+@keyframes spherePulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
 }
 
 @keyframes ringRotate {
-    0% { transform: rotateX(60deg) rotateY(0deg); }
-    100% { transform: rotateX(60deg) rotateY(360deg); }
-}
-
-@keyframes spherePulse {
-    0%, 100% { transform: scale(1) rotate(45deg); }
-    50% { transform: scale(1.1) rotate(45deg); }
-}
-
-@keyframes pyramidFloat {
-    0%, 100% { transform: translateY(0) rotate(45deg); }
-    50% { transform: translateY(-20px) rotate(45deg); }
-}
-
-@keyframes scanline {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-}
-
-@keyframes productFloat {
-    0%, 100% { transform: translateY(0) rotate(0); }
-    50% { transform: translateY(-20px) rotate(5deg); }
-}
-
-@keyframes progressRing {
-    to { stroke-dashoffset: 25; }
-}
-
-@keyframes dotPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.5); opacity: 0.5; }
-}
-
-@keyframes glitchText {
-    0% { clip-path: inset(80% 0 0 0); }
-    20% { clip-path: inset(20% 0 40% 0); }
-    40% { clip-path: inset(60% 0 20% 0); }
-    60% { clip-path: inset(40% 0 60% 0); }
-    80% { clip-path: inset(0 0 80% 0); }
-    100% { clip-path: inset(20% 0 20% 0); }
-}
-
-@keyframes slideTaglines {
-    0%, 33% { transform: translateY(0); }
-    33%, 66% { transform: translateY(-40px); }
-    66%, 100% { transform: translateY(-80px); }
-}
-
-@keyframes drawPath {
-    to { stroke-dashoffset: 0; }
-}
-
-@keyframes moveGlow1 {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(200%, 200%); }
-}
-
-@keyframes moveGlow2 {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-200%, -200%); }
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .product-hologram {
-        width: 400px;
-        height: 400px;
-    }
-
-    .glitch-title {
-        font-size: 3rem;
-    }
-}
-/* Continuation of responsive design styles */
-@media (max-width: 992px) {
-    .product-hero {
-        flex-direction: column;
-        padding: 100px 20px;
-    }
-
-    .hero-content {
-        padding-left: 0;
-        text-align: center;
-        margin-bottom: 60px;
-        max-width: 100%;
-    }
-
-    .product-hologram {
-        position: relative;
-        right: auto;
-        top: auto;
-        transform: none;
-        width: 300px;
-        height: 300px;
-        margin: 0 auto;
-    }
-
-    .brand-marker {
-        justify-content: center;
-    }
-
-    .spec-grid {
-        grid-template-columns: repeat(3, 1fr);
-        max-width: 600px;
-        margin: 40px auto;
-    }
-
-    .geometric-shapes {
-        opacity: 0.5;
-    }
-
-    .ring {
-        width: 150px;
-        height: 150px;
-    }
-
-    .sphere {
-        width: 100px;
-        height: 100px;
-    }
-
-    .pyramid {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-@media (max-width: 768px) {
-    .glitch-title {
-        font-size: 2.5rem;
-    }
-
-    .tagline {
-        font-size: 1.25rem;
-    }
-
-    .spec-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    .hologram-data {
-        display: none; /* Hide complex data visualization on mobile */
-    }
-
-    .product-hologram {
-        width: 250px;
-        height: 250px;
-    }
-
-    .neo-button {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .glitch-title {
-        font-size: 2rem;
-    }
-
-    .spec-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .product-hologram {
-        width: 200px;
-        height: 200px;
-    }
-
-    .ring, .sphere, .pyramid {
-        display: none; /* Hide geometric shapes on smallest screens */
-    }
-}
-
-/* Performance Optimizations */
-@media (prefers-reduced-motion: reduce) {
-    .floating-particles,
-    .geometric-shapes .shape,
-    .hologram-scanline,
-    .product-image,
-    .progress-ring path,
-    .marker-dot,
-    .glitch-text,
-    .tagline-slider,
-    .button-glows span {
-        animation: none;
-    }
-
-    .neo-button {
-        transition: none;
-    }
-}
-
-/* Print Styles */
-@media print {
-    .product-hero {
-        height: auto;
-        min-height: 0;
-        background: white;
-    }
-
-    .floating-particles,
-    .geometric-shapes,
-    .hologram-scanline,
-    .button-glows {
-        display: none;
-    }
-
-    .hero-content {
-        color: black;
-        text-shadow: none;
-    }
-
-    .glitch-title {
-        color: black;
-        text-shadow: none;
-    }
-
-    .product-image {
-        filter: none;
-    }
-}
-
-/* High Contrast Mode */
-@media (forced-colors: active) {
-    .product-hero {
-        forced-color-adjust: none;
-    }
-
-    .neo-button {
-        border: 2px solid CanvasText;
-    }
-
-    .glitch-title,
-    .tagline,
-    .spec-label {
-        color: CanvasText;
-    }
-}
-
-/* Additional Enhancement Classes */
-.hero-visible .product-image {
-    animation-delay: 0.3s;
-}
-
-.hero-visible .hologram-data {
-    animation-delay: 0.6s;
-}
-
-.hero-visible .geometric-shapes .shape {
-    animation-delay: 0.9s;
-}
-
-/* Hardware Acceleration Classes */
-.hardware-accelerated {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-}
-
-/* Focus States */
-.neo-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.5);
-}
-
-.neo-button:focus:not(:focus-visible) {
-    box-shadow: none;
-}
-
-/* Hover States with Media Query Support */
-@media (hover: hover) {
-    .neo-button:hover {
-        transform: translateY(-2px);
-        background: linear-gradient(45deg, var(--rose-gold), var(--rose-gold-light));
-    }
-
-    .spec-item:hover .tech-path {
-        stroke-dashoffset: 0;
-        transition: stroke-dashoffset 1s ease;
-    }
-
-    .product-hologram:hover .hologram-scanline {
-        animation-duration: 1s;
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 section {
