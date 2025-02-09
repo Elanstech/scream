@@ -17,53 +17,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // Preloader Configuration
     // ===============================
     class PreloaderManager {
-        constructor() {
-            this.videoLoaded = false;
-            this.domLoaded = false;
-            this.initializeLoading();
-        }
+    constructor() {
+        this.preloader = document.querySelector('.preloader');
+        this.progressBar = document.querySelector('.progress-bar');
+        this.progressText = document.querySelector('.progress-text');
+        this.initializePreloader();
+    }
 
-        initializeLoading() {
-            // Handle video loading
-            if (heroVideo) {
-                heroVideo.addEventListener('loadeddata', () => {
-                    this.videoLoaded = true;
-                    this.checkPreloader();
-                });
+    initializePreloader() {
+        if (!this.preloader) return;
 
-                // Fallback if video takes too long
-                setTimeout(() => {
-                    if (!this.videoLoaded) {
-                        this.videoLoaded = true;
-                        this.checkPreloader();
-                    }
-                }, 5000);
-            } else {
-                this.videoLoaded = true;
+        // Shorter maximum loading time (reduced from 3000ms to 1500ms)
+        const maxLoadTime = 1500;
+        let progress = 0;
+        
+        // Faster progress increments
+        const interval = setInterval(() => {
+            progress += 5; // Increased increment from 1 to 5
+            
+            if (this.progressBar) {
+                this.progressBar.style.width = `${progress}%`;
+            }
+            
+            if (this.progressText) {
+                this.progressText.textContent = `${progress}%`;
             }
 
-            // Handle DOM content loading
-            window.addEventListener('load', () => {
-                this.domLoaded = true;
-                this.checkPreloader();
-            });
-        }
-
-        checkPreloader() {
-            if (this.videoLoaded && this.domLoaded) {
+            if (progress >= 100) {
+                clearInterval(interval);
                 this.hidePreloader();
             }
-        }
+        }, 15); // Reduced interval from 30ms to 15ms
 
-        hidePreloader() {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-                document.body.classList.remove('loading');
-                startPageAnimations();
-            }, 500);
-        }
+        // Ensure preloader doesn't get stuck
+        setTimeout(() => {
+            clearInterval(interval);
+            this.hidePreloader();
+        }, maxLoadTime);
     }
+
+    hidePreloader() {
+        if (!this.preloader) return;
+        
+        // Add fade out animation
+        this.preloader.classList.add('fade-out');
+        
+        // Remove preloader after animation
+        setTimeout(() => {
+            this.preloader.style.display = 'none';
+            document.body.classList.remove('loading');
+        }, 300); // Reduced from 500ms to 300ms
+    }
+}
 
     // ===============================
     // Header Management
