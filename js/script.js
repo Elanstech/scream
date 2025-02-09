@@ -1,261 +1,316 @@
-// ==============================================
-// Constants & Configurations
-// ==============================================
-const CONFIG = {
-    animations: {
-        duration: 400,
-        scrollThreshold: 100,
-        preloaderDelay: 800
-    },
-    classes: {
-        active: 'active',
-        hidden: 'hidden',
-        scrolled: 'scrolled'
-    }
-};
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // ===============================
+    // Global Variables & DOM Elements
+    // ===============================
+    const preloader = document.querySelector('.preloader');
+    const header = document.getElementById('mainHeader');
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    const heroVideo = document.getElementById('heroVideo');
+    const heroButton = document.getElementById('heroButton');
+    const questionnaireModal = document.getElementById('questionnaireModal');
+    const modalClose = document.querySelector('.close-modal');
+    const medicalForm = document.getElementById('medicalQuestionnaire');
+    let isModalOpen = false;
 
-// ==============================================
-// DOM Elements
-// ==============================================
-const DOM = {
-    // Core Elements
-    body: document.body,
-    preloader: document.querySelector('.preloader'),
-    
-    // Header Elements
-    header: document.querySelector('.floating-header'),
-    menuTrigger: document.querySelector('.menu-trigger'),
-    fullscreenMenu: document.querySelector('.fullscreen-menu'),
-    menuLinks: document.querySelectorAll('.menu-link'),
-    
-    // Hero Elements
-    heroSection: document.querySelector('.hero-section'),
-    heroVideo: document.querySelector('.video-background video'),
-    ctaButton: document.querySelector('.cta-button'),
-    scrollIndicator: document.querySelector('.scroll-indicator')
-};
-
-// ==============================================
-// Preloader Handler
-// ==============================================
-class PreloaderHandler {
-    static init() {
-        window.addEventListener('load', () => {
+    // ===============================
+    // Preloader Configuration
+    // ===============================
+    function hidePreloader() {
+        if (preloader) {
+            preloader.style.opacity = '0';
             setTimeout(() => {
-                DOM.preloader.style.opacity = '0';
-                DOM.preloader.addEventListener('transitionend', () => {
-                    DOM.preloader.style.display = 'none';
-                    DOM.body.classList.add('loaded');
-                });
-            }, CONFIG.animations.preloaderDelay);
-        });
-    }
-}
-
-// ==============================================
-// Menu Handler
-// ==============================================
-class MenuHandler {
-    static init() {
-        this.isMenuOpen = false;
-        this.bindEvents();
+                preloader.style.display = 'none';
+                // Start hero animations after preloader
+                startHeroAnimations();
+            }, 500);
+        }
     }
 
-    static bindEvents() {
-        // Menu Trigger Click
-        DOM.menuTrigger.addEventListener('click', () => this.toggleMenu());
-
-        // Menu Links Click
-        DOM.menuLinks.forEach(link => {
-            link.addEventListener('click', (e) => this.handleMenuLinkClick(e));
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isMenuOpen) {
-                this.closeMenu();
-            }
-        });
-
-        // Close menu on outside click
-        document.addEventListener('click', (e) => {
-            if (this.isMenuOpen && 
-                !e.target.closest('.menu-trigger') && 
-                !e.target.closest('.fullscreen-menu')) {
-                this.closeMenu();
-            }
-        });
+    // Handle preloader based on video and content loading
+    if (heroVideo) {
+        heroVideo.addEventListener('loadeddata', hidePreloader);
+    } else {
+        window.addEventListener('load', hidePreloader);
     }
 
-    static toggleMenu() {
-        this.isMenuOpen = !this.isMenuOpen;
-        DOM.menuTrigger.classList.toggle(CONFIG.classes.active);
-        DOM.fullscreenMenu.classList.toggle(CONFIG.classes.active);
-        DOM.body.style.overflow = this.isMenuOpen ? 'hidden' : '';
+    // Fallback for preloader
+    setTimeout(hidePreloader, 5000); // Maximum wait time
+
+    // ===============================
+    // Header & Navigation
+    // ===============================
+    function handleHeaderScroll() {
+        if (window.scrollY > 50) {
+            header?.classList.add('scrolled');
+        } else {
+            header?.classList.remove('scrolled');
+        }
     }
 
-    static closeMenu() {
-        this.isMenuOpen = false;
-        DOM.menuTrigger.classList.remove(CONFIG.classes.active);
-        DOM.fullscreenMenu.classList.remove(CONFIG.classes.active);
-        DOM.body.style.overflow = '';
-    }
+    window.addEventListener('scroll', handleHeaderScroll);
 
-    static handleMenuLinkClick(e) {
-        e.preventDefault();
-        const target = document.querySelector(e.target.getAttribute('href'));
-        
-        this.closeMenu();
-        
-        if (target) {
-            window.scrollTo({
-                top: target.offsetTop,
-                behavior: 'smooth'
+    // Mobile Menu Toggle
+    function setupMobileMenu() {
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMobileMenu();
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                    closeMobileMenu();
+                }
             });
         }
     }
-}
 
-// ==============================================
-// Scroll Handler
-// ==============================================
-class ScrollHandler {
-    static init() {
-        this.lastScroll = 0;
-        this.bindEvents();
+    function toggleMobileMenu() {
+        menuToggle?.classList.toggle('active');
+        mainNav?.classList.toggle('active');
     }
 
-    static bindEvents() {
-        window.addEventListener('scroll', () => this.handleScroll());
+    function closeMobileMenu() {
+        menuToggle?.classList.remove('active');
+        mainNav?.classList.remove('active');
     }
 
-    static handleScroll() {
-        const currentScroll = window.pageYOffset;
-
-        // Header Transform
-        if (currentScroll > this.lastScroll && currentScroll > CONFIG.animations.scrollThreshold) {
-            DOM.header.style.transform = 'translateY(-100%)';
-        } else {
-            DOM.header.style.transform = 'translateY(0)';
-        }
-
-        // Add scrolled class to header
-        DOM.header.classList.toggle(
-            CONFIG.classes.scrolled, 
-            currentScroll > 0
-        );
-
-        // Hide/Show scroll indicator
-        if (DOM.scrollIndicator) {
-            DOM.scrollIndicator.style.opacity = 
-                currentScroll > CONFIG.animations.scrollThreshold ? '0' : '1';
-        }
-
-        this.lastScroll = currentScroll;
-    }
-}
-
-// ==============================================
-// Hero Video Handler
-// ==============================================
-class HeroVideoHandler {
-    static init() {
-        if (DOM.heroVideo) {
-            this.setupVideo();
-        }
-    }
-
-    static setupVideo() {
-        DOM.heroVideo.play().catch(error => {
-            console.log('Auto-play was prevented:', error);
-            // Add play button if autoplay fails
-            this.createPlayButton();
-        });
-
-        // Handle video loading
-        DOM.heroVideo.addEventListener('loadeddata', () => {
-            DOM.heroVideo.classList.add('loaded');
-        });
-    }
-
-    static createPlayButton() {
-        const playButton = document.createElement('button');
-        playButton.classList.add('video-play-button');
-        playButton.innerHTML = '<span>Play</span>';
-        
-        DOM.heroSection.appendChild(playButton);
-        
-        playButton.addEventListener('click', () => {
-            DOM.heroVideo.play();
-            playButton.remove();
-        });
-    }
-}
-
-// ==============================================
-// Animation Handler
-// ==============================================
-class AnimationHandler {
-    static init() {
-        this.setupEntryAnimations();
-        this.setupHoverEffects();
-    }
-
-    static setupEntryAnimations() {
-        // Animate hero content on load
-        document.addEventListener('DOMContentLoaded', () => {
-            const heroElements = [
-                '.hero-title',
-                '.hero-subtitle',
-                '.cta-button',
-                '.scroll-indicator'
-            ].forEach((selector, index) => {
-                const element = document.querySelector(selector);
-                if (element) {
-                    setTimeout(() => {
-                        element.classList.add('fade-in');
-                    }, index * 200);
+    // ===============================
+    // Smooth Scroll
+    // ===============================
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    closeMobileMenu();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
     }
 
-    static setupHoverEffects() {
-        // CTA Button hover effect
-        if (DOM.ctaButton) {
-            DOM.ctaButton.addEventListener('mouseenter', () => {
-                DOM.ctaButton.style.transform = 'translateY(-2px)';
-            });
+    // ===============================
+    // Hero Section Animations
+    // ===============================
+    function startHeroAnimations() {
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.style.opacity = '0';
+            setTimeout(() => {
+                heroContent.style.opacity = '1';
+                heroContent.classList.add('animate');
+            }, 500);
+        }
+    }
 
-            DOM.ctaButton.addEventListener('mouseleave', () => {
-                DOM.ctaButton.style.transform = 'translateY(0)';
+    // ===============================
+    // Modal Handling
+    // ===============================
+    function setupModal() {
+        if (heroButton && questionnaireModal) {
+            heroButton.addEventListener('click', openModal);
+        }
+
+        if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+        }
+
+        // Close modal on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target === questionnaireModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isModalOpen) {
+                closeModal();
+            }
+        });
+    }
+
+    function openModal() {
+        if (questionnaireModal) {
+            questionnaireModal.style.display = 'flex';
+            setTimeout(() => {
+                questionnaireModal.classList.add('show');
+                isModalOpen = true;
+            }, 10);
+        }
+    }
+
+    function closeModal() {
+        if (questionnaireModal) {
+            questionnaireModal.classList.remove('show');
+            setTimeout(() => {
+                questionnaireModal.style.display = 'none';
+                isModalOpen = false;
+            }, 300);
+        }
+    }
+
+    // ===============================
+    // Medical Questionnaire Form
+    // ===============================
+    function setupQuestionnaire() {
+        if (medicalForm) {
+            const questions = [
+                {
+                    type: 'radio',
+                    question: 'Are you over 18 years of age?',
+                    options: ['Yes', 'No'],
+                    required: true
+                },
+                {
+                    type: 'checkbox',
+                    question: 'Do you have any of the following conditions?',
+                    options: [
+                        'High blood pressure',
+                        'Heart conditions',
+                        'Allergies',
+                        'None of the above'
+                    ]
+                },
+                {
+                    type: 'text',
+                    question: 'Are you currently taking any medications?',
+                    placeholder: 'Please list any medications'
+                }
+            ];
+
+            populateQuestionnaire(questions);
+        }
+    }
+
+    function populateQuestionnaire(questions) {
+        questions.forEach((q, index) => {
+            const fieldset = document.createElement('fieldset');
+            const legend = document.createElement('legend');
+            legend.textContent = q.question;
+            fieldset.appendChild(legend);
+
+            if (q.type === 'radio' || q.type === 'checkbox') {
+                q.options.forEach(option => {
+                    const label = document.createElement('label');
+                    const input = document.createElement('input');
+                    input.type = q.type;
+                    input.name = `question_${index}`;
+                    input.value = option;
+                    if (q.required) input.required = true;
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(option));
+                    fieldset.appendChild(label);
+                });
+            } else if (q.type === 'text') {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = `question_${index}`;
+                input.placeholder = q.placeholder || '';
+                if (q.required) input.required = true;
+                fieldset.appendChild(input);
+            }
+
+            medicalForm.appendChild(fieldset);
+        });
+
+        // Add submit button
+        const submitBtn = document.createElement('button');
+        submitBtn.type = 'submit';
+        submitBtn.className = 'submit-btn';
+        submitBtn.textContent = 'Submit';
+        medicalForm.appendChild(submitBtn);
+    }
+
+    // ===============================
+    // Reviews Slider
+    // ===============================
+    function initReviewsSlider() {
+        const reviewsSlider = document.getElementById('reviewsSlider');
+        if (!reviewsSlider) return;
+
+        const reviews = [
+            {
+                text: "An incredible product that exceeded my expectations.",
+                author: "Sarah M.",
+                rating: 5,
+                date: "January 2025"
+            },
+            {
+                text: "Professional service and amazing results.",
+                author: "Jennifer K.",
+                rating: 5,
+                date: "December 2024"
+            },
+            {
+                text: "Life-changing results. Highly recommended!",
+                author: "Michelle R.",
+                rating: 5,
+                date: "February 2025"
+            }
+        ];
+
+        reviews.forEach(review => {
+            const reviewCard = createReviewCard(review);
+            reviewsSlider.appendChild(reviewCard);
+        });
+    }
+
+    function createReviewCard(review) {
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        card.setAttribute('data-aos', 'fade-up');
+        
+        card.innerHTML = `
+            <div class="review-content">
+                <div class="review-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+                <p class="review-text">"${review.text}"</p>
+                <div class="review-meta">
+                    <p class="review-author">${review.author}</p>
+                    <p class="review-date">${review.date}</p>
+                </div>
+            </div>
+        `;
+        return card;
+    }
+
+    // ===============================
+    // Scroll Animations (AOS)
+    // ===============================
+    function initAOS() {
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100,
+                easing: 'ease-in-out'
             });
         }
     }
-}
 
-// ==============================================
-// Initialize Everything
-// ==============================================
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize all handlers
-    PreloaderHandler.init();
-    MenuHandler.init();
-    ScrollHandler.init();
-    HeroVideoHandler.init();
-    AnimationHandler.init();
-    
-    // Log initialization
-    console.log('Website initialized successfully!');
-});
+    // ===============================
+    // Initialize Everything
+    // ===============================
+    function init() {
+        setupMobileMenu();
+        initSmoothScroll();
+        setupModal();
+        setupQuestionnaire();
+        initReviewsSlider();
+        initAOS();
 
-// ==============================================
-// Error Handling
-// ==============================================
-window.addEventListener('error', (e) => {
-    console.error('Global error:', e.message);
-});
+        // Remove preloader class from body after initialization
+        document.body.classList.remove('loading');
+    }
 
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('Unhandled promise rejection:', e.reason);
+    // Start initialization
+    init();
 });
