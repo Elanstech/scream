@@ -310,6 +310,116 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===============================
+// How It Works Section Management
+// ===============================
+class HowItWorksManager {
+    constructor() {
+        this.initializeObserver();
+        this.initializeStepCards();
+        this.initializeTimeline();
+    }
+
+    initializeObserver() {
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    this.animateTimelineLine();
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '-50px'
+        });
+
+        document.querySelectorAll('.step-card').forEach(card => {
+            this.observer.observe(card);
+        });
+    }
+
+    initializeStepCards() {
+        const stepCards = document.querySelectorAll('.step-card');
+        
+        stepCards.forEach((card, index) => {
+            card.addEventListener('mouseenter', () => {
+                this.handleCardHover(card, true);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                this.handleCardHover(card, false);
+            });
+
+            card.classList.add('step-card-' + (index + 1));
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+    }
+
+    handleCardHover(card, isHovering) {
+        if (isHovering) {
+            card.style.transform = 'translateY(-5px) scale(1.02)';
+            const stepNumber = card.querySelector('.step-number span').textContent;
+            this.highlightTimelineSection(stepNumber);
+        } else {
+            card.style.transform = '';
+            this.resetTimelineHighlight();
+        }
+    }
+
+    initializeTimeline() {
+        this.timelineProgress = 0;
+        this.timelineLine = document.querySelector('.timeline-line');
+        
+        if (this.timelineLine) {
+            this.timelineLine.style.transform = 'scaleY(0)';
+            this.timelineLine.style.transformOrigin = 'top';
+        }
+    }
+
+    animateTimelineLine() {
+        if (!this.timelineLine) return;
+
+        const timeline = document.querySelector('.steps-timeline');
+        if (!timeline) return;
+
+        const timelineRect = timeline.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        if (timelineRect.top < viewportHeight && timelineRect.bottom > 0) {
+            const progress = Math.min(
+                1,
+                (viewportHeight - timelineRect.top) / (viewportHeight + timelineRect.height)
+            );
+            
+            this.timelineLine.style.transform = `scaleY(${Math.max(0, progress)})`;
+        }
+    }
+
+    highlightTimelineSection(stepNumber) {
+        const section = (stepNumber - 1) / 3;
+        const timeline = document.querySelector('.timeline-line');
+        if (timeline) {
+            timeline.style.background = `linear-gradient(
+                180deg,
+                var(--accent-color) ${section * 100}%,
+                rgba(var(--accent-rgb), 0.3) ${section * 100 + 5}%,
+                var(--accent-color) 100%
+            )`;
+        }
+    }
+
+    resetTimelineHighlight() {
+        const timeline = document.querySelector('.timeline-line');
+        if (timeline) {
+            timeline.style.background = `linear-gradient(
+                180deg,
+                var(--accent-color) 0%,
+                rgba(var(--accent-rgb), 0.3) 100%
+            )`;
+        }
+    }
+}
+
+    // ===============================
     // Initialize Everything
     // ===============================
     function initializeApp() {
@@ -319,6 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const mobileMenuManager = new MobileMenuManager();
         const heroManager = new HeroManager();
         const smoothScroll = new SmoothScroll();
+        const howItWorksManager = new HowItWorksManager();
 
         // Setup performance optimizations
         setupPerformanceOptimizations();
