@@ -1534,3 +1534,180 @@ button {
         padding: 1.5rem;
     }
 }
+/* Secure Payment Section Styles */
+.secure-payment-section {
+    padding: 120px 0;
+    background: linear-gradient(180deg, 
+        rgba(var(--accent-rgb), 0.03) 0%,
+        rgba(var(--accent-rgb), 0.08) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.security-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    padding: 0 20px;
+}
+
+/* Security Cards */
+.security-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 
+        0 4px 20px rgba(var(--accent-rgb), 0.1),
+        0 0 0 1px rgba(var(--accent-rgb), 0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.security-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 8px 30px rgba(var(--accent-rgb), 0.15),
+        0 0 0 1px rgba(var(--accent-rgb), 0.1);
+}
+
+.security-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--accent-color);
+}
+
+.security-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+}
+
+.security-card p {
+    color: #666;
+    margin: 0;
+}
+
+/* Payment Methods */
+.payment-methods {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem;
+    background: rgba(var(--accent-rgb), 0.03);
+    border-radius: 16px;
+}
+
+.method img {
+    height: 32px;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+}
+
+.method:hover img {
+    opacity: 0.8;
+}
+
+/* Security Features */
+.security-features,
+.shipping-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(var(--accent-rgb), 0.03);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    background: rgba(var(--accent-rgb), 0.06);
+    transform: translateX(5px);
+}
+
+.feature-icon {
+    font-size: 1.25rem;
+}
+
+.feature span:last-child {
+    font-size: 0.875rem;
+    color: #555;
+    font-weight: 500;
+}
+
+/* Trust Badges */
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.shield-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--accent-color);
+}
+
+.badge span {
+    font-size: 0.875rem;
+    color: #555;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Animation for security elements */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.security-icon {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .secure-payment-section {
+        padding: 80px 0;
+    }
+
+    .security-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .trust-badges {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .security-card {
+        padding: 1.5rem;
+    }
+
+    .payment-methods {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
