@@ -142,7 +142,7 @@ button {
     box-sizing: border-box;
 }
 
-/* Header Base Styles */
+/* Header Styles */
 .header {
     position: fixed;
     top: 0;
@@ -150,7 +150,7 @@ button {
     width: 100%;
     height: var(--header-height);
     z-index: 1000;
-    transition: transform var(--transition);
+    transition: transform 0.3s ease;
 }
 
 .header-backdrop {
@@ -158,7 +158,6 @@ button {
     inset: 0;
     background: var(--header-bg);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--header-border);
 }
 
@@ -218,8 +217,6 @@ button {
     align-items: center;
     gap: 2rem;
     list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 .nav-item {
@@ -267,14 +264,12 @@ button {
     background: var(--primary-color);
     border-radius: 24px;
     padding: 0.75rem 1.5rem;
-    color: var(--light);
-    text-decoration: none;
     transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .contact-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(183, 110, 121, 0.3);
+    box-shadow: 0 4px 12px rgba(42, 111, 219, 0.3);
 }
 
 .contact-btn i {
@@ -292,7 +287,7 @@ button {
     border: none;
     cursor: pointer;
     padding: 0.5rem;
-    z-index: 1001;
+    z-index: 2;
 }
 
 .hamburger {
@@ -309,16 +304,10 @@ button {
     height: 2px;
     background: var(--text-color);
     transition: var(--transition);
-    position: relative;
-    z-index: 1002;
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
-    .header-container {
-        padding: 0 1.5rem;
-    }
-
     .mobile-nav-toggle {
         display: block;
     }
@@ -326,12 +315,11 @@ button {
     .primary-navigation {
         position: fixed;
         inset: var(--header-height) 0 0 0;
-        background: var(--mobile-nav-bg);
+        background: var(--header-bg);
         padding: 2rem;
         transform: translateX(100%);
         transition: transform var(--transition);
-        z-index: 999;
-        overflow-y: auto;
+        backdrop-filter: blur(10px);
     }
 
     .primary-navigation[data-visible="true"] {
@@ -340,7 +328,7 @@ button {
 
     .nav-list {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: start;
         gap: 1.5rem;
         height: auto;
     }
@@ -353,7 +341,6 @@ button {
     .nav-link {
         width: 100%;
         padding: 1rem;
-        font-size: 1.1rem;
     }
 
     .nav-indicator {
@@ -363,9 +350,7 @@ button {
     .contact-btn {
         margin-top: 1rem;
         width: 100%;
-        display: flex;
         justify-content: center;
-        align-items: center;
     }
 
     /* Hamburger Animation */
@@ -379,11 +364,6 @@ button {
 
     .mobile-nav-toggle[aria-expanded="true"] .line:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
-    }
-
-    /* Body Lock when menu is open */
-    body[data-menu-open="true"] {
-        overflow: hidden;
     }
 }
 
@@ -399,70 +379,11 @@ button {
 
 .header.scrolled {
     animation: headerSlideDown 0.3s ease forwards;
-    background: var(--header-bg);
 }
 
 /* Optional: Hide header on scroll down, show on scroll up */
 .header.hidden {
     transform: translateY(-100%);
-}
-
-/* Tablet Adjustments */
-@media (max-width: 1024px) {
-    .nav-list {
-        gap: 1.5rem;
-    }
-
-    .nav-link {
-        font-size: 0.9rem;
-        padding: 0.5rem 0.75rem;
-    }
-}
-
-/* Small Mobile Adjustments */
-@media (max-width: 480px) {
-    .header-container {
-        padding: 0 1rem;
-    }
-
-    .logo-image {
-        height: 80px;
-    }
-
-    .mobile-nav-toggle {
-        padding: 0.25rem;
-    }
-
-    .hamburger {
-        width: 22px;
-        height: 18px;
-    }
-}
-
-/* High-DPI Screen Optimizations */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .logo-image {
-        image-rendering: -webkit-optimize-contrast;
-    }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    .header-backdrop {
-        background: rgba(18, 18, 18, 0.98);
-    }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    .header,
-    .logo-image,
-    .nav-link,
-    .nav-indicator,
-    .contact-btn,
-    .line {
-        transition: none;
-    }
 }
 
 /* Hero Section */
