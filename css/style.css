@@ -142,7 +142,7 @@ button {
     box-sizing: border-box;
 }
 
-/* Header styling */
+/* Header Styling */
 .header {
   position: relative;
   background-color: #333;
@@ -156,7 +156,11 @@ button {
   padding: 1rem;
 }
 
-/* Primary navigation styles */
+.logo-container img {
+  max-height: 50px;
+}
+
+/* Primary Navigation - Desktop */
 .primary-navigation {
   display: block;
 }
@@ -164,20 +168,38 @@ button {
 .primary-navigation ul {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .primary-navigation li a {
   color: #fff;
   text-decoration: none;
+  position: relative;
+  padding: 0.5rem;
 }
 
-/* Mobile Navigation Toggle (Hamburger) */
+.primary-navigation li a .nav-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #fff;
+  transition: width 0.3s ease;
+}
+
+.primary-navigation li a:hover .nav-indicator,
+.primary-navigation li a.active .nav-indicator {
+  width: 100%;
+}
+
+/* Mobile Navigation Toggle */
 .mobile-nav-toggle {
   background: none;
   border: none;
   cursor: pointer;
   display: block;
+  z-index: 2000;
 }
 
 .hamburger {
@@ -189,50 +211,42 @@ button {
 }
 
 .hamburger .line {
-  display: block;
   height: 3px;
   background-color: #fff;
   border-radius: 2px;
   transition: background 0.3s ease;
 }
 
-/* Hide primary navigation on mobile by default */
+/* Mobile Styles: Hide primary nav by default */
 @media (max-width: 767px) {
   .primary-navigation {
     display: none;
   }
   
-  /* Ensure hamburger remains visible on mobile */
-  .mobile-nav-toggle {
+  /* When toggled, make the navigation appear as an overlay */
+  .primary-navigation.visible {
     display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #333;
+    padding: 1rem 0;
+    z-index: 1500;
+  }
+
+  .primary-navigation.visible ul {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
   }
 }
 
-/* On desktops show primary navigation and hide hamburger toggle */
+/* Desktop Styles: Always show nav and hide mobile toggle */
 @media (min-width: 768px) {
-  .primary-navigation {
-    display: block !important;
-  }
-  
   .mobile-nav-toggle {
     display: none;
   }
-}
-
-/* Optional: when the nav is visible on mobile, style it for overlay */
-.primary-navigation.visible {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: #333;
-  padding: 1rem 0;
-}
-
-.primary-navigation.visible ul {
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: center;
 }
 
 /* Hero Section */
