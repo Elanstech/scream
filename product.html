@@ -76,105 +76,80 @@
         </div>
     </header>
 
-    <!-- Product Hero Section -->
-    <section class="product-hero">
-        <div class="hero-backdrop"></div>
-        <div class="container">
-            <div class="product-hero-grid">
-                <div class="product-showcase">
-                    <div class="product-image-wrapper">
-                        <img src="images/product-main.jpg" alt="S-Cream Product" class="product-image">
-                        <div class="product-glow"></div>
+<section class="product-hero">
+    <div class="video-container">
+        <video autoplay muted loop playsinline id="heroVideo">
+            <source src="promocream1.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="hero-wrapper">
+        <div class="hero-content">
+            <div class="hero-grid">
+                <div class="hero-text-column">
+                    <span class="hero-eyebrow">Premium Sexual Compound</span>
+                    <h1 class="hero-title">
+                        <span class="title-line">Experience</span>
+                        <span class="title-line accent">Pure Luxury</span>
+                    </h1>
+                    <p class="hero-description">
+                        A revolutionary enhancement formula, crafted with precision for the modern woman's desires. Discover the science of pleasure.
+                    </p>
+
+                    <div class="hero-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">✧</div>
+                            <div class="feature-content">
+                                <h3>Premium Formula</h3>
+                                <p>Clinically Proven</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✧</div>
+                            <div class="feature-content">
+                                <h3>Doctor Approved</h3>
+                                <p>Medical Grade</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✧</div>
+                            <div class="feature-content">
+                                <h3>Fast Acting</h3>
+                                <p>Lasting Results</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-gallery">
-                        <button class="gallery-item active">
-                            <img src="images/product-angle1.jpg" alt="Product View 1">
-                        </button>
-                        <button class="gallery-item">
-                            <img src="images/product-angle2.jpg" alt="Product View 2">
-                        </button>
-                        <button class="gallery-item">
-                            <img src="images/product-angle3.jpg" alt="Product View 3">
+
+                    <div class="hero-cta">
+                        <button class="learn-more-btn">
+                            <span class="btn-text">Discover More</span>
+                            <span class="btn-arrow">→</span>
+                            <div class="btn-glow"></div>
                         </button>
                     </div>
                 </div>
 
-                <div class="product-info">
-                    <span class="product-badge">Premium Formula</span>
-                    <h1 class="product-title">S-Cream Enhancement Formula</h1>
-                    <div class="product-meta">
-                        <div class="rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="rating-count">(2,483 Reviews)</span>
+                <div class="hero-product-column">
+                    <div class="product-showcase">
+                        <div class="product-orbit">
+                            <span class="orbit-particle"></span>
+                            <span class="orbit-particle"></span>
+                            <span class="orbit-particle"></span>
                         </div>
-                        <span class="stock-status in-stock">In Stock</span>
-                    </div>
-                    <p class="product-description">
-                        Experience unprecedented intimacy with our scientifically formulated enhancement cream. 
-                        Designed specifically for the modern woman, S-Cream combines premium ingredients with 
-                        cutting-edge absorption technology.
-                    </p>
-                    
-                    <div class="product-features">
-                        <div class="feature">
-                            <svg class="feature-icon" viewBox="0 0 24 24">
-                                <path d="M20 6L9 17l-5-5"/>
-                            </svg>
-                            <span>Clinically Tested Formula</span>
-                        </div>
-                        <div class="feature">
-                            <svg class="feature-icon" viewBox="0 0 24 24">
-                                <path d="M20 6L9 17l-5-5"/>
-                            </svg>
-                            <span>Fast-Acting Results</span>
-                        </div>
-                        <div class="feature">
-                            <svg class="feature-icon" viewBox="0 0 24 24">
-                                <path d="M20 6L9 17l-5-5"/>
-                            </svg>
-                            <span>100% Satisfaction Guarantee</span>
-                        </div>
-                    </div>
-
-                    <div class="product-purchase">
-                        <div class="price-box">
-                            <div class="price">
-                                <span class="currency">$</span>
-                                <span class="amount">89</span>
-                                <span class="period">/month</span>
-                            </div>
-                            <span class="save-badge">Save 25%</span>
-                        </div>
-                        
-                        <div class="purchase-options">
-                            <button class="subscription-option active">
-                                <div class="option-header">
-                                    <span class="option-name">Subscribe & Save</span>
-                                    <span class="option-save">Save 25%</span>
-                                </div>
-                                <span class="option-price">$89/month</span>
-                            </button>
-                            <button class="subscription-option">
-                                <div class="option-header">
-                                    <span class="option-name">One-Time Purchase</span>
-                                </div>
-                                <span class="option-price">$119</span>
-                            </button>
-                        </div>
-
-                        <button class="add-to-cart-btn">
-                            <span>Add to Cart</span>
-                            <svg class="btn-icon" viewBox="0 0 24 24">
-                                <path d="M9 20a1 1 0 100-2 1 1 0 000 2z"/>
-                                <path d="M20 20a1 1 0 100-2 1 1 0 000 2z"/>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
-                            </svg>
-                        </button>
+                        <img src="cream.jpeg" alt="S-Cream Product" class="product-image">
+                        <div class="product-glow"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Explore More</span>
+    </div>
+</section>
 
     <!-- Product Details Section -->
     <section class="product-details">
