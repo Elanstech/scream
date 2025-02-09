@@ -15,96 +15,68 @@
         <div class="loader"></div>
     </div>
 
-<!-- Luxurious Animated Header -->
-<header class="luxury-header">
-    <nav class="nav-glass" id="mainNav">
-        <div class="nav-blur-backdrop"></div>
-        <div class="nav-container">
-            <!-- Animated Logo Section -->
-            <div class="brand-section">
-                <a href="/" class="brand-link">
-                    <div class="logo-container">
-                        <img src="logo.png" alt="S-Cream" class="brand-logo">
-                        <div class="logo-glow"></div>
-                        <div class="sparkles">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <div class="brand-identity">
-                        <span class="brand-name">S-Cream</span>
-                        <span class="brand-tagline">Luxury Enhancement</span>
+    <!-- Hero Section with Integrated Header -->
+    <section class="hero-section">
+        <!-- Minimal Header -->
+        <header class="floating-header">
+            <div class="header-container">
+                <a href="/" class="logo-wrapper">
+                    <img src="logo.png" alt="S-Cream" class="logo">
+                    <div class="logo-text">
+                        <span class="brand">S-Cream</span>
+                        <span class="tagline">Luxury Enhancement</span>
                     </div>
                 </a>
-            </div>
-
-            <!-- Elegant Navigation -->
-            <div class="nav-links">
-                <a href="#product" class="nav-item">
-                    <span class="nav-dot"></span>
-                    <span class="nav-text">Product</span>
-                    <div class="nav-hover-effect"></div>
-                </a>
-                <a href="#science" class="nav-item">
-                    <span class="nav-dot"></span>
-                    <span class="nav-text">Science</span>
-                    <div class="nav-hover-effect"></div>
-                </a>
-                <a href="#reviews" class="nav-item">
-                    <span class="nav-dot"></span>
-                    <span class="nav-text">Reviews</span>
-                    <div class="nav-hover-effect"></div>
-                </a>
-                <a href="#faq" class="nav-item">
-                    <span class="nav-dot"></span>
-                    <span class="nav-text">FAQ</span>
-                    <div class="nav-hover-effect"></div>
-                </a>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="nav-actions">
-                <button class="track-button">
-                    <span class="button-bubble"></span>
-                    <span class="button-text">Track Order</span>
-                </button>
-                <button class="cta-button">
-                    <div class="button-shine"></div>
-                    <span class="button-text">Get Started</span>
-                    <div class="button-particles"></div>
-                </button>
-            </div>
-
-            <!-- Elegant Mobile Menu -->
-            <div class="mobile-menu" id="mobileMenuTrigger">
-                <div class="menu-lines">
-                    <span class="line"></span>
-                    <span class="line"></span>
-                    <span class="line"></span>
+                
+                <div class="header-actions">
+                    <button class="menu-trigger" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
             </div>
-        </div>
-    </nav>
-</header>
-    
-    <!-- Hero Section with Video Background -->
-    <section class="hero">
-        <div class="video-container">
-            <video autoplay muted loop playsinline id="heroVideo">
-                <source src="promocream2.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay"></div>
-        </div>
-        <div class="hero-content" data-aos="fade-up">
+
+            <!-- Modern Fullscreen Menu -->
+            <div class="fullscreen-menu">
+                <nav class="menu-content">
+                    <div class="menu-links">
+                        <a href="#product" class="menu-link">Product</a>
+                        <a href="#science" class="menu-link">Science</a>
+                        <a href="#reviews" class="menu-link">Reviews</a>
+                        <a href="#faq" class="menu-link">FAQ</a>
+                    </div>
+                    <div class="menu-actions">
+                        <button class="track-order">Track Order</button>
+                        <button class="get-started">Get Started</button>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Content -->
+        <div class="hero-content">
             <h1 class="hero-title">Elevate Your Experience</h1>
             <p class="hero-subtitle">Premium Enhancement. Professional Care.</p>
-            <button class="primary-btn pulse" id="heroButton">Begin Your Journey</button>
+            <button class="cta-button">Begin Your Journey</button>
         </div>
+
+        <!-- Scroll Indicator -->
         <div class="scroll-indicator">
-            <div class="mouse"></div>
-            <span>Scroll to discover</span>
+            <div class="scroll-text">Scroll to explore</div>
+            <div class="scroll-line">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+
+        <!-- Video Background -->
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="promocream2.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
         </div>
     </section>
-
+    
     <!-- Product Introduction -->
     <section class="product-intro" data-aos="fade-up">
         <div class="container">
