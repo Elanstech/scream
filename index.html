@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S-Cream | Luxury Female Enhancement</title>
     <meta name="description" content="Experience premium female enhancement with S-Cream's revolutionary prescription-based formula.">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <script src="https://js.stripe.com/v3/"></script>
 </head>
@@ -15,28 +15,77 @@
         <div class="loader"></div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="nav-transparent" id="mainNav">
+<!-- Luxurious Animated Header -->
+<header class="luxury-header">
+    <nav class="nav-glass" id="mainNav">
+        <div class="nav-blur-backdrop"></div>
         <div class="nav-container">
-            <div class="logo">
-                <a href="/" class="logo-link">
-                    <span class="logo-text">S-Cream</span>
+            <!-- Animated Logo Section -->
+            <div class="brand-section">
+                <a href="/" class="brand-link">
+                    <div class="logo-container">
+                        <img src="logo.png" alt="S-Cream" class="brand-logo">
+                        <div class="logo-glow"></div>
+                        <div class="sparkles">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                    <div class="brand-identity">
+                        <span class="brand-name">S-Cream</span>
+                        <span class="brand-tagline">Luxury Enhancement</span>
+                    </div>
                 </a>
             </div>
+
+            <!-- Elegant Navigation -->
             <div class="nav-links">
-                <a href="#product">Product</a>
-                <a href="#science">Science</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#faq">FAQ</a>
-                <button class="track-btn">Track Order</button>
-                <button class="cta-btn">Get Started</button>
+                <a href="#product" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span class="nav-text">Product</span>
+                    <div class="nav-hover-effect"></div>
+                </a>
+                <a href="#science" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span class="nav-text">Science</span>
+                    <div class="nav-hover-effect"></div>
+                </a>
+                <a href="#reviews" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span class="nav-text">Reviews</span>
+                    <div class="nav-hover-effect"></div>
+                </a>
+                <a href="#faq" class="nav-item">
+                    <span class="nav-dot"></span>
+                    <span class="nav-text">FAQ</span>
+                    <div class="nav-hover-effect"></div>
+                </a>
             </div>
-            <div class="hamburger">
-                <span></span><span></span><span></span>
+
+            <!-- Action Buttons -->
+            <div class="nav-actions">
+                <button class="track-button">
+                    <span class="button-bubble"></span>
+                    <span class="button-text">Track Order</span>
+                </button>
+                <button class="cta-button">
+                    <div class="button-shine"></div>
+                    <span class="button-text">Get Started</span>
+                    <div class="button-particles"></div>
+                </button>
+            </div>
+
+            <!-- Elegant Mobile Menu -->
+            <div class="mobile-menu" id="mobileMenuTrigger">
+                <div class="menu-lines">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
             </div>
         </div>
     </nav>
-
+</header>
+    
     <!-- Hero Section with Video Background -->
     <section class="hero">
         <div class="video-container">
@@ -162,6 +211,6 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="main.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
