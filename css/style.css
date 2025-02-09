@@ -1,16 +1,12 @@
 /* Premium Modern Luxury Styles */
 :root {
-    /* Core Brand Colors */
-    --rose-gold: #B76E79;
-    --rose-gold-light: #C88E97;
-    --rose-gold-dark: #955962;
-    --nude-beige: #F5E1DA;
-    --warm-brown: #8B5E3C;
-    --dark: #1A1A1A;
-    --light: #FFFFFF;
+    --primary-color: #ff69b4;
+    --secondary-color: #4a90e2;
+    --accent-color: #7c3aed;
+    --background-dark: #1a1a1a;
+    --text-light: #ffffff;
     --glass-bg: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.05);
-    --bubble-glow: rgba(255, 105, 180, 0.3);
     --transition-speed: 0.3s;
 }
     
@@ -133,34 +129,14 @@ body {
     text-decoration: none;
 }
 
-.logo-bubble {
+.logo-image {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    animation: float 3s ease-in-out infinite;
+    transition: all var(--transition-speed) ease;
 }
 
-.logo-bubble::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    filter: blur(8px);
-    opacity: 0.5;
-    z-index: -1;
-}
-
-.logo-letter {
-    color: var(--text-light);
-    font-size: 24px;
-    font-weight: bold;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+.logo-image:hover {
+    transform: scale(1.1);
 }
 
 .logo-text {
@@ -242,60 +218,6 @@ body {
     height: 2px;
     background: var(--text-light);
     transition: all var(--transition-speed) ease;
-}
-
-/* Animations */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-/* Bubble Particles */
-.bubble-particles span {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--text-light);
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.bubble-particles span:nth-child(1) {
-    top: -15px;
-    left: 50%;
-    animation: particle1 2s infinite;
-}
-
-.bubble-particles span:nth-child(2) {
-    top: 50%;
-    right: -15px;
-    animation: particle2 2.5s infinite;
-}
-
-.bubble-particles span:nth-child(3) {
-    bottom: -15px;
-    left: 50%;
-    animation: particle3 3s infinite;
-}
-
-@keyframes particle1 {
-    0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
-    50% { transform: translate(-50%, -10px); opacity: 0; }
-}
-
-@keyframes particle2 {
-    0%, 100% { transform: translate(0, -50%); opacity: 0.5; }
-    50% { transform: translate(10px, -50%); opacity: 0; }
-}
-
-@keyframes particle3 {
-    0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
-    50% { transform: translate(-50%, 10px); opacity: 0; }
 }
 
 /* Responsive Design */
