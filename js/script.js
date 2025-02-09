@@ -899,7 +899,93 @@ class FAQManager {
 document.addEventListener('DOMContentLoaded', () => {
     const faqManager = new FAQManager();
 });
+    // ===============================
+    // Secure Payment Section Manager
+    // ===============================
+// Secure Payment Section Manager
+class SecurePaymentManager {
+    constructor() {
+        this.initializeSecurePayment();
+    }
 
+    initializeSecurePayment() {
+        // Add card hover effects
+        this.setupCardEffects();
+        
+        // Initialize payment method logos
+        this.loadPaymentLogos();
+        
+        // Setup security indicators
+        this.setupSecurityIndicators();
+    }
+
+    setupCardEffects() {
+        const cards = document.querySelectorAll('.security-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                this.pulseSecurityIcon(card);
+            });
+        });
+    }
+
+    pulseSecurityIcon(card) {
+        const icon = card.querySelector('.security-icon');
+        if (!icon) return;
+
+        icon.style.animation = 'none';
+        icon.offsetHeight; // Trigger reflow
+        icon.style.animation = 'pulse 1s ease';
+    }
+
+    loadPaymentLogos() {
+        // Preload payment method logos
+        const logos = document.querySelectorAll('.payment-methods img');
+        
+        logos.forEach(logo => {
+            logo.addEventListener('load', () => {
+                logo.classList.add('loaded');
+            });
+        });
+    }
+
+    setupSecurityIndicators() {
+        // Add intersection observer for animated entrance
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-security');
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        // Observe features
+        document.querySelectorAll('.feature').forEach(feature => {
+            observer.observe(feature);
+        });
+
+        // Setup hover animations for features
+        this.setupFeatureAnimations();
+    }
+
+    setupFeatureAnimations() {
+        const features = document.querySelectorAll('.feature');
+        
+        features.forEach(feature => {
+            feature.addEventListener('mouseenter', () => {
+                const icon = feature.querySelector('.feature-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        icon.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            });
+        });
+    }
+}
     // ===============================
     // Initialize Everything
     // ===============================
@@ -914,6 +1000,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ingredientsManager = new IngredientsManager();
         const testimonialsManager = new TestimonialsManager();
         const faqManager = new FAQManager();
+        const securePaymentManager = new SecurePaymentManager();
 
         // Setup performance optimizations
         setupPerformanceOptimizations();
