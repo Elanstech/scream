@@ -794,6 +794,111 @@ class TestimonialsManager {
         metricElement.style.width = targetWidth;
     }
 }
+     // ===============================
+    // Initialize Everything
+    // ===============================
+    // FAQ Section Manager
+class FAQManager {
+    constructor() {
+        this.initializeFAQ();
+    }
+
+    initializeFAQ() {
+        // Get all FAQ cards
+        const faqCards = document.querySelectorAll('.faq-card');
+
+        // Add click handlers
+        faqCards.forEach(card => {
+            const header = card.querySelector('.faq-header');
+            header.addEventListener('click', () => this.toggleFAQ(card));
+
+            // Initialize content height
+            const content = card.querySelector('.faq-content');
+            content.style.maxHeight = '0px';
+        });
+
+        // Add keyboard accessibility
+        this.setupKeyboardNavigation(faqCards);
+    }
+
+    toggleFAQ(card) {
+        const isActive = card.classList.contains('active');
+        
+        // Close all other cards
+        document.querySelectorAll('.faq-card.active').forEach(activeCard => {
+            if (activeCard !== card) {
+                this.closeFAQ(activeCard);
+            }
+        });
+
+        // Toggle current card
+        if (isActive) {
+            this.closeFAQ(card);
+        } else {
+            this.openFAQ(card);
+        }
+    }
+
+    openFAQ(card) {
+        card.classList.add('active');
+        const content = card.querySelector('.faq-content');
+        content.style.maxHeight = `${content.scrollHeight}px`;
+    }
+
+    closeFAQ(card) {
+        card.classList.remove('active');
+        const content = card.querySelector('.faq-content');
+        content.style.maxHeight = '0px';
+    }
+
+    setupKeyboardNavigation(cards) {
+        cards.forEach(card => {
+            const header = card.querySelector('.faq-header');
+            
+            header.addEventListener('keydown', (e) => {
+                switch (e.key) {
+                    case 'Enter':
+                    case ' ':
+                        e.preventDefault();
+                        this.toggleFAQ(card);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        this.focusNextCard(card);
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        this.focusPreviousCard(card);
+                        break;
+                }
+            });
+
+            // Make header focusable
+            header.setAttribute('tabindex', '0');
+            header.setAttribute('role', 'button');
+            header.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    focusNextCard(currentCard) {
+        const nextCard = currentCard.nextElementSibling;
+        if (nextCard && nextCard.classList.contains('faq-card')) {
+            nextCard.querySelector('.faq-header').focus();
+        }
+    }
+
+    focusPreviousCard(currentCard) {
+        const prevCard = currentCard.previousElementSibling;
+        if (prevCard && prevCard.classList.contains('faq-card')) {
+            prevCard.querySelector('.faq-header').focus();
+        }
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const faqManager = new FAQManager();
+});
 
     // ===============================
     // Initialize Everything
@@ -808,6 +913,7 @@ class TestimonialsManager {
         const howItWorksManager = new HowItWorksManager();
         const ingredientsManager = new IngredientsManager();
         const testimonialsManager = new TestimonialsManager();
+        const faqManager = new FAQManager();
 
         // Setup performance optimizations
         setupPerformanceOptimizations();
