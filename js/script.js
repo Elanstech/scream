@@ -82,83 +82,272 @@ class PreloaderManager {
 // ==============================================
 class HeaderManager {
     constructor() {
+        // Header elements
         this.header = document.querySelector('.main-header');
         this.hamburger = document.querySelector('.hamburger');
         this.mobileNav = document.querySelector('.nav-mobile');
-        this.scrollThreshold = 50;
-        this.lastScrollTop = 0;
-        this.scrollTimeout = null;
+        this.overlay = document.querySelector('.mobile-menu-overlay');
+        this.mobileLinks = document.querySelectorAll('.nav-mobile .nav-link');
+        this.body = document.body;
+
+        // State management
+        this.lastScroll = 0;
+        this.isMenuOpen = false;
+
+        // Configuration
+        this.config = {
+            scrollThreshold: 50,
+            mobileBreakpoint: 768,
+            scrollTrigger: 100,
+            headerHeight: 80
+        };
+
+        // Initialize
+        this.init();
+    }
+
+    init() {
+        // Bind event listeners
+        this.bindEvents();
         
-        this.initializeHeader();
-        this.setupEventListeners();
+        // Initial header state check
+        this.checkHeaderState();
+        
+        // Check if we need to adjust for iOS
+        this.adjustForiOS();
     }
 
-    initializeHeader() {
-        window.addEventListener('scroll', () => {
-            if (this.scrollTimeout) {
-                window.cancelAnimationFrame(this.scrollTimeout);
+    bindEvents() {
+        // Scroll events
+        window.addEventListener('scroll', this.handleScroll.bind(this));
+        
+        // Menu toggle events
+        this.hamburger?.addEventListener('click', this.toggleMenu.bind(this));
+        this.overlay?.addEventListener('click', this.closeMenu.bind(this));
+        
+        // Mobile link click events
+        this.mobileLinks?.forEach(link => {
+            link.addEventListener('click', this.handleLinkClick.bind(this));
+        });
+
+        // Resize event
+        window.addEventListener('resize', this.handleResize.bind(this));
+
+        // iOS events
+        window.addEventListener('orientationchange', this.adjustForiOS.bind(this));
+    }
+
+    handleScroll() {
+        requestAnimationFrame(() => {
+            const currentScroll = window.pageYOffset;
+
+            // Add scrolled class when past threshold
+            if (currentScroll > this.config.scrollTrigger) {
+                this.header?.classList.add('scrolled');
+            } else {
+                this.header?.classList.remove('scrolled');
             }
-            this.scrollTimeout = window.requestAnimationFrame(() => {
-                this.handleHeaderScroll();
-            });
+
+            // Update last scroll position
+            this.lastScroll = currentScroll;
         });
     }
 
-    handleHeaderScroll() {
-        const currentScroll = window.pageYOffset;
+    toggleMenu(event) {
+        if (event) event.preventDefault();
+        
+        this.isMenuOpen = !this.isMenuOpen;
+        
+        // Toggle classes
+        this.hamburger?.classList.toggle('active');
+        this.mobileNav?.classList.toggle('active');
+        this.overlay?.classList.toggle('active');
+        
+        // Handle body scroll
+        this.toggleBodyScroll();
+        
+        // Handle accessibility
+        this.updateAccessibility();
+    }
 
-        // Add/remove scrolled class
-        if (currentScroll > this.scrollThreshold) {
-            this.header.classList.add('scrolled');
+    closeMenu() {
+        if (!this.isMenuOpen) return;
+        
+        this.isMenuOpen = false;
+        
+        // Remove active classes
+        this.hamburger?.classList.remove('active');
+        this.mobileNav?.classList.remove('active');
+        this.overlay?.classList.remove('active');
+        
+        // Re-enable body scroll
+        this.enableBodyScroll();
+        
+        // Reset accessibility
+        this.updateAccessibility();
+    }
+
+    handleLinkClick(event) {
+        // Close menu when link is clicked
+        this.closeMenu();
+        
+        // Get the href attribute
+        const href = event.currentTarget.getAttribute('href');
+        
+        // If it's a hash link, handle smooth scroll
+        if (href?.startsWith('#')) {
+            event.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                this.smoothScrollTo(target);
+            }
+        }
+    }
+
+    smoothScrollTo(target) {
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition - this.config.headerHeight;
+        const duration = 1000;
+        let start = null;
+
+        const animation = (currentTime) => {
+            if (start === null) start = currentTime;
+            const timeElapsed = currentTime - start;
+            const progress = Math.min(timeElapsed / duration, 1);
+            
+            window.scrollTo(0, startPosition + distance * this.easeInOutCubic(progress));
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            }
+        };
+
+        requestAnimationFrame(animation);
+    }
+
+    easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    handleResize() {
+        // Check if we should close mobile menu on desktop breakpoint
+        if (window.innerWidth > this.config.mobileBreakpoint && this.isMenuOpen) {
+            this.closeMenu();
+        }
+        
+        // Adjust for iOS
+        this.adjustForiOS();
+    }
+
+    toggleBodyScroll() {
+        if (this.isMenuOpen) {
+            this.disableBodyScroll();
         } else {
-            this.header.classList.remove('scrolled');
+            this.enableBodyScroll();
         }
-
-        // Hide/show header based on scroll direction
-        if (currentScroll > this.lastScrollTop && currentScroll > this.header.offsetHeight) {
-            this.header.style.transform = 'translateY(-100%)';
-        } else {
-            this.header.style.transform = 'translateY(0)';
-        }
-
-        this.lastScrollTop = currentScroll;
     }
 
-    setupEventListeners() {
-        // Mobile menu toggle
-        if (this.hamburger && this.mobileNav) {
-            this.hamburger.addEventListener('click', () => {
-                this.toggleMobileMenu();
+    disableBodyScroll() {
+        // Store current scroll position
+        this.scrollPosition = window.pageYOffset;
+        this.body.style.overflow = 'hidden';
+        this.body.style.position = 'fixed';
+        this.body.style.width = '100%';
+        this.body.style.top = `-${this.scrollPosition}px`;
+    }
+
+    enableBodyScroll() {
+        this.body.style.removeProperty('overflow');
+        this.body.style.removeProperty('position');
+        this.body.style.removeProperty('width');
+        this.body.style.removeProperty('top');
+        window.scrollTo(0, this.scrollPosition);
+    }
+
+    updateAccessibility() {
+        // Update ARIA attributes
+        this.hamburger?.setAttribute('aria-expanded', this.isMenuOpen.toString());
+        this.mobileNav?.setAttribute('aria-hidden', (!this.isMenuOpen).toString());
+        
+        // Update focus management
+        if (this.isMenuOpen) {
+            this.trapFocus();
+        } else {
+            this.removeFocusTrap();
+        }
+    }
+
+    trapFocus() {
+        // Get all focusable elements in mobile nav
+        const focusableElements = this.mobileNav?.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        
+        if (focusableElements?.length) {
+            const firstFocusable = focusableElements[0];
+            const lastFocusable = focusableElements[focusableElements.length - 1];
+            
+            // Add keydown event listener for focus trap
+            this.mobileNav.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusable) {
+                            lastFocusable.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusable) {
+                            firstFocusable.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+                
+                if (e.key === 'Escape') {
+                    this.closeMenu();
+                }
             });
         }
-
-        // Close menu on outside click
-        document.addEventListener('click', (e) => {
-            if (this.mobileNav && !this.mobileNav.contains(e.target) && !this.hamburger.contains(e.target)) {
-                this.closeMobileMenu();
-            }
-        });
-
-        // Close menu on ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.closeMobileMenu();
-            }
-        });
     }
 
-    toggleMobileMenu() {
-        this.hamburger.classList.toggle('active');
-        this.mobileNav.classList.toggle('active');
-        document.body.style.overflow = this.mobileNav.classList.contains('active') ? 'hidden' : '';
+    removeFocusTrap() {
+        this.mobileNav?.removeEventListener('keydown', () => {});
     }
 
-    closeMobileMenu() {
-        this.hamburger.classList.remove('active');
-        this.mobileNav.classList.remove('active');
-        document.body.style.overflow = '';
+    adjustForiOS() {
+        // Check if we're on iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        if (isIOS) {
+            // Get the viewport height and multiply by 1% to get a value for vh unit
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // Update mobile nav height
+            if (this.mobileNav) {
+                this.mobileNav.style.height = `calc(var(--vh, 1vh) * 100)`;
+            }
+        }
+    }
+
+    checkHeaderState() {
+        // Check initial scroll position
+        if (window.pageYOffset > this.config.scrollTrigger) {
+            this.header?.classList.add('scrolled');
+        }
+    }
+
+    // Public methods for external use
+    static init() {
+        return new HeaderManager();
     }
 }
+
+// Initialize HeaderManager
+document.addEventListener('DOMContentLoaded', () => {
+    const headerManager = HeaderManager.init();
+});
 
 // ==============================================
 // HeroManager Class
