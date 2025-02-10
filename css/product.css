@@ -600,57 +600,67 @@ section {
         height: 300px;
     }
 }
-
-/* Application Section Base Styles */
-.application-section {
-    background: linear-gradient(135deg,
-        rgba(26, 26, 26, 0.98),
-        rgba(183, 110, 121, 0.05) 50%,
-        rgba(26, 26, 26, 0.98)
-    );
+/* Application Guide Section Styles */
+.application-guide {
     padding: 120px 0;
-    position: relative;
-    overflow: hidden;
+    background: linear-gradient(160deg, #1a1a1a 0%, #2a2a2a 100%);
+    color: #ffffff;
 }
 
-.application-container {
+.guide-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Steps Grid Layout */
-.steps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 60px;
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
 }
 
-.step-card {
-    background: rgba(26, 26, 26, 0.8);
-    border: 1px solid rgba(183, 110, 121, 0.2);
+.section-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #ffffff 0%, #d1d1d1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Steps Container */
+.steps-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+/* Step Panel */
+.step-panel {
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     padding: 40px;
-    position: relative;
-    transition: all 0.3s ease;
-    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.step-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--rose-gold), var(--rose-gold-light));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.step-card:hover::before {
-    opacity: 1;
+.step-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 /* Step Header */
@@ -661,128 +671,124 @@ section {
 }
 
 .step-number {
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
+    color: #ffffff;
+    opacity: 0.5;
     margin-right: 20px;
 }
 
-.step-title {
-    font-size: 1.5rem;
-    color: var(--light);
+.step-header h3 {
+    font-size: 1.8rem;
     font-weight: 600;
-    line-height: 1.2;
+    background: linear-gradient(135deg, #ffffff 0%, #d1d1d1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Step Content */
-.step-content {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
+/* Step Details */
+.step-details {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
 }
 
-/* Interactive Elements */
-.interactive-element {
-    background: rgba(183, 110, 121, 0.1);
-    border-radius: 15px;
-    padding: 20px;
-    margin-top: 20px;
+/* Preparation Checklist */
+.preparation-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
 }
 
-/* Timer Styles */
-.timer-display {
+.preparation-checklist li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #d1d1d1;
+}
+
+.check-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    margin-right: 15px;
+    color: #4CAF50;
+}
+
+/* Timer Styles */
+.prep-timer {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.timer-ring {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.timer-circle {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 4;
+}
+
+.timer-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Dosage Guide */
+.dosage-guide {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.dosage-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.time-unit {
-    text-align: center;
-}
-
-.time-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--rose-gold);
-    line-height: 1;
-    margin-bottom: 5px;
-}
-
-.time-label {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Pump Counter */
 .pump-simulator {
     text-align: center;
 }
 
-.pump-counter {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--rose-gold);
-    margin-bottom: 20px;
-}
-
 .pump-button {
-    background: linear-gradient(135deg, var(--rose-gold), var(--rose-gold-light));
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
     border: none;
     border-radius: 30px;
-    padding: 15px 40px;
-    color: var(--light);
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 15px 30px;
+    color: white;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .pump-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(183, 110, 121, 0.2);
+    transform: scale(1.05);
 }
 
-.pump-button:active {
-    transform: translateY(0);
-}
-
-/* Progress Indicators */
-.progress-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 20px;
-}
-
-.progress-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(183, 110, 121, 0.3);
-    transition: background-color 0.3s ease;
-}
-
-.progress-dot.active {
-    background: var(--rose-gold);
-}
-
-/* Effect Timeline */
-.effect-timeline {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Activation Timeline */
+.activation-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
     margin-top: 30px;
-    padding: 20px;
-    background: rgba(183, 110, 121, 0.1);
-    border-radius: 15px;
 }
 
 .timeline-point {
@@ -790,62 +796,75 @@ section {
     position: relative;
 }
 
-.timeline-point::after {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
+.point-marker {
+    width: 15px;
     height: 15px;
-    background: var(--rose-gold);
+    background: #ffffff;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    position: relative;
 }
 
-.time-marker {
+.point-marker::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-point:last-child .point-marker::before {
+    display: none;
+}
+
+.point-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.time {
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--rose-gold);
+    color: #ffffff;
     margin-bottom: 5px;
 }
 
-.effect-label {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-/* Responsive Design */
-@media (max-width: 992px) {
-    .steps-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .steps-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .step-card {
-        padding: 30px;
-    }
-    
-    .step-number {
-        font-size: 3rem;
-    }
-    
-    .step-title {
-        font-size: 1.2rem;
-    }
+.phase {
+    font-size: 0.9rem;
+    color: #a0a0a0;
 }
 
 /* Animation Classes */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    animation: fadeIn 0.6s ease forwards;
 }
 
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .step-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .activation-timeline {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .point-marker::before {
+        top: 100%;
+        left: 50%;
+        width: 2px;
+        height: 30px;
+    }
 }
