@@ -266,6 +266,12 @@ button {
     -webkit-backdrop-filter: blur(10px);
     transform: translateX(100%);
     transition: transform 0.3s ease;
+    z-index: 999;
+}
+
+.nav-mobile.active {
+    transform: translateX(0);
+    display: block;
 }
 
 .mobile-nav-list {
