@@ -82,9 +82,9 @@ class PreloaderManager {
 // ==============================================
 class HeaderManager {
     constructor() {
-        this.header = document.getElementById('mainHeader');
-        this.menuToggle = document.querySelector('.menu-toggle');
-        this.mainNav = document.querySelector('.main-nav');
+        this.header = document.querySelector('.main-header');
+        this.hamburger = document.querySelector('.hamburger');
+        this.mobileNav = document.querySelector('.nav-mobile');
         this.scrollThreshold = 50;
         this.lastScrollTop = 0;
         this.scrollTimeout = null;
@@ -126,15 +126,15 @@ class HeaderManager {
 
     setupEventListeners() {
         // Mobile menu toggle
-        if (this.menuToggle && this.mainNav) {
-            this.menuToggle.addEventListener('click', () => {
+        if (this.hamburger && this.mobileNav) {
+            this.hamburger.addEventListener('click', () => {
                 this.toggleMobileMenu();
             });
         }
 
         // Close menu on outside click
         document.addEventListener('click', (e) => {
-            if (this.mainNav && !this.mainNav.contains(e.target) && !this.menuToggle.contains(e.target)) {
+            if (this.mobileNav && !this.mobileNav.contains(e.target) && !this.hamburger.contains(e.target)) {
                 this.closeMobileMenu();
             }
         });
@@ -148,14 +148,14 @@ class HeaderManager {
     }
 
     toggleMobileMenu() {
-        this.menuToggle.classList.toggle('active');
-        this.mainNav.classList.toggle('active');
-        document.body.style.overflow = this.mainNav.classList.contains('active') ? 'hidden' : '';
+        this.hamburger.classList.toggle('active');
+        this.mobileNav.classList.toggle('active');
+        document.body.style.overflow = this.mobileNav.classList.contains('active') ? 'hidden' : '';
     }
 
     closeMobileMenu() {
-        this.menuToggle.classList.remove('active');
-        this.mainNav.classList.remove('active');
+        this.hamburger.classList.remove('active');
+        this.mobileNav.classList.remove('active');
         document.body.style.overflow = '';
     }
 }
@@ -247,7 +247,7 @@ class SmoothScroll {
         const target = document.querySelector(targetId);
         if (!target) return;
 
-        const headerOffset = document.querySelector('header').offsetHeight;
+        const headerOffset = document.querySelector('.main-header').offsetHeight;
         const targetPosition = target.getBoundingClientRect().top;
         const offsetPosition = targetPosition + window.pageYOffset - headerOffset;
 
@@ -255,120 +255,6 @@ class SmoothScroll {
             top: offsetPosition,
             behavior: 'smooth'
         });
-    }
-}
-
-// ==============================================
-// TestimonialsManager Class
-// ==============================================
-class TestimonialsManager {
-    constructor() {
-        this.currentSlide = 0;
-        this.testimonials = this.getTestimonialData();
-        this.results = this.getResultsData();
-        
-        this.initializeTestimonials();
-    }
-
-    getTestimonialData() {
-        return [
-            {
-                name: "Sarah J.",
-                location: "New York, USA",
-                rating: 5,
-                text: "Absolutely transformative experience. The results were noticeable within weeks.",
-                satisfaction: 95,
-                results: 90
-            },
-            {
-                name: "Dr. Emma M.",
-                location: "Medical Professional",
-                rating: 5,
-                text: "As a medical professional, I'm impressed by the scientific approach.",
-                isExpert: true
-            }
-        ];
-    }
-
-    getResultsData() {
-        return [
-            {
-                satisfaction: 94,
-                days: 28,
-                recommend: 97
-            },
-            {
-                satisfaction: 92,
-                days: 30,
-                recommend: 95
-            }
-        ];
-    }
-
-    initializeTestimonials() {
-        this.slider = document.querySelector('.testimonials-slider');
-        this.resultsSlider = document.querySelector('.results-slider');
-        this.prevBtn = document.querySelector('.nav-btn.prev');
-        this.nextBtn = document.querySelector('.nav-btn.next');
-
-        this.setupEventListeners();
-        this.setupAnimations();
-        this.initializeMetrics();
-    }
-
-    setupEventListeners() {
-        if (this.prevBtn && this.nextBtn) {
-            this.prevBtn.addEventListener('click', () => this.navigate('prev'));
-            this.nextBtn.addEventListener('click', () => this.navigate('next'));
-        }
-
-        // Touch events
-        let touchStartX = 0;
-        this.slider?.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        this.slider?.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > 50) {
-                this.navigate(diff > 0 ? 'next' : 'prev');
-            }
-        });
-    }
-
-    navigate(direction) {
-        const previousSlide = this.currentSlide;
-        
-        if (direction === 'next') {
-            this.currentSlide = (this.currentSlide + 1) % this.results.length;
-        } else {
-            this.currentSlide = (this.currentSlide - 1 + this.results.length) % this.results.length;
-        }
-
-        this.updateSlides(previousSlide);
-        this.updateNavigationState();
-    }
-
-    setupAnimations() {
-        const observer = new IntersectionObserver((entries) => {
-            utils.handleIntersection(entries, observer, (target) => {
-                target.classList.add('animate-in');
-                if (target.classList.contains('metric-fill')) {
-                    this.animateMetric(target);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        document.querySelectorAll('.testimonial-card, .metric-fill').forEach(element => {
-            observer.observe(element);
-        });
-    }
-
-    animateMetric(metricElement) {
-        const targetWidth = metricElement.getAttribute('data-width') || metricElement.style.width;
-        metricElement.style.width = targetWidth;
     }
 }
 
@@ -397,6 +283,7 @@ class FAQManager {
     toggleFAQ(card) {
         const isActive = card.classList.contains('active');
         
+        // Close other open FAQs
         document.querySelectorAll('.faq-card.active').forEach(activeCard => {
             if (activeCard !== card) {
                 this.closeFAQ(activeCard);
@@ -474,17 +361,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = new HeaderManager();
     const hero = new HeroManager();
     const smoothScroll = new SmoothScroll();
-    const testimonials = new TestimonialsManager();
     const faq = new FAQManager();
 
     // Setup performance optimizations
     const handleResize = utils.debounce(() => {
         if (window.innerWidth > 768) {
             document.body.style.overflow = '';
-            const mainNav = document.querySelector('.main-nav');
-            const menuToggle = document.querySelector('.menu-toggle');
-            if (mainNav) mainNav.classList.remove('active');
-            if (menuToggle) menuToggle.classList.remove('active');
+            const mobileNav = document.querySelector('.nav-mobile');
+            const hamburger = document.querySelector('.hamburger');
+            if (mobileNav) mobileNav.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
         }
     }, 250);
 
