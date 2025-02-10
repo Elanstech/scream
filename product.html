@@ -21,60 +21,50 @@
         </div>
     </div>
 
-  <header class="header">
-        <div class="header-backdrop"></div>
-        <div class="header-container">
-            <div class="logo-container">
-                <a href="/" class="logo-link">
-                    <img src="logo.png" alt="Company Logo" class="logo-image">
-                    <div class="logo-glow"></div>
-                </a>
-            </div>
-            
-            <nav class="primary-navigation" id="primary-navigation">
-                <ul class="nav-list">
-                   <li class="nav-item">
-                        <a href="index.html" class="nav-link">
-                            <span class="nav-text">Home</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="product.html" class="nav-link active">
-                            <span class="nav-text">Our Product</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#services" class="nav-link">
-                            <span class="nav-text">How It Works</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#portfolio" class="nav-link">
-                            <span class="nav-text">FAQ</span>
-                            <span class="nav-indicator"></span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link contact-btn">
-                            <span class="nav-text">Order Now</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
-                <div class="hamburger">
-                    <span class="line"></span>
-                    <span class="line"></span>
-                    <span class="line"></span>
-                </div>
-            </button>
+  <!-- Header HTML -->
+<header class="main-header">
+    <div class="header-container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="Logo" class="logo">
+            </a>
         </div>
-    </header>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="product.html" class="nav-link">Our Product</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">FAQ</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Order Tracking</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link contact-btn">Buy Now</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button class="hamburger" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+
+        <!-- Mobile Navigation -->
+        <nav class="nav-mobile">
+             <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="product.html" class="nav-link">Our Product</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">FAQ</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Order Tracking</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link contact-btn">Buy Now</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
 <!-- Immersive Video Hero Section -->
 <section class="product-hero">
