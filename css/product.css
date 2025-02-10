@@ -868,3 +868,702 @@ section {
         height: 30px;
     }
 }
+/* Experience the Difference Section Styles */
+.benefits-section {
+    padding: 100px 0;
+    background: linear-gradient(160deg, #1a1a1a 0%, #2a2a2a 100%);
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.benefits-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.section-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #ffffff 0%, #d1d1d1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Benefits Grid Layout */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+/* Column Styles */
+.benefits-column,
+.stats-column,
+.metrics-column {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.column-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+/* Benefit Cards */
+.benefit-cards {
+    display: grid;
+    gap: 20px;
+}
+
+.benefit-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 25px;
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.benefit-icon {
+    font-size: 1.8rem;
+    margin-right: 15px;
+}
+
+.benefit-header h4 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0;
+    flex-grow: 1;
+}
+
+/* Effectiveness Meter */
+.effectiveness-meter {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin: 15px 0;
+}
+
+.meter-fill {
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50 0%, #45a049 100%);
+    border-radius: 2px;
+    transition: width 1s ease;
+}
+
+.meter-value {
+    position: absolute;
+    right: 0;
+    top: -20px;
+    font-size: 0.9rem;
+    color: #4CAF50;
+}
+
+/* Benefit Details */
+.benefit-details {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.benefit-details li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    color: #d1d1d1;
+}
+
+.benefit-details li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+}
+
+/* Data Points */
+.data-point {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-label {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.data-value {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Stats Timeline */
+.stats-timeline {
+    display: grid;
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.timeline-marker {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.marker-point {
+    width: 12px;
+    height: 12px;
+    background: #4CAF50;
+    border-radius: 50%;
+    position: relative;
+}
+
+.marker-point::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 30px;
+    background: rgba(76, 175, 80, 0.3);
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+}
+
+.timeline-marker:last-child .marker-point::after {
+    display: none;
+}
+
+.marker-info {
+    display: grid;
+    gap: 5px;
+}
+
+.marker-info .time {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.marker-info .effect {
+    color: #4CAF50;
+    font-weight: 500;
+}
+
+.marker-info .detail {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.metric-card {
+    text-align: center;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.metric-label {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.metric-detail {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+}
+
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile Responsiveness */
+@media (min-width: 768px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .metrics-column {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (min-width: 1024px) {
+    .benefits-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .column-title {
+        font-size: 1.5rem;
+    }
+    
+    .benefit-card,
+    .metric-card {
+        padding: 20px;
+    }
+    
+    .metric-value {
+        font-size: 2rem;
+    }
+    
+    .benefit-header h4 {
+        font-size: 1.2rem;
+    }
+    
+    .benefits-container {
+        padding: 0 15px;
+    }
+    
+    .marker-info .time {
+        font-size: 1rem;
+    }
+}
+
+/* Dark Mode Enhancement */
+@media (prefers-color-scheme: dark) {
+    .benefits-section {
+        background: linear-gradient(160deg, #151515 0%, #202020 100%);
+    }
+}
+/* Clinical Research Section Styles */
+.research-section {
+    padding: 100px 0;
+    background: linear-gradient(160deg, #1a1a1a 0%, #2a2a2a 100%);
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.research-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Section Header */
+.research-section .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.research-section .section-icon {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.research-section .section-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #ffffff 0%, #d1d1d1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+/* Study Overview */
+.study-overview {
+    margin-bottom: 60px;
+}
+
+.study-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 35px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.study-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.study-header h3 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.study-meta {
+    display: flex;
+    gap: 20px;
+}
+
+.study-year,
+.study-type {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    font-size: 0.9rem;
+}
+
+/* Study Stats Grid */
+.study-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.stat-detail {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+}
+
+/* Research Methodology */
+.methodology-section {
+    margin: 60px 0;
+}
+
+.methodology-section h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.methodology-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.method-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.method-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.method-content h4 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.method-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.method-details li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    color: #d1d1d1;
+}
+
+.method-details li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+}
+
+/* Findings Section */
+.findings-section {
+    margin: 60px 0;
+}
+
+.findings-section h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.findings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.finding-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.finding-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.finding-icon {
+    font-size: 1.8rem;
+    margin-right: 15px;
+}
+
+.finding-header h4 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.finding-stats {
+    display: grid;
+    gap: 15px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-row .stat-label {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.stat-row .stat-value {
+    color: #4CAF50;
+    font-weight: 600;
+}
+
+/* Certifications Section */
+.certifications-section {
+    margin-top: 60px;
+}
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.cert-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.cert-card:hover {
+    transform: translateY(-5px);
+}
+
+.cert-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.cert-card h4 {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.cert-card p {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Animation Classes */
+.research-section .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.research-section .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 767px) {
+    .research-container {
+        padding: 0 15px;
+    }
+
+    .research-section .section-title {
+        font-size: 2rem;
+    }
+
+    .study-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .study-header h3 {
+        font-size: 1.8rem;
+    }
+
+    .study-meta {
+        justify-content: center;
+    }
+
+    .method-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .method-number {
+        margin-bottom: 10px;
+    }
+
+    .method-details li {
+        text-align: left;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .finding-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+}
+
+/* Dark Mode Enhancement */
+@media (prefers-color-scheme: dark) {
+    .research-section {
+        background: linear-gradient(160deg, #151515 0%, #202020 100%);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .research-section {
+        background: white;
+        color: black;
+    }
+
+    .research-section * {
+        color: black !important;
+    }
+
+    .study-card,
+    .method-card,
+    .finding-card,
+    .cert-card {
+        break-inside: avoid;
+        border: 1px solid #ddd;
+    }
+}
