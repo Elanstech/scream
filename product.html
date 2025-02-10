@@ -275,100 +275,124 @@
 </section>
     
 <!-- How to Use Section -->
-<!-- Application Section -->
-<section class="application-section">
-    <div class="application-container">
-        <div class="section-header">
-            <span class="section-icon">✨</span>
+<!-- Application Guide Section -->
+<section class="application-guide">
+    <div class="guide-container">
+        <!-- Section Header -->
+        <div class="section-header fade-in">
+            <span class="section-icon">💎</span>
             <h2 class="section-title">Easy Application Guide</h2>
-            <p class="section-subtitle">Follow these simple steps for optimal results</p>
+            <p class="section-subtitle">Experience optimal results with our simple three-step process</p>
         </div>
 
-        <div class="steps-grid">
-            <!-- Step 1: Preparation -->
-            <div class="step-card fade-in">
-                <div class="step-header">
-                    <span class="step-number">01</span>
-                    <h3 class="step-title">Preparation</h3>
-                </div>
+        <!-- Steps Container -->
+        <div class="steps-container">
+            <!-- Step 1 -->
+            <div class="step-panel fade-in" data-step="1">
                 <div class="step-content">
-                    <p>Ensure the area is clean and dry before application. Follow these preparation steps:</p>
-                    <ul class="checklist">
-                        <li>
-                            <label class="check-item">
-                                <input type="checkbox" class="step-check">
-                                <span>Clean the area gently</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label class="check-item">
-                                <input type="checkbox" class="step-check">
-                                <span>Pat dry with clean towel</span>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="interactive-element">
-                    <div class="timer-display">
-                        <div class="time-unit">
-                            <div class="time-value minutes">05</div>
-                            <div class="time-label">Minutes</div>
-                        </div>
-                        <div class="time-unit">
-                            <div class="time-value seconds">00</div>
-                            <div class="time-label">Seconds</div>
-                        </div>
+                    <div class="step-header">
+                        <div class="step-number">01</div>
+                        <h3>Preparation</h3>
                     </div>
-                    <button class="timer-button">Start Timer</button>
-                </div>
-            </div>
-
-            <!-- Step 2: Application -->
-            <div class="step-card fade-in">
-                <div class="step-header">
-                    <span class="step-number">02</span>
-                    <h3 class="step-title">Application</h3>
-                </div>
-                <div class="step-content">
-                    <p>Apply the recommended amount using the precision pump system:</p>
-                </div>
-                <div class="interactive-element">
-                    <div class="pump-simulator">
-                        <div class="pump-counter">0</div>
-                        <button class="pump-button">
-                            Press to Dispense
-                        </button>
-                        <div class="progress-dots">
-                            <span class="progress-dot"></span>
-                            <span class="progress-dot"></span>
-                            <span class="progress-dot"></span>
+                    <div class="step-details">
+                        <div class="step-description">
+                            <p>Begin with a clean, dry application area for maximum effectiveness</p>
+                            <ul class="preparation-checklist">
+                                <li>
+                                    <div class="check-icon">✓</div>
+                                    <span>Gently cleanse the area</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon">✓</div>
+                                    <span>Pat dry with a soft towel</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon">✓</div>
+                                    <span>Allow skin to completely dry</span>
+                                </li>
+                            </ul>
                         </div>
-                        <p class="dosage-guide">Recommended: 2-3 pumps</p>
+                        <div class="step-visual">
+                            <div class="prep-timer">
+                                <svg class="timer-ring" viewBox="0 0 100 100">
+                                    <circle class="timer-circle" cx="50" cy="50" r="45"/>
+                                </svg>
+                                <div class="timer-display">
+                                    <span class="timer-minutes">5</span>
+                                    <span class="timer-separator">:</span>
+                                    <span class="timer-seconds">00</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Step 3: Activation -->
-            <div class="step-card fade-in">
-                <div class="step-header">
-                    <span class="step-number">03</span>
-                    <h3 class="step-title">Activation</h3>
-                </div>
+            <!-- Step 2 -->
+            <div class="step-panel fade-in" data-step="2">
                 <div class="step-content">
-                    <p>Monitor the activation timeline for optimal results:</p>
+                    <div class="step-header">
+                        <div class="step-number">02</div>
+                        <h3>Application</h3>
+                    </div>
+                    <div class="step-details">
+                        <div class="step-description">
+                            <p>Apply using our precision dosing system</p>
+                            <div class="dosage-guide">
+                                <div class="dosage-info">
+                                    <span class="dosage-label">Recommended Dosage</span>
+                                    <span class="dosage-amount">2-3 Pumps</span>
+                                </div>
+                                <div class="pump-simulator">
+                                    <div class="pump-display">
+                                        <span class="pump-count">0</span>
+                                        <span class="pump-label">Pumps</span>
+                                    </div>
+                                    <button class="pump-button">
+                                        <span class="button-text">Press to Dispense</span>
+                                        <span class="button-icon">↓</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="effect-timeline">
-                    <div class="timeline-point">
-                        <div class="time-marker">5m</div>
-                        <div class="effect-label">Initial Effect</div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-panel fade-in" data-step="3">
+                <div class="step-content">
+                    <div class="step-header">
+                        <div class="step-number">03</div>
+                        <h3>Activation</h3>
                     </div>
-                    <div class="timeline-point">
-                        <div class="time-marker">15m</div>
-                        <div class="effect-label">Peak Effect</div>
-                    </div>
-                    <div class="timeline-point">
-                        <div class="time-marker">4h</div>
-                        <div class="effect-label">Duration</div>
+                    <div class="step-details">
+                        <div class="step-description">
+                            <p>Experience the progressive activation phases</p>
+                            <div class="activation-timeline">
+                                <div class="timeline-point active">
+                                    <div class="point-marker"></div>
+                                    <div class="point-details">
+                                        <span class="time">5 min</span>
+                                        <span class="phase">Initial Response</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-point">
+                                    <div class="point-marker"></div>
+                                    <div class="point-details">
+                                        <span class="time">15 min</span>
+                                        <span class="phase">Peak Effect</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-point">
+                                    <div class="point-marker"></div>
+                                    <div class="point-details">
+                                        <span class="time">4 hours</span>
+                                        <span class="phase">Duration</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
