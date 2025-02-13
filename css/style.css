@@ -13,6 +13,14 @@
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
     --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
     --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
+    --primary-gradient: linear-gradient(135deg, #FF70A2, #8A4FFF);
+    --secondary-gradient: linear-gradient(135deg, #8A4FFF, #FF3D7F);
+    --text-dark: #2A2A2A;
+    --text-light: #FFFFFF;
+    --background-soft: #FFF5F9;
+    --shadow-subtle: 0 10px 30px rgba(138, 79, 255, 0.1);
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 }
 
 /* Reset & Base Styles */
@@ -883,113 +891,411 @@ body {
     }
 }
 
-<section class="advanced-social-proof">
-    <div class="social-proof-container">
-        <div class="section-header">
-            <h2 class="section-title">Reclaim Your Confidence, Embrace Your Sensation</h2>
-            <p class="section-subtitle">Scientifically Formulated. Personally Transformative.</p>
-        </div>
+/* Social Proof */
+.advanced-social-proof {
+    background: var(--background-soft);
+    padding: 6rem 2rem;
+    overflow: hidden;
+    position: relative;
+}
 
-        <div class="social-proof-grid">
-            <div class="proof-column stats-column">
-                <div class="column-header">
-                    <h3>Proven Impact</h3>
-                    <p>Backed by real data and customer experiences</p>
-                </div>
-                <div class="stats-marquee">
-                    <div class="stat-item">
-                        <span class="stat-number">10k+</span>
-                        <span class="stat-label">Satisfied Customers</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">96%</span>
-                        <span class="stat-label">Satisfaction Rate</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">30</span>
-                        <span class="stat-label">Days to Results</span>
-                    </div>
-                </div>
-                <div class="stat-disclaimer">
-                    <p>*Based on internal surveys and clinical studies</p>
-                </div>
-            </div>
+.advanced-social-proof::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 30% 50%, 
+        rgba(255, 112, 162, 0.1), 
+        transparent 50%
+    );
+    z-index: 1;
+}
 
-            <div class="proof-column results-column">
-                <div class="column-header">
-                    <h3>Clinical Insights</h3>
-                    <p>Measurable improvements in intimate wellness</p>
-                </div>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="result-icon">📈</div>
-                        <div class="result-percentage">87%</div>
-                        <div class="result-description">Enhanced Sensation</div>
-                        <div class="result-subtext">Clinically Observed</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-icon">❤️</div>
-                        <div class="result-percentage">92%</div>
-                        <div class="result-description">Customer Satisfaction</div>
-                        <div class="result-subtext">Verified Experiences</div>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-icon">🌟</div>
-                        <div class="result-percentage">95%</div>
-                        <div class="result-description">Recommending Rate</div>
-                        <div class="result-subtext">Consistent Users</div>
-                    </div>
-                </div>
-                <div class="results-footnote">
-                    <p>*Individual results may vary</p>
-                </div>
-            </div>
+.social-proof-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
 
-            <div class="proof-column testimonial-column">
-                <div class="column-header">
-                    <h3>Real Stories</h3>
-                    <p>Authentic experiences from our community</p>
-                </div>
-                <div class="testimonial-cards">
-                    <div class="testimonial-card">
-                        <div class="testimonial-avatar">JD</div>
-                        <blockquote>"Incredible product that changed everything for me! I feel more confident and connected to myself than ever before."</blockquote>
-                        <div class="testimonial-meta">
-                            <span class="name">Jessica D.</span>
-                            <span class="verified">Verified Customer</span>
-                        </div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-avatar">MR</div>
-                        <blockquote>"Professional, discrete, and absolutely effective. This has been a game-changer for my intimate wellness journey."</blockquote>
-                        <div class="testimonial-meta">
-                            <span class="name">Michelle R.</span>
-                            <span class="verified">Verified Customer</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-cta">
-                    <a href="#" class="btn-more-stories">Read More Stories</a>
-                </div>
-            </div>
-        </div>
+/* Section Header */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: var(--transition-smooth);
+}
 
-        <div class="medical-endorsement">
-            <div class="endorsement-content">
-                <div class="doctor-profile">
-                    <img src="doctor-image.jpg" alt="Dr. Sarah Mitchell" class="doctor-image">
-                    <div class="doctor-info">
-                        <h3>Dr. Sarah Mitchell, MD</h3>
-                        <span class="doctor-credentials">Board Certified Gynecologist</span>
-                    </div>
-                </div>
-                <blockquote class="doctor-quote">
-                    "As a gynecologist with over 15 years of experience, I've seen the transformative potential of targeted intimate wellness solutions. S-Cream represents a breakthrough in understanding and addressing women's sexual health."
-                </blockquote>
-            </div>
-        </div>
-    </div>
-</section>
+.section-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-gradient);
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+
+.section-title:hover::after {
+    transform: scaleX(1);
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: rgba(42, 42, 42, 0.7);
+}
+
+/* Social Proof Grid */
+.social-proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    perspective: 1000px;
+}
+
+.proof-column {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-subtle);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.proof-column::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center, 
+        rgba(255, 112, 162, 0.05), 
+        transparent 70%
+    );
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.proof-column:hover {
+    transform: translateY(-15px) rotateX(5deg);
+    box-shadow: 0 25px 50px rgba(138, 79, 255, 0.15);
+}
+
+.proof-column:hover::before {
+    opacity: 1;
+}
+
+.column-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.column-header h3 {
+    font-size: 1.5rem;
+    background: var(--secondary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.column-header p {
+    color: rgba(42, 42, 42, 0.7);
+    font-size: 0.9rem;
+}
+
+/* Stats Column */
+.stats-marquee {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stat-item {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover .stat-number {
+    transform: scale(1.1);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(42, 42, 42, 0.7);
+}
+
+.stat-disclaimer {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: rgba(42, 42, 42, 0.5);
+}
+
+/* Results Column */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.result-card {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 15px;
+    background: rgba(255, 112, 162, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center, 
+        rgba(255, 112, 162, 0.1), 
+        transparent 70%
+    );
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.result-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(138, 79, 255, 0.1);
+}
+
+.result-card:hover::before {
+    opacity: 1;
+}
+
+.result-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.result-card:hover .result-icon {
+    transform: rotate(360deg);
+}
+
+.result-percentage {
+    font-size: 2.5rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.results-footnote {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: rgba(42, 42, 42, 0.5);
+}
+
+/* Testimonial Column */
+.testimonial-cards {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.testimonial-card {
+    background: rgba(138, 79, 255, 0.05);
+    padding: 2rem;
+    border-radius: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center, 
+        rgba(138, 79, 255, 0.1), 
+        transparent 70%
+    );
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(138, 79, 255, 0.1);
+}
+
+.testimonial-card:hover::before {
+    opacity: 1;
+}
+
+.testimonial-avatar {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-avatar {
+    transform: translateX(-50%) rotate(360deg);
+}
+
+.btn-more-stories {
+    display: block;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-more-stories:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(138, 79, 255, 0.2);
+}
+
+/* Medical Endorsement */
+.medical-endorsement {
+    margin-top: 4rem;
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: var(--shadow-subtle);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.doctor-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.doctor-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-gradient);
+}
+
+.doctor-info h3 {
+    font-size: 1.5rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.doctor-quote {
+    font-style: italic;
+    color: rgba(42, 42, 42, 0.8);
+    position: relative;
+    padding-left: 2rem;
+}
+
+.doctor-quote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 3rem;
+    color: rgba(255, 112, 162, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .social-proof-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .results-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .social-proof-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .medical-endorsement {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .doctor-profile {
+        flex-direction: column;
+    }
+}
+
+
 
 
 
