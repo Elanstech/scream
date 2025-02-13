@@ -62,148 +62,166 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <!-- Background Video -->
-        <div class="hero-background">
+<section class="hero" id="hero">
+    <!-- Video Background -->
+    <div class="hero-background">
+        <div class="hero-video-container">
             <video autoplay muted loop playsinline id="heroVideo">
                 <source src="promocream1.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay"></div>
         </div>
+    </div>
 
-        <!-- Hero Content -->
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="title-line">Discover Your</span>
-                    <span class="title-line accent">Natural Desire</span>
-                </h1>
-                
-                <p class="hero-description">
-                    Experience a scientifically formulated cream designed to enhance sensitivity 
-                    and elevate intimate moments. Prescribed by doctors, trusted by thousands.
-                </p>
+    <!-- Hero Content -->
+    <div class="hero-content">
+        <!-- Left Column - Text Content -->
+        <div class="hero-text-column">
+            <h1 class="hero-title">
+                <span class="title-line">Unlock Your</span>
+                <span class="title-line accent">Intimate Potential</span>
+            </h1>
 
-                <div class="hero-cta-group">
-                    <a href="#consultation" class="primary-cta">
-                        <span>Begin Your Journey</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                    <a href="#learn-more" class="secondary-cta">
-                        Learn More
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M12 5v14m-7-7l7 7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
+            <p class="hero-description">
+                Experience a clinically proven formula designed to enhance sensitivity 
+                and elevate intimate moments. Prescribed by doctors, trusted by thousands.
+            </p>
+
+            <div class="hero-cta-group">
+                <a href="#consultation" class="primary-cta">
+                    <span>Begin Your Journey</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+                <a href="#learn-more" class="secondary-cta">
+                    Learn More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="trust-indicators">
+                <div class="indicator">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
+                        <path d="M9 12l2 2 4-4" stroke-width="2"/>
+                    </svg>
+                    <span>FDA Approved<br>Ingredients</span>
+                </div>
+                <div class="indicator">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2"/>
+                    </svg>
+                    <span>96% Customer<br>Satisfaction</span>
+                </div>
+                <div class="indicator">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke-width="2"/>
+                        <path d="M3.3 7L12 12l8.7-5M12 22V12" stroke-width="2"/>
+                    </svg>
+                    <span>Discreet Home<br>Delivery</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column - Product Display -->
+        <div class="hero-product-column">
+            <div class="product-container">
+                <!-- Main Product Image -->
+                <div class="product-image">
+                    <img src="cream.jpeg" alt="S-Cream Product" class="floating">
+                    <div class="product-glow"></div>
                 </div>
 
-                <!-- Trust Badges -->
-                <div class="trust-badges">
-                    <div class="badge">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <!-- Floating Benefits -->
+                <div class="product-benefits">
+                    <div class="benefit-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2"/>
+                        </svg>
+                        <span class="badge-text">Enhanced Sensitivity</span>
+                    </div>
+
+                    <div class="benefit-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
                             <path d="M9 12l2 2 4-4" stroke-width="2"/>
                         </svg>
-                        <span>FDA Approved<br>Ingredients</span>
+                        <span class="badge-text">Doctor Prescribed</span>
                     </div>
-                    <div class="badge">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2"/>
+
+                    <div class="benefit-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
                         </svg>
-                        <span>96% Customer<br>Satisfaction</span>
+                        <span class="badge-text">Fast Acting</span>
                     </div>
-                    <div class="badge">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke-width="2"/>
-                            <path d="M9 22V12h6v10" stroke-width="2"/>
-                        </svg>
-                        <span>Discreet Home<br>Delivery</span>
+                </div>
+
+                <!-- Scientific Stats -->
+                <div class="scientific-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">40%</div>
+                        <div class="stat-label">of Women<br>Experience FSD</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">96%</div>
+                        <div class="stat-label">Satisfaction<br>Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30<span>min</span></div>
+                        <div class="stat-label">Average<br>Onset</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Product Preview -->
-            <div class="hero-product">
-            <div class="product-image">
-        <img src="cream.jpeg" alt="S-Cream Product" class="floating">
-        <div class="product-glow"></div>
-        
-        <!-- Main Product Badge -->
-        <div class="product-badge">
-            <span>Clinically<br>Proven</span>
         </div>
     </div>
 
-    <!-- Benefit Badges -->
-    <div class="product-benefits">
-        <div class="benefit-badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2"/>
-            </svg>
-            <span class="badge-text">Enhanced Sensitivity</span>
-        </div>
-
-        <div class="benefit-badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
-                <path d="M9 12l2 2 4-4" stroke-width="2"/>
-            </svg>
-            <span class="badge-text">FDA Approved Ingredients</span>
-        </div>
-
-        <div class="benefit-badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M9 11l3 3L22 4" stroke-width="2"/>
-                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-width="2"/>
-            </svg>
-            <span class="badge-text">Doctor Prescribed</span>
-        </div>
-
-        <div class="benefit-badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="12" cy="12" r="10" stroke-width="2"/>
-            </svg>
-            <span class="badge-text">Fast Acting Formula</span>
-        </div>
-
-        <div class="benefit-badge">
-            <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M12 15V3M12 15L8 11M12 15L16 11" stroke-width="2" stroke-linecap="round"/>
-                <path d="M2 17l2 4h16l2-4" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <span class="badge-text">Discreet Delivery</span>
-        </div>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <span>Scroll to Explore</span>
+        <div class="scroll-line"></div>
     </div>
+</section>
 
-    <!-- Scientific Stats -->
-    <div class="scientific-stats">
-        <div class="stat-badge">
-            <div class="stat-number">40%</div>
-            <div class="stat-label">of Women Experience FSD</div>
-        </div>
 
-        <div class="stat-badge">
-            <div class="stat-number">96%</div>
-            <div class="stat-label">Satisfaction Rate</div>
-        </div>
 
-        <div class="stat-badge">
-            <div class="stat-number">30min</div>
-            <div class="stat-label">Average Onset</div>
-        </div>
-    </div>
-</div>
 
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-            <span>Scroll to Explore</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- How It Works Section -->
 <section class="how-it-works">
     <div class="container">
