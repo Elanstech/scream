@@ -883,353 +883,113 @@ body {
     }
 }
 
+<section class="advanced-social-proof">
+    <div class="social-proof-container">
+        <div class="section-header">
+            <h2 class="section-title">Reclaim Your Confidence, Embrace Your Sensation</h2>
+            <p class="section-subtitle">Scientifically Formulated. Personally Transformative.</p>
+        </div>
 
-/* Social Proof Section Styles */
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-family: var(--font-display);
-    color: var(--text-dark);
-    margin-bottom: 3rem;
-    line-height: 1.2;
-    position: relative;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
+        <div class="social-proof-grid">
+            <div class="proof-column stats-column">
+                <div class="column-header">
+                    <h3>Proven Impact</h3>
+                    <p>Backed by real data and customer experiences</p>
+                </div>
+                <div class="stats-marquee">
+                    <div class="stat-item">
+                        <span class="stat-number">10k+</span>
+                        <span class="stat-label">Satisfied Customers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">96%</span>
+                        <span class="stat-label">Satisfaction Rate</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">30</span>
+                        <span class="stat-label">Days to Results</span>
+                    </div>
+                </div>
+                <div class="stat-disclaimer">
+                    <p>*Based on internal surveys and clinical studies</p>
+                </div>
+            </div>
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: var(--gradient-primary);
-}
+            <div class="proof-column results-column">
+                <div class="column-header">
+                    <h3>Clinical Insights</h3>
+                    <p>Measurable improvements in intimate wellness</p>
+                </div>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-icon">📈</div>
+                        <div class="result-percentage">87%</div>
+                        <div class="result-description">Enhanced Sensation</div>
+                        <div class="result-subtext">Clinically Observed</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-icon">❤️</div>
+                        <div class="result-percentage">92%</div>
+                        <div class="result-description">Customer Satisfaction</div>
+                        <div class="result-subtext">Verified Experiences</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-icon">🌟</div>
+                        <div class="result-percentage">95%</div>
+                        <div class="result-description">Recommending Rate</div>
+                        <div class="result-subtext">Consistent Users</div>
+                    </div>
+                </div>
+                <div class="results-footnote">
+                    <p>*Individual results may vary</p>
+                </div>
+            </div>
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .section-title {
-        font-size: 2.2rem;
-        padding: 0 1rem;
-    }
-}
+            <div class="proof-column testimonial-column">
+                <div class="column-header">
+                    <h3>Real Stories</h3>
+                    <p>Authentic experiences from our community</p>
+                </div>
+                <div class="testimonial-cards">
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar">JD</div>
+                        <blockquote>"Incredible product that changed everything for me! I feel more confident and connected to myself than ever before."</blockquote>
+                        <div class="testimonial-meta">
+                            <span class="name">Jessica D.</span>
+                            <span class="verified">Verified Customer</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar">MR</div>
+                        <blockquote>"Professional, discrete, and absolutely effective. This has been a game-changer for my intimate wellness journey."</blockquote>
+                        <div class="testimonial-meta">
+                            <span class="name">Michelle R.</span>
+                            <span class="verified">Verified Customer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-cta">
+                    <a href="#" class="btn-more-stories">Read More Stories</a>
+                </div>
+            </div>
+        </div>
 
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .section-title::after {
-        width: 80px;
-    }
-}
-
-@media (max-width: 480px) {
-    .section-title {
-        font-size: 1.8rem;
-    }
-}
-
-.social-proof {
-    padding: 6rem 0;
-    background: linear-gradient(to bottom, #fff5f9, #fff);
-}
-
-/* Stats Banner */
-.stats-banner {
-    display: flex;
-    justify-content: space-around;
-    background: white;
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 4rem;
-}
-
-.stat-item {
-    text-align: center;
-}
-
-.stat-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-    font-family: var(--font-display);
-}
-
-.stat-label {
-    font-size: 1rem;
-    color: #666;
-}
-
-/* Medical Endorsement */
-.medical-endorsement {
-    background: white;
-    border-radius: 20px;
-    padding: 3rem;
-    margin-bottom: 4rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-.endorsement-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.doctor-card {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.doctor-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 1.5rem;
-}
-
-.doctor-info h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-}
-
-.doctor-credentials {
-    color: #666;
-    font-size: 1rem;
-}
-
-.doctor-quote {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    color: #444;
-    font-style: italic;
-    position: relative;
-    padding-left: 2rem;
-}
-
-.doctor-quote::before {
-    content: '"';
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 4rem;
-    color: var(--primary);
-    opacity: 0.2;
-    line-height: 1;
-}
-
-/* Clinical Results */
-.clinical-results {
-    margin-bottom: 4rem;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: var(--text-dark);
-}
-
-.results-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.result-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-.result-chart {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 1.5rem;
-}
-
-.chart-svg {
-    transform: rotate(-90deg);
-    width: 100%;
-    height: 100%;
-}
-
-.chart-circle-bg {
-    fill: none;
-    stroke: #f0f0f0;
-    stroke-width: 3;
-}
-
-.chart-circle {
-    fill: none;
-    stroke: var(--primary);
-    stroke-width: 3;
-    stroke-dasharray: 100 100;
-    transition: stroke-dasharray 1s ease;
-}
-
-.percentage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-.result-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-}
-
-.result-card p {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Testimonials */
-.testimonials {
-    position: relative;
-}
-
-.testimonials-slider {
-    overflow: hidden;
-    margin: 0 -1rem;
-    padding: 1rem;
-}
-
-.testimonial-track {
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
-.testimonial-card {
-    flex: 0 0 calc(33.333% - 2rem);
-    margin: 0 1rem;
-    background: white;
-    padding: 2rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-.testimonial-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.testimonial-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1rem;
-}
-
-.testimonial-avatar span {
-    color: white;
-    font-weight: 600;
-}
-
-.testimonial-info h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-}
-
-.testimonial-location {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.rating {
-    margin-left: auto;
-    color: #FFD700;
-}
-
-.testimonial-quote {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #444;
-    margin-bottom: 1rem;
-}
-
-.testimonial-date {
-    font-size: 0.9rem;
-    color: #999;
-}
-
-.slider-controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
-.slider-arrow {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--primary);
-    cursor: pointer;
-    padding: 0.5rem;
-    transition: opacity 0.2s ease;
-}
-
-.slider-arrow:hover {
-    opacity: 0.7;
-}
-
-.slider-dots {
-    display: flex;
-    gap: 0.5rem;
-    margin: 0 2rem;
-}
-
-/* Responsive Styles */
-@media (max-width: 1200px) {
-    .results-grid,
-    .testimonial-track {
-        grid-template-columns: repeat(2, 1fr);
-        flex-wrap: wrap;
-    }
-}
-
-@media (max-width: 992px) {
-    .results-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .testimonial-card {
-        flex: 0 0 calc(50% - 2rem);
-    }
-}
-
-@media (max-width: 768px) {
-    .stats-banner {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .testimonial-card {
-        flex: 0 0 100%;
-    }
-}
+        <div class="medical-endorsement">
+            <div class="endorsement-content">
+                <div class="doctor-profile">
+                    <img src="doctor-image.jpg" alt="Dr. Sarah Mitchell" class="doctor-image">
+                    <div class="doctor-info">
+                        <h3>Dr. Sarah Mitchell, MD</h3>
+                        <span class="doctor-credentials">Board Certified Gynecologist</span>
+                    </div>
+                </div>
+                <blockquote class="doctor-quote">
+                    "As a gynecologist with over 15 years of experience, I've seen the transformative potential of targeted intimate wellness solutions. S-Cream represents a breakthrough in understanding and addressing women's sexual health."
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
