@@ -1197,67 +1197,8 @@ body {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Ingredients Section */
+  Ingredients Section
+------------------------------------------------*/
 .ingredients-section {
   padding: 80px 2rem;
   background: var(--background-soft);
@@ -1266,39 +1207,41 @@ body {
   overflow: hidden;
 }
 
-.ingredients-container {
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
 /* Section Header */
-.ingredients-section .section-header {
+.ingredients-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 50px;
 }
 
-.ingredients-section .section-title {
+.ingredients-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
-  margin-bottom: 0.75rem;
+  margin-bottom: 15px;
   color: var(--text-dark);
 }
 
-.ingredients-section .section-subtitle {
+.ingredients-subtitle {
   font-family: var(--font-sans);
   font-size: 1.125rem;
-  color: var(--text-dark);
   opacity: 0.7;
 }
 
-/* Ingredients Grid */
+/*------------------------------------------------
+  Ingredients Grid
+------------------------------------------------*/
 .ingredients-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
+  .ingredients-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
   .ingredients-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1310,49 +1253,73 @@ body {
   }
 }
 
-/* Ingredient Cards */
+/*------------------------------------------------
+  Ingredient Card (Flip-Card Effect)
+------------------------------------------------*/
 .ingredient-card {
-  background: #fff;
+  perspective: 1000px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 250px; /* Adjust height as needed */
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.ingredient-card:hover .card-inner,
+.ingredient-card.flip .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
   border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.card-back {
+  transform: rotateY(180deg);
   text-align: center;
 }
 
-.ingredient-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-}
-
-/* Ingredient Icon */
-.ingredient-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 1.5rem;
-}
-
-.ingredient-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Ingredient Title */
-.ingredient-title {
+/* Ingredient Name */
+.ingredient-name {
   font-family: var(--font-display);
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
   color: var(--primary);
+  margin-bottom: 5px;
 }
 
-/* Ingredient Description */
-.ingredient-description {
+/* Ingredient Dosage */
+.ingredient-dosage {
   font-family: var(--font-sans);
   font-size: 1rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+/* Ingredient Detail */
+.ingredient-detail {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
   line-height: 1.5;
   color: var(--text-dark);
   opacity: 0.85;
+  padding: 0 10px;
 }
 
 
