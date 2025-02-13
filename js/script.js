@@ -222,6 +222,83 @@ class HeroManager {
     }
 }
 
+// Social Proof Section Functionality
+class SocialProofManager {
+    constructor() {
+        this.initTestimonialSlider();
+        this.initClinicalResultsAnimation();
+    }
+
+    initTestimonialSlider() {
+        const slider = document.querySelector('.testimonial-track');
+        const prevButton = document.querySelector('.slider-arrow.prev');
+        const nextButton = document.querySelector('.slider-arrow.next');
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        
+        if (!slider || !prevButton || !nextButton) return;
+
+        let currentIndex = 0;
+        const cardWidth = testimonialCards[0].offsetWidth + 16; // Include margin
+        const totalCards = testimonialCards.length;
+
+        const updateSlider = () => {
+            slider.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        };
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = Math.max(0, currentIndex - 1);
+            updateSlider();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = Math.min(totalCards - 1, currentIndex + 1);
+            updateSlider();
+        });
+
+        // Responsive slider adjustment
+        window.addEventListener('resize', () => {
+            const newCardWidth = testimonialCards[0].offsetWidth + 16;
+            slider.style.transform = `translateX(-${currentIndex * newCardWidth}px)`;
+        });
+    }
+
+    initClinicalResultsAnimation() {
+        const resultCharts = document.querySelectorAll('.result-wellness-chart');
+        
+        const animateChart = (chart) => {
+            const circle = chart.querySelector('.chart-wellness-progress');
+            const percentage = chart.querySelector('.wellness-percentage');
+            
+            if (!circle || !percentage) return;
+
+            const percentageValue = parseInt(percentage.textContent);
+            circle.style.strokeDasharray = `${percentageValue} 100`;
+        };
+
+        // Intersection Observer to trigger animation when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateChart(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        // Observe each chart
+        resultCharts.forEach(chart => {
+            observer.observe(chart);
+        });
+    }
+}
+
+// Initialize Social Proof functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const socialProofManager = new SocialProofManager();
+});
+
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
     const preloader = new PreloaderManager();
