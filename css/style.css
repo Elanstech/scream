@@ -72,8 +72,24 @@ body {
 }
 
 .logo-image {
-    height: 40px;
+    height: 60px;
     width: auto;
+    transition: height 0.3s ease;
+}
+
+/* Slightly reduce logo size when scrolled for better UX */
+.header-scrolled .logo-image {
+    height: 50px;
+}
+
+/* Adjust padding to accommodate larger logo */
+.header-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* Desktop Navigation */
@@ -242,11 +258,15 @@ body {
 
 @media (max-width: 480px) {
     .header-container {
-        padding: 1rem;
+        padding: 0.75rem 1rem;
     }
 
     .logo-image {
-        height: 32px;
+        height: 45px;
+    }
+    
+    .header-scrolled .logo-image {
+        height: 40px;
     }
 
     .btn-consultation {
