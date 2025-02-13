@@ -885,330 +885,301 @@ body {
 
 
 /* Social Proof Section Styles */
-.social-proof-wellness {
-    background: linear-gradient(to bottom, var(--text-light), white);
+.social-proof {
     padding: 6rem 0;
-    overflow: hidden;
-    position: relative;
-}
-
-.social-proof-container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    background: linear-gradient(to bottom, #fff5f9, #fff);
 }
 
 /* Stats Banner */
-.stats-wellness-banner {
+.stats-banner {
     display: flex;
     justify-content: space-around;
     background: white;
-    padding: 2.5rem;
-    border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(138, 79, 255, 0.1);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     margin-bottom: 4rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.stats-wellness-banner:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(138, 79, 255, 0.15);
-}
-
-.stat-wellness-item {
+.stat-item {
     text-align: center;
-    position: relative;
 }
 
-.stat-wellness-item::after {
-    content: '';
-    position: absolute;
-    right: -1px;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 60%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(138, 79, 255, 0.2), transparent);
-}
-
-.stat-wellness-item:last-child::after {
-    display: none;
-}
-
-.stat-wellness-number {
+.stat-number {
     display: block;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.75rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
     font-family: var(--font-display);
 }
 
-.stat-wellness-label {
+.stat-label {
     font-size: 1rem;
-    color: rgba(42, 42, 42, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
+    color: #666;
 }
 
 /* Medical Endorsement */
-.medical-wellness-endorsement {
+.medical-endorsement {
     background: white;
-    border-radius: 25px;
-    padding: 3.5rem;
+    border-radius: 20px;
+    padding: 3rem;
     margin-bottom: 4rem;
-    box-shadow: 0 15px 40px rgba(138, 79, 255, 0.08);
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.medical-wellness-endorsement::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-        circle at center, 
-        rgba(255, 112, 162, 0.1) 0%, 
-        transparent 70%
-    );
-    z-index: 1;
-}
-
-.endorsement-wellness-content {
+.endorsement-content {
     max-width: 800px;
     margin: 0 auto;
-    position: relative;
-    z-index: 2;
 }
 
-.doctor-wellness-card {
+.doctor-card {
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
 }
 
-.doctor-wellness-image {
-    width: 120px;
-    height: 120px;
+.doctor-image {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 2rem;
-    border: 4px solid var(--soft-pink);
-    box-shadow: 0 10px 25px rgba(255, 112, 162, 0.2);
+    margin-right: 1.5rem;
 }
 
-.doctor-wellness-info h3 {
-    font-size: 1.75rem;
+.doctor-info h3 {
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     color: var(--text-dark);
-    font-family: var(--font-display);
 }
 
-.doctor-wellness-credentials {
-    color: rgba(42, 42, 42, 0.7);
+.doctor-credentials {
+    color: #666;
     font-size: 1rem;
-    font-weight: 500;
 }
 
-.doctor-wellness-quote {
-    font-size: 1.5rem;
+.doctor-quote {
+    font-size: 1.25rem;
     line-height: 1.6;
-    color: var(--text-dark);
+    color: #444;
     font-style: italic;
     position: relative;
-    padding-left: 3rem;
+    padding-left: 2rem;
 }
 
-.doctor-wellness-quote::before {
+.doctor-quote::before {
     content: '"';
     position: absolute;
     left: 0;
-    top: -1rem;
-    font-size: 6rem;
-    color: var(--soft-pink);
-    opacity: 0.15;
+    top: 0;
+    font-size: 4rem;
+    color: var(--primary);
+    opacity: 0.2;
     line-height: 1;
 }
 
 /* Clinical Results */
-.clinical-wellness-results {
+.clinical-results {
     margin-bottom: 4rem;
 }
 
-.wellness-section-title {
+.section-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 3rem;
     color: var(--text-dark);
-    font-family: var(--font-display);
-    position: relative;
 }
 
-.wellness-section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: var(--gradient-primary);
-}
-
-.results-wellness-grid {
+.results-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
-.result-wellness-card {
+.result-card {
     background: white;
-    padding: 2.5rem;
-    border-radius: 25px;
+    padding: 2rem;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 15px 40px rgba(138, 79, 255, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-.result-wellness-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(138, 79, 255, 0.12);
-}
-
-.result-wellness-chart {
+.result-chart {
     position: relative;
-    width: 180px;
-    height: 180px;
-    margin: 0 auto 2rem;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1.5rem;
 }
 
-.chart-wellness-svg {
+.chart-svg {
     transform: rotate(-90deg);
     width: 100%;
     height: 100%;
 }
 
-.chart-wellness-bg {
+.chart-circle-bg {
     fill: none;
-    stroke: rgba(255, 112, 162, 0.2);
-    stroke-width: 4;
+    stroke: #f0f0f0;
+    stroke-width: 3;
 }
 
-.chart-wellness-progress {
+.chart-circle {
     fill: none;
-    stroke: var(--soft-pink);
-    stroke-width: 4;
+    stroke: var(--primary);
+    stroke-width: 3;
     stroke-dasharray: 100 100;
-    transition: stroke-dasharray 1.5s ease;
+    transition: stroke-dasharray 1s ease;
 }
 
-.wellness-percentage {
+.percentage {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--primary);
 }
 
-.result-wellness-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
+.result-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
     color: var(--text-dark);
-    font-family: var(--font-display);
 }
 
-.result-wellness-card p {
-    color: rgba(42, 42, 42, 0.7);
+.result-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Testimonials */
+.testimonials {
+    position: relative;
+}
+
+.testimonials-slider {
+    overflow: hidden;
+    margin: 0 -1rem;
+    padding: 1rem;
+}
+
+.testimonial-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.testimonial-card {
+    flex: 0 0 calc(33.333% - 2rem);
+    margin: 0 1rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.testimonial-avatar span {
+    color: white;
+    font-weight: 600;
+}
+
+.testimonial-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.testimonial-location {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.rating {
+    margin-left: auto;
+    color: #FFD700;
+}
+
+.testimonial-quote {
     font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 1rem;
 }
 
-/* Responsive Design */
-@media (max-width: 1200px) {
-    .results-wellness-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.testimonial-date {
+    font-size: 0.9rem;
+    color: #999;
+}
 
-    .result-wellness-chart {
-        width: 160px;
-        height: 160px;
+.slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.slider-arrow {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: opacity 0.2s ease;
+}
+
+.slider-arrow:hover {
+    opacity: 0.7;
+}
+
+.slider-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0 2rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .results-grid,
+    .testimonial-track {
+        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
     }
 }
 
 @media (max-width: 992px) {
-    .social-proof-wellness {
-        padding: 4rem 0;
-    }
-
-    .stats-wellness-banner {
-        flex-direction: column;
-        gap: 2rem;
-        padding: 2rem;
-    }
-
-    .stat-wellness-item::after {
-        display: none;
-    }
-
-    .doctor-wellness-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .doctor-wellness-image {
-        margin-right: 0;
-        margin-bottom: 1.5rem;
-    }
-
-    .results-wellness-grid {
+    .results-grid {
         grid-template-columns: 1fr;
+    }
+
+    .testimonial-card {
+        flex: 0 0 calc(50% - 2rem);
     }
 }
 
 @media (max-width: 768px) {
-    .wellness-section-title {
-        font-size: 2.5rem;
+    .stats-banner {
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
-    .doctor-wellness-quote {
-        font-size: 1.25rem;
-        padding-left: 0;
-    }
-
-    .doctor-wellness-quote::before {
-        display: none;
-    }
-}
-
-@media (max-width: 480px) {
-    .social-proof-wellness {
-        padding: 3rem 0;
-    }
-
-    .stats-wellness-banner {
-        padding: 1.5rem;
-    }
-
-    .stat-wellness-number {
-        font-size: 2.5rem;
-    }
-
-    .doctor-wellness-image {
-        width: 100px;
-        height: 100px;
-    }
-
-    .doctor-wellness-info h3 {
-        font-size: 1.5rem;
+    .testimonial-card {
+        flex: 0 0 100%;
     }
 }
 
