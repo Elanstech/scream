@@ -135,67 +135,233 @@ class HeaderManager {
 }
 
 // Hero Section Manager
-class HeroManager {
-    constructor() {
-        this.setupHeroAnimations();
-        this.initializeVideoBackground();
-    }
+// Hero Section JavaScript
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Hero Section
+    class HeroSection {
+        constructor() {
+            this.initializeVideo();
+            this.setupAnimations();
+            this.setupCounters();
+            this.setupHotspots();
+            this.setupCTAButton();
+            this.setupScrollIndicator();
+        }
 
-    setupHeroAnimations() {
-        gsap.from('.hero-eyebrow', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            ease: 'power2.out'
-        });
+        // Video Background Management
+        initializeVideo() {
+            const video = document.getElementById('heroVideo');
+            if (!video) return;
 
-        gsap.from('.hero-title .title-line', {
-            opacity: 0,
-            y: 50,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: 'power2.out'
-        });
-
-        gsap.from('.hero-description', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            delay: 0.4,
-            ease: 'power2.out'
-        });
-
-        gsap.from('.benefit-card', {
-            opacity: 0,
-            y: 30,
-            duration: 0.8,
-            stagger: 0.2,
-            delay: 0.6,
-            ease: 'power2.out'
-        });
-    }
-
-    initializeVideoBackground() {
-        const video = document.getElementById('heroVideo');
-        if (!video) return;
-
-        // Handle video loading
-        video.addEventListener('loadeddata', () => {
-            video.play().catch(() => {
-                console.log('Auto-play prevented');
+            // Handle video loading and playback
+            video.addEventListener('loadeddata', () => {
+                video.play().catch(() => {
+                    console.log('Auto-play prevented');
+                });
             });
-        });
 
-        // Optimize video playback
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                video.pause();
-            } else {
-                video.play().catch(() => {});
+            // Optimize video playback
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    video.pause();
+                } else {
+                    video.play().catch(() => {});
+                }
+            });
+
+            // Handle mobile optimization
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                video.setAttribute('playsinline', '');
             }
-        });
+        }
+
+        // GSAP Animations
+        setupAnimations() {
+            // Hero content animations
+            gsap.from('.hero-eyebrow', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.hero-title .title-line', {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.hero-description', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                delay: 0.4,
+                ease: 'power2.out'
+            });
+
+            // Benefits cards animation
+            gsap.from('.benefit-card', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.2,
+                delay: 0.6,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.benefits-grid',
+                    start: 'top 80%'
+                }
+            });
+
+            // Product showcase animation
+            gsap.from('.product-image', {
+                opacity: 0,
+                scale: 0.8,
+                duration: 1,
+                delay: 0.8,
+                ease: 'power2.out'
+            });
+        }
+
+        // Number Counter Animation
+        setupCounters() {
+            const animateValue = (element, start, end, duration) => {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    element.textContent = value;
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+
+            // Animate stat number
+            const statNumber = document.querySelector('.stat-number');
+            if (statNumber) {
+                const observerCallback = (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateValue(statNumber, 0, 94, 2000);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                };
+
+                const observer = new IntersectionObserver(observerCallback, {
+                    threshold: 0.5
+                });
+
+                observer.observe(statNumber);
+            }
+        }
+
+        // Interactive Product Hotspots
+        setupHotspots() {
+            const hotspots = document.querySelectorAll('.hotspot');
+            
+            hotspots.forEach(hotspot => {
+                // Hover effects
+                hotspot.addEventListener('mouseenter', () => {
+                    gsap.to(hotspot.querySelector('.hotspot-dot'), {
+                        scale: 1.5,
+                        duration: 0.3
+                    });
+                });
+
+                hotspot.addEventListener('mouseleave', () => {
+                    gsap.to(hotspot.querySelector('.hotspot-dot'), {
+                        scale: 1,
+                        duration: 0.3
+                    });
+                });
+
+                // Mobile touch handling
+                hotspot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const content = hotspot.querySelector('.hotspot-content');
+                    
+                    // Close other open hotspots
+                    document.querySelectorAll('.hotspot-content.active').forEach(item => {
+                        if (item !== content) {
+                            item.classList.remove('active');
+                        }
+                    });
+
+                    content.classList.toggle('active');
+                });
+            });
+        }
+
+        // CTA Button Effects
+        setupCTAButton() {
+            const cta = document.querySelector('.primary-cta');
+            if (!cta) return;
+
+            // Add hover animation
+            cta.addEventListener('mouseenter', () => {
+                gsap.to(cta.querySelector('.btn-glow'), {
+                    opacity: 0.15,
+                    duration: 0.3
+                });
+            });
+
+            cta.addEventListener('mouseleave', () => {
+                gsap.to(cta.querySelector('.btn-glow'), {
+                    opacity: 0,
+                    duration: 0.3
+                });
+            });
+
+            // Add click effect
+            cta.addEventListener('click', () => {
+                gsap.to(cta, {
+                    scale: 0.95,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1
+                });
+
+                // Implement your CTA click handler here
+                // For example, scroll to form or open modal
+            });
+        }
+
+        // Scroll Indicator
+        setupScrollIndicator() {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (!scrollIndicator) return;
+
+            scrollIndicator.addEventListener('click', () => {
+                const nextSection = document.querySelector('#benefits') || 
+                                  document.querySelector('section:nth-of-type(2)');
+                if (nextSection) {
+                    window.scrollTo({
+                        top: nextSection.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            // Hide scroll indicator when scrolled
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > window.innerHeight * 0.3) {
+                    scrollIndicator.style.opacity = '0';
+                } else {
+                    scrollIndicator.style.opacity = '1';
+                }
+            });
+        }
     }
-}
+
+    // Initialize Hero Section
+    const heroSection = new HeroSection();
+});
 
 // Testimonials Manager
 class TestimonialsManager {
