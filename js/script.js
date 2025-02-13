@@ -223,88 +223,95 @@ class HeroManager {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Clinical Results Chart Animation
-    const resultCharts = document.querySelectorAll('.result-chart');
-    
-    const animateCharts = () => {
-        resultCharts.forEach(chart => {
-            const circle = chart.querySelector('.chart-circle');
-            const percentage = chart.querySelector('.percentage');
-            
-            if (!circle || !percentage) return;
 
-            const percentageValue = parseInt(percentage.textContent);
-            
-            // Animate circle fill
-            requestAnimationFrame(() => {
-                circle.style.strokeDasharray = `${percentageValue} 100`;
-            });
-        });
-    };
+// Social Proof Manager for the Advanced Social Proof Section
+class SocialProofManager {
+  constructor() {
+    this.initAnimations();
+  }
 
-    // Use Intersection Observer for performance
-    const chartObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCharts();
-                chartObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1 // Trigger when 10% of the element is visible
-    });
-
-    // Observe each chart
-    resultCharts.forEach(chart => {
-        chartObserver.observe(chart);
-    });
-
-    // Testimonial Slider Functionality
-    const slider = document.querySelector('.testimonial-track');
-    const prevButton = document.querySelector('.slider-arrow.prev');
-    const nextButton = document.querySelector('.slider-arrow.next');
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-
-    if (slider && prevButton && nextButton && testimonialCards.length > 0) {
-        let currentIndex = 0;
-        const cardWidth = testimonialCards[0].offsetWidth + 16; // Include margin
-
-        const updateSlider = () => {
-            slider.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-        };
-
-        prevButton.addEventListener('click', () => {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateSlider();
-            }
-        });
-
-        nextButton.addEventListener('click', () => {
-            if (currentIndex < testimonialCards.length - 1) {
-                currentIndex++;
-                updateSlider();
-            }
-        });
-
-        // Responsive slider adjustment
-        const handleResize = () => {
-            const newCardWidth = testimonialCards[0].offsetWidth + 16;
-            slider.style.transform = `translateX(-${currentIndex * newCardWidth}px)`;
-        };
-
-        window.addEventListener('resize', () => {
-            // Debounce resize event
-            clearTimeout(window.resizeTimer);
-            window.resizeTimer = setTimeout(handleResize, 250);
-        });
+  initAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      console.warn('GSAP or ScrollTrigger is not loaded.');
+      return;
     }
+    
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate the Social Proof Section Header
+    gsap.from('.advanced-social-proof .section-header', {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.advanced-social-proof',
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Animate Stats Column Items
+    gsap.from('.advanced-social-proof .stats-column .stat-item', {
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: '.advanced-social-proof .stats-column',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Animate Results Cards
+    gsap.from('.advanced-social-proof .results-column .result-card', {
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: '.advanced-social-proof .results-column',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Animate Testimonial Cards
+    gsap.from('.advanced-social-proof .testimonial-column .testimonial-card', {
+      opacity: 0,
+      y: 30,
+      duration: 0.8,
+      ease: 'power3.out',
+      stagger: 0.3,
+      scrollTrigger: {
+        trigger: '.advanced-social-proof .testimonial-column',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    // Animate Medical Endorsement Section
+    gsap.from('.advanced-social-proof .medical-endorsement', {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.advanced-social-proof .medical-endorsement',
+        start: 'top 90%',
+        toggleActions: 'play none none none'
+      }
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new SocialProofManager();
 });
 
-// Initialize Social Proof functionality when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    const socialProofManager = new SocialProofManager();
-});
 
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
