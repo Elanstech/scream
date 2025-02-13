@@ -13,70 +13,59 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (unchanged from previous advanced version) -->
   <header class="main-header">
     <div class="header-container">
-      <!-- Logo -->
       <a href="#" class="logo-link">
         <img src="logo.png" alt="S-Cream Logo" />
       </a>
-      <!-- Desktop Navigation -->
       <nav class="nav-desktop">
         <ul class="nav-list">
           <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="#how-it-works" class="nav-link">How It Works</a></li>
           <li class="nav-item"><a href="#ingredients" class="nav-link">Ingredients</a></li>
           <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li>
-          <li class="nav-item">
-            <a href="#get-started" class="nav-link contact-btn">Get Started</a>
-          </li>
+          <li class="nav-item"><a href="#get-started" class="nav-link contact-btn">Get Started</a></li>
         </ul>
       </nav>
-      <!-- Mobile Menu Button -->
       <button class="hamburger" aria-label="Menu">
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
         <span class="hamburger-line"></span>
       </button>
-      <!-- Mobile Navigation -->
       <nav class="nav-mobile">
         <ul class="nav-list">
           <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="#how-it-works" class="nav-link">How It Works</a></li>
           <li class="nav-item"><a href="#ingredients" class="nav-link">Ingredients</a></li>
           <li class="nav-item"><a href="#testimonials" class="nav-link">Testimonials</a></li>
-          <li class="nav-item">
-            <a href="#get-started" class="nav-link contact-btn">Get Started</a>
-          </li>
+          <li class="nav-item"><a href="#get-started" class="nav-link contact-btn">Get Started</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- Updated Hero Section -->
+  <section class="hero modern-hero">
     <div class="video-container">
       <video autoplay muted loop playsinline>
         <source src="promocream1.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <!-- Animated gradient overlay for a dynamic, warm feel -->
+      <!-- Optional gradient overlay -->
       <div class="gradient-overlay"></div>
-      <!-- Curved SVG shape for added depth -->
-      <svg class="hero-curve" viewBox="0 0 1440 320">
-        <path fill="#FFF5F9" fill-opacity="1" d="M0,256L1440,96L1440,320L0,320Z"></path>
-      </svg>
     </div>
 
-    <div class="hero-content">
-      <div class="hero-text fade-up">
+    <div class="hero-grid">
+      <!-- Left Column: Text & CTAs -->
+      <div class="hero-text-column">
         <span class="hero-eyebrow">Revolutionary Female Enhancement</span>
         <h1 class="hero-title">
           <span class="title-line">Unlock Your</span>
           <span class="title-line accent">Sensual Potential</span>
         </h1>
         <p class="hero-description">
-          S-Cream is a scientifically formulated, premium compound designed to elevate intimacy and pleasure for women. Discover a new level of passion.
+          S-Cream is a premium, scientifically formulated compound that elevates intimacy and pleasure for women. Embrace confidence and passion.
         </p>
         <div class="hero-cta">
           <button class="cta-button">
@@ -87,7 +76,9 @@
           <a href="#how-it-works" class="cta-link">Learn More</a>
         </div>
       </div>
-      <div class="hero-product" id="heroProduct">
+
+      <!-- Right Column: Product Image -->
+      <div class="hero-product-column" id="heroProduct">
         <div class="product-container">
           <div class="product-image">
             <img src="cream.jpeg" alt="S-Cream Product" />
@@ -101,7 +92,7 @@
       </div>
     </div>
 
-    <div class="scroll-indicator fade-up">
+    <div class="scroll-indicator">
       <span>Scroll to Explore</span>
       <div class="scroll-line"></div>
     </div>
