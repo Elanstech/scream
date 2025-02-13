@@ -63,64 +63,53 @@ class PreloaderManager {
     }
 }
 
-// Header Manager
-class HeaderManager {
+// Header functionality
+class Header {
     constructor() {
-        this.header = document.querySelector('.main-header');
-        this.hamburger = document.querySelector('.mobile-menu-toggle');
-        this.mobileNav = document.querySelector('.nav-mobile');
-        this.scrollThreshold = 50;
+        this.header = document.querySelector('.site-header');
+        this.menuToggle = document.querySelector('.menu-toggle');
+        this.mobileNav = document.querySelector('.mobile-nav');
+        this.mobileLinks = document.querySelectorAll('.mobile-nav .nav-link');
         this.lastScrollTop = 0;
-        this.scrollTimeout = null;
+        this.scrollThreshold = 50;
         
-        this.initializeHeader();
+        this.init();
+    }
+
+    init() {
         this.setupEventListeners();
-    }
-
-    initializeHeader() {
-        window.addEventListener('scroll', () => {
-            if (this.scrollTimeout) {
-                window.cancelAnimationFrame(this.scrollTimeout);
-            }
-            this.scrollTimeout = window.requestAnimationFrame(() => {
-                this.handleHeaderScroll();
-            });
-        });
-    }
-
-    handleHeaderScroll() {
-        const currentScroll = window.pageYOffset;
-
-        if (currentScroll > this.scrollThreshold) {
-            this.header.classList.add('header-scrolled');
-        } else {
-            this.header.classList.remove('header-scrolled');
-        }
-
-        if (currentScroll > this.lastScrollTop && currentScroll > this.header.offsetHeight) {
-            this.header.style.transform = 'translateY(-100%)';
-        } else {
-            this.header.style.transform = 'translateY(0)';
-        }
-
-        this.lastScrollTop = currentScroll;
+        this.handleScroll();
     }
 
     setupEventListeners() {
-        if (this.hamburger && this.mobileNav) {
-            this.hamburger.addEventListener('click', () => {
-                this.toggleMobileMenu();
-            });
-        }
+        // Menu toggle
+        this.menuToggle?.addEventListener('click', () => this.toggleMobileMenu());
 
+        // Mobile menu links
+        this.mobileLinks.forEach(link => {
+            link.addEventListener('click', () => this.closeMobileMenu());
+        });
+
+        // Scroll handling
+        window.addEventListener('scroll', () => this.handleScroll());
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') this.closeMobileMenu();
+        });
+
+        // Close menu on outside click
         document.addEventListener('click', (e) => {
-            if (this.mobileNav && !this.mobileNav.contains(e.target) && !this.hamburger.contains(e.target)) {
+            if (this.mobileNav?.classList.contains('active') && 
+                !this.mobileNav.contains(e.target) && 
+                !this.menuToggle.contains(e.target)) {
                 this.closeMobileMenu();
             }
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
+        // Resize handling
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
                 this.closeMobileMenu();
             }
         });
@@ -128,16 +117,41 @@ class HeaderManager {
 
     toggleMobileMenu() {
         document.body.classList.toggle('menu-open');
-        this.hamburger.classList.toggle('active');
-        this.mobileNav.classList.toggle('active');
+        this.mobileNav?.classList.toggle('active');
     }
 
     closeMobileMenu() {
         document.body.classList.remove('menu-open');
-        this.hamburger.classList.remove('active');
-        this.mobileNav.classList.remove('active');
+        this.mobileNav?.classList.remove('active');
+    }
+
+    handleScroll() {
+        const currentScroll = window.pageYOffset;
+
+        // Add/remove header background based on scroll position
+        if (currentScroll > this.scrollThreshold) {
+            this.header.classList.add('header-scrolled');
+        } else {
+            this.header.classList.remove('header-scrolled');
+        }
+
+        // Hide/show header based on scroll direction
+        if (currentScroll > this.lastScrollTop && currentScroll > this.header.offsetHeight) {
+            // Scrolling down
+            this.header.style.transform = 'translateY(-100%)';
+        } else {
+            // Scrolling up
+            this.header.style.transform = 'translateY(0)';
+        }
+
+        this.lastScrollTop = currentScroll;
     }
 }
+
+// Initialize header when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new Header();
+});
 
 // Hero Manager
 class HeroManager {
