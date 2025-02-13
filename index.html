@@ -129,21 +129,25 @@
     </nav>
 
     <!-- Hero Section with Video Background -->
-    <section id="hero" class="hero" aria-label="Introduction">
-        <div class="video-container">
-            <video autoplay muted loop playsinline id="heroVideo">
-                <source src="promocream1.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay"></div>
-        </div>
+   <!-- Hero Section -->
+<section class="hero" id="hero">
+    <!-- Video Background -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline id="heroVideo">
+            <source src="assets/videos/promocream1.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
 
+    <div class="hero-wrapper">
         <div class="hero-content">
             <div class="hero-grid">
+                <!-- Left Column: Text Content -->
                 <div class="hero-text-column">
-                    <!-- Conversion Banner -->
+                    <!-- Stats Banner -->
                     <div class="conversion-banner" data-aos="fade-down">
                         <div class="banner-stat">
-                            <span class="stat-number">94%</span>
+                            <span class="stat-number" data-counter="94">0</span>
                             <span class="stat-label">Satisfaction Rate</span>
                         </div>
                         <div class="banner-divider"></div>
@@ -157,48 +161,36 @@
                         </div>
                     </div>
 
-                    <span class="hero-eyebrow" data-aos="fade-up">Premium Sexual Wellness</span>
-                    <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Main Content -->
+                    <span class="hero-eyebrow">Premium Sexual Wellness</span>
+                    <h1 class="hero-title">
                         <span class="title-line">Experience Enhanced</span>
                         <span class="title-line accent">Intimate Pleasure</span>
                     </h1>
                     
-                    <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                    <p class="hero-description">
                         Discover our scientifically formulated compound designed to elevate your intimate experiences. 
                         Doctor-approved, clinically tested, and trusted by thousands of women.
                     </p>
 
                     <!-- Key Benefits -->
-                    <div class="benefits-grid" data-aos="fade-up" data-aos-delay="300">
+                    <div class="benefits-grid">
                         <div class="benefit-card">
-                            <div class="benefit-icon">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
-                                </svg>
-                            </div>
+                            <div class="benefit-icon">✧</div>
                             <div class="benefit-content">
                                 <h3>Clinically Proven</h3>
                                 <p>FDA-approved ingredients</p>
                             </div>
                         </div>
                         <div class="benefit-card">
-                            <div class="benefit-icon">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                                    <polyline points="22 4 12 14.01 9 11.01"/>
-                                </svg>
-                            </div>
+                            <div class="benefit-icon">✧</div>
                             <div class="benefit-content">
                                 <h3>Doctor Formulated</h3>
                                 <p>Expert developed formula</p>
                             </div>
                         </div>
                         <div class="benefit-card">
-                            <div class="benefit-icon">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                </svg>
-                            </div>
+                            <div class="benefit-icon">✧</div>
                             <div class="benefit-content">
                                 <h3>100% Satisfaction</h3>
                                 <p>Money-back guarantee</p>
@@ -206,39 +198,35 @@
                         </div>
                     </div>
 
-                    <!-- Primary CTA -->
-                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
-                        <button class="primary-cta-button" data-tracking="hero-cta">
+                    <!-- CTA Section -->
+                    <div class="hero-cta">
+                        <button class="primary-cta" data-tracking="hero-cta">
                             <span class="btn-text">Start Your Journey</span>
                             <span class="btn-arrow">→</span>
                             <div class="btn-glow"></div>
                         </button>
                         <div class="cta-trust-indicators">
                             <div class="trust-indicator">
-                                <svg class="indicator-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M9 12l2 2 4-4"/>
-                                </svg>
-                                <span>Free Consultation</span>
+                                <i class="indicator-icon">✓</i>
+                                <span>Free Medical Consultation</span>
                             </div>
                             <div class="trust-indicator">
-                                <svg class="indicator-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                                </svg>
+                                <i class="indicator-icon">🔒</i>
                                 <span>Discreet Shipping</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Product Showcase -->
+                <!-- Right Column: Product Showcase -->
                 <div class="hero-product-column">
-                    <div class="product-showcase" data-aos="fade-left">
+                    <div class="product-showcase">
                         <div class="product-orbit">
                             <span class="orbit-particle"></span>
                             <span class="orbit-particle"></span>
                             <span class="orbit-particle"></span>
                         </div>
-                        <img src="cream.jpeg" alt="S-Cream Product" class="product-image" width="300" height="400">
+                        <img src="assets/images/cream.png" alt="S-Cream Product" class="product-image">
                         <div class="product-glow"></div>
                         
                         <!-- Interactive Product Features -->
@@ -262,13 +250,14 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-line"></div>
-            <span>Discover More</span>
-        </div>
-    </section>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Discover More</span>
+    </div>
+</section>
    
     <!-- Interactive Benefits Section -->
 <section id="benefits" class="benefits-section">
