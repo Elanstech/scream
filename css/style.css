@@ -1241,8 +1241,6 @@ body {
     min-width: 150px;  /* Give buttons a minimum width */
 }
 
-}
-
 .ingredient-tab:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
@@ -1958,7 +1956,6 @@ body {
         justify-content: center;
     }
 }
-
 
 
 
