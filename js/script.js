@@ -928,18 +928,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-class FAQSectionManager {
+class FAQManager {
     constructor() {
         // Core elements
         this.section = document.querySelector('.faq-section');
         this.categoryBtns = document.querySelectorAll('.category-btn');
-        this.faqItems = document.querySelectorAll('.faq-item');
-        this.questions = document.querySelectorAll('.faq-question');
-
+        this.faqCards = document.querySelectorAll('.faq-card');
+        this.triggers = document.querySelectorAll('.faq-trigger');
+        
         // State
         this.activeCategory = 'all';
+        this.activeCard = null;
         this.isAnimating = false;
-        this.activeItem = null;
 
         // Initialize
         this.init();
@@ -949,23 +949,22 @@ class FAQSectionManager {
         this.setupEventListeners();
         this.setupIntersectionObserver();
         this.initializeGSAPAnimations();
-        this.setupAccessibility();
     }
 
     setupEventListeners() {
         // Category filtering
         this.categoryBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 const category = btn.dataset.category;
                 this.handleCategoryChange(category);
             });
         });
 
-        // Question toggles
-        this.questions.forEach(question => {
-            question.addEventListener('click', () => {
+        // FAQ triggers
+        this.triggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
                 if (!this.isAnimating) {
-                    this.toggleQuestion(question);
+                    this.toggleAnswer(trigger);
                 }
             });
         });
@@ -973,59 +972,79 @@ class FAQSectionManager {
         // Keyboard navigation
         this.section.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                this.closeAllQuestions();
+                this.closeAllAnswers();
             }
+        });
+
+        // Accessibility
+        this.triggers.forEach(trigger => {
+            trigger.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.toggleAnswer(trigger);
+                }
+            });
         });
     }
 
     handleCategoryChange(category) {
+        // Update active state
         this.activeCategory = category;
-
-        // Update button states
+        
+        // Update buttons
         this.categoryBtns.forEach(btn => {
-            const isActive = btn.dataset.category === category;
-            btn.classList.toggle('active', isActive);
-            btn.setAttribute('aria-selected', isActive);
+            btn.classList.toggle('active', btn.dataset.category === category);
+            btn.setAttribute('aria-selected', btn.dataset.category === category);
         });
 
-        // Filter FAQ items
-        this.faqItems.forEach(item => {
-            const shouldShow = category === 'all' || item.dataset.category === category;
+        // Filter cards
+        this.faqCards.forEach(card => {
+            const shouldShow = category === 'all' || card.dataset.category === category;
             
-            gsap.to(item, {
-                opacity: shouldShow ? 1 : 0,
-                y: shouldShow ? 0 : 20,
-                duration: 0.4,
-                ease: 'power2.inOut',
-                onComplete: () => {
-                    item.style.display = shouldShow ? 'block' : 'none';
-                }
-            });
+            if (shouldShow) {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    height: 'auto',
+                    duration: 0.4,
+                    ease: 'power2.out',
+                    display: 'block'
+                });
+            } else {
+                gsap.to(card, {
+                    opacity: 0,
+                    y: 20,
+                    height: 0,
+                    duration: 0.4,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        card.style.display = 'none';
+                    }
+                });
+            }
         });
 
-        // Close all open questions
-        this.closeAllQuestions();
+        // Close any open answers
+        this.closeAllAnswers();
     }
 
-    toggleQuestion(question) {
-        const item = question.closest('.faq-item');
-        const answer = question.nextElementSibling;
-        const isExpanded = question.getAttribute('aria-expanded') === 'true';
+    toggleAnswer(trigger) {
+        const card = trigger.closest('.faq-card');
+        const answer = trigger.nextElementSibling;
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
 
-        // Set animation flag
         this.isAnimating = true;
 
         if (!isExpanded) {
-            // Close currently open question if exists
-            if (this.activeItem && this.activeItem !== item) {
-                this.closeQuestion(this.activeItem.querySelector('.faq-question'));
+            // Close current open answer if exists
+            if (this.activeCard && this.activeCard !== card) {
+                this.closeAnswer(this.activeCard.querySelector('.faq-trigger'));
             }
 
-            // Open clicked question
-            question.setAttribute('aria-expanded', 'true');
+            // Open new answer
+            trigger.setAttribute('aria-expanded', 'true');
             answer.style.display = 'block';
-            answer.setAttribute('aria-hidden', 'false');
-
+            
             gsap.fromTo(answer,
                 { height: 0, opacity: 0 },
                 {
@@ -1035,21 +1054,20 @@ class FAQSectionManager {
                     ease: 'power2.out',
                     onComplete: () => {
                         this.isAnimating = false;
-                        this.activeItem = item;
+                        this.activeCard = card;
                     }
                 }
             );
 
-            // Add active class for styling
-            item.classList.add('active');
+            card.classList.add('active');
         } else {
-            this.closeQuestion(question);
+            this.closeAnswer(trigger);
         }
     }
 
-    closeQuestion(question) {
-        const item = question.closest('.faq-item');
-        const answer = question.nextElementSibling;
+    closeAnswer(trigger) {
+        const card = trigger.closest('.faq-card');
+        const answer = trigger.nextElementSibling;
 
         gsap.to(answer, {
             height: 0,
@@ -1057,20 +1075,19 @@ class FAQSectionManager {
             duration: 0.3,
             ease: 'power2.in',
             onComplete: () => {
-                question.setAttribute('aria-expanded', 'false');
+                trigger.setAttribute('aria-expanded', 'false');
                 answer.style.display = 'none';
-                answer.setAttribute('aria-hidden', 'true');
                 this.isAnimating = false;
-                this.activeItem = null;
-                item.classList.remove('active');
+                this.activeCard = null;
+                card.classList.remove('active');
             }
         });
     }
 
-    closeAllQuestions() {
-        this.questions.forEach(question => {
-            if (question.getAttribute('aria-expanded') === 'true') {
-                this.closeQuestion(question);
+    closeAllAnswers() {
+        this.triggers.forEach(trigger => {
+            if (trigger.getAttribute('aria-expanded') === 'true') {
+                this.closeAnswer(trigger);
             }
         });
     }
@@ -1079,7 +1096,7 @@ class FAQSectionManager {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    this.animateEntry(entry.target);
+                    this.animateCard(entry.target);
                     observer.unobserve(entry.target);
                 }
             });
@@ -1088,11 +1105,11 @@ class FAQSectionManager {
             rootMargin: '50px'
         });
 
-        this.faqItems.forEach(item => observer.observe(item));
+        this.faqCards.forEach(card => observer.observe(card));
     }
 
-    animateEntry(element) {
-        gsap.from(element, {
+    animateCard(card) {
+        gsap.from(card, {
             opacity: 0,
             y: 30,
             duration: 0.8,
@@ -1101,20 +1118,29 @@ class FAQSectionManager {
     }
 
     initializeGSAPAnimations() {
-        // Animate section title
-        gsap.from('.faq-header .title-line', {
+        gsap.from('.section-eyebrow', {
             opacity: 0,
-            y: 30,
-            duration: 1,
-            stagger: 0.2,
+            y: 20,
+            duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
-                trigger: '.faq-header',
+                trigger: '.section-header',
                 start: 'top 80%'
             }
         });
 
-        // Animate categories
+        gsap.from('.section-title .title-line', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.section-header',
+                start: 'top 80%'
+            }
+        });
+
         gsap.from('.category-btn', {
             opacity: 0,
             y: 20,
@@ -1127,7 +1153,6 @@ class FAQSectionManager {
             }
         });
 
-        // Animate CTA section
         gsap.from('.faq-cta', {
             opacity: 0,
             y: 30,
@@ -1139,53 +1164,13 @@ class FAQSectionManager {
             }
         });
     }
-
-    setupAccessibility() {
-        // Add appropriate ARIA attributes
-        this.faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            const answer = item.querySelector('.faq-answer');
-            
-            // Generate unique IDs
-            const questionId = `faq-question-${Math.random().toString(36).substr(2, 9)}`;
-            const answerId = `faq-answer-${Math.random().toString(36).substr(2, 9)}`;
-            
-            // Set up ARIA attributes
-            question.setAttribute('id', questionId);
-            question.setAttribute('aria-controls', answerId);
-            answer.setAttribute('id', answerId);
-            answer.setAttribute('role', 'region');
-            answer.setAttribute('aria-labelledby', questionId);
-        });
-
-        // Add keyboard navigation
-        this.questions.forEach(question => {
-            question.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.toggleQuestion(question);
-                }
-            });
-        });
-    }
-
-    // Public method to refresh the section
-    refresh() {
-        this.closeAllQuestions();
-        this.activeCategory = 'all';
-        this.handleCategoryChange('all');
-    }
 }
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    const faqManager = new FAQSectionManager();
-
-    // Handle dynamic content updates
-    document.addEventListener('contentUpdated', () => {
-        faqManager.refresh();
-    });
+    const faqManager = new FAQManager();
 });
+
 
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
@@ -1197,6 +1182,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const howItWorksManager = new HowItWorksManager();
     const ingredientsManager = new IngredientsManager();
     const BenefitsSectionManager = new BenefitsSectionManager();
+    const faqManager = new FAQManager
+    
     // Handle resize
     const handleResize = utils.debounce(() => {
         if (window.innerWidth > 992) {
