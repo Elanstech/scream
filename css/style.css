@@ -1197,130 +1197,367 @@ body {
 
 
 
-  Ingredients Section
-------------------------------------------------*/
-.ingredients-section {
-  padding: 80px 2rem;
-  background: var(--background-soft);
-  color: var(--text-dark);
-  position: relative;
-  overflow: hidden;
+
+
+
+
+/* How It Works Section Styles */
+.how-it-works {
+    padding: 100px 2rem;
+    background: var(--background-soft);
+    position: relative;
+    overflow: hidden;
 }
 
 /* Section Header */
-.ingredients-header {
-  text-align: center;
-  margin-bottom: 50px;
+.how-it-works-header {
+    text-align: center;
+    margin-bottom: 80px;
 }
 
-.ingredients-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin-bottom: 15px;
-  color: var(--text-dark);
+.how-it-works .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 15px;
+    color: var(--text-dark);
 }
 
-.ingredients-subtitle {
-  font-family: var(--font-sans);
-  font-size: 1.125rem;
-  opacity: 0.7;
+.how-it-works .section-subtitle {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    color: var(--text-dark);
+    opacity: 0.7;
 }
 
-/*------------------------------------------------
-  Ingredients Grid
-------------------------------------------------*/
-.ingredients-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 30px;
+/* Timeline Process */
+.process-timeline {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    padding: 40px 0;
 }
 
-@media (max-width: 1200px) {
-  .ingredients-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+/* Timeline Line */
+.process-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--primary) 10%,
+        var(--primary) 90%,
+        transparent
+    );
 }
 
-@media (max-width: 768px) {
-  .ingredients-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Timeline Steps */
+.timeline-step {
+    position: relative;
+    margin-bottom: 100px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.timeline-step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-step:last-child {
+    margin-bottom: 0;
+}
+
+/* Alternating Layout */
+.timeline-step:nth-child(odd) .step-content {
+    margin-left: auto;
+    transform: translateX(-50px);
+}
+
+.timeline-step:nth-child(even) .step-content {
+    margin-right: auto;
+    transform: translateX(50px);
+}
+
+/* Step Content */
+.step-content {
+    width: 45%;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    transition: transform 0.4s ease;
+}
+
+.step-content:hover {
+    transform: translateY(-5px) !important;
+}
+
+/* Step Numbers */
+.timeline-step::after {
+    content: attr(data-step);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 600;
+    z-index: 2;
+}
+
+/* Step Icons */
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--background-soft);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.step-icon svg {
+    width: 30px;
+    height: 30px;
+    color: var(--primary);
+}
+
+/* Step Content Typography */
+.step-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.step-description {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+/* Feature Tags */
+.step-features {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.feature-tag {
+    background: var(--background-soft);
+    color: var(--primary);
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* CTA Section */
+.process-cta {
+    text-align: center;
+    margin-top: 80px;
+}
+
+.btn-start-process {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gradient-primary);
+    color: white;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.btn-start-process:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-start-process svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn-start-process:hover svg {
+    transform: translateX(4px);
+}
+
+.process-guarantee {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--text-dark);
+    opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .process-timeline::before {
+        left: 20px;
+    }
+
+    .timeline-step::after {
+        left: 20px;
+    }
+
+    .timeline-step .step-content {
+        width: calc(100% - 60px);
+        margin-left: 60px !important;
+        transform: none !important;
+    }
 }
 
 @media (max-width: 576px) {
-  .ingredients-grid {
-    grid-template-columns: 1fr;
-  }
+    .how-it-works {
+        padding: 60px 1rem;
+    }
+
+    .step-content {
+        padding: 30px;
+    }
+
+    .step-title {
+        font-size: 1.25rem;
+    }
+
+    .btn-start-process {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
-/*------------------------------------------------
-  Ingredient Card (Flip-Card Effect)
-------------------------------------------------*/
-.ingredient-card {
-  perspective: 1000px;
-}
 
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 250px; /* Adjust height as needed */
-  transition: transform 0.8s ease;
-  transform-style: preserve-3d;
-  cursor: pointer;
-}
 
-.ingredient-card:hover .card-inner,
-.ingredient-card.flip .card-inner {
-  transform: rotateY(180deg);
-}
 
-.card-front,
-.card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  transition: all 0.3s ease;
-}
 
-.card-back {
-  transform: rotateY(180deg);
-  text-align: center;
-}
 
-/* Ingredient Name */
-.ingredient-name {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  color: var(--primary);
-  margin-bottom: 5px;
-}
 
-/* Ingredient Dosage */
-.ingredient-dosage {
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-}
 
-/* Ingredient Detail */
-.ingredient-detail {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--text-dark);
-  opacity: 0.85;
-  padding: 0 10px;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
