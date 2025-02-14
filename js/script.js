@@ -567,6 +567,367 @@ class IngredientsManager {
     }
 }
 
+// Benefits Section Manager
+class BenefitsSectionManager {
+    constructor() {
+        // Core elements
+        this.section = document.querySelector('.why-choose-section');
+        this.cards = document.querySelectorAll('.benefit-card');
+        this.categoryBtns = document.querySelectorAll('.category-btn');
+        this.statsCircles = document.querySelectorAll('.stat-circle svg path');
+        this.ctaButton = document.querySelector('.cta-button');
+
+        // State
+        this.activeCategory = 'all';
+        this.animatedCards = new Set();
+        this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Initialize
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.setupIntersectionObserver();
+        this.setupParallaxEffect();
+        this.initializeGSAPAnimations();
+        this.setupAccessibility();
+    }
+
+    setupEventListeners() {
+        // Category filtering
+        this.categoryBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const category = btn.dataset.category;
+                this.handleCategoryChange(category);
+            });
+        });
+
+        // Card interactions
+        this.cards.forEach(card => {
+            // Mouse hover effects
+            card.addEventListener('mouseenter', () => this.handleCardHover(card, true));
+            card.addEventListener('mouseleave', () => this.handleCardHover(card, false));
+
+            // Touch handling for mobile
+            let touchStart;
+            card.addEventListener('touchstart', (e) => {
+                touchStart = e.touches[0].clientX;
+            });
+
+            card.addEventListener('touchend', (e) => {
+                const touchEnd = e.changedTouches[0].clientX;
+                const difference = Math.abs(touchStart - touchEnd);
+                
+                if (difference < 10) { // Threshold for tap vs. swipe
+                    this.handleCardFlip(card);
+                }
+            });
+
+            // Learn more button clicks
+            const learnMoreBtn = card.querySelector('.learn-more-btn');
+            if (learnMoreBtn) {
+                learnMoreBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.handleLearnMore(card);
+                });
+            }
+        });
+
+        // Keyboard navigation
+        this.section.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.resetAllCards();
+            }
+        });
+    }
+
+    handleCardHover(card, isEntering) {
+        if (this.isReducedMotion) return;
+
+        const icon = card.querySelector('.benefit-icon');
+        const particles = card.querySelectorAll('.icon-particles span');
+
+        if (isEntering) {
+            gsap.to(icon, {
+                scale: 1.1,
+                rotation: 5,
+                duration: 0.3,
+                ease: 'power2.out'
+            });
+
+            particles.forEach((particle, index) => {
+                gsap.to(particle, {
+                    opacity: 1,
+                    x: (index - 1) * 15,
+                    y: -15,
+                    duration: 0.5,
+                    delay: index * 0.1,
+                    ease: 'power2.out'
+                });
+            });
+        } else {
+            gsap.to(icon, {
+                scale: 1,
+                rotation: 0,
+                duration: 0.3,
+                ease: 'power2.in'
+            });
+
+            particles.forEach(particle => {
+                gsap.to(particle, {
+                    opacity: 0,
+                    x: 0,
+                    y: 0,
+                    duration: 0.3,
+                    ease: 'power2.in'
+                });
+            });
+        }
+    }
+
+    handleCardFlip(card) {
+        if (this.isReducedMotion) return;
+
+        const cardInner = card.querySelector('.card-inner');
+        const isFlipped = cardInner.style.transform === 'rotateY(180deg)';
+
+        gsap.to(cardInner, {
+            rotationY: isFlipped ? 0 : 180,
+            duration: 0.6,
+            ease: 'power2.inOut'
+        });
+    }
+
+    handleCategoryChange(category) {
+        this.activeCategory = category;
+        
+        // Update button states
+        this.categoryBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.category === category);
+            btn.setAttribute('aria-selected', btn.dataset.category === category);
+        });
+
+        // Filter cards with animation
+        this.cards.forEach(card => {
+            const shouldShow = category === 'all' || card.dataset.category === category;
+            
+            if (shouldShow) {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    display: 'block'
+                });
+            } else {
+                gsap.to(card, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.5,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.animatedCards.has(entry.target)) {
+                    this.animateCard(entry.target);
+                    this.animatedCards.add(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '50px'
+        });
+
+        this.cards.forEach(card => observer.observe(card));
+    }
+
+    animateCard(card) {
+        if (this.isReducedMotion) {
+            card.style.opacity = 1;
+            return;
+        }
+
+        // Card entrance animation
+        gsap.from(card, {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+
+        // Animate statistics
+        const stats = card.querySelectorAll('.stat-circle');
+        stats.forEach((stat, index) => {
+            const path = stat.querySelector('svg path');
+            const text = stat.querySelector('svg text');
+            const finalValue = parseInt(text.textContent);
+
+            if (path && text) {
+                // Animate circle fill
+                gsap.from(path, {
+                    strokeDasharray: '0, 100',
+                    duration: 1.5,
+                    delay: 0.2 + (index * 0.1),
+                    ease: 'power2.out'
+                });
+
+                // Animate number counter
+                gsap.from(text, {
+                    textContent: 0,
+                    duration: 1.5,
+                    delay: 0.2 + (index * 0.1),
+                    ease: 'power2.out',
+                    snap: { textContent: 1 },
+                    onUpdate: () => {
+                        if (finalValue > 0) {
+                            text.textContent = Math.round(text.textContent);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    setupParallaxEffect() {
+        if (this.isReducedMotion || window.innerWidth < 1024) return;
+
+        this.cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+                gsap.to(card.querySelector('.card-inner'), {
+                    rotationY: x * 10,
+                    rotationX: -y * 10,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card.querySelector('.card-inner'), {
+                    rotationY: 0,
+                    rotationX: 0,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+        });
+    }
+
+    initializeGSAPAnimations() {
+        if (this.isReducedMotion) return;
+
+        // Animate section title
+        gsap.from('.section-title .title-line', {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.benefits-header',
+                start: 'top 80%'
+            }
+        });
+
+        // Animate subtitle
+        gsap.from('.section-subtitle', {
+            opacity: 0,
+            y: 20,
+            duration: 1,
+            delay: 0.4,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.benefits-header',
+                start: 'top 80%'
+            }
+        });
+
+        // Animate CTA section
+        gsap.from('.benefits-cta', {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.benefits-cta',
+                start: 'top 90%'
+            }
+        });
+    }
+
+    setupAccessibility() {
+        // Add ARIA attributes and roles
+        this.cards.forEach(card => {
+            const cardInner = card.querySelector('.card-inner');
+            const frontSide = card.querySelector('.card-front');
+            const backSide = card.querySelector('.card-back');
+
+            card.setAttribute('role', 'article');
+            frontSide.setAttribute('role', 'region');
+            backSide.setAttribute('role', 'region');
+            
+            // Enable keyboard interaction
+            card.setAttribute('tabindex', '0');
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.handleCardFlip(card);
+                }
+            });
+        });
+
+        // Category button accessibility
+        this.categoryBtns.forEach(btn => {
+            btn.setAttribute('role', 'tab');
+            btn.setAttribute('aria-selected', btn.classList.contains('active'));
+        });
+    }
+
+    resetAllCards() {
+        this.cards.forEach(card => {
+            const cardInner = card.querySelector('.card-inner');
+            if (cardInner.style.transform === 'rotateY(180deg)') {
+                this.handleCardFlip(card);
+            }
+        });
+    }
+
+    handleLearnMore(card) {
+        const category = card.dataset.category;
+        const title = card.querySelector('.benefit-title').textContent;
+        console.log(`Learn more clicked for ${title} in category ${category}`);
+        // Add custom logic for learn more button clicks
+    }
+
+    // Public method to refresh animations
+    refresh() {
+        this.animatedCards.clear();
+        this.setupIntersectionObserver();
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const benefitsManager = new BenefitsSectionManager();
+
+    // Handle dynamic content updates
+    document.addEventListener('contentUpdated', () => {
+        benefitsManager.refresh();
+    });
+});
+
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all managers
@@ -576,7 +937,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const socialProofManager = new SocialProofManager();
     const howItWorksManager = new HowItWorksManager();
     const ingredientsManager = new IngredientsManager();
-
+    const BenefitsSectionManager = new BenefitsSectionManager();
     // Handle resize
     const handleResize = utils.debounce(() => {
         if (window.innerWidth > 992) {
