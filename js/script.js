@@ -928,6 +928,265 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+class FAQSectionManager {
+    constructor() {
+        // Core elements
+        this.section = document.querySelector('.faq-section');
+        this.categoryBtns = document.querySelectorAll('.category-btn');
+        this.faqItems = document.querySelectorAll('.faq-item');
+        this.questions = document.querySelectorAll('.faq-question');
+
+        // State
+        this.activeCategory = 'all';
+        this.isAnimating = false;
+        this.activeItem = null;
+
+        // Initialize
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.setupIntersectionObserver();
+        this.initializeGSAPAnimations();
+        this.setupAccessibility();
+    }
+
+    setupEventListeners() {
+        // Category filtering
+        this.categoryBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const category = btn.dataset.category;
+                this.handleCategoryChange(category);
+            });
+        });
+
+        // Question toggles
+        this.questions.forEach(question => {
+            question.addEventListener('click', () => {
+                if (!this.isAnimating) {
+                    this.toggleQuestion(question);
+                }
+            });
+        });
+
+        // Keyboard navigation
+        this.section.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeAllQuestions();
+            }
+        });
+    }
+
+    handleCategoryChange(category) {
+        this.activeCategory = category;
+
+        // Update button states
+        this.categoryBtns.forEach(btn => {
+            const isActive = btn.dataset.category === category;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-selected', isActive);
+        });
+
+        // Filter FAQ items
+        this.faqItems.forEach(item => {
+            const shouldShow = category === 'all' || item.dataset.category === category;
+            
+            gsap.to(item, {
+                opacity: shouldShow ? 1 : 0,
+                y: shouldShow ? 0 : 20,
+                duration: 0.4,
+                ease: 'power2.inOut',
+                onComplete: () => {
+                    item.style.display = shouldShow ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Close all open questions
+        this.closeAllQuestions();
+    }
+
+    toggleQuestion(question) {
+        const item = question.closest('.faq-item');
+        const answer = question.nextElementSibling;
+        const isExpanded = question.getAttribute('aria-expanded') === 'true';
+
+        // Set animation flag
+        this.isAnimating = true;
+
+        if (!isExpanded) {
+            // Close currently open question if exists
+            if (this.activeItem && this.activeItem !== item) {
+                this.closeQuestion(this.activeItem.querySelector('.faq-question'));
+            }
+
+            // Open clicked question
+            question.setAttribute('aria-expanded', 'true');
+            answer.style.display = 'block';
+            answer.setAttribute('aria-hidden', 'false');
+
+            gsap.fromTo(answer,
+                { height: 0, opacity: 0 },
+                {
+                    height: 'auto',
+                    opacity: 1,
+                    duration: 0.4,
+                    ease: 'power2.out',
+                    onComplete: () => {
+                        this.isAnimating = false;
+                        this.activeItem = item;
+                    }
+                }
+            );
+
+            // Add active class for styling
+            item.classList.add('active');
+        } else {
+            this.closeQuestion(question);
+        }
+    }
+
+    closeQuestion(question) {
+        const item = question.closest('.faq-item');
+        const answer = question.nextElementSibling;
+
+        gsap.to(answer, {
+            height: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power2.in',
+            onComplete: () => {
+                question.setAttribute('aria-expanded', 'false');
+                answer.style.display = 'none';
+                answer.setAttribute('aria-hidden', 'true');
+                this.isAnimating = false;
+                this.activeItem = null;
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    closeAllQuestions() {
+        this.questions.forEach(question => {
+            if (question.getAttribute('aria-expanded') === 'true') {
+                this.closeQuestion(question);
+            }
+        });
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateEntry(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '50px'
+        });
+
+        this.faqItems.forEach(item => observer.observe(item));
+    }
+
+    animateEntry(element) {
+        gsap.from(element, {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+    }
+
+    initializeGSAPAnimations() {
+        // Animate section title
+        gsap.from('.faq-header .title-line', {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.faq-header',
+                start: 'top 80%'
+            }
+        });
+
+        // Animate categories
+        gsap.from('.category-btn', {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.faq-categories',
+                start: 'top 85%'
+            }
+        });
+
+        // Animate CTA section
+        gsap.from('.faq-cta', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.faq-cta',
+                start: 'top 90%'
+            }
+        });
+    }
+
+    setupAccessibility() {
+        // Add appropriate ARIA attributes
+        this.faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            
+            // Generate unique IDs
+            const questionId = `faq-question-${Math.random().toString(36).substr(2, 9)}`;
+            const answerId = `faq-answer-${Math.random().toString(36).substr(2, 9)}`;
+            
+            // Set up ARIA attributes
+            question.setAttribute('id', questionId);
+            question.setAttribute('aria-controls', answerId);
+            answer.setAttribute('id', answerId);
+            answer.setAttribute('role', 'region');
+            answer.setAttribute('aria-labelledby', questionId);
+        });
+
+        // Add keyboard navigation
+        this.questions.forEach(question => {
+            question.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.toggleQuestion(question);
+                }
+            });
+        });
+    }
+
+    // Public method to refresh the section
+    refresh() {
+        this.closeAllQuestions();
+        this.activeCategory = 'all';
+        this.handleCategoryChange('all');
+    }
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const faqManager = new FAQSectionManager();
+
+    // Handle dynamic content updates
+    document.addEventListener('contentUpdated', () => {
+        faqManager.refresh();
+    });
+});
+
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all managers
