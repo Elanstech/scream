@@ -303,93 +303,436 @@
     </div>
 </section>
     
-  
 
+<!-- Ingredients Showcase Section -->
+<section class="ingredients-showcase" aria-label="Active Ingredients">
+    <div class="container">
+        <header class="ingredients-header">
+            <h2 class="section-title">Advanced Formula Technologies</h2>
+            <p class="section-subtitle">A synergistic blend of clinically-proven ingredients</p>
+        </header>
 
+        <!-- Ingredient Navigation -->
+        <div class="ingredients-nav">
+            <button class="ingredient-tab active" data-ingredient="aminophylline">
+                <div class="tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2"/>
+                    </svg>
+                </div>
+                <span>Aminophylline</span>
+            </button>
+            <button class="ingredient-tab" data-ingredient="ergoloid">
+                <div class="tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span>Ergoloid Mesylate</span>
+            </button>
+            <button class="ingredient-tab" data-ingredient="pentoxifylline">
+                <div class="tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 2v8m0 4v8M4.93 19.07a10 10 0 010-14.14m14.14 0a10 10 0 010 14.14" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span>Pentoxifylline</span>
+            </button>
+            <button class="ingredient-tab" data-ingredient="sildenafil">
+                <div class="tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="2"/>
+                    </svg>
+                </div>
+                <span>Sildenafil Citrate</span>
+            </button>
+            <button class="ingredient-tab" data-ingredient="arginine">
+                <div class="tab-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 12H4m16 0l-4 4m4-4l-4-4" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span>L-Arginine</span>
+            </button>
+        </div>
+        
+        <!-- Ingredient Details Container -->
+        <div class="ingredient-details-container">
+            <!-- Aminophylline Details -->
+            <div class="ingredient-detail active" data-ingredient="aminophylline">
+                <div class="detail-grid">
+                    <div class="detail-visual">
+                        <div class="molecule-animation">
+                            <div class="molecule-circle primary"></div>
+                            <div class="molecule-paths"></div>
+                        </div>
+                        <div class="dosage-indicator">
+                            <span class="dosage-amount">30</span>
+                            <span class="dosage-unit">mg/mL</span>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <h3 class="ingredient-name">Aminophylline</h3>
+                        <p class="ingredient-tagline">Enhanced Vascular Response</p>
+                        
+                        <div class="benefit-list">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Blood Flow Enhancement</h4>
+                                    <p>Promotes increased blood circulation to sensitive tissues</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Tissue Sensitivity</h4>
+                                    <p>Enhances natural responsiveness to stimulation</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Fast Acting</h4>
+                                    <p>Begins working within 30 minutes of application</p>
+                                </div>
+                            </div>
+                        </div>
 
-  <!-- Ingredients Section -->
-<section class="ingredients-section" aria-label="Premium Ingredients">
-  <div class="container">
-    <header class="ingredients-header">
-      <h2 class="ingredients-title">Our Advanced Formula</h2>
-      <p class="ingredients-subtitle">
-        Potently formulated ingredients engineered to enhance your intimate performance.
-      </p>
-    </header>
-    <div class="ingredients-grid">
-      <!-- Ingredient Card 1: Aminophylline -->
-      <div class="ingredient-card">
-        <div class="card-inner">
-          <div class="card-front">
-            <h3 class="ingredient-name">Aminophylline</h3>
-            <p class="ingredient-dosage">30 mg/mL</p>
-          </div>
-          <div class="card-back">
-            <p class="ingredient-detail">
-              Enhances blood flow and promotes tissue responsiveness.
-            </p>
-          </div>
+                        <div class="clinical-evidence">
+                            <h4>Clinical Evidence</h4>
+                            <div class="evidence-stat">
+                                <div class="stat-circle">
+                                    <svg viewBox="0 0 36 36">
+                                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="85, 100"/>
+                                        <text x="18" y="20" text-anchor="middle" fill="currentColor">85%</text>
+                                    </svg>
+                                </div>
+                                <p>of users reported enhanced sensation within first use</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ergoloid Mesylate Details -->
+            <div class="ingredient-detail" data-ingredient="ergoloid">
+                <div class="detail-grid">
+                    <div class="detail-visual">
+                        <div class="molecule-animation">
+                            <div class="molecule-circle secondary"></div>
+                            <div class="molecule-paths"></div>
+                        </div>
+                        <div class="dosage-indicator">
+                            <span class="dosage-amount">0.5</span>
+                            <span class="dosage-unit">mg/mL</span>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <h3 class="ingredient-name">Ergoloid Mesylate</h3>
+                        <p class="ingredient-tagline">Neural Response Amplifier</p>
+                        
+                        <div class="benefit-list">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Neural Sensitivity</h4>
+                                    <p>Enhances nerve signal transmission for heightened sensation</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Sustained Response</h4>
+                                    <p>Maintains enhanced sensitivity throughout intimate encounters</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Balanced Action</h4>
+                                    <p>Works in harmony with natural bodily responses</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clinical-evidence">
+                            <h4>Clinical Evidence</h4>
+                            <div class="evidence-stat">
+                                <div class="stat-circle">
+                                    <svg viewBox="0 0 36 36">
+                                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="92, 100"/>
+                                        <text x="18" y="20" text-anchor="middle" fill="currentColor">92%</text>
+                                    </svg>
+                                </div>
+                                <p>improvement in sensory response reported in clinical trials</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pentoxifylline Details -->
+            <div class="ingredient-detail" data-ingredient="pentoxifylline">
+                <div class="detail-grid">
+                    <div class="detail-visual">
+                        <div class="molecule-animation">
+                            <div class="molecule-circle accent"></div>
+                            <div class="molecule-paths"></div>
+                        </div>
+                        <div class="dosage-indicator">
+                            <span class="dosage-amount">50</span>
+                            <span class="dosage-unit">mg/mL</span>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <h3 class="ingredient-name">Pentoxifylline</h3>
+                        <p class="ingredient-tagline">Microcirculation Enhancer</p>
+                        
+                        <div class="benefit-list">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Micro-Vessel Dilation</h4>
+                                    <p>Improves blood flow in small vessels for enhanced sensitivity</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Tissue Oxygenation</h4>
+                                    <p>Increases oxygen delivery to intimate areas</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Long-Lasting Effect</h4>
+                                    <p>Provides sustained improvement in local circulation</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clinical-evidence">
+                            <h4>Clinical Evidence</h4>
+                            <div class="evidence-stat">
+                                <div class="stat-circle">
+                                    <svg viewBox="0 0 36 36">
+                                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="88, 100"/>
+                                        <text x="18" y="20" text-anchor="middle" fill="currentColor">88%</text>
+                                    </svg>
+                                </div>
+                                <p>of participants experienced improved microcirculation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sildenafil Citrate Details -->
+            <div class="ingredient-detail" data-ingredient="sildenafil">
+                <div class="detail-grid">
+                    <div class="detail-visual">
+                        <div class="molecule-animation">
+                            <div class="molecule-circle"></div>
+                            <div class="molecule-paths"></div>
+                        </div>
+                        <div class="dosage-indicator">
+                            <span class="dosage-amount">10</span>
+                            <span class="dosage-unit">mg/mL</span>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <h3 class="ingredient-name">Sildenafil Citrate</h3>
+                        <p class="ingredient-tagline">Enhanced Blood Flow Activator</p>
+                        
+                        <div class="benefit-list">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Vasodilation</h4>
+                                    <p>Promotes relaxation of blood vessels for improved flow</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Heightened Response</h4>
+                                    <p>Enhances natural arousal response</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Proven Efficacy</h4>
+                                    <p>Extensively studied for intimate wellness</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clinical-evidence">
+                            <h4>Clinical Evidence</h4>
+                            <div class="evidence-stat">
+                                <div class="stat-circle">
+                                    <svg viewBox="0 0 36 36">
+                                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="94, 100"/>
+                                        <text x="18" y="20" text-anchor="middle" fill="currentColor">94%</text>
+                                    </svg>
+                                </div>
+                                <p>effectiveness rate in clinical studies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- L-Arginine Details -->
+            <div class="ingredient-detail" data-ingredient="arginine">
+                <div class="detail-grid">
+                    <div class="detail-visual">
+                        <div class="molecule-animation">
+                            <div class="molecule-circle"></div>
+                            <div class="molecule-paths"></div>
+                        </div>
+                        <div class="dosage-indicator">
+                            <span class="dosage-amount">60</span>
+                            <span class="dosage-unit">mg/mL</span>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <h3 class="ingredient-name">L-Arginine</h3>
+                        <p class="ingredient-tagline">Natural Enhancement Amplifier</p>
+                        
+                        <div class="benefit-list">
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Nitric Oxide Production</h4>
+                                    <p>Supports natural vasodilation processes</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Enhanced Sensitivity</h4>
+                                    <p>Improves tissue response to stimulation</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <span class="benefit-icon">✦</span>
+                                <div class="benefit-text">
+                                    <h4>Natural Support</h4>
+                                    <p>Works with body's natural processes</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clinical-evidence">
+                            <h4>Clinical Evidence</h4>
+                            <div class="evidence-stat">
+                                <div class="stat-circle">
+                                    <svg viewBox="0 0 36 36">
+                                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="90, 100"/>
+                                        <text x="18" y="20" text-anchor="middle" fill="currentColor">90%</text>
+                                    </svg>
+                                </div>
+                                <p>increased satisfaction in clinical studies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <!-- Ingredient Card 2: Ergoloid Mesylate -->
-      <div class="ingredient-card">
-        <div class="card-inner">
-          <div class="card-front">
-            <h3 class="ingredient-name">Ergoloid Mesylate</h3>
-            <p class="ingredient-dosage">0.5 mg/mL</p>
-          </div>
-          <div class="card-back">
-            <p class="ingredient-detail">
-              Supports neurotransmitter function for enhanced sensitivity.
-            </p>
-          </div>
+
+        <!-- Scientific Validation Section -->
+        <div class="scientific-validation">
+            <div class="validation-grid">
+                <!-- Clinical Research -->
+                <div class="validation-card">
+                    <div class="validation-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>Clinical Research</h4>
+                    <p>Extensively studied in multiple clinical trials with proven efficacy</p>
+                </div>
+
+                <!-- Quality Testing -->
+                <div class="validation-card">
+                    <div class="validation-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>Quality Testing</h4>
+                    <p>Each batch undergoes rigorous quality control and purity testing</p>
+                </div>
+
+                <!-- FDA Compliance -->
+                <div class="validation-card">
+                    <div class="validation-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
+                            <path d="M9 12l2 2 4-4" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>FDA Compliance</h4>
+                    <p>Manufactured in FDA-registered facilities following strict guidelines</p>
+                </div>
+
+                <!-- Scientific Innovation -->
+                <div class="validation-card">
+                    <div class="validation-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h4>Scientific Innovation</h4>
+                    <p>Continuously updated formula based on latest research</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="ingredients-cta">
+                <a href="#consultation" class="btn-consult">
+                    <span>Start Your Free Consultation</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+                <p class="cta-subtext">Professional medical consultation included with every order</p>
+            </div>
         </div>
-      </div>
-      <!-- Ingredient Card 3: Pentoxifylline -->
-      <div class="ingredient-card">
-        <div class="card-inner">
-          <div class="card-front">
-            <h3 class="ingredient-name">Pentoxifylline</h3>
-            <p class="ingredient-dosage">50 mg/mL</p>
-          </div>
-          <div class="card-back">
-            <p class="ingredient-detail">
-              Improves microcirculation and tissue oxygenation.
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Ingredient Card 4: Sildenafil Citrate -->
-      <div class="ingredient-card">
-        <div class="card-inner">
-          <div class="card-front">
-            <h3 class="ingredient-name">Sildenafil Citrate</h3>
-            <p class="ingredient-dosage">10 mg/mL</p>
-          </div>
-          <div class="card-back">
-            <p class="ingredient-detail">
-              Enhances natural response through improved blood flow.
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Ingredient Card 5: L-Arginine -->
-      <div class="ingredient-card">
-        <div class="card-inner">
-          <div class="card-front">
-            <h3 class="ingredient-name">L-Arginine</h3>
-            <p class="ingredient-dosage">60 mg/mL</p>
-          </div>
-          <div class="card-back">
-            <p class="ingredient-detail">
-              Supports nitric oxide production and promotes healthy vascular function.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
+
+<!-- Mobile Ingredient Quick Nav -->
+<div class="mobile-ingredient-nav">
+    <div class="nav-scroll">
+        <button class="quick-nav-item active" data-ingredient="aminophylline">
+            <span class="nav-dot"></span>
+            <span class="nav-label">Aminophylline</span>
+        </button>
+        <button class="quick-nav-item" data-ingredient="ergoloid">
+            <span class="nav-dot"></span>
+            <span class="nav-label">Ergoloid</span>
+        </button>
+        <button class="quick-nav-item" data-ingredient="pentoxifylline">
+            <span class="nav-dot"></span>
+            <span class="nav-label">Pentoxifylline</span>
+        </button>
+        <button class="quick-nav-item" data-ingredient="sildenafil">
+            <span class="nav-dot"></span>
+            <span class="nav-label">Sildenafil</span>
+        </button>
+        <button class="quick-nav-item" data-ingredient="arginine">
+            <span class="nav-dot"></span>
+            <span class="nav-label">L-Arginine</span>
+        </button>
+    </div>
+</div>
+
 
 <!-- How It Works Section -->
 <section class="how-it-works" aria-label="Process Steps">
