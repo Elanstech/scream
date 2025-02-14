@@ -63,8 +63,8 @@ class PreloaderManager {
     }
 }
 
-// Header functionality
-class Header {
+// Header Manager
+class HeaderManager {
     constructor() {
         this.header = document.querySelector('.site-header');
         this.menuToggle = document.querySelector('.menu-toggle');
@@ -148,11 +148,6 @@ class Header {
     }
 }
 
-// Initialize header when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new Header();
-});
-
 // Hero Manager
 class HeroManager {
     constructor() {
@@ -209,110 +204,128 @@ class HeroManager {
 
     startAnimations() {
         if (!this.initializedAnimations) {
-            document.querySelectorAll('.benefit-badge').forEach((badge, index) => {
+            this.benefitBadges.forEach((badge, index) => {
                 badge.style.animationDelay = `${0.5 + (index * 0.2)}s`;
             });
 
-            document.querySelectorAll('.stat-card').forEach((stat, index) => {
-                stat.style.animationDelay = `${1.5 + (index * 0.2)}s`;
-            });
+            if (typeof gsap !== 'undefined') {
+                this.initGSAPAnimations();
+            }
 
             this.initializedAnimations = true;
         }
     }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
+    initGSAPAnimations() {
+        gsap.from('.hero-title .title-line', {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out'
+        });
 
-// Social Proof Manager for the Advanced Social Proof Section
-class SocialProofManager {
-  constructor() {
-    this.initAnimations();
-  }
+        gsap.from('.hero-description', {
+            opacity: 0,
+            y: 20,
+            duration: 1,
+            delay: 0.5,
+            ease: 'power3.out'
+        });
 
-  initAnimations() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-      console.warn('GSAP or ScrollTrigger is not loaded.');
-      return;
+        gsap.from('.hero-cta-group', {
+            opacity: 0,
+            y: 20,
+            duration: 1,
+            delay: 0.7,
+            ease: 'power3.out'
+        });
     }
-    
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Animate the Social Proof Section Header
-    gsap.from('.advanced-social-proof .section-header', {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.advanced-social-proof',
-        start: 'top 80%',
-        toggleActions: 'play none none none'
-      }
-    });
-
-    // Animate Stats Column Items
-    gsap.from('.advanced-social-proof .stats-column .stat-item', {
-      opacity: 0,
-      y: 20,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: '.advanced-social-proof .stats-column',
-        start: 'top 85%',
-        toggleActions: 'play none none none'
-      }
-    });
-
-    // Animate Results Cards
-    gsap.from('.advanced-social-proof .results-column .result-card', {
-      opacity: 0,
-      y: 20,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: '.advanced-social-proof .results-column',
-        start: 'top 85%',
-        toggleActions: 'play none none none'
-      }
-    });
-
-    // Animate Testimonial Cards
-    gsap.from('.advanced-social-proof .testimonial-column .testimonial-card', {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.3,
-      scrollTrigger: {
-        trigger: '.advanced-social-proof .testimonial-column',
-        start: 'top 85%',
-        toggleActions: 'play none none none'
-      }
-    });
-
-    // Animate Medical Endorsement Section
-    gsap.from('.advanced-social-proof .medical-endorsement', {
-      opacity: 0,
-      y: 30,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.advanced-social-proof .medical-endorsement',
-        start: 'top 90%',
-        toggleActions: 'play none none none'
-      }
-    });
-  }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  new SocialProofManager();
-});
+// Social Proof Manager
+class SocialProofManager {
+    constructor() {
+        this.initAnimations();
+        this.setupCounters();
+    }
 
-// How It Works Section Manager
+    initAnimations() {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+            console.warn('GSAP or ScrollTrigger is not loaded.');
+            return;
+        }
+        
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate section header
+        gsap.from('.advanced-social-proof .section-header', {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.advanced-social-proof',
+                start: 'top 80%'
+            }
+        });
+
+        // Animate different columns
+        const elements = [
+            '.stats-column .stat-item',
+            '.results-column .result-card',
+            '.testimonial-column .testimonial-card'
+        ];
+
+        elements.forEach(selector => {
+            gsap.from(selector, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: selector,
+                    start: 'top 85%'
+                }
+            });
+        });
+    }
+
+    setupCounters() {
+        const stats = document.querySelectorAll('.stat-number');
+        
+        stats.forEach(stat => {
+            const target = parseInt(stat.textContent);
+            let current = 0;
+            const increment = target / 50; // Adjust for smoother animation
+            
+            const updateCounter = () => {
+                if (current < target) {
+                    current += increment;
+                    stat.textContent = Math.ceil(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    stat.textContent = target;
+                }
+            };
+
+            // Start counter when in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCounter();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(stat);
+        });
+    }
+}
+
+// How It Works Manager
 class HowItWorksManager {
     constructor() {
         this.timelineSteps = document.querySelectorAll('.timeline-step');
@@ -320,14 +333,12 @@ class HowItWorksManager {
     }
 
     init() {
-        // Initialize GSAP if available
         if (typeof gsap !== 'undefined') {
             this.initGSAPAnimations();
         } else {
             this.initBasicAnimations();
         }
 
-        // Initialize hover effects
         this.initHoverEffects();
     }
 
@@ -342,8 +353,7 @@ class HowItWorksManager {
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: '.how-it-works',
-                start: 'top 80%',
-                toggleActions: 'play none none none'
+                start: 'top 80%'
             }
         });
 
@@ -356,8 +366,7 @@ class HowItWorksManager {
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: step,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
+                    start: 'top 85%'
                 },
                 delay: index * 0.2
             });
@@ -371,18 +380,205 @@ class HowItWorksManager {
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: '.process-cta',
-                start: 'top 90%',
-                toggleActions: 'play none none none'
+                start: 'top 90%'
             }
         });
     }
 
+    initBasicAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        this.timelineSteps.forEach(step => observer.observe(step));
+    }
+
+    initHoverEffects() {
+        this.timelineSteps.forEach(step => {
+            step.addEventListener('mouseenter', () => {
+                step.classList.add('hover');
+            });
+
+            step.addEventListener('mouseleave', () => {
+                step.classList.remove('hover');
+            });
+        });
+    }
+}
+
+// Ingredients Manager
+class IngredientsManager {
+    constructor() {
+        this.ingredientTabs = document.querySelectorAll('.ingredient-tab');
+        this.ingredientDetails = document.querySelectorAll('.ingredient-detail');
+        this.quickNavItems = document.querySelectorAll('.quick-nav-item');
+        this.currentIngredient = 'aminophylline';
+        
+        this.init();
+    }
+
+    init() {
+        this.setupEventListeners();
+        this.initializeAnimations();
+        this.setupIntersectionObserver();
+    }
+
+    setupEventListeners() {
+        // Desktop tab clicks
+        this.ingredientTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const ingredient = tab.dataset.ingredient;
+                this.switchIngredient(ingredient);
+            });
+        });
+
+        // Mobile quick nav clicks
+        this.quickNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const ingredient = item.dataset.ingredient;
+                this.switchIngredient(ingredient);
+                this.scrollToIngredient(ingredient);
+            });
+        });
+
+        // Keyboard navigation
+        this.ingredientTabs.forEach(tab => {
+            tab.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const ingredient = tab.dataset.ingredient;
+                    this.switchIngredient(ingredient);
+                }
+            });
+        });
+    }
+
+    switchIngredient(ingredient) {
+        this.currentIngredient = ingredient;
+
+        // Update desktop tabs
+        this.ingredientTabs.forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.ingredient === ingredient);
+        });
+
+        // Update mobile quick nav
+        this.quickNavItems.forEach(item => {
+            item.classList.toggle('active', item.dataset.ingredient === ingredient);
+        });
+
+        // Update detail sections with animation
+        this.ingredientDetails.forEach(detail => {
+            if (detail.dataset.ingredient === ingredient) {
+                detail.style.display = 'block';
+                setTimeout(() => detail.classList.add('active'), 50);
+            } else {
+                detail.classList.remove('active');
+                setTimeout(() => {
+                    if (!detail.classList.contains('active')) {
+                        detail.style.display = 'none';
+                    }
+                }, 500);
+            }
+        });
+    }
+
+    scrollToIngredient(ingredient) {
+        const detail = document.querySelector(`.ingredient-detail[data-ingredient="${ingredient}"]`);
+        if (detail) {
+            const offset = window.innerWidth <= 768 ? 100 : 50;
+            const top = detail.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({
+                top,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    initializeAnimations() {
+        if (typeof gsap !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Animate ingredient tabs
+            gsap.from(this.ingredientTabs, {
+                opacity: 0,
+                y: 20,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.ingredients-nav',
+                    start: 'top 80%'
+                }
+            });
+
+            // Animate validation cards
+            gsap.from('.validation-card', {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '.scientific-validation',
+                    start: 'top 80%'
+                }
+            });
+
+            // Animate molecule paths
+            this.ingredientDetails.forEach(detail => {
+                const paths = detail.querySelectorAll('.molecule-paths path');
+                gsap.to(paths, {
+                    strokeDashoffset: 0,
+                    duration: 1.5,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: detail,
+                        start: 'top 70%'
+                    }
+                });
+            });
+        }
+    }
+
+    setupIntersectionObserver() {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const ingredient = entry.target.dataset.ingredient;
+                    this.updateQuickNav(ingredient);
+                }
+            });
+        }, options);
+
+        this.ingredientDetails.forEach(detail => observer.observe(detail));
+    }
+
+    updateQuickNav(ingredient) {
+        this.quickNavItems.forEach(item => {
+            item.classList.toggle('active', item.dataset.ingredient === ingredient);
+        });
+    }
+}
 
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize all managers
     const preloader = new PreloaderManager();
     const headerManager = new HeaderManager();
     const heroManager = new HeroManager();
+    const socialProofManager = new SocialProofManager();
+    const howItWorksManager = new HowItWorksManager();
+    const ingredientsManager = new IngredientsManager();
 
     // Handle resize
     const handleResize = utils.debounce(() => {
@@ -396,4 +592,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 250);
 
     window.addEventListener('resize', handleResize);
+
+    // Initialize smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const headerOffset = 100;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 });
