@@ -1223,11 +1223,6 @@ body {
     gap: 1rem;
     margin-bottom: 60px;
     flex-wrap: wrap;
-    width: 100%;  /* Ensure full width */
-    position: relative;  /* Ensure proper stacking */
-    z-index: 10;  /* Ensure it's above other elements */
-    background: white;  /* Give it a background */
-    padding: 20px;  /* Add some padding */
 }
 
 .ingredient-tab {
