@@ -1223,6 +1223,11 @@ body {
     gap: 1rem;
     margin-bottom: 60px;
     flex-wrap: wrap;
+    width: 100%;  /* Ensure full width */
+    position: relative;  /* Ensure proper stacking */
+    z-index: 10;  /* Ensure it's above other elements */
+    background: white;  /* Give it a background */
+    padding: 20px;  /* Add some padding */
 }
 
 .ingredient-tab {
@@ -1236,6 +1241,11 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
+    opacity: 1;
+    visibility: visible;
+    min-width: 150px;  /* Give buttons a minimum width */
+}
+
 }
 
 .ingredient-tab:hover {
