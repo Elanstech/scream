@@ -1324,12 +1324,17 @@ body {
 }
 
 .molecule-circle {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: var(--gradient-primary);
-    opacity: 0.1;
-    animation: pulse 2s infinite;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.molecule-circle svg {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    color: white;
+    opacity: 0.9;
 }
 
 .molecule-paths {
