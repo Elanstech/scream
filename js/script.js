@@ -128,19 +128,15 @@ class HeaderManager {
     handleScroll() {
         const currentScroll = window.pageYOffset;
 
-        // Add/remove header background based on scroll position
         if (currentScroll > this.scrollThreshold) {
             this.header.classList.add('header-scrolled');
         } else {
             this.header.classList.remove('header-scrolled');
         }
 
-        // Hide/show header based on scroll direction
         if (currentScroll > this.lastScrollTop && currentScroll > this.header.offsetHeight) {
-            // Scrolling down
             this.header.style.transform = 'translateY(-100%)';
         } else {
-            // Scrolling up
             this.header.style.transform = 'translateY(0)';
         }
 
@@ -258,7 +254,6 @@ class SocialProofManager {
         
         gsap.registerPlugin(ScrollTrigger);
 
-        // Animate section header
         gsap.from('.advanced-social-proof .section-header', {
             opacity: 0,
             y: 50,
@@ -270,7 +265,6 @@ class SocialProofManager {
             }
         });
 
-        // Animate different columns
         const elements = [
             '.stats-column .stat-item',
             '.results-column .result-card',
@@ -298,7 +292,7 @@ class SocialProofManager {
         stats.forEach(stat => {
             const target = parseInt(stat.textContent);
             let current = 0;
-            const increment = target / 50; // Adjust for smoother animation
+            const increment = target / 50;
             
             const updateCounter = () => {
                 if (current < target) {
@@ -310,7 +304,6 @@ class SocialProofManager {
                 }
             };
 
-            // Start counter when in view
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -345,7 +338,6 @@ class HowItWorksManager {
     initGSAPAnimations() {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Animate section header
         gsap.from('.how-it-works-header', {
             opacity: 0,
             y: 30,
@@ -357,7 +349,6 @@ class HowItWorksManager {
             }
         });
 
-        // Animate timeline steps
         this.timelineSteps.forEach((step, index) => {
             gsap.from(step, {
                 opacity: 0,
@@ -372,7 +363,6 @@ class HowItWorksManager {
             });
         });
 
-        // Animate CTA
         gsap.from('.process-cta', {
             opacity: 0,
             y: 30,
@@ -410,21 +400,42 @@ class HowItWorksManager {
     }
 }
 
-// Ingredients Manager
+// Key part for Ingredients section
 class IngredientsManager {
     constructor() {
+        // Initialize all needed elements
         this.ingredientTabs = document.querySelectorAll('.ingredient-tab');
         this.ingredientDetails = document.querySelectorAll('.ingredient-detail');
         this.quickNavItems = document.querySelectorAll('.quick-nav-item');
         this.currentIngredient = 'aminophylline';
         
+        // Make sure all elements are visible initially
+        this.ingredientTabs.forEach(tab => {
+            tab.style.display = 'flex';
+            tab.style.opacity = '1';
+        });
+        
         this.init();
     }
 
     init() {
+        // Initialize all ingredients tabs and details
+        this.ingredientTabs.forEach(tab => {
+            tab.style.visibility = 'visible';
+            tab.style.opacity = '1';
+            const icon = tab.querySelector('.tab-icon');
+            if (icon) {
+                icon.style.visibility = 'visible';
+                icon.style.opacity = '1';
+            }
+        });
+
         this.setupEventListeners();
         this.initializeAnimations();
         this.setupIntersectionObserver();
+        
+        // Show initial ingredient
+        this.switchIngredient(this.currentIngredient);
     }
 
     setupEventListeners() {
@@ -458,19 +469,19 @@ class IngredientsManager {
     }
 
     switchIngredient(ingredient) {
-        this.currentIngredient = ingredient;
-
-        // Update desktop tabs
+        // Update tabs
         this.ingredientTabs.forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.ingredient === ingredient);
+            const isActive = tab.dataset.ingredient === ingredient;
+            tab.classList.toggle('active', isActive);
+            tab.setAttribute('aria-selected', isActive);
         });
 
-        // Update mobile quick nav
+        // Update mobile nav
         this.quickNavItems.forEach(item => {
             item.classList.toggle('active', item.dataset.ingredient === ingredient);
         });
 
-        // Update detail sections with animation
+        // Show/hide details with animation
         this.ingredientDetails.forEach(detail => {
             if (detail.dataset.ingredient === ingredient) {
                 detail.style.display = 'block';
@@ -526,20 +537,6 @@ class IngredientsManager {
                     trigger: '.scientific-validation',
                     start: 'top 80%'
                 }
-            });
-
-            // Animate molecule paths
-            this.ingredientDetails.forEach(detail => {
-                const paths = detail.querySelectorAll('.molecule-paths path');
-                gsap.to(paths, {
-                    strokeDashoffset: 0,
-                    duration: 1.5,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: detail,
-                        start: 'top 70%'
-                    }
-                });
             });
         }
     }
