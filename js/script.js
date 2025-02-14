@@ -312,6 +312,71 @@ document.addEventListener('DOMContentLoaded', () => {
   new SocialProofManager();
 });
 
+// How It Works Section Manager
+class HowItWorksManager {
+    constructor() {
+        this.timelineSteps = document.querySelectorAll('.timeline-step');
+        this.init();
+    }
+
+    init() {
+        // Initialize GSAP if available
+        if (typeof gsap !== 'undefined') {
+            this.initGSAPAnimations();
+        } else {
+            this.initBasicAnimations();
+        }
+
+        // Initialize hover effects
+        this.initHoverEffects();
+    }
+
+    initGSAPAnimations() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate section header
+        gsap.from('.how-it-works-header', {
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.how-it-works',
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Animate timeline steps
+        this.timelineSteps.forEach((step, index) => {
+            gsap.from(step, {
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: step,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                delay: index * 0.2
+            });
+        });
+
+        // Animate CTA
+        gsap.from('.process-cta', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.process-cta',
+                start: 'top 90%',
+                toggleActions: 'play none none none'
+            }
+        });
+    }
+
 
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
