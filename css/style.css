@@ -2444,6 +2444,437 @@ body {
         box-shadow: none !important;
     }
 }
+/* Why Choose Section Base Styles */
+.why-choose-section {
+    position: relative;
+    padding: 80px 1rem;
+    background: var(--background-soft);
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .why-choose-section {
+        padding: 120px 2rem;
+    }
+}
+
+/* Animated Background */
+.benefits-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 112, 162, 0.1), rgba(138, 79, 255, 0.1));
+}
+
+.circle-1 {
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    left: -100px;
+    animation: float 20s infinite ease-in-out;
+}
+
+.circle-2 {
+    width: 300px;
+    height: 300px;
+    bottom: -50px;
+    right: -50px;
+    animation: float 15s infinite ease-in-out reverse;
+}
+
+.bg-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgba(138, 79, 255, 0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.5;
+}
+
+/* Container and Header */
+.benefits-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.benefits-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.header-content {
+    display: inline-block;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+}
+
+.title-line {
+    display: block;
+}
+
+.title-line.emphasis {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-dark);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+.header-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.decoration-line {
+    height: 2px;
+    width: 60px;
+    background: var(--gradient-primary);
+}
+
+.decoration-icon {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .benefits-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Benefit Cards */
+.benefit-card {
+    perspective: 1000px;
+    background: transparent;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.benefit-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.3s ease;
+}
+
+.card-front {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.benefit-card:hover .card-front,
+.benefit-card:hover .card-back {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Benefit Icons */
+.benefit-icon {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.benefit-icon svg {
+    width: 30px;
+    height: 30px;
+    color: white;
+}
+
+.icon-particles span {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    opacity: 0;
+}
+
+.benefit-card:hover .icon-particles span {
+    animation: particleFloat 1s ease-out forwards;
+}
+
+.icon-particles span:nth-child(1) { top: -10px; left: 50%; }
+.icon-particles span:nth-child(2) { top: 50%; right: -10px; }
+.icon-particles span:nth-child(3) { bottom: -10px; left: 50%; }
+
+/* Card Content */
+.benefit-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.benefit-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    opacity: 0.8;
+}
+
+/* Stats Container */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 0.5rem;
+}
+
+.stat-circle svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.stat-circle path {
+    stroke: var(--primary);
+}
+
+.stat-circle text {
+    transform: rotate(90deg);
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    fill: var(--text-dark);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    opacity: 0.7;
+}
+
+/* Learn More Button */
+.learn-more-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.learn-more-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Mobile Categories */
+.mobile-categories {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem;
+    margin: -1rem -1rem 2rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 1024px) {
+    .mobile-categories {
+        display: none;
+    }
+}
+
+.category-btn {
+    padding: 0.5rem 1rem;
+    background: white;
+    border: none;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+/* CTA Section */
+.benefits-cta {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border-radius: 100px;
+    box-shadow: var(--shadow-sm);
+}
+
+.badge-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: var(--gradient-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 100px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.cta-button:hover .button-icon {
+    transform: translateX(4px);
+}
+
+.cta-disclaimer {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    opacity: 0.7;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(20px, 20px);
+    }
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(
+            calc(cos(var(--angle, 0deg)) * 20px),
+            calc(sin(var(--angle, 0deg)) * 20px)
+        );
+        opacity: 0;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .benefit-card .card-inner,
+    .bg-circle,
+    .cta-button,
+    .learn-more-btn {
+        transition: none;
+    }
+    
+    .icon-particles span {
+        display: none;
+    }
+}
+
 
 
 
