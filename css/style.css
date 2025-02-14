@@ -1181,6 +1181,7 @@ body {
   font-style: italic;
   color: var(--text-dark);
 }
+
 /* Ingredients Showcase Section */
 .ingredients-showcase {
     padding: 120px 2rem;
@@ -1690,24 +1691,6 @@ body {
         animation: none;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* How It Works Section Styles */
 .how-it-works {
