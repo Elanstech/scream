@@ -1166,6 +1166,153 @@ class FAQManager {
     }
 }
 
+// Testimonials Section Manager
+class TestimonialsManager {
+    constructor() {
+        // Core elements
+        this.section = document.querySelector('.testimonials-section');
+        this.reviewCards = Array.from(document.querySelectorAll('.review-card'));
+        this.statCards = document.querySelectorAll('.stat-card');
+        this.ctaButton = document.querySelector('.cta-button');
+
+        // Initialize
+        this.init();
+    }
+
+    init() {
+        this.setupIntersectionObserver();
+        this.setupScrollAnimations();
+        this.setupInteractions();
+    }
+
+    setupIntersectionObserver() {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.classList.contains('stat-card')) {
+                        this.animateStatNumber(entry.target);
+                    }
+                }
+            });
+        }, options);
+
+        // Observe review cards
+        this.reviewCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe stat cards
+        this.statCards.forEach(stat => {
+            observer.observe(stat);
+        });
+    }
+
+    animateStatNumber(statCard) {
+        const numberElement = statCard.querySelector('.stat-number');
+        const targetNumber = parseFloat(numberElement.textContent);
+        const duration = 2000; // 2 seconds
+        const steps = 60;
+        const stepDuration = duration / steps;
+
+        let currentNumber = 0;
+        const increment = targetNumber / steps;
+
+        const updateNumber = () => {
+            currentNumber += increment;
+            if (currentNumber <= targetNumber) {
+                if (Number.isInteger(targetNumber)) {
+                    numberElement.textContent = Math.round(currentNumber);
+                } else {
+                    numberElement.textContent = currentNumber.toFixed(1);
+                }
+                setTimeout(updateNumber, stepDuration);
+            } else {
+                numberElement.textContent = targetNumber;
+            }
+        };
+
+        updateNumber();
+    }
+
+    setupScrollAnimations() {
+        if (typeof gsap !== 'undefined') {
+            gsap.from(this.reviewCards, {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.featured-reviews',
+                    start: 'top 80%'
+                }
+            });
+
+            gsap.from(this.statCards, {
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: '.trust-stats',
+                    start: 'top 80%'
+                }
+            });
+        }
+    }
+
+    setupInteractions() {
+        // Add hover effect to review cards
+        this.reviewCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = 'var(--shadow-lg)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'var(--shadow-sm)';
+            });
+        });
+
+        // Add click animation to CTA button
+        if (this.ctaButton) {
+            this.ctaButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.ctaButton.appendChild(ripple);
+
+                const rect = this.ctaButton.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = `${size}px`;
+
+                const x = e.clientX - rect.left - size/2;
+                const y = e.clientY - rect.top - size/2;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                setTimeout(() => ripple.remove(), 600);
+
+                // Navigate after animation
+                setTimeout(() => {
+                    window.location.href = this.ctaButton.href;
+                }, 300);
+            });
+        }
+    }
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     const faqManager = new FAQManager();
