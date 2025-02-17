@@ -1313,11 +1313,222 @@ class TestimonialsManager {
     }
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    const faqManager = new FAQManager();
-});
+// Secure Shipping Section Manager
+class SecureShippingManager {
+    constructor() {
+        // Core elements
+        this.section = document.querySelector('.secure-shipping-section');
+        this.securityCards = document.querySelectorAll('.security-card');
+        this.timelineSteps = document.querySelectorAll('.timeline-step');
+        this.trustItems = document.querySelectorAll('.trust-item');
+        this.ctaButton = document.querySelector('.cta-button');
+        
+        // Animation states
+        this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.animatedElements = new Set();
+        
+        this.init();
+    }
 
+    init() {
+        this.setupScrollAnimations();
+        this.setupCardInteractions();
+        this.setupTimelineAnimation();
+        this.setupTrustCounters();
+        this.setupCTAEffects();
+        this.initParallaxEffects();
+    }
+
+    setupScrollAnimations() {
+        const options = {
+            root: null,
+            threshold: 0.2,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Add fade-in animation
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    
+                    requestAnimationFrame(() => {
+                        entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+
+        // Observe elements
+        this.securityCards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        this.trustItems.forEach((item, index) => {
+            item.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(item);
+        });
+    }
+
+    setupCardInteractions() {
+        this.securityCards.forEach(card => {
+            // Add hover effect with 3D rotation
+            card.addEventListener('mousemove', (e) => {
+                if (this.isReducedMotion) return;
+
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = 
+                    `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+                // Add highlight effect
+                const highlight = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%)`;
+                card.style.backgroundImage = highlight;
+            });
+
+            // Reset card on mouse leave
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                card.style.backgroundImage = 'none';
+            });
+
+            // Add click ripple effect
+            card.addEventListener('click', (e) => {
+                const ripple = document.createElement('div');
+                ripple.className = 'ripple';
+                
+                const rect = card.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${e.clientX - rect.left - size/2}px`;
+                ripple.style.top = `${e.clientY - rect.top - size/2}px`;
+
+                card.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    }
+
+    setupTimelineAnimation() {
+        this.timelineSteps.forEach((step, index) => {
+            // Animate dots sequentially
+            setTimeout(() => {
+                step.classList.add('active');
+                
+                // Add pulsing effect to dot
+                const dot = step.querySelector('.step-dot');
+                dot.style.animation = 'pulse 2s infinite';
+            }, index * 1000);
+        });
+    }
+
+    setupTrustCounters() {
+        this.trustItems.forEach(item => {
+            const numberElement = item.querySelector('.trust-number');
+            const targetText = numberElement.textContent;
+            let targetNumber;
+            let suffix = '';
+
+            // Extract number and suffix
+            if (targetText.includes('-bit')) {
+                targetNumber = parseInt(targetText);
+                suffix = '-bit';
+            } else if (targetText.includes('%')) {
+                targetNumber = parseInt(targetText);
+                suffix = '%';
+            } else if (targetText.includes('/')) {
+                targetNumber = parseInt(targetText.split('/')[0]);
+                suffix = '/7';
+            }
+
+            // Animate counter
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !this.animatedElements.has(item)) {
+                        this.animatedElements.add(item);
+                        this.animateNumber(numberElement, targetNumber, suffix);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(item);
+        });
+    }
+
+    animateNumber(element, target, suffix) {
+        const duration = 2000;
+        const steps = 60;
+        const stepValue = target / steps;
+        let current = 0;
+
+        const update = () => {
+            current += stepValue;
+            if (current < target) {
+                element.textContent = `${Math.round(current)}${suffix}`;
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = `${target}${suffix}`;
+            }
+        };
+
+        update();
+    }
+
+    setupCTAEffects() {
+        if (!this.ctaButton) return;
+
+        this.ctaButton.addEventListener('mouseenter', () => {
+            const arrow = this.ctaButton.querySelector('.arrow-icon');
+            if (arrow) {
+                arrow.style.transform = 'translateX(8px)';
+            }
+        });
+
+        this.ctaButton.addEventListener('mouseleave', () => {
+            const arrow = this.ctaButton.querySelector('.arrow-icon');
+            if (arrow) {
+                arrow.style.transform = 'translateX(0)';
+            }
+        });
+    }
+
+    initParallaxEffects() {
+        if (this.isReducedMotion) return;
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            // Parallax for security cards
+            this.securityCards.forEach((card, index) => {
+                const speed = 1 + (index * 0.1);
+                const yPos = -(scrolled * speed / 10);
+                card.style.transform = `translateY(${yPos}px)`;
+            });
+
+            // Counter-parallax for trust items
+            this.trustItems.forEach((item, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = (scrolled * speed / 10);
+                item.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    }
+}
 
 // Initialize Everything
 document.addEventListener('DOMContentLoaded', () => {
