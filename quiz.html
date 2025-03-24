@@ -13,450 +13,573 @@
     
     <!-- Core CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/quiz-page.css">
+    <link rel="stylesheet" href="css/modern-quiz.css">
     
     <!-- Favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <!-- Defer non-critical JavaScript -->
-    <script src="js/quiz-page.js" defer></script>
+    <script src="js/modern-quiz.js" defer></script>
 </head>
 <body class="quiz-body">
     <!-- Header with back button -->
     <header class="quiz-header">
-        <div class="container">
-            <div class="quiz-header-content">
-                <a href="index.html" class="back-button">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span>Back to Home</span>
-                </a>
-                <div class="logo">
-                    <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
-                </div>
+        <div class="quiz-header-container">
+            <a href="index.html" class="back-button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Exit Quiz</span>
+            </a>
+            <div class="logo">
+                <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
             </div>
         </div>
     </header>
 
+    <!-- Progress bar (persists across all steps) -->
+    <div class="quiz-progress-container">
+        <div class="quiz-progress-wrapper">
+            <div class="progress-steps">
+                <div class="progress-step active" data-step="1">1</div>
+                <div class="progress-step" data-step="2">2</div>
+                <div class="progress-step" data-step="3">3</div>
+                <div class="progress-step" data-step="4">4</div>
+                <div class="progress-step" data-step="5">5</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-filled" style="width: 20%"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Quiz Container -->
     <main class="quiz-main">
-        <div class="container">
-            <div class="quiz-container">
-                <!-- Quiz intro screen -->
-                <div class="quiz-slide active" data-slide="intro">
-                    <div class="quiz-intro">
-                        <h1 class="quiz-heading">Find Your Perfect S-Cream Formula</h1>
-                        <p class="quiz-description">Answer a few quick questions to help us understand your needs. Your responses are confidential and secure.</p>
-                        <div class="quiz-facts">
-                            <div class="quiz-fact">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="10" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M12 8v4l4 2" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Takes only 2 minutes</span>
-                            </div>
-                            <div class="quiz-fact">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>100% private &amp; secure</span>
-                            </div>
-                            <div class="quiz-fact">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M12 17h.01" stroke-width="3" stroke-linecap="round"/>
-                                </svg>
-                                <span>Personalized recommendation</span>
+        <div class="quiz-container">
+            <!-- Left side - visual content -->
+            <div class="quiz-visual">
+                <div class="quiz-visual-content">
+                    <div class="quiz-testimonial">
+                        <div class="testimonial-quote">
+                            "S-Cream has completely transformed my intimate experience. I'm more confident and satisfied than ever."
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JS</div>
+                            <div class="author-info">
+                                <div class="author-name">Jessica S.</div>
+                                <div class="author-detail">Verified Customer</div>
                             </div>
                         </div>
-                        <button class="quiz-button" data-next="question-1">
-                            <span>Start Quiz</span>
+                    </div>
+                    <div class="feature-highlights">
+                        <div class="feature">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
                             </svg>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Question 1 -->
-                <div class="quiz-slide" data-slide="question-1">
-                    <div class="quiz-question">
-                        <div class="quiz-progress">
-                            <div class="progress-bar">
-                                <div class="progress-filled" style="width: 20%"></div>
-                            </div>
-                            <div class="progress-text">Question 1/5</div>
+                            <span>Doctor-formulated</span>
                         </div>
-                        <h2 class="question-title">What are you looking to improve in your intimate experience?</h2>
-                        <div class="answer-options">
-                            <label class="answer-option">
-                                <input type="radio" name="question-1" value="sensitivity">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Increased Sensitivity</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-1" value="arousal">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Enhanced Arousal</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-1" value="satisfaction">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Overall Satisfaction</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-1" value="all">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>All of the Above</span>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="question-navigation">
-                            <button class="quiz-back-button" data-prev="intro">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Back</span>
-                            </button>
-                            <button class="quiz-next-button" data-next="question-2" disabled>
-                                <span>Next</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Question 2 -->
-                <div class="quiz-slide" data-slide="question-2">
-                    <div class="quiz-question">
-                        <div class="quiz-progress">
-                            <div class="progress-bar">
-                                <div class="progress-filled" style="width: 40%"></div>
-                            </div>
-                            <div class="progress-text">Question 2/5</div>
-                        </div>
-                        <h2 class="question-title">How would you describe your current level of sensitivity?</h2>
-                        <div class="answer-options">
-                            <label class="answer-option">
-                                <input type="radio" name="question-2" value="low">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Low Sensitivity</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-2" value="moderate">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Moderate Sensitivity</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-2" value="varies">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>It Varies</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-2" value="unsure">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Not Sure</span>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="question-navigation">
-                            <button class="quiz-back-button" data-prev="question-1">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Back</span>
-                            </button>
-                            <button class="quiz-next-button" data-next="question-3" disabled>
-                                <span>Next</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 3 -->
-                <div class="quiz-slide" data-slide="question-3">
-                    <div class="quiz-question">
-                        <div class="quiz-progress">
-                            <div class="progress-bar">
-                                <div class="progress-filled" style="width: 60%"></div>
-                            </div>
-                            <div class="progress-text">Question 3/5</div>
-                        </div>
-                        <h2 class="question-title">Have you noticed any changes in sensitivity or satisfaction over time?</h2>
-                        <div class="answer-options">
-                            <label class="answer-option">
-                                <input type="radio" name="question-3" value="decreased">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Yes, it has decreased</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-3" value="same">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>No, it's about the same</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-3" value="increased">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Yes, it has increased</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-3" value="fluctuates">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>It fluctuates</span>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="question-navigation">
-                            <button class="quiz-back-button" data-prev="question-2">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Back</span>
-                            </button>
-                            <button class="quiz-next-button" data-next="question-4" disabled>
-                                <span>Next</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 4 -->
-                <div class="quiz-slide" data-slide="question-4">
-                    <div class="quiz-question">
-                        <div class="quiz-progress">
-                            <div class="progress-bar">
-                                <div class="progress-filled" style="width: 80%"></div>
-                            </div>
-                            <div class="progress-text">Question 4/5</div>
-                        </div>
-                        <h2 class="question-title">Would you prefer a formula that provides:</h2>
-                        <div class="answer-options">
-                            <label class="answer-option">
-                                <input type="radio" name="question-4" value="warming">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Warming sensation</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-4" value="tingling">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Tingling sensation</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-4" value="subtle">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Subtle enhancement</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-4" value="intense">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Maximum intensity</span>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="question-navigation">
-                            <button class="quiz-back-button" data-prev="question-3">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Back</span>
-                            </button>
-                            <button class="quiz-next-button" data-next="question-5" disabled>
-                                <span>Next</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Question 5 -->
-                <div class="quiz-slide" data-slide="question-5">
-                    <div class="quiz-question">
-                        <div class="quiz-progress">
-                            <div class="progress-bar">
-                                <div class="progress-filled" style="width: 100%"></div>
-                            </div>
-                            <div class="progress-text">Question 5/5</div>
-                        </div>
-                        <h2 class="question-title">Have you used any similar products before?</h2>
-                        <div class="answer-options">
-                            <label class="answer-option">
-                                <input type="radio" name="question-5" value="never">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Never used before</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-5" value="tried-ineffective">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Yes, but they weren't effective</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-5" value="tried-effective">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Yes, with some success</span>
-                                </div>
-                            </label>
-                            <label class="answer-option">
-                                <input type="radio" name="question-5" value="using-currently">
-                                <div class="option-content">
-                                    <div class="option-checkmark"></div>
-                                    <span>Currently using another product</span>
-                                </div>
-                            </label>
-                        </div>
-                        <div class="question-navigation">
-                            <button class="quiz-back-button" data-prev="question-4">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Back</span>
-                            </button>
-                            <button class="quiz-next-button" data-next="processing" disabled>
-                                <span>Complete Quiz</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Processing slide -->
-                <div class="quiz-slide" data-slide="processing">
-                    <div class="quiz-processing">
-                        <div class="processing-animation">
-                            <div class="spinner"></div>
-                        </div>
-                        <h2 class="processing-title">Analyzing Your Responses</h2>
-                        <p class="processing-description">We're determining your ideal formula based on your unique needs...</p>
-                        <div class="processing-steps">
-                            <div class="processing-step completed">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <span>Analyzing responses</span>
-                            </div>
-                            <div class="processing-step">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <circle cx="12" cy="12" r="10" stroke-width="2" stroke-linecap="round"/>
-                                    <polyline points="12 6 12 12 16 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <span>Matching to formula</span>
-                            </div>
-                            <div class="processing-step">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <span>Preparing recommendation</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Results screen -->
-                <div class="quiz-slide" data-slide="results">
-                    <div class="quiz-results">
-                        <div class="results-header">
-                            <svg class="checkmark-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="48" height="48">
-                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <div class="feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M20 7l-8 4-8-4V5l8 4 8-4V7zm0 2l-8 4-8-4v10h16V9z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <h2 class="results-title">We've Found Your Perfect Formula!</h2>
-                            <p class="results-subtitle">Based on your answers, we recommend:</p>
+                            <span>Discreet shipping</span>
                         </div>
-                        
-                        <div class="results-product">
-                            <div class="product-image">
-                                <img src="cream.jpeg" alt="S-Cream Recommended Formula" width="200" height="200">
-                            </div>
-                            <div class="product-details">
-                                <h3 class="product-name" id="formula-name">S-Cream Sensitivity+ Formula</h3>
-                                <div class="product-highlights">
-                                    <div class="highlight-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                            <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        <span id="highlight-1">Enhanced blood flow for maximum sensitivity</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                            <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        <span id="highlight-2">Fast-acting formula (15-30 minutes)</span>
-                                    </div>
-                                    <div class="highlight-item">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                            <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                        <span id="highlight-3">Personalized for your unique needs</span>
-                                    </div>
-                                </div>
-                                <div class="product-price">
-                                    <div class="price-original">$129.99</div>
-                                    <div class="price-current">$99.00</div>
-                                    <div class="price-savings">Save 30% Today!</div>
-                                </div>
-                            </div>
+                        <div class="feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M12 8v4l4 2" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>Fast results (15-30 min)</span>
                         </div>
-                        
-                        <div class="results-actions">
-                            <a href="#" id="checkout-button" class="primary-cta cta-large">
-                                <span>Continue to Checkout</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right side - quiz content -->
+            <div class="quiz-content">
+                <div class="quiz-slides-container">
+                    <!-- Quiz intro screen -->
+                    <div class="quiz-slide active" data-slide="intro">
+                        <div class="quiz-slide-content">
+                            <h1 class="quiz-heading">Find Your Perfect Formula</h1>
+                            <p class="quiz-description">Complete our personalized quiz to discover the exact formula for your needs. Your responses are confidential and secure.</p>
+                            <div class="quiz-facts">
+                                <div class="quiz-fact">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2" stroke-linecap="round"/>
+                                        <path d="M12 8v4l4 2" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Takes only 2 minutes</span>
+                                </div>
+                                <div class="quiz-fact">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>100% private &amp; secure</span>
+                                </div>
+                                <div class="quiz-fact">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke-width="2" stroke-linecap="round"/>
+                                        <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke-width="2" stroke-linecap="round"/>
+                                        <path d="M12 17h.01" stroke-width="3" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Personalized recommendation</span>
+                                </div>
+                            </div>
+                            <button class="quiz-button pulse-animation" data-next="question-1">
+                                <span>Start Quiz</span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                                     <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
-                            </a>
-                            <div class="security-badge">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Secure Checkout • Discreet Shipping • Money-Back Guarantee</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 1 -->
+                    <div class="quiz-slide" data-slide="question-1">
+                        <div class="quiz-slide-content">
+                            <h2 class="question-title">What are you looking to improve in your intimate experience?</h2>
+                            
+                            <div class="answer-options">
+                                <label class="answer-option">
+                                    <input type="radio" name="question-1" value="sensitivity">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Increased Sensitivity</span>
+                                            <span class="option-description">Enhance pleasure sensation and responsiveness</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-1" value="arousal">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Enhanced Arousal</span>
+                                            <span class="option-description">Improve desire and excitement levels</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-1" value="satisfaction">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Overall Satisfaction</span>
+                                            <span class="option-description">Improve the complete intimate experience</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-1" value="all">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">All of the Above</span>
+                                            <span class="option-description">Comprehensive improvement in all areas</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="question-navigation">
+                                <button class="quiz-back-button" data-prev="intro">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Back</span>
+                                </button>
+                                <button class="quiz-next-button" data-next="question-2" disabled>
+                                    <span>Continue</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="quiz-slide" data-slide="question-2">
+                        <div class="quiz-slide-content">
+                            <h2 class="question-title">How would you describe your current level of sensitivity?</h2>
+                            
+                            <div class="answer-options">
+                                <label class="answer-option">
+                                    <input type="radio" name="question-2" value="low">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Low Sensitivity</span>
+                                            <span class="option-description">Difficult to achieve full satisfaction</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-2" value="moderate">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Moderate Sensitivity</span>
+                                            <span class="option-description">Average responsiveness but could be better</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-2" value="varies">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">It Varies</span>
+                                            <span class="option-description">Inconsistent levels depending on circumstances</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-2" value="unsure">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Not Sure</span>
+                                            <span class="option-description">Uncertain about your sensitivity level</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="question-navigation">
+                                <button class="quiz-back-button" data-prev="question-1">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Back</span>
+                                </button>
+                                <button class="quiz-next-button" data-next="question-3" disabled>
+                                    <span>Continue</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="quiz-slide" data-slide="question-3">
+                        <div class="quiz-slide-content">
+                            <h2 class="question-title">Have you noticed any changes in sensitivity or satisfaction over time?</h2>
+                            
+                            <div class="answer-options">
+                                <label class="answer-option">
+                                    <input type="radio" name="question-3" value="decreased">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Yes, it has decreased</span>
+                                            <span class="option-description">Less sensitive or satisfied than before</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-3" value="same">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">No, it's about the same</span>
+                                            <span class="option-description">Consistent level over time</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-3" value="increased">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Yes, it has increased</span>
+                                            <span class="option-description">More sensitive or satisfied over time</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-3" value="fluctuates">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">It fluctuates</span>
+                                            <span class="option-description">Changes at different times or periods</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="question-navigation">
+                                <button class="quiz-back-button" data-prev="question-2">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Back</span>
+                                </button>
+                                <button class="quiz-next-button" data-next="question-4" disabled>
+                                    <span>Continue</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="quiz-slide" data-slide="question-4">
+                        <div class="quiz-slide-content">
+                            <h2 class="question-title">Would you prefer a formula that provides:</h2>
+                            
+                            <div class="answer-options">
+                                <label class="answer-option">
+                                    <input type="radio" name="question-4" value="warming">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Warming sensation</span>
+                                            <span class="option-description">Gentle heat that enhances blood flow</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-4" value="tingling">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Tingling sensation</span>
+                                            <span class="option-description">Pleasant micro-stimulation effect</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-4" value="subtle">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Subtle enhancement</span>
+                                            <span class="option-description">Natural feeling with mild effect</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-4" value="intense">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Maximum intensity</span>
+                                            <span class="option-description">Strong effect for pronounced results</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="question-navigation">
+                                <button class="quiz-back-button" data-prev="question-3">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Back</span>
+                                </button>
+                                <button class="quiz-next-button" data-next="question-5" disabled>
+                                    <span>Continue</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="quiz-slide" data-slide="question-5">
+                        <div class="quiz-slide-content">
+                            <h2 class="question-title">Have you used any similar products before?</h2>
+                            
+                            <div class="answer-options">
+                                <label class="answer-option">
+                                    <input type="radio" name="question-5" value="never">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Never used before</span>
+                                            <span class="option-description">First time trying this type of product</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-5" value="tried-ineffective">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Yes, but they weren't effective</span>
+                                            <span class="option-description">Previous products didn't meet expectations</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-5" value="tried-effective">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Yes, with some success</span>
+                                            <span class="option-description">Experienced positive results previously</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="answer-option">
+                                    <input type="radio" name="question-5" value="using-currently">
+                                    <div class="option-content">
+                                        <div class="option-checkmark"></div>
+                                        <div class="option-text">
+                                            <span class="option-title">Currently using another product</span>
+                                            <span class="option-description">Looking for something more effective</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="question-navigation">
+                                <button class="quiz-back-button" data-prev="question-4">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Back</span>
+                                </button>
+                                <button class="quiz-next-button" data-next="processing" disabled>
+                                    <span>Complete Quiz</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Processing slide -->
+                    <div class="quiz-slide" data-slide="processing">
+                        <div class="quiz-slide-content">
+                            <div class="processing-container">
+                                <div class="processing-animation">
+                                    <div class="spinner-container">
+                                        <div class="spinner"></div>
+                                    </div>
+                                </div>
+                                <h2 class="processing-title">Finding Your Perfect Formula</h2>
+                                <p class="processing-description">We're analyzing your unique needs to provide the most effective solution...</p>
+                                <div class="processing-steps">
+                                    <div class="processing-step" data-step="1">
+                                        <div class="step-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div class="step-text">Analyzing your responses</div>
+                                    </div>
+                                    <div class="processing-step" data-step="2">
+                                        <div class="step-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div class="step-text">Identifying ideal ingredients</div>
+                                    </div>
+                                    <div class="processing-step" data-step="3">
+                                        <div class="step-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div class="step-text">Creating your personalized formula</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results screen -->
+                    <div class="quiz-slide" data-slide="results">
+                        <div class="quiz-slide-content">
+                            <div class="results-container">
+                                <div class="results-header">
+                                    <div class="checkmark-animation">
+                                        <svg class="checkmark-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="48" height="48">
+                                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <h2 class="results-title">Your Perfect Formula</h2>
+                                    <p class="results-subtitle">Based on your unique profile, we recommend:</p>
+                                </div>
+                                
+                                <div class="results-product">
+                                    <div class="product-image">
+                                        <img src="cream.jpeg" alt="S-Cream Recommended Formula" width="200" height="200">
+                                    </div>
+                                    <div class="product-details">
+                                        <div class="product-badge">PERSONALIZED RECOMMENDATION</div>
+                                        <h3 class="product-name" id="formula-name">S-Cream Sensitivity+ Formula</h3>
+                                        <div class="product-highlights">
+                                            <div class="highlight-item">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                    <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span id="highlight-1">Enhanced blood flow for maximum sensitivity</span>
+                                            </div>
+                                            <div class="highlight-item">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                    <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span id="highlight-2">Fast-acting formula (15-30 minutes)</span>
+                                            </div>
+                                            <div class="highlight-item">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                    <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span id="highlight-3">Personalized for your unique needs</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-price">
+                                            <div class="price-original">$129.99</div>
+                                            <div class="price-current">$99.00</div>
+                                            <div class="price-savings">Save 30% Today!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="results-actions">
+                                    <a href="#" id="checkout-button" class="checkout-button">
+                                        <span>Continue to Checkout</span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                        </svg>
+                                    </a>
+                                    <div class="security-info">
+                                        <div class="security-badge">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            <span>Secure Checkout</span>
+                                        </div>
+                                        <div class="security-badge">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                <path d="M5 8h14M5 8a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4zM5 8v10a2 2 0 002 2h10a2 2 0 002-2V8M9 12h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span>Discreet Packaging</span>
+                                        </div>
+                                        <div class="security-badge">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                                <path d="M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21a3.745 3.745 0 01-3.068-1.593 3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span>Money-Back Guarantee</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -465,22 +588,28 @@
         </div>
     </main>
 
+    <!-- Loading overlay (for Stripe checkout) -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Preparing your secure checkout...</p>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="quiz-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="logo.png" alt="S-Cream Logo" width="120" height="40">
-                </div>
-                <div class="footer-links">
-                    <a href="/terms">Terms</a>
-                    <a href="/privacy">Privacy</a>
-                    <a href="/faq">FAQ</a>
-                    <a href="/contact">Contact</a>
-                </div>
-                <div class="footer-copyright">
-                    &copy; <span id="current-year">2023</span> S-Cream. All rights reserved.
-                </div>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="S-Cream Logo" width="120" height="40">
+            </div>
+            <div class="footer-links">
+                <a href="/terms">Terms</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/faq">FAQ</a>
+                <a href="/contact">Contact</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year">2023</span> S-Cream. All rights reserved.
             </div>
         </div>
     </footer>
