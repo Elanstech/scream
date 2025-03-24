@@ -34,6 +34,13 @@
             <div class="logo">
                 <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
             </div>
+            <!-- Direct purchase button for returning customers -->
+            <a href="#checkout" class="primary-cta direct-purchase-button">
+                <span>Buy Now</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
         </div>
     </header>
 
@@ -56,40 +63,75 @@
     <!-- Main Quiz Container -->
     <main class="quiz-main">
         <div class="quiz-container">
-            <!-- Left side - visual content -->
+            <!-- Left side - visual content (replacing testimonials with product info) -->
             <div class="quiz-visual">
                 <div class="quiz-visual-content">
-                    <div class="quiz-testimonial">
-                        <div class="testimonial-quote">
-                            "S-Cream has completely transformed my intimate experience. I'm more confident and satisfied than ever."
+                    <div class="product-preview">
+                        <div class="product-image-wrapper">
+                            <img src="cream.jpeg" alt="S-Cream Product" class="product-preview-image" width="160" height="160">
+                            <div class="product-glow"></div>
                         </div>
-                        <div class="testimonial-author">
-                            <div class="author-avatar">JS</div>
-                            <div class="author-info">
-                                <div class="author-name">Jessica S.</div>
-                                <div class="author-detail">Verified Customer</div>
+                        <h3 class="product-preview-title">S-Cream Premium Formula</h3>
+                        <div class="product-preview-rating">
+                            <div class="stars">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
                             </div>
+                            <span class="rating-text">4.9/5 (1,243 reviews)</span>
                         </div>
                     </div>
-                    <div class="feature-highlights">
-                        <div class="feature">
+                    
+                    <div class="key-benefits">
+                        <h3 class="benefits-title">Key Benefits</h3>
+                        <div class="benefit-item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>Doctor-formulated</span>
+                            <span>Enhanced Sensitivity</span>
                         </div>
-                        <div class="feature">
+                        <div class="benefit-item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M20 7l-8 4-8-4V5l8 4 8-4V7zm0 2l-8 4-8-4v10h16V9z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 8v4l2 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                            <span>Discreet shipping</span>
+                            <span>Fast Acting (15-30 min)</span>
                         </div>
-                        <div class="feature">
+                        <div class="benefit-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Increased Pleasure</span>
+                        </div>
+                        <div class="benefit-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Clinically Tested</span>
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-info-box">
+                        <h3>Why Take This Quiz?</h3>
+                        <p>Get a personalized formula tailored to your specific needs. Our algorithm analyzes your responses to recommend the perfect blend of ingredients.</p>
+                        <div class="quiz-estimate">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                                 <circle cx="12" cy="12" r="10" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M12 8v4l4 2" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
                             </svg>
-                            <span>Fast results (15-30 min)</span>
+                            <span>Takes only 2 minutes</span>
                         </div>
                     </div>
                 </div>
@@ -126,12 +168,26 @@
                                     <span>Personalized recommendation</span>
                                 </div>
                             </div>
-                            <button class="quiz-button pulse-animation" data-next="question-1">
-                                <span>Start Quiz</span>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                            </button>
+                            
+                            <div class="quiz-action-options">
+                                <button class="quiz-button pulse-animation" data-next="question-1">
+                                    <span>Start Quiz</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                                
+                                <div class="quiz-divider">
+                                    <span>or</span>
+                                </div>
+                                
+                                <a href="#checkout" class="secondary-purchase-button">
+                                    <span>Skip Quiz & Buy Now</span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     
@@ -613,5 +669,6 @@
             </div>
         </div>
     </footer>
+
 </body>
 </html>
