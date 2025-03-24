@@ -959,7 +959,7 @@
     </div>
 </section>
 
-    <!-- Expert Endorsements Section -->
+  <!-- Expert Endorsements Section Redesign -->
 <section class="expert-endorsements" id="experts">
     <div class="container">
         <header class="section-header">
@@ -967,111 +967,118 @@
             <p class="section-subtitle">Leading gynecologists and sexual wellness experts recommend S-Cream for improved intimate wellness</p>
         </header>
 
-        <div class="experts-slider">
-            <!-- Expert 1 -->
-            <div class="expert-card">
-                <div class="expert-profile">
-                    <div class="expert-image">
-                        <img src="images/expert-1.jpg" alt="Dr. Sarah Mitchell" width="120" height="120">
-                        <div class="expert-credentials-badge">
-                            <span>Board Certified</span>
+        <div class="experts-container">
+            <!-- Expert Cards Container -->
+            <div class="experts-wrapper">
+                <div class="expert-card-container" id="expertsSlider">
+                    <!-- Expert 1 -->
+                    <div class="expert-card">
+                        <div class="expert-image-container">
+                            <img src="https://randomuser.me/api/portraits/women/40.jpg" alt="Dr. Sarah Mitchell" class="expert-image">
+                            <div class="expert-badge">Board Certified</div>
+                        </div>
+                        <div class="expert-content">
+                            <div class="expert-header">
+                                <h3 class="expert-name">Dr. Sarah Mitchell, MD</h3>
+                                <p class="expert-credentials">OB/GYN, Women's Health Specialist</p>
+                                <p class="expert-institution">Clinical Director, Women's Wellness Institute</p>
+                            </div>
+                            <div class="expert-quote">
+                                <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p>"In my 15 years of clinical practice, S-Cream stands out as a breakthrough solution for women experiencing intimacy challenges. The scientifically-validated formula addresses the root causes of decreased sensitivity in a way other products simply don't."</p>
+                            </div>
+                            <div class="expert-publication">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Published in Journal of Women's Health</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="expert-info">
-                        <h3 class="expert-name">Dr. Sarah Mitchell, MD</h3>
-                        <p class="expert-credentials">OB/GYN, Women's Health Specialist</p>
-                        <p class="expert-institution">Clinical Director, Women's Wellness Institute</p>
+
+                    <!-- Expert 2 -->
+                    <div class="expert-card">
+                        <div class="expert-image-container">
+                            <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Dr. Michael Rodriguez" class="expert-image">
+                            <div class="expert-badge">25+ Years Experience</div>
+                        </div>
+                        <div class="expert-content">
+                            <div class="expert-header">
+                                <h3 class="expert-name">Dr. Michael Rodriguez, PhD</h3>
+                                <p class="expert-credentials">Clinical Sexologist & Relationship Therapist</p>
+                                <p class="expert-institution">Director, Institute for Intimate Wellness</p>
+                            </div>
+                            <div class="expert-quote">
+                                <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p>"What impresses me most about S-Cream is the thoughtful formulation. Each ingredient has been carefully selected based on clinical evidence, creating a product that consistently outperforms others in patient satisfaction and measurable results."</p>
+                            </div>
+                            <div class="expert-publication">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Author of "The Science of Intimacy"</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="expert-quote">
-                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <p>"In my 15 years of clinical practice, S-Cream stands out as a breakthrough solution for women experiencing intimacy challenges. The scientifically-validated formula addresses the root causes of decreased sensitivity in a way other products simply don't."</p>
-                </div>
-                <div class="expert-publications">
-                    <div class="publication-tag">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Published in Journal of Women's Health</span>
+
+                    <!-- Expert 3 -->
+                    <div class="expert-card">
+                        <div class="expert-image-container">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Dr. Jennifer Lee" class="expert-image">
+                            <div class="expert-badge">Research Scientist</div>
+                        </div>
+                        <div class="expert-content">
+                            <div class="expert-header">
+                                <h3 class="expert-name">Dr. Jennifer Lee, PharmD</h3>
+                                <p class="expert-credentials">Pharmacology Researcher & Formulation Specialist</p>
+                                <p class="expert-institution">Lead Scientist, Advanced Wellness Labs</p>
+                            </div>
+                            <div class="expert-quote">
+                                <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p>"The bioavailability of the active compounds in S-Cream sets it apart from competitors. Our laboratory analysis confirmed superior penetration and longer-lasting effects compared to other leading formulations, explaining why patient satisfaction rates exceed 95%."</p>
+                            </div>
+                            <div class="expert-publication">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span>Published in Biochemical Therapeutics</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Expert 2 -->
-            <div class="expert-card">
-                <div class="expert-profile">
-                    <div class="expert-image">
-                        <img src="images/expert-2.jpg" alt="Dr. Michael Rodriguez" width="120" height="120">
-                        <div class="expert-credentials-badge">
-                            <span>25+ Years Experience</span>
-                        </div>
-                    </div>
-                    <div class="expert-info">
-                        <h3 class="expert-name">Dr. Michael Rodriguez, PhD</h3>
-                        <p class="expert-credentials">Clinical Sexologist & Relationship Therapist</p>
-                        <p class="expert-institution">Director, Institute for Intimate Wellness</p>
-                    </div>
-                </div>
-                <div class="expert-quote">
-                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Navigation Controls -->
+            <div class="experts-navigation">
+                <button class="nav-arrow prev" id="prevExpert" aria-label="Previous expert">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M19 12H5M12 19l-7-7 7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <p>"What impresses me most about S-Cream is the thoughtful formulation. Each ingredient has been carefully selected based on clinical evidence, creating a product that consistently outperforms others in patient satisfaction and measurable results."</p>
+                </button>
+                <div class="nav-dots" id="expertDots">
+                    <button class="nav-dot active" aria-label="View expert 1" data-index="0"></button>
+                    <button class="nav-dot" aria-label="View expert 2" data-index="1"></button>
+                    <button class="nav-dot" aria-label="View expert 3" data-index="2"></button>
                 </div>
-                <div class="expert-publications">
-                    <div class="publication-tag">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Author of "The Science of Intimacy"</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Expert 3 -->
-            <div class="expert-card">
-                <div class="expert-profile">
-                    <div class="expert-image">
-                        <img src="images/expert-3.jpg" alt="Dr. Jennifer Lee" width="120" height="120">
-                        <div class="expert-credentials-badge">
-                            <span>Research Scientist</span>
-                        </div>
-                    </div>
-                    <div class="expert-info">
-                        <h3 class="expert-name">Dr. Jennifer Lee, PharmD</h3>
-                        <p class="expert-credentials">Pharmacology Researcher & Formulation Specialist</p>
-                        <p class="expert-institution">Lead Scientist, Advanced Wellness Labs</p>
-                    </div>
-                </div>
-                <div class="expert-quote">
-                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <button class="nav-arrow next" id="nextExpert" aria-label="Next expert">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <p>"The bioavailability of the active compounds in S-Cream sets it apart from competitors. Our laboratory analysis confirmed superior penetration and longer-lasting effects compared to other leading formulations, explaining why patient satisfaction rates exceed 95%."</p>
-                </div>
-                <div class="expert-publications">
-                    <div class="publication-tag">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Published in Biochemical Therapeutics</span>
-                    </div>
-                </div>
+                </button>
             </div>
         </div>
 
-        <div class="experts-navigation">
-            <button class="nav-dot active" aria-label="View expert 1" data-index="0"></button>
-            <button class="nav-dot" aria-label="View expert 2" data-index="1"></button>
-            <button class="nav-dot" aria-label="View expert 3" data-index="2"></button>
-        </div>
-
+        <!-- CTA Section -->
         <div class="experts-cta">
             <a href="#quiz" class="primary-cta">
                 <span>Find Your Personalized Recommendation</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
                 </svg>
             </a>
