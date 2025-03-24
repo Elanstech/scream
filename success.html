@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Thank you for your S-Cream purchase. Complete your medical verification to finalize your order.">
+    <title>Order Successful | S-Cream</title>
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modern-quiz.css">
+    <link rel="stylesheet" href="css/success-page.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Defer non-critical JavaScript -->
+    <script src="js/success-page.js" defer></script>
+</head>
+<body class="success-body">
+    <!-- Header -->
+    <header class="quiz-header">
+        <div class="quiz-header-container">
+            <div class="logo">
+                <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="success-main">
+        <div class="success-container">
+            <div class="success-step-indicator">
+                <div class="step completed">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Assessment</div>
+                </div>
+                <div class="step completed">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="step active">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Verification</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Shipping</div>
+                </div>
+            </div>
+            
+            <div class="success-content">
+                <div class="section order-confirmation">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="48" height="48">
+                            <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h1 class="success-title">Payment Successful!</h1>
+                    <p class="success-message">Thank you for your purchase. Your order has been received and is pending medical verification.</p>
+                    
+                    <div class="order-summary">
+                        <h2>Order #<span id="order-number">SC-29571</span></h2>
+                        <div class="order-product">
+                            <div class="product-image">
+                                <img src="cream-small.jpeg" alt="S-Cream Premium Formula" width="80" height="80">
+                            </div>
+                            <div class="product-details">
+                                <div class="product-name">S-Cream Premium Formula</div>
+                                <div class="product-price">$99.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section medical-verification">
+                    <h2>Complete Medical Verification</h2>
+                    <p class="verification-intro">To ensure this product is right for you, our doctor needs to review your information. Please complete this brief, confidential questionnaire.</p>
+                    
+                    <div class="hipaa-badge">
+                        <svg class="hipaa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>HIPAA Compliant & Secure</span>
+                    </div>
+                    
+                    <!-- JotForm Embed -->
+                    <div class="jotform-container">
+                        <script src="https://form.jotform.com/jsform/YOUR_JOTFORM_ID"></script>
+                    </div>
+                    
+                    <div class="verification-notice">
+                        <p>Once verified by our doctor (typically within 24 hours), your order will be shipped.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-support">
+                <h3>Questions about your order?</h3>
+                <p>Our customer support team is here to help.</p>
+                <a href="mailto:support@scream.com" class="support-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20">
+                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Contact Support</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="quiz-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="S-Cream Logo" width="120" height="40">
+            </div>
+            <div class="footer-links">
+                <a href="/terms">Terms</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/faq">FAQ</a>
+                <a href="/contact">Contact</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; <span id="current-year">2023</span> S-Cream. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Generate a random order number if not provided in URL
+        if (!document.getElementById('order-number').textContent.includes('-')) {
+            const randomOrderNum = 'SC-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('order-number').textContent = randomOrderNum;
+        }
+    </script>
+</body>
+</html>
