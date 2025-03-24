@@ -478,20 +478,25 @@ function redirectToStripeCheckout(formulaName) {
   // Generate a secure token for validating the return from Stripe
   const secureToken = generateSecureToken();
   
-  // Store token in localStorage for verification on success page
+  // Store token in both localStorage AND sessionStorage for redundancy
   localStorage.setItem('scream_checkout_token', secureToken);
+  sessionStorage.setItem('scream_checkout_token', secureToken);
   
-  // Build the success URL with our domain and include the token
-  const successUrl = `${window.location.origin}/success.html?token=${secureToken}`;
+  // Get the base path to handle subdirectory hosting
+  const currentPath = window.location.pathname;
+  const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
   
-  // Your specific Stripe checkout URL
-  // We need to modify this URL to include the success_url parameter
+  // Build the complete success URL with our domain and include the token
+  const successUrl = `${window.location.origin}${basePath}success.html?token=${secureToken}`;
+  
+  // Set up the Stripe checkout URL with both token and return_url parameters
   const baseStripeUrl = 'https://buy.stripe.com/test_6oE8yM1y7atV9qM8ww';
-  const stripeCheckoutUrl = `${baseStripeUrl}?success_url=${encodeURIComponent(successUrl)}`;
+  const stripeCheckoutUrl = `${baseStripeUrl}?success_url=${encodeURIComponent(successUrl)}&return_url=${encodeURIComponent(successUrl)}`;
   
-  // Track the event (for analytics purposes)
+  // Log for debugging purposes
   console.log('Redirecting to Stripe checkout for:', formulaName);
   console.log('Success URL:', successUrl);
+  console.log('Token stored:', secureToken);
   
   // Short delay to show loading animation
   setTimeout(() => {
@@ -528,13 +533,12 @@ function handleSuccessPage() {
   if (window.location.pathname.includes('success')) {
     const urlParams = new URLSearchParams(window.location.search);
     const sessionId = urlParams.get('session_id');
+    const token = urlParams.get('token');
     
-    if (sessionId) {
-      console.log('Successful checkout session:', sessionId);
-      
-      // You could verify the session on your server if needed
-      // or trigger additional events like conversion tracking
-    }
+    console.log('Success page loaded with params:', { sessionId, token });
+    
+    // You could verify the session on your server if needed
+    // or trigger additional events like conversion tracking
   }
 }
 
