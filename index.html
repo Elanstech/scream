@@ -24,76 +24,13 @@
 </head>
 <body>
 
-<!-- Advanced Floating Pill-Shaped Header -->
-<header class="pill-header-wrapper">
-    <div class="pill-header">
-        <!-- Logo Section -->
-        <div class="pill-section logo-section">
-            <a href="/" class="logo" aria-label="S-Cream Home">
-                <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
-            </a>
-        </div>
-
-        <!-- Navigation Section -->
-        <nav class="pill-section nav-section" aria-label="Main navigation">
-            <ul class="nav-list">
-                <li><a href="#benefits" class="nav-link">Benefits</a></li>
-                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                <li><a href="#science" class="nav-link">Science</a></li>
-                <li><a href="#faq" class="nav-link">FAQ</a></li>
-            </ul>
-        </nav>
-
-        <!-- Action Section -->
-        <div class="pill-section action-section">
-            <a href="#quiz" class="pill-button">
-                <span>Take the Quiz</span>
-                <div class="button-glow"></div>
-            </a>
-        </div>
-
-        <!-- Mobile Menu Toggle -->
-        <button class="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
-            <span class="toggle-line"></span>
-            <span class="toggle-line"></span>
-            <span class="toggle-line"></span>
-            <div class="toggle-glow"></div>
-        </button>
-    </div>
-
-    <!-- Background Elements -->
-    <div class="pill-bg-elements">
-        <div class="pill-glow"></div>
-        <div class="pill-shadow"></div>
-    </div>
-</header>
-
-<!-- Mobile Navigation Panel -->
-<div class="mobile-nav-panel" id="mobile-nav" aria-hidden="true">
-    <div class="mobile-nav-content">
-        <nav class="mobile-nav-menu">
-            <ul class="mobile-nav-list">
-                <li><a href="#benefits" class="mobile-nav-link">Benefits</a></li>
-                <li><a href="#how-it-works" class="mobile-nav-link">How It Works</a></li>
-                <li><a href="#science" class="mobile-nav-link">Science</a></li>
-                <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
-            </ul>
-        </nav>
-        <div class="mobile-nav-action">
-            <a href="#quiz" class="mobile-pill-button">
-                <span>Take the Quiz</span>
-                <div class="button-glow"></div>
-            </a>
-        </div>
-    </div>
-</div>
-    
-  <!-- HTML: Hero Section with Video Background -->
+<!-- Hero Section with Integrated Pill Header -->
 <section class="hero" id="hero">
+    <!-- Hero Background with Video -->
     <div class="hero-background">
         <div class="video-container">
             <video autoplay muted loop playsinline class="hero-video">
-                <source src="promocream1.mp4" type="video/mp4">
+                <source src="videos/hero-background.mp4" type="video/mp4">
                 <!-- Fallback for browsers that don't support video -->
             </video>
         </div>
@@ -105,6 +42,65 @@
         <div class="bg-circle circle-3"></div>
     </div>
 
+    <!-- Pill Header (now integrated with hero) -->
+    <div class="hero-pill-header-wrapper">
+        <div class="hero-pill-header">
+            <!-- Logo Section -->
+            <div class="pill-section logo-section">
+                <a href="/" class="logo" aria-label="S-Cream Home">
+                    <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
+                </a>
+            </div>
+
+            <!-- Navigation Section -->
+            <nav class="pill-section nav-section" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                    <li><a href="#science" class="nav-link">Science</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                </ul>
+            </nav>
+
+            <!-- Action Section -->
+            <div class="pill-section action-section">
+                <a href="#quiz" class="pill-button">
+                    <span>Take the Quiz</span>
+                    <div class="button-glow"></div>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <div class="toggle-glow"></div>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Panel -->
+        <div class="mobile-nav-panel" id="mobile-nav" aria-hidden="true">
+            <div class="mobile-nav-content">
+                <nav class="mobile-nav-menu">
+                    <ul class="mobile-nav-list">
+                        <li><a href="#benefits" class="mobile-nav-link">Benefits</a></li>
+                        <li><a href="#how-it-works" class="mobile-nav-link">How It Works</a></li>
+                        <li><a href="#science" class="mobile-nav-link">Science</a></li>
+                        <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-nav-action">
+                    <a href="#quiz" class="mobile-pill-button">
+                        <span>Take the Quiz</span>
+                        <div class="button-glow"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Content -->
     <div class="container">
         <div class="hero-content">
             <!-- Text Column -->
