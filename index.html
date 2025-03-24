@@ -70,129 +70,136 @@
         </div>
     </header>
     
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-background">
-            <div class="bg-gradient"></div>
-            <div class="bg-particles"></div>
-            <div class="bg-circle circle-1"></div>
-            <div class="bg-circle circle-2"></div>
-            <div class="bg-circle circle-3"></div>
+  <!-- HTML: Hero Section with Video Background -->
+<section class="hero" id="hero">
+    <div class="hero-background">
+        <div class="video-container">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="promocream1.mp4" type="video/mp4">
+                <!-- Fallback for browsers that don't support video -->
+            </video>
         </div>
+        <div class="video-overlay"></div>
+        <div class="bg-gradient"></div>
+        <div class="bg-particles"></div>
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+    </div>
 
-        <div class="container">
-            <div class="hero-content">
-                <!-- Text Column -->
-                <div class="hero-text-column">
-                    <h1 class="hero-title">
-                        <span class="title-line">Awaken Your Senses</span>
-                        <span class="title-line accent">A Doctor-Prescribed Solution for Intimacy</span>
-                    </h1>
-                    
-                    <p class="hero-description">
-                        Clinically formulated and tailored for you – discreetly delivered to your door.
-                    </p>
-                    
-                    <!-- CTA Buttons -->
-                    <div class="hero-cta-group">
-                        <a href="#quiz" class="primary-cta">
-                            <span>Take the Quiz & Get Yours</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </a>
-                        <a href="#benefits" class="secondary-cta">
-                            <span>Learn More</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </a>
-                    </div>
-                    
-                    <!-- Trust Indicators -->
-                    <div class="trust-indicators">
-                        <div class="indicator">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            <span>Doctor Approved</span>
-                        </div>
-                        <div class="indicator">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2"/>
-                            </svg>
-                            <span>Science Backed</span>
-                        </div>
-                        <div class="indicator">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            <span>Discreet Shipping</span>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="hero-content">
+            <!-- Text Column -->
+            <div class="hero-text-column">
+                <h1 class="hero-title">
+                    <span class="title-line">Awaken Your Senses</span>
+                    <span class="title-line accent">A Doctor-Prescribed Solution for Intimacy</span>
+                </h1>
+                
+                <p class="hero-description">
+                    Clinically formulated and tailored for you – discreetly delivered to your door.
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="hero-cta-group">
+                    <a href="#quiz" class="primary-cta">
+                        <span>Take the Quiz & Get Yours</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                    <a href="#benefits" class="secondary-cta">
+                        <span>Learn More</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
                 </div>
                 
-                <!-- Product Column -->
-                <div class="hero-product-column">
-                    <div class="product-container">
-                        <div class="product-image">
-                            <img src="logo.png" alt="S-Cream Product" class="floating" width="400" height="400">
-                            <div class="product-glow"></div>
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="indicator">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>Doctor Approved</span>
+                    </div>
+                    <div class="indicator">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2"/>
+                        </svg>
+                        <span>Science Backed</span>
+                    </div>
+                    <div class="indicator">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>Discreet Shipping</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Column -->
+            <div class="hero-product-column">
+                <div class="product-container">
+                    <div class="product-image">
+                        <img src="logo.png" alt="S-Cream Product" class="floating" width="400" height="400">
+                        <div class="product-glow"></div>
+                    </div>
+                    
+                    <!-- Animated Benefit Badges -->
+                    <div class="product-benefits">
+                        <div class="benefit-badge">
+                            <div class="badge-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l4 4L3 21l4-4L13 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="badge-text">Enhanced Sensitivity</span>
                         </div>
-                        
-                        <!-- Animated Benefit Badges -->
-                        <div class="product-benefits">
-                            <div class="benefit-badge">
-                                <div class="badge-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                        <path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l4 4L3 21l4-4L13 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span class="badge-text">Enhanced Sensitivity</span>
+                        <div class="benefit-badge">
+                            <div class="badge-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M12 14c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M16 14v8M8 14v8M4 22h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </div>
-                            <div class="benefit-badge">
-                                <div class="badge-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                        <path d="M12 14c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M16 14v8M8 14v8M4 22h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span class="badge-text">Natural Ingredients</span>
+                            <span class="badge-text">Natural Ingredients</span>
+                        </div>
+                        <div class="benefit-badge">
+                            <div class="badge-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="8.5" cy="7" r="4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M20 8v6M23 11h-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                             </div>
-                            <div class="benefit-badge">
-                                <div class="badge-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <circle cx="8.5" cy="7" r="4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M20 8v6M23 11h-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <span class="badge-text">Doctor Recommended</span>
-                            </div>
+                            <span class="badge-text">Doctor Recommended</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <span>Scroll to Explore</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path d="M7 13l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+        <span>Scroll to Explore</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <path d="M7 13l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
 
-        <!-- Mobile sticky CTA -->
-        <div class="sticky-cta-mobile">
-            <a href="#quiz" class="primary-cta">
-                <span>Take the Quiz</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </a>
-        </div>
-    </section>
+    <!-- Mobile sticky CTA -->
+    <div class="sticky-cta-mobile">
+        <a href="#quiz" class="primary-cta">
+            <span>Take the Quiz</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </a>
+    </div>
+</section>
 
     <!-- Benefits Section -->
     <section class="benefits-section" id="benefits">
