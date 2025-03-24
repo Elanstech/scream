@@ -1,12 +1,18 @@
 /**
+ * =============================================================================
  * S-Cream Website JavaScript
  * Modern, conversion-optimized functionality
+ * =============================================================================
  */
 
-// Wait for DOM to be fully loaded
+/**
+ * =============================================================================
+ * MAIN INITIALIZATION
+ * =============================================================================
+ */
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize components
-  initHeader();
+  // Initialize all components
+  initPillHeader();
   initHeroAnimations();
   initTestimonialSlider();
   initFaqAccordion();
@@ -23,10 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Header & Navigation
- */
-/**
- * Advanced Floating Pill-Shaped Header
+ * =============================================================================
+ * ADVANCED FLOATING PILL-SHAPED HEADER
+ * =============================================================================
  */
 function initPillHeader() {
   const header = document.querySelector('.pill-header');
@@ -258,11 +263,10 @@ function initPillHeader() {
   }
 }
 
-// Call this function in your main initialization
-document.addEventListener('DOMContentLoaded', initPillHeader);
-
 /**
- * Hero Animations
+ * =============================================================================
+ * HERO SECTION WITH VIDEO BACKGROUND
+ * =============================================================================
  */
 function initHeroAnimations() {
   // Initialize and check if video loaded successfully
@@ -407,7 +411,9 @@ window.addEventListener('resize', () => {
 });
 
 /**
- * Testimonial Slider
+ * =============================================================================
+ * TESTIMONIAL SLIDER
+ * =============================================================================
  */
 function initTestimonialSlider() {
   const testimonialCards = document.querySelectorAll('.testimonial-card');
@@ -461,7 +467,9 @@ function initTestimonialSlider() {
 }
 
 /**
- * FAQ Accordion
+ * =============================================================================
+ * FAQ ACCORDION
+ * =============================================================================
  */
 function initFaqAccordion() {
   const faqQuestions = document.querySelectorAll('.faq-question');
@@ -484,7 +492,9 @@ function initFaqAccordion() {
 }
 
 /**
- * Quiz Flow
+ * =============================================================================
+ * QUIZ FLOW
+ * =============================================================================
  */
 function initQuizFlow() {
   const quizSlides = document.querySelectorAll('.quiz-slide');
@@ -563,7 +573,9 @@ function initQuizFlow() {
 }
 
 /**
- * Countdown Timer
+ * =============================================================================
+ * COUNTDOWN TIMER
+ * =============================================================================
  */
 function initCountdownTimer() {
   const daysElement = document.getElementById('countdown-days');
@@ -606,7 +618,9 @@ function initCountdownTimer() {
 }
 
 /**
- * Live Chat
+ * =============================================================================
+ * LIVE CHAT
+ * =============================================================================
  */
 function initLiveChat() {
   const chatToggle = document.querySelector('.chat-toggle');
@@ -706,7 +720,9 @@ function initLiveChat() {
 }
 
 /**
- * Smooth Scrolling
+ * =============================================================================
+ * SMOOTH SCROLLING
+ * =============================================================================
  */
 function initSmoothScrolling() {
   const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
@@ -733,7 +749,9 @@ function initSmoothScrolling() {
 }
 
 /**
- * Utility Functions
+ * =============================================================================
+ * UTILITY FUNCTIONS
+ * =============================================================================
  */
 
 // Check if element is in viewport
