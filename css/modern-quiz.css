@@ -1,7 +1,7 @@
 /**
  * S-Cream Modern Quiz Page Stylesheet
  * A complete redesign for a full-screen, immersive quiz experience
- * With fixes for icon styling issues
+ * With updated components and direct purchase options
  */
 
 /* ======================================
@@ -110,7 +110,7 @@ img {
 }
 
 /* ======================================
-   3. SVG Icon Global Styles - FIXED
+   3. SVG Icon Global Styles
 ====================================== */
 svg {
   width: 24px;
@@ -186,6 +186,31 @@ svg polyline {
 .logo-image {
   height: 40px;
   width: auto;
+}
+
+/* Direct purchase button in header */
+.direct-purchase-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  background: var(--primary-gradient);
+  color: white;
+  font-weight: 600;
+}
+
+.direct-purchase-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.direct-purchase-button svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* ======================================
@@ -336,101 +361,160 @@ svg polyline {
   z-index: 1;
 }
 
-.quiz-testimonial {
+/* Product preview section */
+.product-preview {
   background-color: white;
   border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-md);
   padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
-  transition: all var(--transition-medium);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.quiz-testimonial:hover {
+.product-preview:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
 
-.testimonial-quote {
-  font-style: italic;
-  margin-bottom: var(--spacing-md);
-  color: var(--text);
+.product-image-wrapper {
   position: relative;
-  padding-left: var(--spacing-lg);
+  width: 160px;
+  height: 160px;
+  margin: 0 auto var(--spacing-md);
 }
 
-.testimonial-quote::before {
-  content: '"';
+.product-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-md);
+}
+
+.product-glow {
   position: absolute;
-  left: 0;
-  top: -10px;
-  font-size: 3rem;
-  color: var(--primary-light);
-  font-family: serif;
-  line-height: 1;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+      circle at center,
+      rgba(225, 122, 146, 0.2) 0%,
+      transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: pulse 4s ease-in-out infinite;
 }
 
-.testimonial-author {
+.product-preview-title {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--accent);
+}
+
+.product-preview-rating {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: 0.25rem;
 }
 
-.author-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--border-radius-circle);
-  background-color: var(--primary);
-  color: white;
+.stars {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 0.875rem;
+  color: #FFD700;
 }
 
-.author-name {
-  font-weight: 600;
-  color: var(--text);
+.stars svg {
+  width: 18px;
+  height: 18px;
 }
 
-.author-detail {
+.rating-text {
   font-size: 0.875rem;
   color: var(--text-muted);
 }
 
-.feature-highlights {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
+/* Key Benefits section */
+.key-benefits {
+  background-color: white;
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
 }
 
-.feature {
+.benefits-title {
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  color: var(--text);
+}
+
+.benefit-item {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-sm);
   border-radius: var(--border-radius-md);
-  transition: all var(--transition-fast);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.feature:hover {
-  background-color: white;
+.benefit-item:hover {
+  background-color: rgba(225, 122, 146, 0.1);
   transform: translateX(5px);
 }
 
-/* FIXED: Feature SVG styling */
-.feature svg {
-  width: 24px;
-  height: 24px;
-  color: var(--primary);
-  fill: none;
-  stroke: currentColor;
+.benefit-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
-.feature span {
+.benefit-item span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* Quiz info box */
+.quiz-info-box {
+  background: linear-gradient(135deg, var(--primary) 0%, rgba(255, 255, 255, 0.8) 100%);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.quiz-info-box h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--accent);
+}
+
+.quiz-info-box p {
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--text);
+}
+
+.quiz-estimate {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+}
+
+.quiz-estimate svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.quiz-estimate span {
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
@@ -532,7 +616,6 @@ svg polyline {
   box-shadow: var(--shadow-md);
 }
 
-/* FIXED: Quiz fact SVG styling */
 .quiz-fact svg {
   width: 24px;
   height: 24px;
@@ -540,6 +623,50 @@ svg polyline {
   fill: none;
   stroke: currentColor;
   flex-shrink: 0;
+}
+
+/* Quiz action options */
+.quiz-action-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  animation: fadeInUp 0.5s ease-out 0.8s both;
+}
+
+.quiz-divider {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin: var(--spacing-xs) 0;
+}
+
+.quiz-divider::before,
+.quiz-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: var(--border);
+}
+
+.quiz-divider::before {
+  left: 0;
+}
+
+.quiz-divider::after {
+  right: 0;
+}
+
+.quiz-divider span {
+  display: inline-block;
+  padding: 0 var(--spacing-sm);
+  background-color: var(--background);
+  position: relative;
+  color: var(--text-muted);
+  font-size: 0.875rem;
 }
 
 .quiz-button {
@@ -553,10 +680,10 @@ svg polyline {
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--border-radius-xl);
   margin: 0 auto;
-  margin-top: auto;
   font-family: var(--font-cta);
   transition: transform var(--transition-medium), box-shadow var(--transition-medium);
-  animation: fadeInUp 0.5s ease-out 0.8s both;
+  width: 100%;
+  max-width: 300px;
 }
 
 .quiz-button:hover {
@@ -564,7 +691,6 @@ svg polyline {
   box-shadow: var(--shadow-cta);
 }
 
-/* FIXED: Button SVG styling */
 .quiz-button svg {
   width: 20px;
   height: 20px;
@@ -574,6 +700,37 @@ svg polyline {
 }
 
 .quiz-button:hover svg {
+  transform: translateX(4px);
+}
+
+.secondary-purchase-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-xl);
+  font-weight: 600;
+  width: 100%;
+  max-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.secondary-purchase-button:hover {
+  background-color: rgba(225, 122, 146, 0.1);
+  transform: translateY(-3px);
+}
+
+.secondary-purchase-button svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.secondary-purchase-button:hover svg {
   transform: translateX(4px);
 }
 
@@ -726,7 +883,6 @@ svg polyline {
   transform: translateX(-3px);
 }
 
-/* FIXED: Back button SVG styling */
 .quiz-back-button svg {
   width: 20px;
   height: 20px;
@@ -759,7 +915,6 @@ svg polyline {
   box-shadow: var(--shadow-cta);
 }
 
-/* FIXED: Next button SVG styling */
 .quiz-next-button svg {
   width: 20px;
   height: 20px;
@@ -871,7 +1026,6 @@ svg polyline {
   color: var(--text-muted);
 }
 
-/* FIXED: Step icon SVG styling */
 .step-icon svg {
   width: 16px;
   height: 16px;
@@ -919,7 +1073,6 @@ svg polyline {
   position: relative;
 }
 
-/* FIXED: Checkmark icon SVG styling */
 .checkmark-icon {
   stroke-width: 3;
   fill: none;
@@ -1006,7 +1159,6 @@ svg polyline {
   margin-bottom: var(--spacing-sm);
 }
 
-/* FIXED: Highlight item SVG styling */
 .highlight-item svg {
   width: 20px;
   height: 20px;
@@ -1071,7 +1223,6 @@ svg polyline {
   box-shadow: var(--shadow-cta);
 }
 
-/* FIXED: Checkout button SVG styling */
 .checkout-button svg {
   width: 20px;
   height: 20px;
@@ -1100,7 +1251,6 @@ svg polyline {
   color: var(--text-muted);
 }
 
-/* FIXED: Security badge SVG styling */
 .security-badge svg {
   width: 16px;
   height: 16px;
@@ -1219,105 +1369,7 @@ svg polyline {
 }
 
 /* ======================================
-   15. Success Page Styles
-====================================== */
-.success-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--spacing-xl);
-  background-color: white;
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-}
-
-.success-icon {
-  color: var(--success);
-  margin: 0 auto var(--spacing-lg);
-  animation: checkmark 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-}
-
-.success-icon svg {
-  fill: none;
-  stroke: currentColor;
-}
-
-.success-title {
-  font-size: 2rem;
-  margin-bottom: var(--spacing-md);
-  color: var(--success);
-}
-
-.success-message {
-  font-size: 1.1rem;
-  color: var(--text-light);
-  margin-bottom: var(--spacing-xl);
-}
-
-.order-details {
-  margin-bottom: var(--spacing-xl);
-  background-color: var(--background-light);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius-md);
-  text-align: left;
-}
-
-.order-details h2 {
-  margin-bottom: var(--spacing-lg);
-  font-size: 1.5rem;
-  color: var(--text);
-}
-
-.next-steps {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
-.step {
-  display: flex;
-  gap: var(--spacing-md);
-}
-
-.step-number {
-  width: 40px;
-  height: 40px;
-  background-color: var(--primary);
-  color: white;
-  border-radius: var(--border-radius-circle);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.step-content h3 {
-  margin-bottom: var(--spacing-xs);
-  font-size: 1.1rem;
-}
-
-.step-content p {
-  color: var(--text-light);
-}
-
-.return-home-button {
-  display: inline-block;
-  background: var(--primary-gradient);
-  color: white;
-  font-weight: 600;
-  padding: var(--spacing-md) var(--spacing-xl);
-  border-radius: var(--border-radius-xl);
-  transition: all var(--transition-medium);
-}
-
-.return-home-button:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-cta);
-}
-
-/* ======================================
-   16. Animations
+   15. Animations
 ====================================== */
 @keyframes slideInRight {
   from {
@@ -1377,4 +1429,93 @@ svg polyline {
 
 .slide-out-left {
   animation: slideOutLeft var(--transition-medium) forwards;
+}
+
+/* ======================================
+   16. Responsive Adjustments
+====================================== */
+@media (max-width: 768px) {
+  .direct-purchase-button {
+    display: none; /* Hide on smaller screens to save space */
+  }
+
+  .quiz-action-options {
+    width: 100%;
+  }
+
+  .secondary-purchase-button {
+    max-width: 100%;
+  }
+  
+  .security-info {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .quiz-facts {
+    gap: var(--spacing-sm);
+  }
+  
+  .quiz-fact {
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .quiz-heading {
+    font-size: 1.5rem;
+  }
+  
+  .quiz-description {
+    font-size: 1rem;
+  }
+  
+  .question-title {
+    font-size: 1.25rem;
+  }
+  
+  .option-content {
+    padding: var(--spacing-md);
+  }
+  
+  .results-title {
+    font-size: 1.5rem;
+  }
+  
+  .product-name {
+    font-size: 1.25rem;
+  }
+}
+
+/* ======================================
+   17. Print Styles (Optional)
+====================================== */
+@media print {
+  .quiz-header, 
+  .quiz-progress-container,
+  .quiz-footer,
+  .quiz-action-options {
+    display: none;
+  }
+  
+  .quiz-main {
+    margin-top: 0;
+  }
+  
+  .quiz-container {
+    display: block;
+  }
+  
+  .quiz-visual {
+    display: none;
+  }
+  
+  .quiz-content {
+    width: 100%;
+  }
+  
+  .results-actions {
+    display: none;
+  }
 }
