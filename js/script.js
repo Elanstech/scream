@@ -473,149 +473,54 @@ function initTestimonialSlider() {
  * =============================================================================
  */
 function initExpertsSlider() {
-  const sliderContainer = document.getElementById('expertsSlider');
-  const dots = document.querySelectorAll('#expertDots .nav-dot');
-  const prevButton = document.getElementById('prevExpert');
-  const nextButton = document.getElementById('nextExpert');
+  const expertCards = document.querySelectorAll('.expert-card');
+  const expertNavDots = document.querySelectorAll('.experts-navigation .nav-dot');
   
-  if (!sliderContainer || !dots.length || !prevButton || !nextButton) return;
+  if (expertCards.length === 0 || expertNavDots.length === 0) return;
   
-  let currentIndex = 0;
-  const totalSlides = dots.length;
-  let autoplayInterval;
+  let currentExpertIndex = 0;
+  let expertInterval;
   
-  // Initialize slider
-  updateSliderPosition();
-  
-  // Set up event listeners
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentIndex = index;
-      updateSliderPosition();
-      resetAutoplayInterval();
-    });
-  });
-  
-  prevButton.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    updateSliderPosition();
-    resetAutoplayInterval();
-  });
-  
-  nextButton.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    updateSliderPosition();
-    resetAutoplayInterval();
-  });
-  
-  // Start autoplay
-  startAutoplayInterval();
-  
-  // Mouse events to pause autoplay
-  sliderContainer.parentNode.addEventListener('mouseenter', () => {
-    clearInterval(autoplayInterval);
-  });
-  
-  sliderContainer.parentNode.addEventListener('mouseleave', () => {
-    startAutoplayInterval();
-  });
-  
-  // Touch events for mobile
-  let touchStartX = 0;
-  let touchEndX = 0;
-  
-  sliderContainer.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-  
-  sliderContainer.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  });
-  
-  // Functions
-  function updateSliderPosition() {
-    // Get viewport width to calculate translation
-    const slideWidth = sliderContainer.querySelector('.expert-card').offsetWidth;
-    const translateX = -currentIndex * slideWidth;
-    
-    // Apply transformation to slider
-    sliderContainer.style.transform = `translateX(${translateX}px)`;
-    
-    // Update active dot
-    dots.forEach((dot, index) => {
-      if (index === currentIndex) {
-        dot.classList.add('active');
-      } else {
-        dot.classList.remove('active');
-      }
+  // Show expert at specific index
+  const showExpert = (index) => {
+    expertCards.forEach(card => {
+      card.classList.remove('active');
     });
     
-    // Update button states (optional: disable buttons at ends)
-    prevButton.disabled = false;
-    nextButton.disabled = false;
-  }
-  
-  function startAutoplayInterval() {
-    autoplayInterval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % totalSlides;
-      updateSliderPosition();
-    }, 6000); // Change slide every 6 seconds
-  }
-  
-  function resetAutoplayInterval() {
-    clearInterval(autoplayInterval);
-    startAutoplayInterval();
-  }
-  
-  function handleSwipe() {
-    const swipeThreshold = 50;
-    if (touchEndX < touchStartX - swipeThreshold) {
-      // Swiped left, show next
-      currentIndex = (currentIndex + 1) % totalSlides;
-    } else if (touchEndX > touchStartX + swipeThreshold) {
-      // Swiped right, show previous
-      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-    }
+    expertNavDots.forEach(dot => {
+      dot.classList.remove('active');
+    });
     
-    updateSliderPosition();
-    resetAutoplayInterval();
-  }
-  
-  // Handle resize events to ensure correct positioning
-  window.addEventListener('resize', debounce(() => {
-    updateSliderPosition();
-  }, 250));
-}
-
-// Utility debounce function to prevent excessive function calls
-function debounce(func, wait = 100) {
-  let timeout;
-  return function(...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
+    expertCards[index].classList.add('active');
+    expertNavDots[index].classList.add('active');
+    currentExpertIndex = index;
   };
-}
-
-// Optional: Function to fetch random AI-generated faces
-function loadAIGeneratedImages() {
-  const expertImages = document.querySelectorAll('.expert-image');
   
-  expertImages.forEach((img, index) => {
-    // We're using randomuser.me API which provides random user portraits
-    // In a production environment, you might want to use a more stable solution
-    // or pre-generated AI images stored on your own server
-    const gender = index % 2 === 0 ? 'women' : 'men';
-    const randomId = Math.floor(Math.random() * 99);
-    
-    img.src = `https://randomuser.me/api/portraits/${gender}/${randomId}.jpg`;
-    
-    // Handle loading errors
-    img.onerror = function() {
-      // Fallback to a local image or another source
-      this.src = `images/expert-fallback-${index + 1}.jpg`;
-    };
+  // Add click event to navigation dots
+  expertNavDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showExpert(index);
+      resetExpertInterval();
+    });
   });
+  
+  // Start automatic rotation
+  const startExpertInterval = () => {
+    expertInterval = setInterval(() => {
+      const nextIndex = (currentExpertIndex + 1) % expertCards.length;
+      showExpert(nextIndex);
+    }, 6000); // Slightly longer than testimonials for variety
+  };
+  
+  // Reset interval after user interaction
+  const resetExpertInterval = () => {
+    clearInterval(expertInterval);
+    startExpertInterval();
+  };
+  
+  // Initialize
+  showExpert(0);
+  startExpertInterval();
 }
 
 /**
