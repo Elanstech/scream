@@ -4,36 +4,131 @@
  */
 
 /* ======================================
-   1. Success Page Base
+   1. Core Variables & Base Styles
 ====================================== */
-.success-body {
+:root {
+  /* Colors */
+  --primary: #e17a92;
+  --primary-light: #f8d7e0;
+  --primary-dark: #c4546e;
+  --accent: #5d5fef;
+  --text: #2d3748;
+  --text-light: #718096;
+  --text-muted: #a0aec0;
+  --background: #f8fafc;
+  --background-light: #ffffff;
+  --border: #e2e8f0;
+  --border-light: #edf2f7;
+  --success: #48bb78;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  /* Border radius */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+  --border-radius-circle: 50%;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 10px 15px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+  --transition-medium: 0.3s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.success-main {
-  flex: 1;
-  margin-top: 100px;
-  padding-bottom: 3rem;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-.success-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 /* ======================================
-   2. Success Step Indicator
+   2. Header Styles
+====================================== */
+.success-header {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+}
+
+/* ======================================
+   3. Main Content Container
+====================================== */
+.success-main {
+  flex: 1;
+  padding: 3rem 0;
+}
+
+.success-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ======================================
+   4. Step Indicator
 ====================================== */
 .success-step-indicator {
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
   position: relative;
-  padding: 0 var(--spacing-md);
 }
 
 .success-step-indicator::before {
@@ -53,12 +148,13 @@
   align-items: center;
   position: relative;
   z-index: 1;
+  width: 22%;
 }
 
 .step-circle {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-circle);
   background-color: white;
   border: 2px solid var(--border);
   display: flex;
@@ -75,7 +171,6 @@
   color: var(--text-muted);
   font-weight: 500;
   text-align: center;
-  transition: all var(--transition-medium);
 }
 
 .step.completed .step-circle {
@@ -102,18 +197,20 @@
 }
 
 /* ======================================
-   3. Success Content Sections
+   5. Content Sections
 ====================================== */
-.success-content {
-  margin-bottom: var(--spacing-xl);
-}
-
 .section {
   background-color: white;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-md);
   padding: var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Order Confirmation Section */
@@ -124,13 +221,11 @@
 .success-icon {
   color: var(--success);
   margin: 0 auto var(--spacing-md);
-  animation: checkmark 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
 
 .success-icon svg {
   stroke-width: 3;
-  fill: none;
-  stroke: currentColor;
+  animation: checkmark 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
 
 @keyframes checkmark {
@@ -161,6 +256,7 @@
   max-width: 450px;
   margin: 0 auto;
   box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
 }
 
 .order-summary h2 {
@@ -180,6 +276,7 @@
 .product-image img {
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
+  object-fit: cover;
 }
 
 .product-name {
@@ -231,8 +328,8 @@
 }
 
 .jotform-container {
-  max-width: 600px;
-  margin: 0 auto var(--spacing-xl);
+  max-width: 100%;
+  margin: 0 auto;
   transition: all var(--transition-medium);
 }
 
@@ -242,18 +339,11 @@
   border: none;
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
-  transition: all var(--transition-medium);
-}
-
-.verification-notice {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  max-width: 500px;
-  margin: 0 auto;
+  transition: height var(--transition-medium);
 }
 
 /* ======================================
-   4. Order Support
+   6. Order Support
 ====================================== */
 .order-support {
   text-align: center;
@@ -295,52 +385,68 @@
 }
 
 /* ======================================
-   5. Jotform Custom Styling
+   7. Footer Styles
 ====================================== */
-/* These styles will help match JotForm to your design theme */
-.form-all {
-  box-shadow: none !important;
-  border: none !important;
-  font-family: var(--font-base) !important;
+.success-footer {
+  background-color: #1a202c;
+  color: white;
+  padding: var(--spacing-lg) 0;
+  margin-top: auto;
 }
 
-.form-label-top {
-  color: var(--text) !important;
-  font-family: var(--font-heading) !important;
+.footer-content {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  text-align: center;
 }
 
-.form-textbox, .form-textarea {
-  border: 1px solid var(--border) !important;
-  border-radius: var(--border-radius-md) !important;
-  padding: var(--spacing-md) !important;
-  color: var(--text) !important;
+.footer-logo {
+  margin-bottom: var(--spacing-xs);
 }
 
-.form-buttons-wrapper {
-  text-align: center !important;
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
 }
 
-.form-submit-button {
-  background: var(--primary-gradient) !important;
-  border: none !important;
-  border-radius: var(--border-radius-xl) !important;
-  font-family: var(--font-cta) !important;
-  font-weight: 600 !important;
-  padding: var(--spacing-sm) var(--spacing-xl) !important;
-  transition: all var(--transition-medium) !important;
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  transition: color var(--transition-fast);
 }
 
-.form-submit-button:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: var(--shadow-cta) !important;
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+.footer-copyright {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* ======================================
-   6. Responsive Adjustments
+   8. Responsive Styles
 ====================================== */
 @media (max-width: 768px) {
   .success-step-indicator {
-    display: none; /* Hide on mobile to save space */
+    overflow-x: auto;
+    padding-bottom: var(--spacing-md);
+    justify-content: flex-start;
+    gap: var(--spacing-lg);
+  }
+  
+  .step {
+    width: auto;
+    flex-shrink: 0;
+  }
+  
+  .step-label {
+    white-space: nowrap;
   }
   
   .section {
@@ -354,16 +460,13 @@
   .success-message {
     font-size: 1rem;
   }
-  
-  .medical-verification h2 {
-    font-size: 1.25rem;
-  }
 }
 
 @media (max-width: 480px) {
   .order-product {
     flex-direction: column;
     text-align: center;
+    gap: var(--spacing-sm);
   }
   
   .product-image {
@@ -372,5 +475,18 @@
   
   .section {
     padding: var(--spacing-md);
+  }
+  
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 }
