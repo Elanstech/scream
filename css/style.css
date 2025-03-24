@@ -2350,6 +2350,34 @@ section {
   font-weight: 500;
 }
 
+/* Promo code styling */
+.promo-code {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) auto;
+  display: inline-block;
+}
+
+.code-label {
+  font-size: 1rem;
+  margin-right: var(--spacing-sm);
+  opacity: 0.9;
+}
+
+.code-value {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+}
+
 .offer-section .primary-cta {
   background: white;
   color: var(--accent);
