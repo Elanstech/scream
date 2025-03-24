@@ -574,6 +574,217 @@ function initQuizFlow() {
 
 /**
  * =============================================================================
+ * Ingredients Science Section Interaction
+ * =============================================================================
+ */
+function initIngredientsSection() {
+  const selectorTabs = document.querySelectorAll('.selector-tab');
+  const ingredientPanels = document.querySelectorAll('.ingredient-panel');
+  
+  // Initialize position for molecule animation
+  initMoleculeAnimations();
+  
+  // Tab switching functionality
+  if (selectorTabs.length > 0 && ingredientPanels.length > 0) {
+    selectorTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetIngredient = tab.getAttribute('data-ingredient');
+        
+        // Update active tab
+        selectorTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Update active panel
+        ingredientPanels.forEach(panel => {
+          panel.classList.remove('active');
+          if (panel.getAttribute('data-panel') === targetIngredient) {
+            panel.classList.add('active');
+          }
+        });
+        
+        // Scroll tab into view on mobile
+        if (window.innerWidth < 768) {
+          const tabsContainer = document.querySelector('.selector-tabs');
+          const tabRect = tab.getBoundingClientRect();
+          const containerRect = tabsContainer.getBoundingClientRect();
+          
+          // Calculate the scroll position to center the tab
+          const scrollLeft = tab.offsetLeft - (containerRect.width / 2) + (tabRect.width / 2);
+          tabsContainer.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth'
+          });
+        }
+        
+        // Reinitialize molecule animations
+        initMoleculeAnimations();
+      });
+    });
+  }
+  
+  // Handle tab overflow scrolling on mobile
+  const tabsContainer = document.querySelector('.selector-tabs');
+  if (tabsContainer && window.innerWidth < 768) {
+    // Center the active tab initially
+    const activeTab = document.querySelector('.selector-tab.active');
+    if (activeTab) {
+      const tabRect = activeTab.getBoundingClientRect();
+      const containerRect = tabsContainer.getBoundingClientRect();
+      const scrollLeft = activeTab.offsetLeft - (containerRect.width / 2) + (tabRect.width / 2);
+      tabsContainer.scrollLeft = scrollLeft;
+    }
+  }
+  
+  // Add scroll indication for tabs on mobile if needed
+  if (window.innerWidth < 768) {
+    const tabsWrapper = document.querySelector('.ingredients-selector');
+    if (tabsWrapper && tabsContainer) {
+      // Check if scrollable
+      if (tabsContainer.scrollWidth > tabsWrapper.clientWidth) {
+        tabsWrapper.classList.add('scrollable');
+        // Add subtle animation to indicate scrollability
+        setTimeout(() => {
+          tabsContainer.scrollTo({
+            left: 40,
+            behavior: 'smooth'
+          });
+          setTimeout(() => {
+            tabsContainer.scrollTo({
+              left: 0,
+              behavior: 'smooth'
+            });
+          }, 600);
+        }, 1000);
+      }
+    }
+  }
+}
+
+/**
+ * Initialize molecule animations with randomized positions
+ */
+function initMoleculeAnimations() {
+  const activePanel = document.querySelector('.ingredient-panel.active');
+  if (!activePanel) return;
+  
+  const orbits = activePanel.querySelectorAll('.orbit-sphere-1, .orbit-sphere-2, .orbit-sphere-3');
+  
+  orbits.forEach((orbit, index) => {
+    // Set random starting positions for orbit animations
+    const randomDegree = Math.floor(Math.random() * 360);
+    const delay = index * -5; // Stagger the animations
+    const duration = 10 + (index * 2); // Vary the animation durations
+    
+    orbit.style.animationDelay = `${delay}s`;
+    orbit.style.animationDuration = `${duration}s`;
+    orbit.style.transform = `rotate(${randomDegree}deg) translateX(60px) rotate(-${randomDegree}deg)`;
+  });
+  
+  // Add interaction effect on hover
+  const moleculeVisual = activePanel.querySelector('.molecule-visual');
+  if (moleculeVisual) {
+    // Remove any existing listeners
+    moleculeVisual.removeEventListener('mousemove', handleMoleculeInteraction);
+    moleculeVisual.removeEventListener('mouseleave', resetMoleculeInteraction);
+    
+    // Add new listeners
+    moleculeVisual.addEventListener('mousemove', handleMoleculeInteraction);
+    moleculeVisual.addEventListener('mouseleave', resetMoleculeInteraction);
+    
+    // Touch support for mobile
+    moleculeVisual.addEventListener('touchmove', handleTouchInteraction);
+    moleculeVisual.addEventListener('touchend', resetMoleculeInteraction);
+  }
+}
+
+/**
+ * Handle mouse interaction with molecule visualization
+ */
+function handleMoleculeInteraction(e) {
+  const visualEl = e.currentTarget;
+  const rect = visualEl.getBoundingClientRect();
+  
+  // Calculate mouse position relative to the element
+  const x = e.clientX - rect.left; 
+  const y = e.clientY - rect.top;
+  
+  // Calculate percentage within the element
+  const xPercent = x / rect.width;
+  const yPercent = y / rect.height;
+  
+  // Apply subtle tilt effect
+  visualEl.style.transform = `perspective(1000px) rotateX(${(yPercent - 0.5) * -10}deg) rotateY(${(xPercent - 0.5) * 10}deg)`;
+  
+  // Move the glow element to follow mouse
+  const glowEl = visualEl.querySelector('.molecule-glow');
+  if (glowEl) {
+    glowEl.style.opacity = '0.7';
+    glowEl.style.transform = `translate(calc(-50% + ${(xPercent - 0.5) * 30}px), calc(-50% + ${(yPercent - 0.5) * 30}px))`;
+  }
+  
+  // Adjust orbit speeds based on mouse position
+  const orbits = visualEl.querySelectorAll('.orbit-sphere-1, .orbit-sphere-2, .orbit-sphere-3');
+  orbits.forEach((orbit, index) => {
+    const speedFactor = 1 + ((xPercent + yPercent) / 4); // Speed up or slow down based on mouse position
+    orbit.style.animationDuration = `${10 + (index * 2) / speedFactor}s`;
+  });
+}
+
+/**
+ * Handle touch interaction for mobile
+ */
+function handleTouchInteraction(e) {
+  if (e.touches.length === 0) return;
+  
+  const touch = e.touches[0];
+  
+  // Create synthetic mouse event to reuse the same handler
+  const mouseEvent = {
+    clientX: touch.clientX,
+    clientY: touch.clientY,
+    currentTarget: e.currentTarget
+  };
+  
+  handleMoleculeInteraction(mouseEvent);
+  
+  // Prevent scrolling while interacting
+  e.preventDefault();
+}
+
+/**
+ * Reset molecule interaction effects
+ */
+function resetMoleculeInteraction(e) {
+  const visualEl = e.currentTarget;
+  
+  // Reset transform
+  visualEl.style.transform = '';
+  
+  // Reset glow
+  const glowEl = visualEl.querySelector('.molecule-glow');
+  if (glowEl) {
+    glowEl.style.opacity = '0.4';
+    glowEl.style.transform = 'translate(-50%, -50%)';
+  }
+  
+  // Reset orbit animations to original speed
+  const orbits = visualEl.querySelectorAll('.orbit-sphere-1, .orbit-sphere-2, .orbit-sphere-3');
+  orbits.forEach((orbit, index) => {
+    orbit.style.animationDuration = `${10 + (index * 2)}s`;
+  });
+}
+
+// Initialize the section when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initIngredientsSection);
+
+// Update on window resize
+window.addEventListener('resize', debounce(() => {
+  initIngredientsSection();
+}, 200));
+
+
+/**
+ * =============================================================================
  * COUNTDOWN TIMER
  * =============================================================================
  */
