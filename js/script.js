@@ -190,80 +190,209 @@ class HeaderManager {
 class HeroSection {
   constructor() {
     // Elements
-    this.hero = document.querySelector('.hero');
-    this.heroVideo = document.getElementById('heroVideo');
-    this.productImage = document.querySelector('.product-container');
-    this.badges = document.querySelectorAll('.benefit-badge');
+    this.section = document.querySelector('.hero');
+    this.productImage = document.querySelector('.product-image');
+    this.ctaButtons = document.querySelectorAll('.hero-cta-group a');
     
-    // Initialize
-    if (this.hero) {
+    // Initialize if elements exist
+    if (this.section) {
+      this.init();
+    }
+  }
+  
+  /**
+   * Initialize all hero section functionality
+   */
+  init() {
+    // Set up 3D tilt effect
+    this.setupTiltEffect();
+    
+    // Set up parallax for background elements
+    this.setupParallax();
+    
+    // Track visibility for analytics
+    this.trackButtonVisibility();
+    
+    // Set up CTA button interaction tracking
+    this.trackCtaInteractions();
+    
+    // Set up scroll indicator interaction
+    this.setupScrollIndicator();
+  }
+  
+  /**
+   * Set up 3D tilt effect for product image
+   */
+  setupTiltEffect() {
+    // Only setup on desktop devices
+    if (window.innerWidth >= 1024 && this.productImage) {
+      // Skip on devices with reduced motion preference
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      
+      this.productImage.addEventListener('mousemove', (e) => {
+        const rect = this.productImage.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        // Calculate mouse position relative to center (range: -1 to 1)
+        const ratioX = (e.clientX - centerX) / (rect.width / 2);
+        const ratioY = (e.clientY - centerY) / (rect.height / 2);
+        
+        // Apply 3D tilt effect (limit tilt to 15 degrees)
+        this.productImage.style.transform = `perspective(1000px) rotateX(${-ratioY * 10}deg) rotateY(${ratioX * 10}deg) scale3d(1.05, 1.05, 1.05)`;
+      });
+      
+      // Reset transform on mouse leave
+      this.productImage.addEventListener('mouseleave', () => {
+        this.productImage.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+  }
+  
+  /**
+   * Set up parallax effect for background elements
+   */
+  setupParallax() {
+    // Only if background circles exist
+    const circles = document.querySelectorAll('.bg-circle');
+    if (circles.length === 0) return;
+    
+    // Skip on devices with reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    // Apply parallax effect on mouse move
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX / window.innerWidth;
+      const mouseY = e.clientY / window.innerHeight;
+      
+      circles.forEach((circle, index) => {
+        // Different parallax speeds for each circle
+        const speed = 1 - (index * 0.2);
+        const offsetX = 50 * (mouseX - 0.5) * speed;
+        const offsetY = 50 * (mouseY - 0.5) * speed;
+        
+        circle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+    });
+  }
+  
+  /**
+   * Track when CTA buttons become visible
+   * This can be used for analytics purposes
+   */
+  trackButtonVisibility() {
+    // Use Intersection Observer to detect when CTAs are visible
+    if (!this.ctaButtons.length || typeof IntersectionObserver === 'undefined') return;
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Button is now visible - could track this event
+          const buttonText = entry.target.querySelector('span').textContent;
+          
+          // Simple console log for demo purposes
+          // In a real implementation, send this to your analytics platform
+          console.log(`CTA Button visible: ${buttonText}`);
+          
+          // Stop observing once tracked
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    // Observe each CTA button
+    this.ctaButtons.forEach(button => observer.observe(button));
+  }
+  
+  /**
+   * Track CTA interactions
+   */
+  trackCtaInteractions() {
+    if (!this.ctaButtons.length) return;
+    
+    this.ctaButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        // Get button text for tracking
+        const buttonText = button.querySelector('span').textContent;
+        
+        // Simple console log for demo purposes
+        // In a real implementation, send this to your analytics platform
+        console.log(`CTA Button clicked: ${buttonText}`);
+        
+        // Add clicked animation
+        button.classList.add('clicked');
+        
+        // Remove the animation class after animation completes
+        setTimeout(() => {
+          button.classList.remove('clicked');
+        }, 300);
+      });
+    });
+  }
+  
+  /**
+   * Set up scroll indicator interaction
+   */
+  setupScrollIndicator() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (!scrollIndicator) return;
+    
+    scrollIndicator.addEventListener('click', () => {
+      // Get section after hero
+      const nextSection = this.section.nextElementSibling;
+      
+      if (nextSection) {
+        // Scroll to the next section with smooth behavior
+        nextSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+}
+
+/**
+ * Enhanced Product Interaction
+ * (Optional addition - enables interaction with product badges)
+ */
+class ProductInteraction {
+  constructor() {
+    this.badges = document.querySelectorAll('.benefit-badge');
+    this.productImage = document.querySelector('.product-image');
+    
+    if (this.badges.length && this.productImage) {
       this.init();
     }
   }
   
   init() {
-    // Initialize video
-    if (this.heroVideo) {
-      this.initVideo();
-    }
-    
-    // Initialize product image interactions
-    if (this.productImage && window.innerWidth >= 1024) {
-      this.initProductInteraction();
-    }
-    
-    // Start badge animations
-    this.initBadgeAnimations();
-  }
-  
-  initVideo() {
-    // Handle visibility changes
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        this.heroVideo.pause();
-      } else {
-        this.heroVideo.play().catch(() => {});
-      }
-    });
-    
-    // Handle video loading errors
-    this.heroVideo.addEventListener('error', () => {
-      console.warn('Hero video failed to load');
-      this.heroVideo.parentNode.style.display = 'none';
-    });
-  }
-  
-  initProductInteraction() {
-    // Skip on devices with reduced motion preference
-    if (Utils.handleReducedMotion()) return;
-    
-    // Add tilt effect on mouse move
-    this.productImage.addEventListener('mousemove', e => {
-      const rect = this.productImage.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+    // Make badges interactive on hover
+    this.badges.forEach(badge => {
+      badge.style.pointerEvents = 'auto';
       
-      this.productImage.style.transform = `perspective(1000px) rotateX(${y * -10}deg) rotateY(${x * 10}deg)`;
-    });
-    
-    // Reset on mouse leave
-    this.productImage.addEventListener('mouseleave', () => {
-      this.productImage.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-    });
-  }
-  
-  initBadgeAnimations() {
-    // Skip on devices with reduced motion preference
-    if (Utils.handleReducedMotion()) return;
-    
-    // Add staggered animation for benefit badges on mobile
-    if (window.innerWidth < 1024) {
-      this.badges.forEach((badge, index) => {
-        Utils.addClassWhenInView(badge, 'animate-in');
-        badge.style.transitionDelay = `${index * 0.2}s`;
+      badge.addEventListener('mouseenter', () => {
+        // Highlight badge
+        badge.style.transform = 'scale(1.1)';
+        badge.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.15)';
+        
+        // Pulse product
+        this.productImage.querySelector('img').style.transform = 'scale(1.05)';
       });
-    }
+      
+      badge.addEventListener('mouseleave', () => {
+        // Reset badge
+        badge.style.transform = 'scale(1)';
+        badge.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+        
+        // Reset product
+        this.productImage.querySelector('img').style.transform = 'scale(1)';
+      });
+    });
   }
+}
+
+// Initialize product interaction if appropriate
+if (window.innerWidth >= 1024) {
+  // Only on desktop devices
+  new ProductInteraction();
 }
 
 /**
