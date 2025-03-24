@@ -24,16 +24,18 @@
 </head>
 <body>
 
-    <!-- Header -->
-<header class="site-header" id="header">
-    <div class="header-container">
-        <!-- Logo -->
-        <a href="/" class="logo" aria-label="S-Cream Home">
-            <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
-        </a>
+<!-- Advanced Floating Pill-Shaped Header -->
+<header class="pill-header-wrapper">
+    <div class="pill-header">
+        <!-- Logo Section -->
+        <div class="pill-section logo-section">
+            <a href="/" class="logo" aria-label="S-Cream Home">
+                <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
+            </a>
+        </div>
 
-        <!-- Desktop Navigation -->
-        <nav class="nav-desktop" aria-label="Main navigation">
+        <!-- Navigation Section -->
+        <nav class="pill-section nav-section" aria-label="Main navigation">
             <ul class="nav-list">
                 <li><a href="#benefits" class="nav-link">Benefits</a></li>
                 <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
@@ -42,34 +44,49 @@
             </ul>
         </nav>
 
-        <!-- Header Actions -->
-        <div class="header-actions">
-            <a href="#quiz" class="btn-consultation">Take the Quiz</a>
-            <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
-                <span class="menu-bar"></span>
-                <span class="menu-bar"></span>
-                <span class="menu-bar"></span>
-            </button>
+        <!-- Action Section -->
+        <div class="pill-section action-section">
+            <a href="#quiz" class="pill-button">
+                <span>Take the Quiz</span>
+                <div class="button-glow"></div>
+            </a>
         </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
+            <span class="toggle-line"></span>
+            <span class="toggle-line"></span>
+            <span class="toggle-line"></span>
+            <div class="toggle-glow"></div>
+        </button>
     </div>
 
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
-        <div class="mobile-nav-container">
-            <nav class="nav-mobile" aria-label="Mobile navigation">
-                <ul class="nav-list">
-                    <li><a href="#benefits" class="nav-link">Benefits</a></li>
-                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                    <li><a href="#science" class="nav-link">Science</a></li>
-                    <li><a href="#faq" class="nav-link">FAQ</a></li>
-                </ul>
-            </nav>
-            <div class="mobile-nav-footer">
-                <a href="#quiz" class="btn-consultation-mobile">Take the Quiz</a>
-            </div>
-        </div>
+    <!-- Background Elements -->
+    <div class="pill-bg-elements">
+        <div class="pill-glow"></div>
+        <div class="pill-shadow"></div>
     </div>
 </header>
+
+<!-- Mobile Navigation Panel -->
+<div class="mobile-nav-panel" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav-content">
+        <nav class="mobile-nav-menu">
+            <ul class="mobile-nav-list">
+                <li><a href="#benefits" class="mobile-nav-link">Benefits</a></li>
+                <li><a href="#how-it-works" class="mobile-nav-link">How It Works</a></li>
+                <li><a href="#science" class="mobile-nav-link">Science</a></li>
+                <li><a href="#faq" class="mobile-nav-link">FAQ</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-nav-action">
+            <a href="#quiz" class="mobile-pill-button">
+                <span>Take the Quiz</span>
+                <div class="button-glow"></div>
+            </a>
+        </div>
+    </div>
+</div>
     
   <!-- HTML: Hero Section with Video Background -->
 <section class="hero" id="hero">
