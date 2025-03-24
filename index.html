@@ -475,86 +475,610 @@
         </div>
     </section>
 
-    <!-- Science Section -->
-    <section class="science-section" id="science">
-        <div class="container">
-            <header class="section-header">
-                <h2 class="section-title">The Science Behind S-Cream</h2>
-                <p class="section-subtitle">Clinically formulated with advanced ingredients for maximum effectiveness</p>
-            </header>
+  <!-- Science & Ingredients Section -->
+<section class="ingredients-science" id="science">
+    <div class="container">
+        <header class="section-header">
+            <h2 class="section-title">Advanced Formula Technology</h2>
+            <p class="section-subtitle">Our proprietary blend of clinically-validated ingredients works together to enhance intimate experiences</p>
+        </header>
 
-            <div class="science-content">
-                <div class="science-visual">
-                    <div class="formula-animation">
-                        <div class="molecule molecule-1"></div>
-                        <div class="molecule molecule-2"></div>
-                        <div class="molecule molecule-3"></div>
-                        <div class="formula-glow"></div>
+        <!-- Ingredients Selector -->
+        <div class="ingredients-selector">
+            <div class="selector-tabs">
+                <button class="selector-tab active" data-ingredient="aminophylline">
+                    <div class="tab-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10 2a8 8 0 100 16 8 8 0 000-16z"></path>
+                            <path d="M22 22L18 18"></path>
+                        </svg>
+                    </div>
+                    <span>Aminophylline</span>
+                </button>
+                <button class="selector-tab" data-ingredient="ergoloid">
+                    <div class="tab-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6L6 18"></path>
+                            <path d="M6 6l12 12"></path>
+                        </svg>
+                    </div>
+                    <span>Ergoloid Mesylate</span>
+                </button>
+                <button class="selector-tab" data-ingredient="pentoxifylline">
+                    <div class="tab-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <span>Pentoxifylline</span>
+                </button>
+                <button class="selector-tab" data-ingredient="sildenafil">
+                    <div class="tab-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 8c0 4-6 10-6 10S6 12 6 8a6 6 0 1112 0z"></path>
+                            <circle cx="12" cy="8" r="2"></circle>
+                        </svg>
+                    </div>
+                    <span>Sildenafil Citrate</span>
+                </button>
+                <button class="selector-tab" data-ingredient="l-arginine">
+                    <div class="tab-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                        </svg>
+                    </div>
+                    <span>L-Arginine</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Ingredients Content Panels -->
+        <div class="ingredients-content">
+            <!-- Aminophylline Panel -->
+            <div class="ingredient-panel active" data-panel="aminophylline">
+                <div class="panel-visual">
+                    <div class="molecule-visual">
+                        <div class="molecule-sphere main-sphere"></div>
+                        <div class="molecule-sphere orbit-sphere-1"></div>
+                        <div class="molecule-sphere orbit-sphere-2"></div>
+                        <div class="molecule-sphere orbit-sphere-3"></div>
+                        <div class="molecule-glow"></div>
                     </div>
                 </div>
-                
-                <div class="science-text">
-                    <div class="ingredient-list">
-                        <div class="ingredient-item">
-                            <h3 class="ingredient-name">L-Arginine</h3>
-                            <p class="ingredient-description">Supports nitric oxide production, enhancing blood flow and sensitivity in intimate areas.</p>
+                <div class="panel-content">
+                    <h3 class="ingredient-name">Aminophylline</h3>
+                    <div class="ingredient-tag">Microcirculation Enhancer</div>
+                    
+                    <div class="ingredient-description">
+                        <p>Aminophylline is a compound that stimulates blood flow by dilating blood vessels and relaxing smooth muscles around them. It creates a warming sensation while enhancing circulation to sensitive tissues.</p>
+                    </div>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Enhances Blood Flow</span>
+                                <small>Promotes circulation to intimate areas</small>
+                            </div>
                         </div>
-                        
-                        <div class="ingredient-item">
-                            <h3 class="ingredient-name">Niacin</h3>
-                            <p class="ingredient-description">Creates a warming sensation that increases sensitivity and enhances natural responses.</p>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Creates Warming Sensation</span>
+                                <small>Increases awareness and sensitivity</small>
+                            </div>
                         </div>
-                        
-                        <div class="ingredient-item">
-                            <h3 class="ingredient-name">Menthol</h3>
-                            <p class="ingredient-description">Provides a cooling effect that heightens sensitivity and creates pleasurable sensations.</p>
-                        </div>
-                        
-                        <div class="ingredient-item">
-                            <h3 class="ingredient-name">Botanical Extracts</h3>
-                            <p class="ingredient-description">A proprietary blend of natural ingredients that enhance arousal and pleasure.</p>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Relaxes Smooth Muscles</span>
+                                <small>Improves tissue response to stimulation</small>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="clinical-stats">
-                        <div class="clinical-result">
-                            <div class="result-number">87%</div>
-                            <div class="result-text">Reported enhanced sensation</div>
+                    <div class="ingredient-facts">
+                        <div class="fact-item">
+                            <div class="fact-label">Onset</div>
+                            <div class="fact-value">15-30 minutes</div>
                         </div>
-                        <div class="clinical-result">
-                            <div class="result-number">93%</div>
-                            <div class="result-text">Experienced improved satisfaction</div>
+                        <div class="fact-item">
+                            <div class="fact-label">Duration</div>
+                            <div class="fact-value">Up to 2 hours</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Sensation</div>
+                            <div class="fact-value">Warm</div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Doctor Endorsement -->
-            <div class="doctor-endorsement">
-                <div class="doctor-image">
-                    <img src="images/doctor.jpg" alt="Dr. Sarah Mitchell" width="120" height="120">
-                </div>
-                <div class="doctor-content">
-                    <div class="doctor-quote">
-                        "S-Cream represents a breakthrough in understanding and addressing women's intimate wellness needs. The formulation is based on clinical research and has helped thousands of my patients enhance their intimate experiences."
+
+            <!-- Ergoloid Mesylate Panel -->
+            <div class="ingredient-panel" data-panel="ergoloid">
+                <div class="panel-visual">
+                    <div class="molecule-visual">
+                        <div class="molecule-sphere main-sphere"></div>
+                        <div class="molecule-sphere orbit-sphere-1"></div>
+                        <div class="molecule-sphere orbit-sphere-2"></div>
+                        <div class="molecule-sphere orbit-sphere-3"></div>
+                        <div class="molecule-glow"></div>
                     </div>
-                    <div class="doctor-signature">
-                        <div class="doctor-name">Dr. Sarah Mitchell, MD</div>
-                        <div class="doctor-title">Board Certified Gynecologist • Medical Director</div>
+                </div>
+                <div class="panel-content">
+                    <h3 class="ingredient-name">Ergoloid Mesylate</h3>
+                    <div class="ingredient-tag">Neural Sensitivity Amplifier</div>
+                    
+                    <div class="ingredient-description">
+                        <p>Ergoloid Mesylate enhances neural sensitivity by improving cellular metabolism and increasing oxygen utilization in tissue. It helps intensify sensations by optimizing nerve response.</p>
+                    </div>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Enhances Nerve Response</span>
+                                <small>Heightens sensitivity to touch</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Improves Cellular Metabolism</span>
+                                <small>Optimizes tissue responsiveness</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Increases Oxygen Utilization</span>
+                                <small>Amplifies pleasure sensations</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ingredient-facts">
+                        <div class="fact-item">
+                            <div class="fact-label">Onset</div>
+                            <div class="fact-value">20-40 minutes</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Duration</div>
+                            <div class="fact-value">Up to 3 hours</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Sensation</div>
+                            <div class="fact-value">Tingling</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="section-cta">
-                <a href="#quiz" class="primary-cta">
-                    <span>Take the Quiz – See If It's Right for You</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </a>
+
+            <!-- Pentoxifylline Panel -->
+            <div class="ingredient-panel" data-panel="pentoxifylline">
+                <div class="panel-visual">
+                    <div class="molecule-visual">
+                        <div class="molecule-sphere main-sphere"></div>
+                        <div class="molecule-sphere orbit-sphere-1"></div>
+                        <div class="molecule-sphere orbit-sphere-2"></div>
+                        <div class="molecule-sphere orbit-sphere-3"></div>
+                        <div class="molecule-glow"></div>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <h3 class="ingredient-name">Pentoxifylline</h3>
+                    <div class="ingredient-tag">Blood Flow Optimizer</div>
+                    
+                    <div class="ingredient-description">
+                        <p>Pentoxifylline improves microcirculation by increasing red blood cell flexibility and reducing blood viscosity. This allows for better blood flow to sensitive areas, enhancing natural responses.</p>
+                    </div>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Reduces Blood Viscosity</span>
+                                <small>Improves blood flow efficiency</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Enhances Microcirculation</span>
+                                <small>Promotes blood flow to intimate tissues</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Improves Tissue Oxygenation</span>
+                                <small>Enhances natural arousal responses</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ingredient-facts">
+                        <div class="fact-item">
+                            <div class="fact-label">Onset</div>
+                            <div class="fact-value">15-25 minutes</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Duration</div>
+                            <div class="fact-value">Up to 2.5 hours</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Sensation</div>
+                            <div class="fact-value">Flushing</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sildenafil Citrate Panel -->
+            <div class="ingredient-panel" data-panel="sildenafil">
+                <div class="panel-visual">
+                    <div class="molecule-visual">
+                        <div class="molecule-sphere main-sphere"></div>
+                        <div class="molecule-sphere orbit-sphere-1"></div>
+                        <div class="molecule-sphere orbit-sphere-2"></div>
+                        <div class="molecule-sphere orbit-sphere-3"></div>
+                        <div class="molecule-glow"></div>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <h3 class="ingredient-name">Sildenafil Citrate</h3>
+                    <div class="ingredient-tag">Vasodilation Activator</div>
+                    
+                    <div class="ingredient-description">
+                        <p>In topical form, Sildenafil Citrate promotes increased blood flow to intimate areas by inhibiting PDE5 and enhancing nitric oxide effects. This creates improved tissue response to stimulation.</p>
+                    </div>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Enhances Nitric Oxide Effects</span>
+                                <small>Promotes vasodilation and blood flow</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Increases Tissue Response</span>
+                                <small>Amplifies sensitivity to touch</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Prolongs Arousal Response</span>
+                                <small>Extends pleasure during intimacy</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ingredient-facts">
+                        <div class="fact-item">
+                            <div class="fact-label">Onset</div>
+                            <div class="fact-value">15-30 minutes</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Duration</div>
+                            <div class="fact-value">Up to 4 hours</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Sensation</div>
+                            <div class="fact-value">Heightened</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- L-Arginine Panel -->
+            <div class="ingredient-panel" data-panel="l-arginine">
+                <div class="panel-visual">
+                    <div class="molecule-visual">
+                        <div class="molecule-sphere main-sphere"></div>
+                        <div class="molecule-sphere orbit-sphere-1"></div>
+                        <div class="molecule-sphere orbit-sphere-2"></div>
+                        <div class="molecule-sphere orbit-sphere-3"></div>
+                        <div class="molecule-glow"></div>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <h3 class="ingredient-name">L-Arginine</h3>
+                    <div class="ingredient-tag">Nitric Oxide Booster</div>
+                    
+                    <div class="ingredient-description">
+                        <p>L-Arginine is an amino acid that converts to nitric oxide in the body, promoting vasodilation and increased blood flow to intimate areas, which enhances sensitivity and intensifies sensations.</p>
+                    </div>
+                    
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Promotes Vasodilation</span>
+                                <small>Expands blood vessels for better flow</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Enhances Sensitivity</span>
+                                <small>Improves response to stimulation</small>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="M7 10h10"></path>
+                                    <path d="M7 14h10"></path>
+                                </svg>
+                            </div>
+                            <div class="benefit-text">
+                                <span>Supports Natural Lubrication</span>
+                                <small>Enhances comfort during intimacy</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="ingredient-facts">
+                        <div class="fact-item">
+                            <div class="fact-label">Onset</div>
+                            <div class="fact-value">15-30 minutes</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Duration</div>
+                            <div class="fact-value">Up to 3 hours</div>
+                        </div>
+                        <div class="fact-item">
+                            <div class="fact-label">Sensation</div>
+                            <div class="fact-value">Heightened</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+
+        <div class="ingredients-footer">
+            <div class="ingredients-badges">
+                <div class="badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                        <path d="M22 4L12 14.01l-3-3"></path>
+                    </svg>
+                    <span>FDA-Registered Facility</span>
+                </div>
+                <div class="badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                        <path d="M22 4L12 14.01l-3-3"></path>
+                    </svg>
+                    <span>Clinically Tested</span>
+                </div>
+                <div class="badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                        <path d="M22 4L12 14.01l-3-3"></path>
+                    </svg>
+                    <span>Doctor Approved</span>
+                </div>
+            </div>
+            <a href="#quiz" class="primary-cta">
+                <span>Take the Quiz & Find Your Formula</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+    <!-- Expert Endorsements Section -->
+<section class="expert-endorsements" id="experts">
+    <div class="container">
+        <header class="section-header">
+            <h2 class="section-title">Backed by Medical Professionals</h2>
+            <p class="section-subtitle">Leading gynecologists and sexual wellness experts recommend S-Cream for improved intimate wellness</p>
+        </header>
+
+        <div class="experts-slider">
+            <!-- Expert 1 -->
+            <div class="expert-card">
+                <div class="expert-profile">
+                    <div class="expert-image">
+                        <img src="images/expert-1.jpg" alt="Dr. Sarah Mitchell" width="120" height="120">
+                        <div class="expert-credentials-badge">
+                            <span>Board Certified</span>
+                        </div>
+                    </div>
+                    <div class="expert-info">
+                        <h3 class="expert-name">Dr. Sarah Mitchell, MD</h3>
+                        <p class="expert-credentials">OB/GYN, Women's Health Specialist</p>
+                        <p class="expert-institution">Clinical Director, Women's Wellness Institute</p>
+                    </div>
+                </div>
+                <div class="expert-quote">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p>"In my 15 years of clinical practice, S-Cream stands out as a breakthrough solution for women experiencing intimacy challenges. The scientifically-validated formula addresses the root causes of decreased sensitivity in a way other products simply don't."</p>
+                </div>
+                <div class="expert-publications">
+                    <div class="publication-tag">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Published in Journal of Women's Health</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 2 -->
+            <div class="expert-card">
+                <div class="expert-profile">
+                    <div class="expert-image">
+                        <img src="images/expert-2.jpg" alt="Dr. Michael Rodriguez" width="120" height="120">
+                        <div class="expert-credentials-badge">
+                            <span>25+ Years Experience</span>
+                        </div>
+                    </div>
+                    <div class="expert-info">
+                        <h3 class="expert-name">Dr. Michael Rodriguez, PhD</h3>
+                        <p class="expert-credentials">Clinical Sexologist & Relationship Therapist</p>
+                        <p class="expert-institution">Director, Institute for Intimate Wellness</p>
+                    </div>
+                </div>
+                <div class="expert-quote">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p>"What impresses me most about S-Cream is the thoughtful formulation. Each ingredient has been carefully selected based on clinical evidence, creating a product that consistently outperforms others in patient satisfaction and measurable results."</p>
+                </div>
+                <div class="expert-publications">
+                    <div class="publication-tag">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Author of "The Science of Intimacy"</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert 3 -->
+            <div class="expert-card">
+                <div class="expert-profile">
+                    <div class="expert-image">
+                        <img src="images/expert-3.jpg" alt="Dr. Jennifer Lee" width="120" height="120">
+                        <div class="expert-credentials-badge">
+                            <span>Research Scientist</span>
+                        </div>
+                    </div>
+                    <div class="expert-info">
+                        <h3 class="expert-name">Dr. Jennifer Lee, PharmD</h3>
+                        <p class="expert-credentials">Pharmacology Researcher & Formulation Specialist</p>
+                        <p class="expert-institution">Lead Scientist, Advanced Wellness Labs</p>
+                    </div>
+                </div>
+                <div class="expert-quote">
+                    <svg class="quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M3 21c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5zm16 0c3.33-2.67 5-5.67 5-9 0-2.67-1.67-4-4-4V5c5.33 0 8 3.33 8 10 0 4-1.33 6.67-4 10h-5z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <p>"The bioavailability of the active compounds in S-Cream sets it apart from competitors. Our laboratory analysis confirmed superior penetration and longer-lasting effects compared to other leading formulations, explaining why patient satisfaction rates exceed 95%."</p>
+                </div>
+                <div class="expert-publications">
+                    <div class="publication-tag">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Published in Biochemical Therapeutics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="experts-navigation">
+            <button class="nav-dot active" aria-label="View expert 1" data-index="0"></button>
+            <button class="nav-dot" aria-label="View expert 2" data-index="1"></button>
+            <button class="nav-dot" aria-label="View expert 3" data-index="2"></button>
+        </div>
+
+        <div class="experts-cta">
+            <a href="#quiz" class="primary-cta">
+                <span>Find Your Personalized Recommendation</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </a>
+            <p class="expert-consult-note">All formulations reviewed and approved by our medical advisory panel</p>
+        </div>
+    </div>
+</section>
 
     <!-- FAQ Section -->
     <section class="faq-section" id="faq">
