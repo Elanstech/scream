@@ -1,789 +1,470 @@
 /**
  * S-Cream Website JavaScript
- * Optimized version with modular structure
+ * Modern, conversion-optimized functionality
  */
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize all components
-  const header = new HeaderManager();
-  const hero = new HeroSection();
-  const ingredients = new IngredientsSection();
-  const faq = new FAQSection();
-  const testimonials = new TestimonialsSection();
+  // Initialize components
+  initHeader();
+  initHeroAnimations();
+  initTestimonialSlider();
+  initFaqAccordion();
+  initQuizFlow();
+  initCountdownTimer();
+  initLiveChat();
+  initSmoothScrolling();
   
-  // Setup smooth scrolling
-  setupSmoothScrolling();
-  
-  // Set current year in footer
-  const yearElement = document.getElementById('currentYear');
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
-  
-  // Initialize GSAP animations if available
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    initGSAPAnimations();
+  // Update current year in footer
+  const currentYearElement = document.getElementById('current-year');
+  if (currentYearElement) {
+    currentYearElement.textContent = new Date().getFullYear();
   }
 });
 
 /**
- * Utility Functions
+ * Header & Navigation
  */
-const Utils = {
-  // Debounce function to limit execution rate
-  debounce(func, wait = 100) {
-    let timeout;
-    return function(...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-  },
+function initHeader() {
+  const header = document.querySelector('.site-header');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mobileNav = document.querySelector('.mobile-nav');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const stickyCta = document.querySelector('.sticky-cta-mobile');
   
-  // Check if element is in viewport
-  isInViewport(element, offset = 0) {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top <= (window.innerHeight - offset) &&
-      rect.bottom >= offset
-    );
-  },
+  let lastScrollTop = 0;
+  const scrollThreshold = 50;
   
-  // Add class when element is in viewport
-  addClassWhenInView(element, className, offset = 0) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          element.classList.add(className);
-          observer.unobserve(element);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: `0px 0px -${offset}px 0px` });
-    
-    observer.observe(element);
-  },
-  
-  // Handle animation based on reduced motion preference
-  handleReducedMotion() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-};
-
-/**
- * Header & Navigation Manager
- */
-class HeaderManager {
-  constructor() {
-    // Elements
-    this.header = document.querySelector('.site-header');
-    this.menuToggle = document.querySelector('.menu-toggle');
-    this.mobileNav = document.querySelector('.mobile-nav');
-    this.navLinks = document.querySelectorAll('.nav-link');
-    
-    // State
-    this.isMenuOpen = false;
-    this.lastScrollTop = 0;
-    this.scrollThreshold = 50;
-    
-    // Initialize
-    this.init();
-  }
-  
-  init() {
-    if (!this.header) return;
-    
-    // Setup event listeners
-    this.setupEventListeners();
-    
-    // Handle initial scroll position
-    this.handleScroll();
-  }
-  
-  setupEventListeners() {
-    // Menu toggle button
-    if (this.menuToggle) {
-      this.menuToggle.addEventListener('click', () => this.toggleMobileMenu());
-    }
-    
-    // Navigation links
-    this.navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (this.mobileNav && this.mobileNav.classList.contains('active')) {
-          this.closeMobileMenu();
-        }
-      });
-    });
-    
-    // Scroll handling
-    window.addEventListener('scroll', Utils.debounce(() => this.handleScroll(), 10));
-    
-    // Close menu on Escape key
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && this.isMenuOpen) {
-        this.closeMobileMenu();
-      }
-    });
-    
-    // Resize handling
-    window.addEventListener('resize', Utils.debounce(() => {
-      if (window.innerWidth >= 1024 && this.isMenuOpen) {
-        this.closeMobileMenu();
-      }
-    }, 150));
-    
-    // Close on outside click
-    document.addEventListener('click', e => {
-      if (this.isMenuOpen && 
-          !this.mobileNav.contains(e.target) && 
-          !this.menuToggle.contains(e.target)) {
-        this.closeMobileMenu();
-      }
+  // Toggle mobile menu
+  if (menuToggle && mobileNav) {
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', !isExpanded);
+      mobileNav.setAttribute('aria-hidden', isExpanded);
+      mobileNav.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
     });
   }
   
-  toggleMobileMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    document.body.classList.toggle('menu-open', this.isMenuOpen);
-    this.mobileNav.classList.toggle('active', this.isMenuOpen);
-    
-    // Update ARIA attributes
-    this.menuToggle.setAttribute('aria-expanded', this.isMenuOpen);
-    this.mobileNav.setAttribute('aria-hidden', !this.isMenuOpen);
-  }
+  // Close mobile menu when clicking a nav link
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileNav && mobileNav.classList.contains('active')) {
+        mobileNav.classList.remove('active');
+        mobileNav.setAttribute('aria-hidden', 'true');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+      }
+    });
+  });
   
-  closeMobileMenu() {
-    this.isMenuOpen = false;
-    document.body.classList.remove('menu-open');
-    this.mobileNav.classList.remove('active');
-    
-    // Update ARIA attributes
-    this.menuToggle.setAttribute('aria-expanded', 'false');
-    this.mobileNav.setAttribute('aria-hidden', 'true');
-  }
-  
-  handleScroll() {
+  // Handle scroll effects
+  window.addEventListener('scroll', () => {
     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
-    // Add or remove scrolled class
-    if (currentScrollTop > this.scrollThreshold) {
-      this.header.classList.add('header-scrolled');
+    // Add/remove scrolled class to header
+    if (currentScrollTop > scrollThreshold) {
+      header.classList.add('scrolled');
+      
+      // Show/hide sticky CTA on mobile
+      if (stickyCta && window.innerWidth < 768) {
+        stickyCta.style.transform = 'translateY(0)';
+        stickyCta.style.opacity = '1';
+      }
     } else {
-      this.header.classList.remove('header-scrolled');
+      header.classList.remove('scrolled');
+      
+      // Hide sticky CTA when at top
+      if (stickyCta) {
+        stickyCta.style.transform = 'translateY(100%)';
+        stickyCta.style.opacity = '0';
+      }
     }
     
     // Hide/show header on scroll
-    if (currentScrollTop > this.lastScrollTop && currentScrollTop > this.header.offsetHeight) {
+    if (currentScrollTop > lastScrollTop && currentScrollTop > 200) {
       // Scrolling down
-      this.header.style.transform = 'translateY(-100%)';
+      header.style.transform = 'translateY(-100%)';
     } else {
       // Scrolling up
-      this.header.style.transform = 'translateY(0)';
+      header.style.transform = 'translateY(0)';
     }
     
-    this.lastScrollTop = currentScrollTop;
-  }
+    lastScrollTop = currentScrollTop;
+  });
+  
+  // Close menu on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileNav && mobileNav.classList.contains('active')) {
+      mobileNav.classList.remove('active');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+    }
+  });
 }
 
 /**
- * Hero Section
+ * Hero Animations
  */
-class HeroSection {
-  constructor() {
-    // Elements
-    this.hero = document.querySelector('.hero');
-    this.heroVideo = document.getElementById('heroVideo');
-    this.productImage = document.querySelector('.product-container');
-    this.badges = document.querySelectorAll('.benefit-badge');
-    
-    // Initialize
-    if (this.hero) {
-      this.init();
-    }
-  }
+function initHeroAnimations() {
+  // Product image tilt effect on desktop
+  const productImage = document.querySelector('.product-image');
   
-  init() {
-    // Initialize video
-    if (this.heroVideo) {
-      this.initVideo();
-    }
+  if (productImage && window.innerWidth >= 1024) {
+    const productContainer = document.querySelector('.product-container');
     
-    // Initialize product image interactions
-    if (this.productImage && window.innerWidth >= 1024) {
-      this.initProductInteraction();
-    }
-    
-    // Start badge animations
-    this.initBadgeAnimations();
-  }
-  
-  initVideo() {
-    // Handle visibility changes
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        this.heroVideo.pause();
-      } else {
-        this.heroVideo.play().catch(() => {});
-      }
-    });
-    
-    // Handle video loading errors
-    this.heroVideo.addEventListener('error', () => {
-      console.warn('Hero video failed to load');
-      this.heroVideo.parentNode.style.display = 'none';
-    });
-  }
-  
-  initProductInteraction() {
-    // Skip on devices with reduced motion preference
-    if (Utils.handleReducedMotion()) return;
-    
-    // Add tilt effect on mouse move
-    this.productImage.addEventListener('mousemove', e => {
-      const rect = this.productImage.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+    productContainer.addEventListener('mousemove', e => {
+      const rect = productContainer.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
       
-      this.productImage.style.transform = `perspective(1000px) rotateX(${y * -10}deg) rotateY(${x * 10}deg)`;
+      productImage.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
     });
     
-    // Reset on mouse leave
-    this.productImage.addEventListener('mouseleave', () => {
-      this.productImage.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-    });
-  }
-  
-  initBadgeAnimations() {
-    // Skip on devices with reduced motion preference
-    if (Utils.handleReducedMotion()) return;
-    
-    // Add staggered animation for benefit badges on mobile
-    if (window.innerWidth < 1024) {
-      this.badges.forEach((badge, index) => {
-        Utils.addClassWhenInView(badge, 'animate-in');
-        badge.style.transitionDelay = `${index * 0.2}s`;
-      });
-    }
-  }
-}
-
-/**
- * Ingredients Section Manager
- */
-class IngredientsSection {
-  constructor() {
-    // Elements
-    this.section = document.querySelector('.ingredients-showcase');
-    this.tabs = document.querySelectorAll('.ingredient-tab');
-    this.details = document.querySelectorAll('.ingredient-detail');
-    this.mobileNavItems = document.querySelectorAll('.quick-nav-item');
-    
-    // State
-    this.currentIngredient = 'aminophylline';
-    
-    // Initialize
-    if (this.section) {
-      this.init();
-    }
-  }
-  
-  init() {
-    // Set up tab functionality
-    this.setupTabs();
-    
-    // Set up animations
-    this.setupAnimations();
-    
-    // Handle scroll for mobile
-    this.setupScrollObserver();
-  }
-  
-  setupTabs() {
-    // Desktop tab clicks
-    this.tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const ingredient = tab.getAttribute('data-ingredient');
-        if (ingredient) {
-          this.switchToIngredient(ingredient);
-        }
-      });
-      
-      // Keyboard navigation
-      tab.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const ingredient = tab.getAttribute('data-ingredient');
-          if (ingredient) {
-            this.switchToIngredient(ingredient);
-          }
-        }
-      });
-    });
-    
-    // Mobile nav clicks
-    this.mobileNavItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const ingredient = item.getAttribute('data-ingredient');
-        if (ingredient) {
-          this.switchToIngredient(ingredient);
-          this.scrollToIngredient(ingredient);
-        }
-      });
+    productContainer.addEventListener('mouseleave', () => {
+      productImage.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
     });
   }
   
-  switchToIngredient(ingredient) {
-    // Store current ingredient
-    this.currentIngredient = ingredient;
-    
-    // Update tab state
-    this.tabs.forEach(tab => {
-      const isActive = tab.getAttribute('data-ingredient') === ingredient;
-      tab.classList.toggle('active', isActive);
-      tab.setAttribute('aria-selected', isActive);
-    });
-    
-    // Update mobile nav
-    this.mobileNavItems.forEach(item => {
-      item.classList.toggle('active', item.getAttribute('data-ingredient') === ingredient);
-      item.setAttribute('aria-selected', item.getAttribute('data-ingredient') === ingredient);
-    });
-    
-    // Update details panels
-    this.details.forEach(detail => {
-      if (detail.getAttribute('data-ingredient') === ingredient) {
-        detail.style.display = 'block';
-        // Use requestAnimationFrame to ensure display change has taken effect
-        requestAnimationFrame(() => {
-          detail.classList.add('active');
-        });
-      } else {
-        detail.classList.remove('active');
-        // Wait for transition before hiding
-        const handleTransitionEnd = () => {
-          if (!detail.classList.contains('active')) {
-            detail.style.display = 'none';
-          }
-          detail.removeEventListener('transitionend', handleTransitionEnd);
-        };
-        detail.addEventListener('transitionend', handleTransitionEnd);
-      }
-    });
-  }
+  // Animate elements on scroll
+  const animateElements = document.querySelectorAll('.fade-in-element');
   
-  scrollToIngredient(ingredient) {
-    const detailElement = document.querySelector(`.ingredient-detail[data-ingredient="${ingredient}"]`);
-    if (!detailElement) return;
+  if (animateElements.length > 0) {
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -50px 0px'
+    };
     
-    const offset = window.innerWidth < 768 ? 100 : 50;
-    const elementTop = detailElement.getBoundingClientRect().top + window.pageYOffset - offset;
-    
-    window.scrollTo({
-      top: elementTop,
-      behavior: 'smooth'
-    });
-  }
-  
-  setupAnimations() {
-    // Skip if reduced motion is preferred
-    if (Utils.handleReducedMotion()) return;
-    
-    // Add animations to elements when they enter viewport
-    const animateElements = [
-      ...this.tabs,
-      ...document.querySelectorAll('.molecule-circle'),
-      ...document.querySelectorAll('.benefit-item')
-    ];
-    
-    animateElements.forEach(element => {
-      Utils.addClassWhenInView(element, 'animate-in');
-    });
-  }
-  
-  setupScrollObserver() {
-    // Update mobile navigation based on which ingredient is in view
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const ingredient = entry.target.getAttribute('data-ingredient');
-          if (ingredient) {
-            // Update mobile nav without scrolling
-            this.mobileNavItems.forEach(item => {
-              item.classList.toggle('active', item.getAttribute('data-ingredient') === ingredient);
-              item.setAttribute('aria-selected', item.getAttribute('data-ingredient') === ingredient);
-            });
-          }
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.5 });
+    }, observerOptions);
     
-    this.details.forEach(detail => observer.observe(detail));
+    animateElements.forEach(element => {
+      observer.observe(element);
+    });
   }
 }
 
 /**
- * FAQ Section Manager
+ * Testimonial Slider
  */
-class FAQSection {
-  constructor() {
-    // Elements
-    this.section = document.querySelector('.faq-section');
-    this.categoryButtons = document.querySelectorAll('.faq-section .category-btn');
-    this.faqCards = document.querySelectorAll('.faq-card');
-    this.faqTriggers = document.querySelectorAll('.faq-trigger');
-    
-    // State
-    this.activeCategory = 'all';
-    this.activeCard = null;
-    
-    // Initialize
-    if (this.section) {
-      this.init();
-    }
-  }
+function initTestimonialSlider() {
+  const testimonialCards = document.querySelectorAll('.testimonial-card');
+  const navDots = document.querySelectorAll('.nav-dot');
   
-  init() {
-    // Set up category filtering
-    this.setupCategories();
-    
-    // Set up FAQ accordions
-    this.setupAccordions();
-    
-    // Set up animations
-    this.setupAnimations();
-  }
+  if (testimonialCards.length === 0 || navDots.length === 0) return;
   
-  setupCategories() {
-    this.categoryButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const category = button.getAttribute('data-category');
-        if (category) {
-          this.filterByCategory(category);
+  let currentIndex = 0;
+  let interval;
+  
+  // Show testimonial at specific index
+  const showTestimonial = (index) => {
+    testimonialCards.forEach(card => {
+      card.classList.remove('active');
+    });
+    
+    navDots.forEach(dot => {
+      dot.classList.remove('active');
+    });
+    
+    testimonialCards[index].classList.add('active');
+    navDots[index].classList.add('active');
+    currentIndex = index;
+  };
+  
+  // Add click event to navigation dots
+  navDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showTestimonial(index);
+      resetInterval();
+    });
+  });
+  
+  // Start automatic rotation
+  const startInterval = () => {
+    interval = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % testimonialCards.length;
+      showTestimonial(nextIndex);
+    }, 5000);
+  };
+  
+  // Reset interval after user interaction
+  const resetInterval = () => {
+    clearInterval(interval);
+    startInterval();
+  };
+  
+  // Initialize
+  showTestimonial(0);
+  startInterval();
+}
+
+/**
+ * FAQ Accordion
+ */
+function initFaqAccordion() {
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const isExpanded = question.getAttribute('aria-expanded') === 'true';
+      
+      // Close all other questions
+      faqQuestions.forEach(q => {
+        if (q !== question) {
+          q.setAttribute('aria-expanded', 'false');
         }
       });
-    });
-  }
-  
-  filterByCategory(category) {
-    // Update active category
-    this.activeCategory = category;
-    
-    // Update button states
-    this.categoryButtons.forEach(button => {
-      const isActive = button.getAttribute('data-category') === category;
-      button.classList.toggle('active', isActive);
-      button.setAttribute('aria-selected', isActive);
-    });
-    
-    // Filter cards
-    this.faqCards.forEach(card => {
-      const cardCategory = card.getAttribute('data-category');
-      const shouldShow = category === 'all' || cardCategory === category;
       
-      if (shouldShow) {
-        card.style.display = 'block';
-      } else {
-        // Close accordion if open
-        const trigger = card.querySelector('.faq-trigger');
-        if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
-          this.closeAccordion(trigger);
+      // Toggle current question
+      question.setAttribute('aria-expanded', !isExpanded);
+    });
+  });
+}
+
+/**
+ * Quiz Flow
+ */
+function initQuizFlow() {
+  const quizSlides = document.querySelectorAll('.quiz-slide');
+  const quizButtons = document.querySelectorAll('[data-next]');
+  const quizBackButtons = document.querySelectorAll('[data-prev]');
+  const radioInputs = document.querySelectorAll('.answer-option input');
+  
+  if (quizSlides.length === 0) return;
+  
+  // Navigate to next slide
+  quizButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const nextSlideId = button.getAttribute('data-next');
+      
+      if (nextSlideId) {
+        // Hide all slides
+        quizSlides.forEach(slide => {
+          slide.classList.remove('active');
+        });
+        
+        // Show target slide
+        const nextSlide = document.querySelector(`.quiz-slide[data-slide="${nextSlideId}"]`);
+        if (nextSlide) {
+          nextSlide.classList.add('active');
+          
+          // Update progress bar if applicable
+          const progressBar = nextSlide.querySelector('.progress-filled');
+          if (progressBar) {
+            const questionNumber = nextSlide.querySelector('.progress-text').textContent.match(/\d+/)[0];
+            const totalQuestions = 5; // Assuming 5 questions total
+            const progressPercent = (parseInt(questionNumber) / totalQuestions) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+          }
         }
         
-        // Hide after transition
-        setTimeout(() => {
-          card.style.display = 'none';
-        }, 300);
-      }
-    });
-  }
-  
-  setupAccordions() {
-    this.faqTriggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        this.toggleAccordion(trigger);
-      });
-      
-      // Keyboard support
-      trigger.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.toggleAccordion(trigger);
+        // Scroll to top of quiz container
+        const quizContainer = document.querySelector('.quiz-container');
+        if (quizContainer) {
+          quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      });
-    });
-  }
-  
-  toggleAccordion(trigger) {
-    const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-    const answer = document.getElementById(trigger.getAttribute('aria-controls'));
-    const card = trigger.closest('.faq-card');
-    
-    if (isExpanded) {
-      this.closeAccordion(trigger);
-    } else {
-      // Close currently open accordion if exists
-      if (this.activeCard && this.activeCard !== card) {
-        const activeTrigger = this.activeCard.querySelector('.faq-trigger');
-        this.closeAccordion(activeTrigger);
       }
-      
-      // Open this accordion
-      trigger.setAttribute('aria-expanded', 'true');
-      card.classList.add('active');
-      
-      // Show answer with animation
-      answer.style.display = 'block';
-      answer.style.height = '0';
-      answer.style.overflow = 'hidden';
-      
-      // Get the height and animate
-      const height = answer.scrollHeight;
-      answer.style.height = height + 'px';
-      
-      // Clean up after transition
-      const handleTransitionEnd = () => {
-        answer.style.height = '';
-        answer.style.overflow = '';
-        answer.removeEventListener('transitionend', handleTransitionEnd);
-      };
-      
-      answer.addEventListener('transitionend', handleTransitionEnd);
-      
-      // Update active card
-      this.activeCard = card;
-    }
-  }
-  
-  closeAccordion(trigger) {
-    const answer = document.getElementById(trigger.getAttribute('aria-controls'));
-    const card = trigger.closest('.faq-card');
-    
-    trigger.setAttribute('aria-expanded', 'false');
-    card.classList.remove('active');
-    
-    // Animate closing
-    answer.style.height = answer.scrollHeight + 'px';
-    answer.style.overflow = 'hidden';
-    
-    // Trigger reflow
-    answer.offsetHeight;
-    
-    // Collapse
-    answer.style.height = '0';
-    
-    // Hide after transition
-    const handleTransitionEnd = () => {
-      answer.style.display = 'none';
-      answer.style.height = '';
-      answer.style.overflow = '';
-      answer.removeEventListener('transitionend', handleTransitionEnd);
-    };
-    
-    answer.addEventListener('transitionend', handleTransitionEnd);
-    
-    // Clear active card reference if this was the active one
-    if (this.activeCard === card) {
-      this.activeCard = null;
-    }
-  }
-  
-  setupAnimations() {
-    // Skip if reduced motion is preferred
-    if (Utils.handleReducedMotion()) return;
-    
-    // Add animations when scrolling into view
-    this.faqCards.forEach((card, index) => {
-      Utils.addClassWhenInView(card, 'fade-in');
-      // Add staggered delay
-      card.style.transitionDelay = `${index * 0.1}s`;
     });
-  }
-}
-
-/**
- * Testimonials Section
- */
-class TestimonialsSection {
-  constructor() {
-    // Elements
-    this.section = document.querySelector('.testimonials-section');
-    this.cards = document.querySelectorAll('.review-card');
-    this.stats = document.querySelectorAll('.stat-number');
-    
-    // Initialize
-    if (this.section) {
-      this.init();
-    }
-  }
+  });
   
-  init() {
-    // Animate cards on scroll
-    this.animateCards();
-    
-    // Animate stat counters
-    this.animateStats();
-    
-    // Add card interactions
-    this.addCardInteractions();
-  }
-  
-  animateCards() {
-    // Skip if reduced motion is preferred
-    if (Utils.handleReducedMotion()) return;
-    
-    this.cards.forEach((card, index) => {
-      Utils.addClassWhenInView(card, 'fade-in');
-      // Add staggered delay
-      card.style.transitionDelay = `${index * 0.2}s`;
-    });
-  }
-  
-  animateStats() {
-    // Skip if reduced motion is preferred
-    if (Utils.handleReducedMotion()) return;
-    
-    this.stats.forEach(stat => {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.countUp(stat);
-            observer.unobserve(stat);
-          }
+  // Navigate to previous slide
+  quizBackButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const prevSlideId = button.getAttribute('data-prev');
+      
+      if (prevSlideId) {
+        // Hide all slides
+        quizSlides.forEach(slide => {
+          slide.classList.remove('active');
         });
-      }, { threshold: 0.5 });
+        
+        // Show target slide
+        const prevSlide = document.querySelector(`.quiz-slide[data-slide="${prevSlideId}"]`);
+        if (prevSlide) {
+          prevSlide.classList.add('active');
+        }
+      }
+    });
+  });
+  
+  // Enable/disable next button based on selection
+  radioInputs.forEach(input => {
+    input.addEventListener('change', () => {
+      const questionSlide = input.closest('.quiz-slide');
+      const nextButton = questionSlide.querySelector('.quiz-next-button');
       
-      observer.observe(stat);
+      if (nextButton) {
+        nextButton.disabled = false;
+      }
+    });
+  });
+}
+
+/**
+ * Countdown Timer
+ */
+function initCountdownTimer() {
+  const daysElement = document.getElementById('countdown-days');
+  const hoursElement = document.getElementById('countdown-hours');
+  const minutesElement = document.getElementById('countdown-minutes');
+  const secondsElement = document.getElementById('countdown-seconds');
+  
+  if (!daysElement || !hoursElement || !minutesElement || !secondsElement) return;
+  
+  // Set end date to 3 days from now
+  const now = new Date();
+  const endDate = new Date(now.getTime() + (3 * 24 * 60 * 60 * 1000));
+  
+  // Update countdown
+  function updateCountdown() {
+    const currentTime = new Date();
+    const timeDifference = endDate - currentTime;
+    
+    if (timeDifference <= 0) {
+      // Reset countdown to another 3 days when it reaches zero
+      endDate.setTime(currentTime.getTime() + (3 * 24 * 60 * 60 * 1000));
+    }
+    
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    
+    daysElement.textContent = days.toString().padStart(2, '0');
+    hoursElement.textContent = hours.toString().padStart(2, '0');
+    minutesElement.textContent = minutes.toString().padStart(2, '0');
+    secondsElement.textContent = seconds.toString().padStart(2, '0');
+  }
+  
+  // Initial update
+  updateCountdown();
+  
+  // Update every second
+  setInterval(updateCountdown, 1000);
+}
+
+/**
+ * Live Chat
+ */
+function initLiveChat() {
+  const chatToggle = document.querySelector('.chat-toggle');
+  const chatWindow = document.querySelector('.chat-window');
+  const chatClose = document.querySelector('.chat-close');
+  const chatInput = document.querySelector('.chat-input textarea');
+  const sendButton = document.querySelector('.send-button');
+  const chatMessages = document.querySelector('.chat-messages');
+  
+  if (!chatToggle || !chatWindow) return;
+  
+  // Toggle chat window
+  chatToggle.addEventListener('click', () => {
+    const isExpanded = chatToggle.getAttribute('aria-expanded') === 'true';
+    chatToggle.setAttribute('aria-expanded', !isExpanded);
+    chatWindow.setAttribute('aria-hidden', isExpanded);
+    
+    if (!isExpanded) {
+      // Focus input when opening chat
+      setTimeout(() => {
+        if (chatInput) chatInput.focus();
+      }, 300);
+    }
+  });
+  
+  // Close chat window
+  if (chatClose) {
+    chatClose.addEventListener('click', () => {
+      chatToggle.setAttribute('aria-expanded', 'false');
+      chatWindow.setAttribute('aria-hidden', 'true');
     });
   }
   
-  countUp(element) {
-    const target = parseFloat(element.textContent);
-    const duration = 2000; // 2 seconds
-    const steps = 60;
-    const stepDuration = duration / steps;
-    
-    let current = 0;
-    const increment = target / steps;
-    const isInteger = Number.isInteger(target);
-    
-    const updateNumber = () => {
-      current += increment;
+  // Send message
+  if (sendButton && chatInput && chatMessages) {
+    const sendMessage = () => {
+      const message = chatInput.value.trim();
       
-      if (current <= target) {
-        if (isInteger) {
-          element.textContent = Math.round(current);
-        } else {
-          element.textContent = current.toFixed(1);
-        }
-        setTimeout(updateNumber, stepDuration);
-      } else {
-        element.textContent = target;
+      if (message) {
+        // Create message element
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message sent';
+        
+        const messageContent = document.createElement('div');
+        messageContent.className = 'message-content';
+        messageContent.textContent = message;
+        
+        const messageTime = document.createElement('div');
+        messageTime.className = 'message-time';
+        messageTime.textContent = 'Just now';
+        
+        messageElement.appendChild(messageContent);
+        messageElement.appendChild(messageTime);
+        
+        // Add to chat
+        chatMessages.appendChild(messageElement);
+        
+        // Clear input
+        chatInput.value = '';
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Simulate response after delay
+        setTimeout(() => {
+          const responseElement = document.createElement('div');
+          responseElement.className = 'message received';
+          
+          const responseContent = document.createElement('div');
+          responseContent.className = 'message-content';
+          responseContent.textContent = "Thanks for your message! One of our specialists will reply shortly. In the meantime, feel free to take our quiz to find your personalized recommendation.";
+          
+          const responseTime = document.createElement('div');
+          responseTime.className = 'message-time';
+          responseTime.textContent = 'Just now';
+          
+          responseElement.appendChild(responseContent);
+          responseElement.appendChild(responseTime);
+          
+          chatMessages.appendChild(responseElement);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1000);
       }
     };
     
-    updateNumber();
-  }
-  
-  addCardInteractions() {
-    // Skip if reduced motion is preferred
-    if (Utils.handleReducedMotion()) return;
+    // Send on button click
+    sendButton.addEventListener('click', sendMessage);
     
-    this.cards.forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px)';
-        card.style.boxShadow = 'var(--shadow-lg)';
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.boxShadow = '';
-      });
+    // Send on Enter key (but allow Shift+Enter for new line)
+    chatInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
     });
   }
 }
 
 /**
- * Initialize GSAP Animations
+ * Smooth Scrolling
  */
-function initGSAPAnimations() {
-  // Skip if reduced motion is preferred
-  if (Utils.handleReducedMotion()) return;
-  
-  gsap.registerPlugin(ScrollTrigger);
-  
-  // Hero animations
-  gsap.from('.hero-title .title-line', {
-    opacity: 0,
-    y: 30,
-    duration: 1,
-    stagger: 0.2,
-    ease: 'power3.out'
-  });
-  
-  gsap.from('.hero-description', {
-    opacity: 0,
-    y: 20,
-    duration: 1,
-    delay: 0.5,
-    ease: 'power3.out'
-  });
-  
-  gsap.from('.hero-cta-group', {
-    opacity: 0,
-    y: 20,
-    duration: 1,
-    delay: 0.7,
-    ease: 'power3.out'
-  });
-  
-  // Section headers animations
-  const sections = [
-    '.advanced-social-proof',
-    '.ingredients-showcase',
-    '.how-it-works',
-    '.faq-section'
-  ];
-  
-  sections.forEach(section => {
-    gsap.from(`${section} .section-title`, {
-      opacity: 0,
-      y: 30,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%'
-      }
-    });
-    
-    gsap.from(`${section} .section-subtitle`, {
-      opacity: 0,
-      y: 20,
-      duration: 0.8,
-      delay: 0.2,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%'
-      }
-    });
-  });
-}
-
-/**
- * Setup Smooth Scrolling for Anchor Links
- */
-function setupSmoothScrolling() {
+function initSmoothScrolling() {
   const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
   
   anchorLinks.forEach(link => {
     link.addEventListener('click', e => {
+      e.preventDefault();
+      
       const targetId = link.getAttribute('href');
       const targetElement = document.querySelector(targetId);
       
       if (targetElement) {
-        e.preventDefault();
-        
-        const headerOffset = 80; // Adjust based on your header height
+        const headerOffset = 80; // Adjust based on header height
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
         
@@ -794,4 +475,26 @@ function setupSmoothScrolling() {
       }
     });
   });
+}
+
+/**
+ * Utility Functions
+ */
+
+// Check if element is in viewport
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.bottom >= 0
+  );
+}
+
+// Debounce function to limit execution rate
+function debounce(func, wait = 100) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
 }
