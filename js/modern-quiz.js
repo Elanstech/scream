@@ -1,7 +1,7 @@
 /**
  * =============================================================================
- * S-Cream Quiz Page JavaScript
- * Handles quiz flow, logic, and recommendations
+ * S-Cream Modern Quiz Page JavaScript
+ * Handles quiz flow, animations, and recommendation logic
  * =============================================================================
  */
 
@@ -14,7 +14,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (currentYearElement) {
     currentYearElement.textContent = new Date().getFullYear();
   }
+  
+  // Update header on scroll
+  window.addEventListener('scroll', handleScroll);
 });
+
+/**
+ * Handle scroll events to update header styling
+ */
+function handleScroll() {
+  const header = document.querySelector('.quiz-header');
+  
+  if (window.scrollY > 20) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+}
 
 /**
  * Initialize the quiz functionality
@@ -24,10 +40,16 @@ function initQuiz() {
   const nextButtons = document.querySelectorAll('[data-next]');
   const backButtons = document.querySelectorAll('[data-prev]');
   const radioInputs = document.querySelectorAll('.answer-option input');
+  const progressSteps = document.querySelectorAll('.progress-step');
+  const progressBar = document.querySelector('.progress-filled');
   const checkoutButton = document.getElementById('checkout-button');
+  const loadingOverlay = document.getElementById('loading-overlay');
   
   // Store user's answers
   const userAnswers = {};
+  
+  // Store current question index
+  let currentQuestionIndex = 0;
   
   // Navigate to next slide
   nextButtons.forEach(button => {
@@ -45,8 +67,11 @@ function initQuiz() {
           userAnswers[questionId] = selectedOption.value;
         }
         
-        // Show processing slide
-        showSlide(nextSlideId);
+        // Update progress visualization
+        updateProgress(5);
+        
+        // Show processing slide with animation
+        showSlide(nextSlideId, false);
         
         // Animate the processing steps
         simulateProcessing(() => {
@@ -56,7 +81,7 @@ function initQuiz() {
           
           // Show results slide
           setTimeout(() => {
-            showSlide('results');
+            showSlide('results', false);
           }, 500);
         });
         
@@ -64,18 +89,28 @@ function initQuiz() {
       }
       
       // For normal navigation, store the answer if it's a question slide
-      if (currentSlide.querySelector('.quiz-question')) {
+      if (currentSlide.querySelector('.quiz-slide-content')) {
         const questionId = currentSlide.getAttribute('data-slide');
-        const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
         
-        if (selectedOption) {
-          userAnswers[questionId] = selectedOption.value;
+        // Only store if it's a question slide (not intro)
+        if (questionId.includes('question')) {
+          const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+          
+          if (selectedOption) {
+            userAnswers[questionId] = selectedOption.value;
+          }
+          
+          // Get the question number
+          const questionNumber = parseInt(questionId.split('-')[1]);
+          
+          // Update progress visualization
+          updateProgress(questionNumber);
         }
       }
       
       // Show the next slide
       if (nextSlideId) {
-        showSlide(nextSlideId);
+        showSlide(nextSlideId, false);
       }
     });
   });
@@ -84,6 +119,15 @@ function initQuiz() {
   backButtons.forEach(button => {
     button.addEventListener('click', () => {
       const prevSlideId = button.getAttribute('data-prev');
+      
+      // Get the question number if applicable
+      if (prevSlideId.includes('question')) {
+        const questionNumber = parseInt(prevSlideId.split('-')[1]);
+        updateProgress(questionNumber);
+      } else if (prevSlideId === 'intro') {
+        // Reset progress for intro
+        updateProgress(0);
+      }
       
       if (prevSlideId) {
         showSlide(prevSlideId, true);
@@ -111,39 +155,105 @@ function initQuiz() {
       // Get selected formula information
       const formulaName = document.getElementById('formula-name').textContent;
       
+      // Show loading overlay
+      if (loadingOverlay) {
+        loadingOverlay.classList.add('active');
+      }
+      
       // Redirect to Stripe checkout (this would be replaced with actual Stripe integration)
       redirectToStripeCheckout(formulaName);
     });
   }
+  
+  // Initial progress setup
+  updateProgress(0);
 }
 
 /**
- * Show a specific slide
+ * Update progress indicators
+ * @param {number} step - Current step number (0-5)
+ */
+function updateProgress(step) {
+  const progressSteps = document.querySelectorAll('.progress-step');
+  const progressBar = document.querySelector('.progress-filled');
+  
+  // Update step indicators
+  progressSteps.forEach((stepEl, index) => {
+    // Reset all steps
+    stepEl.classList.remove('active');
+    stepEl.classList.remove('completed');
+    
+    // Set appropriate classes
+    if (index + 1 < step) {
+      stepEl.classList.add('completed');
+    } else if (index + 1 === step) {
+      stepEl.classList.add('active');
+    }
+  });
+  
+  // Update progress bar (0% for intro, 20% per question)
+  if (step === 0) {
+    progressBar.style.width = '0%';
+  } else {
+    const progressPercentage = Math.min(100, step * 20);
+    progressBar.style.width = `${progressPercentage}%`;
+  }
+  
+  // Hide progress indicators on intro and results
+  const progressContainer = document.querySelector('.quiz-progress-container');
+  
+  if (step === 0 || step > 5) {
+    progressContainer.style.opacity = '0';
+    progressContainer.style.pointerEvents = 'none';
+  } else {
+    progressContainer.style.opacity = '1';
+    progressContainer.style.pointerEvents = 'auto';
+  }
+}
+
+/**
+ * Show a specific slide with animation
  * @param {string} slideId - The ID of the slide to show
  * @param {boolean} isBackNavigation - Whether this is back navigation
  */
-function showSlide(slideId, isBackNavigation = false) {
+function showSlide(slideId, isBackNavigation) {
   const slides = document.querySelectorAll('.quiz-slide');
-  
-  // Hide all slides
-  slides.forEach(slide => {
-    slide.classList.remove('active');
-    slide.classList.remove('slide-in-right');
-    slide.classList.remove('slide-in-left');
-  });
-  
-  // Show target slide with appropriate animation
+  const currentSlide = document.querySelector('.quiz-slide.active');
   const targetSlide = document.querySelector(`.quiz-slide[data-slide="${slideId}"]`);
-  if (targetSlide) {
-    targetSlide.classList.add('active');
-    targetSlide.classList.add(isBackNavigation ? 'slide-in-left' : 'slide-in-right');
+  
+  if (!targetSlide) return;
+  
+  // Direction-specific animation classes
+  const outgoingAnimation = isBackNavigation ? 'slide-out-right' : 'slide-out-left';
+  const incomingAnimation = isBackNavigation ? 'slide-in-left' : 'slide-in-right';
+  
+  // Animate current slide out
+  if (currentSlide) {
+    currentSlide.classList.add(outgoingAnimation);
     
-    // Scroll to top of quiz container
-    const quizContainer = document.querySelector('.quiz-container');
-    if (quizContainer) {
-      quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // After animation completes, hide the slide
+    setTimeout(() => {
+      currentSlide.classList.remove('active');
+      currentSlide.classList.remove(outgoingAnimation);
+    }, 300);
   }
+  
+  // Animate new slide in (with a slight delay)
+  setTimeout(() => {
+    targetSlide.classList.add('active');
+    targetSlide.classList.add(incomingAnimation);
+    
+    // Remove animation class after completion
+    setTimeout(() => {
+      targetSlide.classList.remove(incomingAnimation);
+    }, 300);
+    
+    // Scroll to top of container
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, 200);
 }
 
 /**
@@ -157,16 +267,23 @@ function simulateProcessing(callback) {
   // Process each step with a delay
   const processStep = () => {
     if (currentStep < steps.length) {
-      steps[currentStep].classList.add('completed');
-      currentStep++;
-      setTimeout(processStep, 800);
+      // Mark step as active first
+      steps[currentStep].classList.add('active');
+      
+      // Then mark as completed after a delay
+      setTimeout(() => {
+        steps[currentStep].classList.add('completed');
+        steps[currentStep].classList.remove('active');
+        currentStep++;
+        setTimeout(processStep, 800);
+      }, 1200);
     } else {
       // All steps completed
       if (callback) callback();
     }
   };
   
-  // Start processing
+  // Start processing after a brief delay
   setTimeout(processStep, 800);
 }
 
@@ -239,10 +356,40 @@ function updateResultsWithRecommendation(recommendation) {
   const highlight2Element = document.getElementById('highlight-2');
   const highlight3Element = document.getElementById('highlight-3');
   
-  if (formulaNameElement) formulaNameElement.textContent = recommendation.formulaName;
-  if (highlight1Element) highlight1Element.textContent = recommendation.highlight1;
-  if (highlight2Element) highlight2Element.textContent = recommendation.highlight2;
-  if (highlight3Element) highlight3Element.textContent = recommendation.highlight3;
+  // Animate the updates
+  if (formulaNameElement) {
+    animateTextUpdate(formulaNameElement, recommendation.formulaName);
+  }
+  
+  if (highlight1Element) {
+    animateTextUpdate(highlight1Element, recommendation.highlight1);
+  }
+  
+  if (highlight2Element) {
+    animateTextUpdate(highlight2Element, recommendation.highlight2);
+  }
+  
+  if (highlight3Element) {
+    animateTextUpdate(highlight3Element, recommendation.highlight3);
+  }
+}
+
+/**
+ * Animate text update with a fade effect
+ * @param {HTMLElement} element - Element to update
+ * @param {string} newText - New text content
+ */
+function animateTextUpdate(element, newText) {
+  // Fade out
+  element.style.opacity = '0';
+  element.style.transform = 'translateY(10px)';
+  
+  // Update text and fade in after a short delay
+  setTimeout(() => {
+    element.textContent = newText;
+    element.style.opacity = '1';
+    element.style.transform = 'translateY(0)';
+  }, 300);
 }
 
 /**
@@ -253,11 +400,7 @@ function redirectToStripeCheckout(formulaName) {
   // In a real implementation, this would create a Stripe Checkout session
   // and redirect the user to the Stripe-hosted checkout page
   
-  // For demonstration purposes, we'll log the action and alert the user
   console.log('Redirecting to Stripe checkout for:', formulaName);
-  
-  // Simulated redirect
-  alert(`You're being redirected to checkout for ${formulaName}. In a real implementation, this would open the Stripe checkout page.`);
   
   // Example of how this might be implemented with Stripe
   /*
@@ -268,7 +411,7 @@ function redirectToStripeCheckout(formulaName) {
     },
     body: JSON.stringify({
       product: formulaName,
-      price: '71.20'
+      price: '99.00'
     }),
   })
   .then(response => response.json())
@@ -278,11 +421,21 @@ function redirectToStripeCheckout(formulaName) {
   })
   .catch(error => {
     console.error('Error:', error);
+    
+    // Hide loading overlay on error
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.classList.remove('active');
+    }
   });
   */
   
-  // For demo purposes, redirect back to index page after delay
+  // For demo purposes, simulate API call and redirect after delay
   setTimeout(() => {
+    // In production, this would be the Stripe checkout URL
+    // window.location.href = session.url;
+    
+    // For demo, redirect back to index page
     window.location.href = 'index.html';
   }, 2000);
 }
