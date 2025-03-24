@@ -108,6 +108,41 @@ function initHeader() {
  * Hero Animations
  */
 function initHeroAnimations() {
+  // Initialize and check if video loaded successfully
+  const heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    // Handle video loading
+    heroVideo.addEventListener('loadeddata', () => {
+      console.log('Video loaded successfully');
+    });
+    
+    // Handle potential video loading errors
+    heroVideo.addEventListener('error', (e) => {
+      console.error('Error loading video:', e);
+      // Fallback to static background
+      const videoContainer = document.querySelector('.video-container');
+      if (videoContainer) {
+        videoContainer.style.backgroundImage = 'url("images/hero-background-fallback.jpg")';
+        videoContainer.style.backgroundSize = 'cover';
+        videoContainer.style.backgroundPosition = 'center center';
+      }
+    });
+
+    // Check if browser supports autoplay
+    // If not, manually play the video or show a play button
+    if (heroVideo.paused) {
+      const autoplayAttempt = heroVideo.play();
+      
+      if (autoplayAttempt) {
+        autoplayAttempt.catch(error => {
+          console.warn('Autoplay not allowed:', error);
+          // Optionally add a play button for manual play
+          createPlayButton();
+        });
+      }
+    }
+  }
+
   // Product image tilt effect on desktop
   const productImage = document.querySelector('.product-image');
   
@@ -126,7 +161,57 @@ function initHeroAnimations() {
       productImage.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
     });
   }
-  
+
+  // Parallax effect for video background
+  if (heroVideo && window.innerWidth >= 768) {
+    window.addEventListener('scroll', () => {
+      const scrollPosition = window.pageYOffset;
+      heroVideo.style.transform = `translate(-50%, calc(-50% + ${scrollPosition * 0.15}px))`;
+    });
+  }
+
+  // Optional: Create play button if autoplay is not supported
+  function createPlayButton() {
+    // Only create if it doesn't exist already
+    if (!document.querySelector('.video-play-button')) {
+      const playButton = document.createElement('button');
+      playButton.className = 'video-play-button';
+      playButton.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+        </svg>
+      `;
+      
+      // Add styles
+      playButton.style.position = 'absolute';
+      playButton.style.top = '50%';
+      playButton.style.left = '50%';
+      playButton.style.transform = 'translate(-50%, -50%)';
+      playButton.style.zIndex = '10';
+      playButton.style.background = 'rgba(255, 255, 255, 0.2)';
+      playButton.style.border = 'none';
+      playButton.style.borderRadius = '50%';
+      playButton.style.width = '60px';
+      playButton.style.height = '60px';
+      playButton.style.cursor = 'pointer';
+      playButton.style.color = 'white';
+      playButton.style.backdropFilter = 'blur(5px)';
+      
+      // Add event listener
+      playButton.addEventListener('click', () => {
+        heroVideo.play();
+        playButton.style.display = 'none';
+      });
+      
+      // Add to DOM
+      const videoContainer = document.querySelector('.video-container');
+      if (videoContainer) {
+        videoContainer.appendChild(playButton);
+      }
+    }
+  }
+
   // Animate elements on scroll
   const animateElements = document.querySelectorAll('.fade-in-element');
   
@@ -150,6 +235,19 @@ function initHeroAnimations() {
     });
   }
 }
+
+// Initialize hero animations when window is loaded
+window.addEventListener('load', initHeroAnimations);
+
+// Ensure video responsiveness on window resize
+window.addEventListener('resize', () => {
+  const heroVideo = document.querySelector('.hero-video');
+  
+  // Reset transform on mobile for better performance
+  if (heroVideo && window.innerWidth < 768) {
+    heroVideo.style.transform = 'translate(-50%, -50%)';
+  }
+});
 
 /**
  * Testimonial Slider
