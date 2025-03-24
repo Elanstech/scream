@@ -23,16 +23,40 @@
     <script src="js/script.js" defer></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="site-header" id="header">
-        <div class="header-container">
-            <!-- Logo -->
-            <a href="/" class="logo" aria-label="S-Cream Home">
-                <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
-            </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="nav-desktop" aria-label="Main navigation">
+    <!-- Header -->
+<header class="site-header" id="header">
+    <div class="header-container">
+        <!-- Logo -->
+        <a href="/" class="logo" aria-label="S-Cream Home">
+            <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop" aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#science" class="nav-link">Science</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+            </ul>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+            <a href="#quiz" class="btn-consultation">Take the Quiz</a>
+            <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+        <div class="mobile-nav-container">
+            <nav class="nav-mobile" aria-label="Mobile navigation">
                 <ul class="nav-list">
                     <li><a href="#benefits" class="nav-link">Benefits</a></li>
                     <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
@@ -40,35 +64,12 @@
                     <li><a href="#faq" class="nav-link">FAQ</a></li>
                 </ul>
             </nav>
-
-            <!-- Header Actions -->
-            <div class="header-actions">
-                <a href="#quiz" class="btn-consultation">Take the Quiz</a>
-                <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
-                    <span class="menu-bar"></span>
-                    <span class="menu-bar"></span>
-                    <span class="menu-bar"></span>
-                </button>
+            <div class="mobile-nav-footer">
+                <a href="#quiz" class="btn-consultation-mobile">Take the Quiz</a>
             </div>
         </div>
-
-        <!-- Mobile Navigation -->
-        <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
-            <div class="mobile-nav-container">
-                <nav class="nav-mobile" aria-label="Mobile navigation">
-                    <ul class="nav-list">
-                        <li><a href="#benefits" class="nav-link">Benefits</a></li>
-                        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                        <li><a href="#science" class="nav-link">Science</a></li>
-                        <li><a href="#faq" class="nav-link">FAQ</a></li>
-                    </ul>
-                </nav>
-                <div class="mobile-nav-footer">
-                    <a href="#quiz" class="btn-consultation-mobile">Take the Quiz</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    </div>
+</header>
     
   <!-- HTML: Hero Section with Video Background -->
 <section class="hero" id="hero">
