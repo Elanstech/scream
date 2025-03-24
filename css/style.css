@@ -1502,214 +1502,699 @@ section {
 /* ======================================
    8. Science Section
 ====================================== */
-.science-section {
-  background-color: white;
+.ingredients-science {
   position: relative;
+  padding: var(--spacing-xxl) 0;
+  background: linear-gradient(180deg, var(--background), var(--primary) 150%);
   overflow: hidden;
 }
 
-.science-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-xl);
+.ingredients-science::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(225, 122, 146, 0.08) 0%, rgba(225, 122, 146, 0.03) 30%, transparent 70%),
+    radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.08) 0%, rgba(255, 107, 107, 0.03) 30%, transparent 70%);
+  z-index: 0;
+}
+
+.ingredients-science .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ingredients Selector */
+.ingredients-selector {
+  margin: var(--spacing-xl) 0;
+  overflow-x: auto;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.ingredients-selector::-webkit-scrollbar {
+  display: none;
+}
+
+.selector-tabs {
+  display: flex;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  min-width: min-content;
+}
+
+.selector-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: var(--spacing-md);
+  min-width: 120px;
+  border-radius: var(--border-radius-lg);
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.selector-tab:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.selector-tab.active {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-md);
+}
+
+.selector-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid white;
+}
+
+.tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--accent);
+  transition: all var(--transition-medium);
+}
+
+.selector-tab.active .tab-icon {
+  background: var(--accent);
+  color: white;
+}
+
+.tab-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.selector-tab span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+  transition: color var(--transition-medium);
+}
+
+.selector-tab.active span {
+  color: var(--accent);
+}
+
+/* Ingredients Content */
+.ingredients-content {
+  position: relative;
   margin-bottom: var(--spacing-xl);
 }
 
-.science-visual {
+.ingredient-panel {
+  display: none;
+  width: 100%;
+  border-radius: var(--border-radius-lg);
+  background: white;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.ingredient-panel.active {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Panel Visual */
+.panel-visual {
+  background: linear-gradient(135deg, var(--primary), rgba(255, 255, 255, 0.8));
+  padding: var(--spacing-xl);
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 200px;
 }
 
-.formula-animation {
+.molecule-visual {
   position: relative;
-  width: 250px;
-  height: 250px;
-  margin: 0 auto;
+  width: 150px;
+  height: 150px;
 }
 
-.molecule {
+.molecule-sphere {
   position: absolute;
-  border-radius: var(--border-radius-circle);
+  border-radius: 50%;
   background: var(--primary-gradient);
+  box-shadow: 0 0 10px rgba(225, 122, 146, 0.5);
+}
+
+.main-sphere {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.orbit-sphere-1 {
+  width: 20px;
+  height: 20px;
   animation: orbit 15s linear infinite;
 }
 
-.molecule-1 {
-  width: 30px;
-  height: 30px;
-  top: 50%;
-  left: 50%;
-  margin-top: -15px;
-  margin-left: -15px;
-  animation-duration: 10s;
-}
-
-.molecule-2 {
-  width: 20px;
-  height: 20px;
-  top: 30%;
-  left: 60%;
-  margin-top: -10px;
-  margin-left: -10px;
-  animation-duration: 15s;
-  animation-delay: -5s;
-}
-
-.molecule-3 {
+.orbit-sphere-2 {
   width: 25px;
   height: 25px;
-  top: 70%;
-  left: 30%;
-  margin-top: -12.5px;
-  margin-left: -12.5px;
-  animation-duration: 20s;
-  animation-delay: -2s;
+  animation: orbit 12s linear infinite reverse;
 }
 
-.formula-glow {
+.orbit-sphere-3 {
+  width: 15px;
+  height: 15px;
+  animation: orbit 10s linear infinite;
+}
+
+.molecule-glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 200px;
-  height: 200px;
-  margin-top: -100px;
-  margin-left: -100px;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
   background: radial-gradient(
     circle at center,
-    rgba(225, 122, 146, 0.3) 0%,
+    rgba(225, 122, 146, 0.4) 0%,
     transparent 70%
   );
+  border-radius: 50%;
   animation: pulse 4s ease-in-out infinite;
 }
 
-.science-text {
-  max-width: 600px;
-  margin: 0 auto;
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(60px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(60px) rotate(-360deg);
+  }
 }
 
-.ingredient-list {
-  display: grid;
-  grid-template-columns: 1fr;
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.6;
+  }
+}
+
+/* Panel Content */
+.panel-content {
+  padding: var(--spacing-xl);
+}
+
+.ingredient-name {
+  font-size: 1.75rem;
+  color: var(--accent);
+  margin-bottom: var(--spacing-xs);
+}
+
+.ingredient-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--primary);
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.ingredient-description {
+  margin-bottom: var(--spacing-lg);
+}
+
+.ingredient-description p {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Benefits List */
+.benefits-list {
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
   margin-bottom: var(--spacing-lg);
 }
 
-.ingredient-item {
-  background: var(--background);
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
   padding: var(--spacing-md);
+  background: rgba(225, 122, 146, 0.05);
   border-radius: var(--border-radius-md);
   transition: transform var(--transition-fast);
 }
 
-.ingredient-item:hover {
+.benefit-item:hover {
   transform: translateX(5px);
+  background: rgba(225, 122, 146, 0.08);
 }
 
-.ingredient-name {
-  font-size: 1.1rem;
-  margin-bottom: var(--spacing-xs);
+.benefit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
   color: var(--accent);
+  flex-shrink: 0;
 }
 
-.ingredient-description {
-  font-size: 0.95rem;
+.benefit-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.benefit-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.benefit-text span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.benefit-text small {
+  font-size: 0.85rem;
   color: var(--text-muted);
-  margin-bottom: 0;
 }
 
-.clinical-stats {
+/* Ingredient Facts */
+.ingredient-facts {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
 }
 
-.clinical-result {
-  background: linear-gradient(135deg, rgba(225, 122, 146, 0.1), rgba(255, 107, 107, 0.1));
+.fact-item {
   padding: var(--spacing-md);
+  background: rgba(225, 122, 146, 0.05);
   border-radius: var(--border-radius-md);
   text-align: center;
 }
 
-.result-number {
-  font-size: 2rem;
-  font-weight: 700;
+.fact-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.fact-value {
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--accent);
-  margin-bottom: var(--spacing-xs);
-  font-family: var(--font-heading);
 }
 
-.result-text {
-  font-size: 0.875rem;
-  color: var(--text);
-}
-
-.doctor-endorsement {
-  background: var(--background);
-  padding: var(--spacing-lg);
-  border-radius: var(--border-radius-lg);
+/* Ingredients Footer */
+.ingredients-footer {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
   text-align: center;
 }
 
-.doctor-image {
-  width: 100px;
-  height: 100px;
-  border-radius: var(--border-radius-circle);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+.ingredients-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 
-.doctor-image img {
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.badge svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+
+.badge span {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .selector-tabs {
+    justify-content: center;
+  }
+  
+  .ingredient-panel {
+    border-radius: var(--border-radius-xl);
+  }
+  
+  .ingredient-panel.active {
+    flex-direction: row;
+  }
+  
+  .panel-visual {
+    width: 35%;
+    min-height: 100%;
+  }
+  
+  .panel-content {
+    width: 65%;
+  }
+  
+  .ingredients-footer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .ingredients-badges {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .panel-visual {
+    width: 30%;
+  }
+  
+  .panel-content {
+    width: 70%;
+    padding: var(--spacing-xxl);
+  }
+  
+  .benefits-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .selector-tab {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ingredients-science {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  .ingredients-selector {
+    margin: var(--spacing-lg) 0;
+  }
+  
+  .selector-tabs {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+  }
+  
+  .fact-item {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* ======================================
+   9a. Expert Endorsements Section
+====================================== */
+.expert-endorsements {
+  background-color: white;
+  position: relative;
+  padding: var(--spacing-xxl) 0;
+  overflow: hidden;
+}
+
+.expert-endorsements::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(225, 122, 146, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(225, 122, 146, 0.05) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.expert-endorsements .container {
+  position: relative;
+  z-index: 1;
+}
+
+.experts-slider {
+  position: relative;
+  margin-top: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  height: 400px;
+}
+
+.expert-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.expert-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--primary-gradient);
+  border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+}
+
+.expert-card.active {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 2;
+}
+
+.expert-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.expert-image {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: var(--spacing-md);
+}
+
+.expert-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: var(--border-radius-circle);
+  box-shadow: var(--shadow-md);
+  border: 3px solid white;
 }
 
-.doctor-quote {
-  font-style: italic;
+.expert-credentials-badge {
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.expert-info {
+  flex: 1;
+}
+
+.expert-name {
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+  color: var(--accent);
+}
+
+.expert-credentials {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
   color: var(--text);
-  margin-bottom: var(--spacing-md);
+}
+
+.expert-institution {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.expert-quote {
+  position: relative;
+  background: rgba(249, 224, 224, 0.3);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.quote-icon {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 30px;
+  height: 30px;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.expert-quote p {
   font-size: 1rem;
   line-height: 1.6;
+  color: var(--text);
+  font-style: italic;
+  margin-bottom: 0;
 }
 
-.doctor-name {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: var(--spacing-xs);
+.expert-publications {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
 }
 
-.doctor-title {
+.publication-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(225, 122, 146, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-xl);
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.publication-tag svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.experts-navigation {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.nav-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--border-radius-circle);
+  background: #E0E0E0;
+  transition: background-color var(--transition-fast);
+  border: none;
+  cursor: pointer;
+}
+
+.nav-dot.active {
+  background: var(--accent);
+}
+
+.experts-cta {
+  text-align: center;
+}
+
+.expert-consult-note {
+  margin-top: var(--spacing-md);
   font-size: 0.875rem;
   color: var(--text-muted);
 }
 
 @media (min-width: 768px) {
-  .ingredient-list {
-    grid-template-columns: repeat(2, 1fr);
+  .experts-slider {
+    height: 350px;
   }
   
-  .doctor-endorsement {
+  .expert-profile {
     flex-direction: row;
     text-align: left;
+    gap: var(--spacing-lg);
+  }
+  
+  .expert-image {
+    margin-bottom: 0;
   }
 }
 
 @media (min-width: 1024px) {
-  .science-content {
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+  .experts-slider {
+    height: 300px;
   }
   
-  .formula-animation {
-    width: 350px;
-    height: 350px;
+  .expert-card {
+    padding: var(--spacing-xl) var(--spacing-xxl);
   }
 }
 
