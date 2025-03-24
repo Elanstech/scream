@@ -475,17 +475,48 @@ function redirectToStripeCheckout(formulaName) {
     loadingOverlay.classList.add('active');
   }
   
+  // Generate a secure token for validating the return from Stripe
+  const secureToken = generateSecureToken();
+  
+  // Store token in localStorage for verification on success page
+  localStorage.setItem('scream_checkout_token', secureToken);
+  
+  // Build the success URL with our domain and include the token
+  const successUrl = `${window.location.origin}/success.html?token=${secureToken}`;
+  
   // Your specific Stripe checkout URL
-  const stripeCheckoutUrl = 'https://buy.stripe.com/test_6oE8yM1y7atV9qM8ww';
+  // We need to modify this URL to include the success_url parameter
+  const baseStripeUrl = 'https://buy.stripe.com/test_6oE8yM1y7atV9qM8ww';
+  const stripeCheckoutUrl = `${baseStripeUrl}?success_url=${encodeURIComponent(successUrl)}`;
   
   // Track the event (for analytics purposes)
   console.log('Redirecting to Stripe checkout for:', formulaName);
+  console.log('Success URL:', successUrl);
   
   // Short delay to show loading animation
   setTimeout(() => {
     // Redirect to Stripe Checkout
     window.location.href = stripeCheckoutUrl;
   }, 800);
+}
+
+/**
+ * Generate a secure token for verification
+ * @returns {string} - Secure random token
+ */
+function generateSecureToken() {
+  // Create a timestamp component
+  const timestamp = Date.now().toString();
+  
+  // Create a random component (random alphanumeric string)
+  const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let random = '';
+  for (let i = 0; i < 16; i++) {
+    random += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+  }
+  
+  // Combine timestamp and random components
+  return `${timestamp}-${random}`;
 }
 
 /**
