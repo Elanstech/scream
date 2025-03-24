@@ -3,1231 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="S-Cream - Premium female enhancement cream for enhanced sensation and intimacy. Clinically proven ingredients in a discreet formula.">
-    <title>S-Cream | Elevate Your Intimate Experiences</title>
+    <title>S-Cream | Premium Intimate Enhancement</title>
+    <meta name="description" content="Clinically-formulated cream for enhanced sensation and pleasure">
     
-    <!-- Preconnect to external resources -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Core CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     
-    <!-- Defer non-critical JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-    <script src="js/script.js" defer></script>
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <!-- Floating Bubbles Background -->
+    <div class="bubble-background">
+        <div class="bubble x1"></div>
+        <div class="bubble x2"></div>
+        <div class="bubble x3"></div>
+        <div class="bubble x4"></div>
+        <div class="bubble x5"></div>
+    </div>
+
     <!-- Header -->
-    <header class="site-header" id="header">
-        <div class="header-container">
-            <!-- Logo -->
-            <a href="/" class="logo" aria-label="S-Cream Home">
-                <h1 class="logo-text">s-cream</h1>
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon">✨</span>
+                <span class="logo-text">S-Cream</span>
             </a>
 
-            <!-- Desktop Navigation -->
-            <nav class="nav-desktop" aria-label="Main navigation">
-                <ul class="nav-list">
-                    <li><a href="#benefits" class="nav-link">Benefits</a></li>
-                    <li><a href="#science" class="nav-link">Science</a></li>
-                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#science">Science</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                 </ul>
             </nav>
 
-            <!-- Header Actions -->
             <div class="header-actions">
-                <a href="quiz.html" class="btn-consultation">Take the Quiz</a>
-                <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
-                    <span class="menu-bar"></span>
-                    <span class="menu-bar"></span>
-                    <span class="menu-bar"></span>
+                <a href="#quiz" class="btn btn-primary">Take Quiz</a>
+                <button class="menu-toggle" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
-            <div class="mobile-nav-container">
-                <nav class="nav-mobile" aria-label="Mobile navigation">
-                    <ul class="nav-list">
-                        <li><a href="#benefits" class="nav-link">Benefits</a></li>
-                        <li><a href="#science" class="nav-link">Science</a></li>
-                        <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                        <li><a href="#faq" class="nav-link">FAQ</a></li>
-                    </ul>
-                </nav>
-                <div class="mobile-nav-footer">
-                    <a href="quiz.html" class="btn-consultation-mobile">Take the Quiz</a>
-                </div>
             </div>
         </div>
     </header>
-    
-   <!-- Hero Section with Modern Design -->
-   <section class="hero" id="hero">
-        <div class="hero-video-background">
-            <video autoplay loop muted playsinline class="hero-video">
-                <source src="https://images.unsplash.com/video/upload/v1617411663/marketing/product-demo.mp4" type="video/mp4">
-            </video>
-            <div class="hero-overlay"></div>
-        </div>
 
-        <!-- Animated Background Elements -->
-        <div class="hero-background">
-            <div class="bg-gradient"></div>
-            <div class="bg-particles"></div>
-            <div class="bg-circle circle-1"></div>
-            <div class="bg-circle circle-2"></div>
-            <div class="bg-circle circle-3"></div>
-        </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <nav>
+            <ul>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#science">Science</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <a href="#quiz" class="btn btn-primary">Take Quiz</a>
+        </nav>
+    </div>
 
-        <!-- Hero Content Container -->
-        <div class="hero-content-wrapper">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
             <div class="hero-content">
-                <!-- Text Column -->
-                <div class="hero-text-column">
-                    <span class="hero-tagline">Clinically Formulated</span>
-                    
-                    <h2 class="hero-title">
-                        <span class="title-line">Discover More</span>
-                        <span class="title-line highlight">Sensation & Pleasure</span>
-                        <span class="title-line">Every Time</span>
-                    </h2>
-                    
-                    <p class="hero-description">
-                        Our scientifically-backed topical cream enhances sensitivity, increases blood flow, and intensifies every sensation for a more fulfilling intimate experience.
-                    </p>
-                    
-                    <!-- Feature Highlights -->
-                    <div class="feature-highlights">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <span>Dermatologist Tested</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round"/>
-                                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <span>Works in 15 Minutes</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                    <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <span>98% Satisfaction Rate</span>
-                        </div>
-                    </div>
-                    
-                    <!-- CTA Buttons -->
-                    <div class="hero-cta-group">
-                        <a href="quiz.html" class="primary-cta btn-pulse">
-                            <span>Get Started</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </a>
-                        <a href="#science" class="secondary-cta">
-                            <span>Learn How It Works</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-width="2"/>
-                            </svg>
-                        </a>
-                    </div>
-                    
-                    <!-- Social Proof -->
-                    <div class="social-proof">
-                        <div class="ratings">
-                            <div class="stars">★★★★★</div>
-                            <span class="rating-count">4.9/5 from 12k+ reviews</span>
-                        </div>
-                        <div class="shipping-info">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8" stroke-width="2"/>
-                                <circle cx="8" cy="18" r="1" stroke-width="2"/>
-                                <circle cx="16" cy="18" r="1" stroke-width="2"/>
-                            </svg>
-                            <span>Free Discreet 2-Day Shipping</span>
-                        </div>
-                    </div>
-                </div>
+                <span class="eyebrow">Clinically Proven</span>
+                <h1>Elevate Your <span class="highlight">Intimate</span> Experiences</h1>
+                <p class="subtitle">Our scientifically-formulated cream enhances sensitivity and pleasure with natural ingredients</p>
                 
-                <!-- Product Column -->
-                <div class="hero-product-column">
-                    <div class="product-container">
-                        <!-- Main Product Image with 3D effect -->
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" alt="S-Cream Female Enhancement Product" class="floating" width="400" height="400">
-                            <div class="product-glow"></div>
-                        </div>
-                        
-                        <!-- Animated Benefit Badges -->
-                        <div class="product-benefits">
-                            <div class="benefit-badge badge-1">
-                                <span class="badge-text">Enhanced Sensitivity</span>
-                            </div>
-                            <div class="benefit-badge badge-2">
-                                <span class="badge-text">Clinically Proven</span>
-                            </div>
-                            <div class="benefit-badge badge-3">
-                                <span class="badge-text">Long-Lasting Effect</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Product Stats -->
-                        <div class="product-stats">
-                            <div class="stat-item">
-                                <div class="stat-number">15<span>min</span></div>
-                                <div class="stat-label">Fast Acting</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">2<span>hr</span></div>
-                                <div class="stat-label">Duration</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">100<span>%</span></div>
-                                <div class="stat-label">Money-Back Guarantee</div>
-                            </div>
-                        </div>
+                <div class="hero-features">
+                    <div class="feature">
+                        <div class="feature-icon">🌿</div>
+                        <span>Natural Ingredients</span>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Subtle scroll indicator -->
-        <div class="scroll-indicator">
-            <span>Scroll to Learn More</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Social Proof Section with Modernized Design -->
-    <section class="advanced-social-proof" id="benefits">
-        <div class="social-proof-container">
-            <header class="section-header">
-                <span class="section-eyebrow">Women's Sexual Wellness</span>
-                <h2 class="section-title">Pleasure Should Be Your Birthright</h2>
-                <p class="section-subtitle">Thousands of women have rediscovered their sensuality with S-Cream</p>
-            </header>
-
-            <div class="social-proof-grid">
-                <div class="proof-column stats-column">
-                    <div class="column-header">
-                        <h3>Real Results</h3>
-                        <p>Backed by scientific research and real experiences</p>
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <span>Fast-Acting</span>
                     </div>
-                    <div class="stats-marquee">
-                        <div class="stat-item">
-                            <span class="stat-number">12k+</span>
-                            <span class="stat-label">Happy Customers</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">98%</span>
-                            <span class="stat-label">Satisfaction Rate</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">15</span>
-                            <span class="stat-label">Minutes to Feel Effects</span>
-                        </div>
-                    </div>
-                    <div class="stat-disclaimer">
-                        <p>*Based on clinical studies and customer surveys</p>
+                    <div class="feature">
+                        <div class="feature-icon">🔒</div>
+                        <span>Discreet Shipping</span>
                     </div>
                 </div>
 
-                <div class="proof-column results-column">
-                    <div class="column-header">
-                        <h3>Clinical Insights</h3>
-                        <p>Significant improvements in sexual wellness metrics</p>
-                    </div>
-                    <div class="results-grid">
-                        <div class="result-card">
-                            <div class="result-icon" aria-hidden="true">📈</div>
-                            <div class="result-percentage">91%</div>
-                            <div class="result-description">Enhanced Sensation</div>
-                            <div class="result-subtext">Clinically Observed</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-icon" aria-hidden="true">❤️</div>
-                            <div class="result-percentage">94%</div>
-                            <div class="result-description">Increased Satisfaction</div>
-                            <div class="result-subtext">Verified Experiences</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-icon" aria-hidden="true">🌟</div>
-                            <div class="result-percentage">97%</div>
-                            <div class="result-description">Would Recommend</div>
-                            <div class="result-subtext">Based on Customer Data</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="proof-column testimonial-column">
-                    <div class="column-header">
-                        <h3>Customer Stories</h3>
-                        <p>Real women share their transformative experiences</p>
-                    </div>
-                    <div class="testimonial-cards">
-                        <blockquote class="testimonial-card">
-                            <div class="testimonial-avatar" aria-hidden="true">AR</div>
-                            <p>"I was skeptical at first, but the difference was noticeable from the first application. It's subtle yet profound, enhancing every sensation without feeling artificial."</p>
-                            <footer class="testimonial-meta">
-                                <cite class="name">Alicia R.</cite>
-                                <span class="verified">Verified Customer • 39</span>
-                            </footer>
-                        </blockquote>
-                        <blockquote class="testimonial-card">
-                            <div class="testimonial-avatar" aria-hidden="true">MJ</div>
-                            <p>"After two kids, I thought my intimate experiences would never be the same. S-Cream has helped me rediscover sensations I thought were gone forever!"</p>
-                            <footer class="testimonial-meta">
-                                <cite class="name">Morgan J.</cite>
-                                <span class="verified">Verified Customer • 35</span>
-                            </footer>
-                        </blockquote>
-                    </div>
-                    <div class="testimonial-cta">
-                        <a href="#more-stories" class="btn-more-stories">Read More Experiences</a>
-                    </div>
+                <div class="hero-cta">
+                    <a href="#quiz" class="btn btn-primary btn-large">Find Your Formula</a>
+                    <a href="#science" class="btn btn-secondary">How It Works →</a>
                 </div>
             </div>
 
-            <div class="medical-endorsement">
-                <div class="endorsement-content">
-                    <figure class="doctor-profile">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" alt="Dr. Emma Collins" class="doctor-image" width="80" height="80" loading="lazy">
-                        <figcaption class="doctor-info">
-                            <h3>Dr. Emma Collins, MD</h3>
-                            <span class="doctor-credentials">OB/GYN • Sexual Health Specialist • 15+ Years Experience</span>
-                        </figcaption>
-                    </figure>
-                    <blockquote class="doctor-quote">
-                        "Female sexual wellness has been overlooked for too long. S-Cream addresses a real need with a formula that's both effective and safe. I've recommended it to my patients with great results, particularly for those experiencing decreased sensitivity or difficulty reaching climax."
-                    </blockquote>
+            <div class="hero-image">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1610701596061-a84960a07a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2670&q=80" alt="S-Cream Product">
+                    </div>
+                    <div class="product-badge best-seller">
+                        <span>BEST SELLER</span>
+                    </div>
+                    <div class="product-badge discount">
+                        <span>20% OFF</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section - Streamlined and Modern -->
-    <section class="how-it-works" aria-label="How It Works">
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
         <div class="container">
-            <header class="how-it-works-header">
-                <span class="section-eyebrow">Simple & Effective</span>
-                <h2 class="section-title">How S-Cream Works</h2>
-                <p class="section-subtitle">A scientifically formulated approach to enhanced pleasure</p>
-            </header>
-
-            <div class="process-timeline">
-                <!-- Step 1 -->
-                <div class="timeline-step" data-step="1">
-                    <div class="step-content">
-                        <div class="step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
-                                <path d="M20 12H4m16 0l-4 4m4-4l-4-4" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Apply S-Cream</h3>
-                        <p class="step-description">Apply a small amount to intimate areas 15-20 minutes before sexual activity. The proprietary formula is quickly absorbed with no residue.</p>
-                        <div class="step-features">
-                            <span class="feature-tag">Fast Absorbing</span>
-                            <span class="feature-tag">No Sticky Residue</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="timeline-step" data-step="2">
-                    <div class="step-content">
-                        <div class="step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
-                                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Active Ingredients Work</h3>
-                        <p class="step-description">Our clinically-proven formula enhances blood flow to sensitive tissues, increasing responsiveness and sensitivity.</p>
-                        <div class="step-features">
-                            <span class="feature-tag">Increased Blood Flow</span>
-                            <span class="feature-tag">Heightened Sensitivity</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="timeline-step" data-step="3">
-                    <div class="step-content">
-                        <div class="step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Experience More Sensation</h3>
-                        <p class="step-description">Enjoy heightened pleasure, increased sensitivity, and more intense experiences for up to 2 hours.</p>
-                        <div class="step-features">
-                            <span class="feature-tag">Heightened Pleasure</span>
-                            <span class="feature-tag">2+ Hours Duration</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="section-header">
+                <span class="eyebrow">Why Choose S-Cream</span>
+                <h2>Experience <span class="highlight">Enhanced</span> Pleasure</h2>
+                <p class="subtitle">Thousands of women report these benefits</p>
             </div>
 
-            <!-- Call to Action -->
-            <div class="process-cta">
-                <a href="quiz.html" class="btn-start-process">
-                    <span>Find Your Perfect Formula</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </a>
-                <p class="process-guarantee">60-Day Satisfaction Guarantee • Discreet Shipping • Cancel Anytime</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ingredients Section - Modernized -->
-    <section class="ingredients-showcase" id="science" aria-label="Active Ingredients">
-        <div class="container">
-            <header class="ingredients-header">
-                <span class="section-eyebrow">The Science of Pleasure</span>
-                <h2 class="section-title">Clinically-Proven Ingredients</h2>
-                <p class="section-subtitle">Our proprietary blend works synergistically to enhance sensation</p>
-            </header>
-
-            <!-- Ingredient Navigation -->
-            <div class="ingredients-nav" role="tablist">
-                <button class="ingredient-tab active" data-ingredient="l-arginine" role="tab" aria-selected="true" aria-controls="l-arginine-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M20 12H4m16 0l-4 4m4-4l-4-4" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <span>L-Arginine</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="niacin" role="tab" aria-selected="false" aria-controls="niacin-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <span>Niacin</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="peppermint" role="tab" aria-selected="false" aria-controls="peppermint-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M12 2v8m0 4v8M4.93 19.07a10 10 0 010-14.14m14.14 0a10 10 0 010 14.14" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <span>Peppermint Oil</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="menthol" role="tab" aria-selected="false" aria-controls="menthol-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <span>Menthol</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="rosemary" role="tab" aria-selected="false" aria-controls="rosemary-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <span>Rosemary Extract</span>
-                </button>
-            </div>
-            
-            <!-- Ingredient Details Container -->
-            <div class="ingredient-details-container">
-                <!-- L-Arginine Details -->
-                <div id="l-arginine-panel" class="ingredient-detail active" data-ingredient="l-arginine" role="tabpanel" aria-labelledby="tab-l-arginine">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M20 12H4m16 0l-4 4m4-4l-4-4" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">60</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">L-Arginine</h3>
-                            <p class="ingredient-tagline">Natural Blood Flow Enhancer</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Nitric Oxide Production</h4>
-                                        <p>Increases nitric oxide, a natural vasodilator that enhances blood flow to sensitive tissues</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Enhanced Sensitivity</h4>
-                                        <p>More blood flow means greater sensitivity and responsiveness to touch</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Clinically Studied</h4>
-                                        <p>Proven in multiple clinical trials to enhance female sexual response</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="90, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">90%</text>
-                                        </svg>
-                                    </div>
-                                    <p>of study participants reported increased sensitivity and satisfaction within 15 minutes</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="card-icon">💫</div>
+                    <h3>Increased Sensitivity</h3>
+                    <p>Heightened response to touch for more intense experiences</p>
                 </div>
-
-                <!-- Niacin Details -->
-                <div id="niacin-panel" class="ingredient-detail" data-ingredient="niacin" role="tabpanel" aria-labelledby="tab-niacin">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">25</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Niacin</h3>
-                            <p class="ingredient-tagline">Circulation Enhancer</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Microcirculation Boost</h4>
-                                        <p>Temporarily increases circulation to sensitive tissues, creating a gentle warming sensation</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Sensitivity Multiplier</h4>
-                                        <p>Enhances the effect of other ingredients by boosting delivery to target areas</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Fast-Acting</h4>
-                                        <p>Works quickly to prepare tissues for enhanced sensation</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="88, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">88%</text>
-                                        </svg>
-                                    </div>
-                                    <p>of women experienced enhanced blood flow within minutes of application</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="benefit-card">
+                    <div class="card-icon">⏱️</div>
+                    <h3>Fast-Acting</h3>
+                    <p>Noticeable effects within 15-20 minutes of application</p>
                 </div>
-
-                <!-- Peppermint Oil Details -->
-                <div id="peppermint-panel" class="ingredient-detail" data-ingredient="peppermint" role="tabpanel" aria-labelledby="tab-peppermint">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M12 2v8m0 4v8M4.93 19.07a10 10 0 010-14.14m14.14 0a10 10 0 010 14.14" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">15</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Peppermint Oil</h3>
-                            <p class="ingredient-tagline">Natural Sensitivity Enhancer</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Stimulates Nerve Endings</h4>
-                                        <p>Creates a pleasant cooling sensation that heightens sensitivity</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Natural Aphrodisiac</h4>
-                                        <p>The cooling-warming sensation creates a pleasurable contrast</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Arousal Enhancement</h4>
-                                        <p>Increases pleasurable sensations during intimate moments</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="92, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">92%</text>
-                                        </svg>
-                                    </div>
-                                    <p>of users reported enhanced pleasure sensations with the cooling-warming effect</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="benefit-card">
+                    <div class="card-icon">🌱</div>
+                    <h3>Natural Formula</h3>
+                    <p>Clinically-tested ingredients with no harsh chemicals</p>
                 </div>
-
-                <!-- Additional ingredients similar format -->
-                <div id="menthol-panel" class="ingredient-detail" data-ingredient="menthol" role="tabpanel" aria-labelledby="tab-menthol">
-                    <!-- Similar structure to above -->
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">20</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Menthol</h3>
-                            <p class="ingredient-tagline">Sensory Experience Enhancer</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Gentle Cooling Sensation</h4>
-                                        <p>Creates an exciting cooling sensation that transitions to warmth</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Sensitivity Amplifier</h4>
-                                        <p>Temporary cooling effect makes touch feel more intense</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Circulation Support</h4>
-                                        <p>Works synergistically with other ingredients to enhance blood flow</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="89, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">89%</text>
-                                        </svg>
-                                    </div>
-                                    <p>improvement in sensation intensity in controlled studies</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="benefit-card">
+                    <div class="card-icon">❤️</div>
+                    <h3>Improved Blood Flow</h3>
+                    <p>Enhanced circulation for better responsiveness</p>
                 </div>
-
-                <div id="rosemary-panel" class="ingredient-detail" data-ingredient="rosemary" role="tabpanel" aria-labelledby="tab-rosemary">
-                    <!-- Similar structure to above -->
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">10</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Rosemary Extract</h3>
-                            <p class="ingredient-tagline">Natural Circulation Enhancer</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Improves Blood Flow</h4>
-                                        <p>Naturally enhances microcirculation in sensitive tissues</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Antioxidant Properties</h4>
-                                        <p>Protects sensitive skin while enhancing responsiveness</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Natural Formula</h4>
-                                        <p>Plant-based ingredient that works harmoniously with your body</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="85, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">85%</text>
-                                        </svg>
-                                    </div>
-                                    <p>of participants reported enhanced sensation and responsiveness</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="benefit-card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Scientifically Proven</h3>
+                    <p>Backed by clinical research and studies</p>
                 </div>
-            </div>
-
-            <!-- Mobile Ingredient Navigation -->
-            <div class="mobile-ingredient-nav">
-                <div class="nav-scroll" role="tablist">
-                    <button class="quick-nav-item active" data-ingredient="l-arginine" role="tab" aria-selected="true">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">L-Arginine</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="niacin" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Niacin</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="peppermint" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Peppermint</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="menthol" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Menthol</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="rosemary" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Rosemary</span>
-                    </button>
+                <div class="benefit-card">
+                    <div class="card-icon">😊</div>
+                    <h3>98% Satisfaction</h3>
+                    <p>Our customers report significant improvements</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Reviews Section - Added for More Social Proof -->
-    <section class="reviews-section" id="reviews">
+    <!-- Science Section -->
+    <section class="science" id="science">
         <div class="container">
-            <header class="reviews-header">
-                <span class="section-eyebrow">Real Results</span>
-                <h2 class="section-title">What Women Are Saying</h2>
-                <div class="reviews-rating">
+            <div class="section-header">
+                <span class="eyebrow">The Science Behind</span>
+                <h2>How <span class="highlight">S-Cream</span> Works</h2>
+                <p class="subtitle">Our proprietary blend activates your body's natural responses</p>
+            </div>
+
+            <div class="science-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Apply</h3>
+                        <p>Gently massage a small amount onto intimate areas</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Activate</h3>
+                        <p>Ingredients stimulate blood flow within minutes</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Experience</h3>
+                        <p>Enjoy heightened sensitivity and pleasure</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ingredients">
+                <h3>Key Ingredients</h3>
+                <div class="ingredients-grid">
+                    <div class="ingredient">
+                        <div class="ingredient-icon">🌿</div>
+                        <h4>L-Arginine</h4>
+                        <p>Boosts nitric oxide for improved circulation</p>
+                    </div>
+                    <div class="ingredient">
+                        <div class="ingredient-icon">❄️</div>
+                        <h4>Menthol</h4>
+                        <p>Creates a pleasant cooling sensation</p>
+                    </div>
+                    <div class="ingredient">
+                        <div class="ingredient-icon">⚡</div>
+                        <h4>Niacin</h4>
+                        <p>Enhances blood flow to sensitive tissues</p>
+                    </div>
+                    <div class="ingredient">
+                        <div class="ingredient-icon">🌱</div>
+                        <h4>Rosemary Extract</h4>
+                        <p>Natural antioxidant that supports circulation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">Real Experiences</span>
+                <h2>What <span class="highlight">Women</span> Are Saying</h2>
+                <div class="rating">
                     <div class="stars">★★★★★</div>
-                    <span>4.9 out of 5 stars based on 12,000+ reviews</span>
+                    <span>4.9/5 from 12,000+ reviews</span>
                 </div>
-            </header>
+            </div>
 
             <div class="reviews-grid">
                 <div class="review-card">
-                    <div class="review-top">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">SJ</div>
-                            <div class="reviewer-meta">
-                                <h3 class="reviewer-name">Sarah J.</h3>
-                                <div class="review-stars">★★★★★</div>
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <div class="avatar">S</div>
+                            <div class="info">
+                                <h4>Sarah J.</h4>
+                                <div class="stars">★★★★★</div>
                             </div>
                         </div>
-                        <div class="verified-badge">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"/>
-                            </svg>
-                            <span>Verified Purchase</span>
-                        </div>
+                        <span class="verified">Verified Buyer</span>
                     </div>
-                    <h4 class="review-title">Game-Changing Experience</h4>
-                    <p class="review-text">"After having two children, intimacy wasn't what it used to be. S-Cream has completely transformed my experiences - the sensation is incredible, and my partner has noticed the difference too. I feel like I've rediscovered a part of myself."</p>
-                    <div class="review-date">July 15, 2023</div>
+                    <div class="review-content">
+                        <p>"After two kids, I thought my intimate experiences would never be the same. S-Cream has helped me rediscover sensations I thought were gone forever!"</p>
+                    </div>
                 </div>
-
+                
                 <div class="review-card">
-                    <div class="review-top">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">LP</div>
-                            <div class="reviewer-meta">
-                                <h3 class="reviewer-name">Lisa P.</h3>
-                                <div class="review-stars">★★★★★</div>
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <div class="avatar">M</div>
+                            <div class="info">
+                                <h4>Maria K.</h4>
+                                <div class="stars">★★★★★</div>
                             </div>
                         </div>
-                        <div class="verified-badge">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"/>
-                            </svg>
-                            <span>Verified Purchase</span>
-                        </div>
+                        <span class="verified">Verified Buyer</span>
                     </div>
-                    <h4 class="review-title">Subtle But Powerful</h4>
-                    <p class="review-text">"I was skeptical at first, but the results are incredible. The cooling sensation is followed by warmth and increased sensitivity. It's not overwhelming - just a heightened version of your natural sensations. Shipping was fast and discreet too!"</p>
-                    <div class="review-date">August 3, 2023</div>
+                    <div class="review-content">
+                        <p>"I was skeptical but the difference was noticeable from the first use. It's subtle yet profound - enhancing every sensation without feeling artificial."</p>
+                    </div>
                 </div>
-
+                
                 <div class="review-card">
-                    <div class="review-top">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">RM</div>
-                            <div class="reviewer-meta">
-                                <h3 class="reviewer-name">Rebecca M.</h3>
-                                <div class="review-stars">★★★★★</div>
+                    <div class="review-header">
+                        <div class="reviewer">
+                            <div class="avatar">A</div>
+                            <div class="info">
+                                <h4>Alexis R.</h4>
+                                <div class="stars">★★★★★</div>
                             </div>
                         </div>
-                        <div class="verified-badge">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"/>
-                            </svg>
-                            <span>Verified Purchase</span>
-                        </div>
+                        <span class="verified">Verified Buyer</span>
                     </div>
-                    <h4 class="review-title">Worth Every Penny</h4>
-                    <p class="review-text">"At 42, I thought my best intimate experiences were behind me. After using S-Cream for just a few weeks, I've had some of the most intense experiences of my life. The cooling-to-warming sensation is incredible, and it makes everything more sensitive."</p>
-                    <div class="review-date">September 12, 2023</div>
-                </div>
-
-                <div class="review-card">
-                    <div class="review-top">
-                        <div class="reviewer-info">
-                            <div class="reviewer-avatar">KT</div>
-                            <div class="reviewer-meta">
-                                <h3 class="reviewer-name">Katie T.</h3>
-                                <div class="review-stars">★★★★★</div>
-                            </div>
-                        </div>
-                        <div class="verified-badge">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"/>
-                            </svg>
-                            <span>Verified Purchase</span>
-                        </div>
+                    <div class="review-content">
+                        <p>"At 42, I've had some of the most intense experiences of my life since using S-Cream. The cooling-to-warming sensation is incredible."</p>
                     </div>
-                    <h4 class="review-title">My Secret Weapon</h4>
-                    <p class="review-text">"This has become my secret weapon for special nights. The sensations start within minutes and last for hours. It's not overpowering - just enhances everything in the most amazing way. I've already converted three of my friends!"</p>
-                    <div class="review-date">October 5, 2023</div>
                 </div>
-            </div>
-
-            <div class="reviews-cta">
-                <a href="quiz.html" class="btn-reviews-cta">
-                    Find Your Perfect Match
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </a>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="faq-section" id="faq" aria-label="Frequently Asked Questions">
+    <section class="faq" id="faq">
         <div class="container">
-            <!-- Section Header -->
-            <header class="section-header">
-                <span class="section-eyebrow">Your Questions Answered</span>
-                <h2 class="section-title">
-                    Frequently Asked
-                    <span class="title-emphasis">Questions</span>
-                </h2>
-                <p class="section-subtitle">Everything you need to know about S-Cream</p>
-            </header>
-
-            <!-- FAQ Categories -->
-            <div class="faq-categories" role="tablist">
-                <button class="category-btn active" data-category="all" role="tab" aria-selected="true">All Questions</button>
-                <button class="category-btn" data-category="usage" role="tab" aria-selected="false">Usage & Effects</button>
-                <button class="category-btn" data-category="safety" role="tab" aria-selected="false">Safety</button>
-                <button class="category-btn" data-category="shipping" role="tab" aria-selected="false">Shipping & Privacy</button>
+            <div class="section-header">
+                <span class="eyebrow">Need Answers?</span>
+                <h2>Frequently <span class="highlight">Asked</span> Questions</h2>
             </div>
 
-            <!-- FAQ Grid -->
-            <div class="faq-grid">
-                <!-- How quickly does it work? -->
-                <div class="faq-card" data-category="usage">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-1">
-                        <div class="question-content">
-                            <h3>How quickly does S-Cream work?</h3>
-                            <p class="preview-text">Timing and duration information</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+            <div class="faq-accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>How quickly does S-Cream work?</span>
+                        <span class="icon">+</span>
                     </button>
-                    <div id="faq-answer-1" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>S-Cream begins working within 15 minutes of application, with effects typically lasting 1-2 hours. The experience usually follows this timeline:</p>
-                            <ul>
-                                <li><strong>First 5 Minutes:</strong> A gentle cooling sensation as the formula activates</li>
-                                <li><strong>15-20 Minutes:</strong> Full activation with enhanced sensitivity and responsiveness</li>
-                                <li><strong>1-2 Hours:</strong> Continued heightened sensation during intimate activities</li>
-                            </ul>
-                            <div class="info-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">15</span>
-                                    <span class="metric-label">Minutes to Feel Effects</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">2+</span>
-                                    <span class="metric-label">Hours Duration</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="accordion-content">
+                        <p>S-Cream begins working within 15 minutes of application, with effects typically lasting 1-2 hours. Most users notice a gentle cooling sensation that transitions to warmth as blood flow increases.</p>
                     </div>
                 </div>
-
-                <!-- Is it safe? -->
-                <div class="faq-card" data-category="safety">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-2">
-                        <div class="question-content">
-                            <h3>Is S-Cream safe for all women?</h3>
-                            <p class="preview-text">Safety information and precautions</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Is S-Cream safe to use?</span>
+                        <span class="icon">+</span>
                     </button>
-                    <div id="faq-answer-2" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>S-Cream is safe for most healthy adult women. Our formula has been dermatologically tested and is made with ingredients that have been clinically studied. However, we recommend caution if you:</p>
-                            <ul>
-                                <li>Are pregnant or breastfeeding</li>
-                                <li>Have sensitive skin or known allergies to any ingredients</li>
-                                <li>Have any medical conditions affecting your intimate areas</li>
-                                <li>Are currently using other topical products in the same area</li>
-                            </ul>
-                            <p>We always recommend doing a small patch test on your inner wrist before applying to intimate areas. If you experience any discomfort, rinse immediately with cool water.</p>
-                        </div>
+                    <div class="accordion-content">
+                        <p>Yes, S-Cream is formulated with dermatologist-tested ingredients. We recommend doing a patch test first if you have sensitive skin. Avoid use if pregnant, breastfeeding, or if you have any medical conditions affecting intimate areas.</p>
                     </div>
                 </div>
-
-                <!-- How to apply -->
-                <div class="faq-card" data-category="usage">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-3">
-                        <div class="question-content">
-                            <h3>How do I apply S-Cream for best results?</h3>
-                            <p class="preview-text">Application tips and best practices</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>How should I apply S-Cream?</span>
+                        <span class="icon">+</span>
                     </button>
-                    <div id="faq-answer-3" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>For optimal results with S-Cream:</p>
-                            <ol>
-                                <li><strong>Timing:</strong> Apply 15-20 minutes before intimate activity</li>
-                                <li><strong>Amount:</strong> Use a small pea-sized amount (a little goes a long way!)</li>
-                                <li><strong>Application:</strong> Gently apply to external intimate areas, focusing on the most sensitive regions</li>
-                                <li><strong>Absorption:</strong> Allow the cream to fully absorb - it leaves no residue</li>
-                            </ol>
-                            <p>The cooling sensation upon application is normal and will transition to enhanced sensitivity. Remember that S-Cream enhances your natural responses, so combining with foreplay and relaxation leads to the best experience.</p>
-                        </div>
+                    <div class="accordion-content">
+                        <p>Apply a pea-sized amount to external intimate areas 15-20 minutes before intimacy. Gently massage until fully absorbed. A little goes a long way - start with a small amount to test your sensitivity.</p>
                     </div>
                 </div>
-
-                <!-- Shipping and Privacy -->
-                <div class="faq-card" data-category="shipping">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-4">
-                        <div class="question-content">
-                            <h3>How is S-Cream shipped? Is it discreet?</h3>
-                            <p class="preview-text">Information about shipping and privacy</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>Is shipping discreet?</span>
+                        <span class="icon">+</span>
                     </button>
-                    <div id="faq-answer-4" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>We take your privacy very seriously. All S-Cream shipments are:</p>
-                            <ul>
-                                <li><strong>Discreetly Packaged:</strong> Plain unmarked box with no indication of contents</li>
-                                <li><strong>Shipping Label:</strong> Shows only "SCR Health" as the sender</li>
-                                <li><strong>Billing Statement:</strong> Appears as "SCR Health" on your credit card</li>
-                                <li><strong>Fast Delivery:</strong> Free 2-day shipping on all orders</li>
-                            </ul>
-                            <p>Your personal information is never sold or shared with third parties. We use end-to-end encryption for all transactions to ensure your information remains completely private.</p>
-                        </div>
+                    <div class="accordion-content">
+                        <p>Absolutely. All orders ship in plain, unmarked packaging with no indication of contents. Your billing statement will show a neutral descriptor.</p>
                     </div>
                 </div>
-
-                <!-- Subscription Info -->
-                <div class="faq-card" data-category="shipping">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-5">
-                        <div class="question-content">
-                            <h3>Do you offer subscriptions? Can I cancel anytime?</h3>
-                            <p class="preview-text">Information about subscription options</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>What's your return policy?</span>
+                        <span class="icon">+</span>
                     </button>
-                    <div id="faq-answer-5" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>Yes, we offer flexible subscription options to ensure you never run out:</p>
-                            <ul>
-                                <li><strong>Subscription Savings:</strong> Save 20% on every order with a subscription</li>
-                                <li><strong>Flexible Delivery:</strong> Choose delivery every 1, 2, or 3 months</li>
-                                <li><strong>Easy Cancellation:</strong> Cancel, pause, or modify your subscription anytime</li>
-                                <li><strong>No Commitments:</strong> No long-term contracts or cancellation fees</li>
-                            </ul>
-                            <p>Managing your subscription is simple through your account dashboard, or contact our customer care team who can assist with any changes.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Side Effects -->
-                <div class="faq-card" data-category="safety">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-6">
-                        <div class="question-content">
-                            <h3>Are there any side effects?</h3>
-                            <p class="preview-text">Information about potential effects</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
-                    </button>
-                    <div id="faq-answer-6" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>S-Cream is gentle and well-tolerated by most women. The main sensations you'll notice are:</p>
-                            <ul>
-                                <li><strong>Cooling Sensation:</strong> A mild cooling effect that transitions to warmth</li>
-                                <li><strong>Increased Sensitivity:</strong> Heightened responsiveness to touch</li>
-                                <li><strong>Enhanced Blood Flow:</strong> A gentle warming feeling as circulation increases</li>
-                            </ul>
-                            <p>In rare cases, some women may experience temporary mild redness or tingling. If you experience any discomfort, simply wash the area with cool water. If you have particularly sensitive skin, we recommend starting with a very small amount to test your response.</p>
-                            <div class="info-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">99%</span>
-                                    <span class="metric-label">Well Tolerated</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">&lt;1%</span>
-                                    <span class="metric-label">Discontinuation Rate</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="accordion-content">
+                        <p>We offer a 60-day satisfaction guarantee. If you're not completely happy with your results, contact us for a full refund - no questions asked.</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- FAQ Call to Action -->
-            <div class="faq-cta">
-                <h3>Still have questions?</h3>
-                <p>Our team of sexual wellness experts is here to help with any questions or concerns.</p>
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Ready to Transform Your Intimate Experiences?</h2>
+                <p>Join thousands of women who've rediscovered pleasure with S-Cream</p>
                 <div class="cta-buttons">
-                    <a href="quiz.html" class="btn-main">
-                        <span>Take the Quiz</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2"/>
-                        </svg>
-                    </a>
-                    <a href="#contact" class="btn-outline">
-                        <span>Contact Support</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-width="2"/>
-                        </svg>
-                    </a>
+                    <a href="#quiz" class="btn btn-primary btn-large">Get Started</a>
+                    <a href="#reviews" class="btn btn-secondary">Read Reviews</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA Section -->
-    <section class="final-cta-section">
-        <div class="container">
-            <div class="final-cta-content">
-                <h2 class="final-cta-title">Ready to Transform Your Intimate Experiences?</h2>
-                <p class="final-cta-text">Join thousands of women who have rediscovered pleasure and confidence with S-Cream.</p>
-                <div class="final-cta-features">
-                    <div class="cta-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2"/>
-                        </svg>
-                        <span>60-Day Money Back Guarantee</span>
-                    </div>
-                    <div class="cta-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8" stroke-width="2"/>
-                            <circle cx="8" cy="18" r="1" stroke-width="2"/>
-                            <circle cx="16" cy="18" r="1" stroke-width="2"/>
-                        </svg>
-                        <span>Free Discreet 2-Day Shipping</span>
-                    </div>
-                    <div class="cta-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2"/>
-                        </svg>
-                        <span>98% Customer Satisfaction</span>
-                    </div>
-                </div>
-                <a href="quiz.html" class="final-cta-button">
-                    <span>Take the Quiz</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer class="site-footer">
-        <div class="footer-video-container" aria-hidden="true">
-            <video autoplay loop muted playsinline class="footer-background-video">
-                <source src="https://images.unsplash.com/video/upload/v1617411663/marketing/product-demo.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay"></div>
-        </div>
-
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <!-- Brand Column -->
-                <div class="footer-column brand-column">
-                    <div class="footer-logo">
-                        <h2 class="logo-text-footer">s-cream</h2>
-                    </div>
-                    <p class="brand-tagline">Elevating intimate wellness through science and sensuality.</p>
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <span class="logo-icon">✨</span>
+                        <span class="logo-text">S-Cream</span>
+                    </a>
+                    <p>Elevating intimate wellness through science and nature.</p>
                 </div>
-
-                <!-- Quick Links -->
-                <div class="footer-column">
+                
+                <div class="footer-links">
                     <h3>Quick Links</h3>
-                    <ul class="footer-links">
+                    <ul>
                         <li><a href="#benefits">Benefits</a></li>
                         <li><a href="#science">Science</a></li>
                         <li><a href="#reviews">Reviews</a></li>
                         <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
-
-                <!-- Support -->
-                <div class="footer-column">
+                
+                <div class="footer-links">
                     <h3>Support</h3>
-                    <ul class="footer-links">
+                    <ul>
                         <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Track Order</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Medical Resources</a></li>
-                    </ul>
-                </div>
-
-                <!-- Legal -->
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
                         <li><a href="#">Shipping Info</a></li>
-                        <li><a href="#">Returns Policy</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
-
-                <!-- Newsletter -->
-                <div class="footer-column">
+                
+                <div class="footer-newsletter">
                     <h3>Stay Updated</h3>
-                    <p class="newsletter-text">Subscribe for exclusive offers and women's wellness tips</p>
+                    <p>Subscribe for wellness tips and exclusive offers</p>
                     <form class="newsletter-form">
-                        <div class="input-group">
-                            <input type="email" placeholder="Enter your email" required aria-label="Email for newsletter">
-                            <button type="submit" class="subscribe-btn" aria-label="Subscribe">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="18" height="18">
-                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2"/>
-                                </svg>
-                            </button>
-                        </div>
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
                     </form>
                 </div>
             </div>
-
-            <!-- Footer Bottom -->
+            
             <div class="footer-bottom">
-                <div class="footer-info">
-                    <p>These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
-                    <p>&copy; <span id="currentYear">2025</span> S-Cream. All rights reserved.</p>
-                </div>
+                <p>&copy; <span id="current-year">2023</span> S-Cream. All rights reserved.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
-                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Twitter">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
-                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Pinterest">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
-                            <path d="M12 0a12 12 0 00-4.32 23.18c-.08-.79-.15-2.01.03-2.87.17-.8 1.08-5.09 1.08-5.09s-.28-.55-.28-1.37c0-1.28.74-2.24 1.67-2.24.79 0 1.17.59 1.17 1.3 0 .79-.5 1.98-.77 3.08-.22.92.47 1.67 1.38 1.67 1.66 0 2.94-1.75 2.94-4.27 0-2.23-1.6-3.79-3.89-3.79-2.65 0-4.2 1.99-4.2 4.04 0 .8.31 1.67.69 2.13.08.09.09.17.07.26-.07.29-.23.9-.26 1.03-.04.17-.14.21-.32.13-1.19-.55-1.92-2.29-1.92-3.68 0-3 2.2-5.74 6.32-5.74 3.32 0 5.9 2.36 5.9 5.52 0 3.29-2.07 5.94-4.93 5.94-.96 0-1.87-.5-2.18-1.09l-.59 2.24c-.21.83-.79 1.87-1.19 2.5A12 12 0 0012 24c6.63 0 12-5.37 12-12S18.63 0 12 0z"/>
-                        </svg>
-                    </a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Facebook">👍</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="Pinterest">📌</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Main JavaScript (properly linked) -->
+    <!-- Scripts -->
     <script src="js/script.js"></script>
 </body>
 </html>
