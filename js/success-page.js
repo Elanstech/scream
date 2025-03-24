@@ -4,63 +4,6 @@
  */
 
 /**
- * Verify the user came from a valid payment session
- * Redirect to quiz page if no valid token or session ID is found
- * @returns {boolean} - Whether the user has valid access
- */
-function verifyPaymentAccess() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const sessionId = urlParams.get('session_id');
-  const token = urlParams.get('token');
-  
-  console.log('Verification started:');
-  console.log('URL token:', token);
-  console.log('Session ID:', sessionId);
-  
-  // Check for our security token in both localStorage and sessionStorage
-  const storedToken = localStorage.getItem('scream_checkout_token') || sessionStorage.getItem('scream_checkout_token');
-  console.log('Stored token:', storedToken);
-  
-  // Validate token match if both exist
-  const hasValidToken = token && storedToken && token === storedToken;
-  
-  // Check for a valid Stripe session ID (they typically start with cs_)
-  const hasValidSessionId = sessionId && sessionId.startsWith('cs_');
-  
-  // Log validation results
-  console.log('Has valid token:', hasValidToken);
-  console.log('Has valid session ID:', hasValidSessionId);
-  
-  // If we have a session ID but no token, consider it valid 
-  // (Stripe sometimes drops custom parameters)
-  if (hasValidSessionId && !token) {
-    console.log('Allowing access based on valid Stripe session ID only');
-    return true;
-  }
-  
-  // Only redirect if we have neither a valid token nor a valid session ID
-  if (!hasValidToken && !hasValidSessionId) {
-    console.log('Invalid access attempt detected. Redirecting to quiz page.');
-    
-    // Add a delay before redirecting to allow for debugging
-    setTimeout(() => {
-      window.location.href = 'quiz.html';
-    }, 500);
-    
-    return false;
-  }
-  
-  // Clean up tokens if validation succeeded
-  if (hasValidToken) {
-    localStorage.removeItem('scream_checkout_token');
-    sessionStorage.removeItem('scream_checkout_token');
-    console.log('Tokens cleaned up after successful validation');
-  }
-  
-  return true;
-}
-
-/**
  * Initialize the success page functionality
  */
 function initSuccessPage() {
@@ -69,6 +12,10 @@ function initSuccessPage() {
   // Extract URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const sessionId = urlParams.get('session_id');
+  const token = urlParams.get('token');
+  
+  console.log('Session ID:', sessionId);
+  console.log('Token:', token);
   
   // Generate a random order number if not provided
   generateOrderNumber();
@@ -81,25 +28,13 @@ function initSuccessPage() {
 }
 
 /**
- * Document ready event handler with delayed verification
+ * Document ready event handler - no verification
  */
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM content loaded for success page');
   
-  // Create debug panel if needed
-  createDebugPanel();
-  
-  // Verify payment access first - add a small delay to allow for debugging
-  setTimeout(() => {
-    if (!verifyPaymentAccess()) {
-      console.log('Access verification failed');
-      return;
-    }
-    
-    // If verification passes, initialize the success page
-    console.log('Access verification passed, initializing page');
-    initSuccessPage();
-  }, 100);
+  // Initialize the success page immediately without verification
+  initSuccessPage();
   
   // Update current year in footer
   const yearElement = document.getElementById('current-year');
@@ -347,115 +282,4 @@ function logAnalytics(sessionId) {
   
   // This function can be expanded to include actual analytics tracking
   // For example, with Google Analytics or other tracking systems
-  
-  // Example with Google Analytics (if it's included on your page):
-  // if (typeof gtag === 'function') {
-  //     gtag('event', 'purchase_complete', {
-  //         'event_category': 'ecommerce',
-  //         'event_label': 'Payment Successful',
-  //         'value': 99.00
-  //     });
-  // }
-}
-
-/**
- * Create a debug panel for development purposes
- * Does nothing in production
- */
-function createDebugPanel() {
-  // Set to false for production
-  const isDebugMode = true;
-  
-  if (!isDebugMode) return;
-  
-  // Create debug panel element
-  const debugPanel = document.createElement('div');
-  debugPanel.id = 'debug-panel';
-  debugPanel.style.cssText = `
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    background: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: 10px;
-    max-width: 300px;
-    z-index: 9999;
-    font-size: 12px;
-    max-height: 300px;
-    overflow-y: auto;
-  `;
-  
-  // Create title
-  const title = document.createElement('h3');
-  title.textContent = 'Debug Info';
-  title.style.margin = '0 0 10px 0';
-  
-  // Create content container
-  const content = document.createElement('div');
-  content.id = 'debug-content';
-  
-  // Add header and content to panel
-  debugPanel.appendChild(title);
-  debugPanel.appendChild(content);
-  
-  // Add to document
-  document.body.appendChild(debugPanel);
-  
-  // Display URL parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  let paramsHtml = '<strong>URL Parameters:</strong><br>';
-  
-  if (urlParams.toString()) {
-    for (const [key, value] of urlParams.entries()) {
-      paramsHtml += `${key}: ${value}<br>`;
-    }
-  } else {
-    paramsHtml += 'None<br>';
-  }
-  
-  // Display localStorage token
-  const storedToken = localStorage.getItem('scream_checkout_token');
-  paramsHtml += `<br><strong>localStorage Token:</strong> ${storedToken || 'Not found'}<br>`;
-  
-  // Display sessionStorage token
-  const sessionToken = sessionStorage.getItem('scream_checkout_token');
-  paramsHtml += `<strong>sessionStorage Token:</strong> ${sessionToken || 'Not found'}<br>`;
-  
-  // Add initial information
-  content.innerHTML = paramsHtml;
-  
-  // Add console log override to display in debug panel
-  const originalConsoleLog = console.log;
-  console.log = function() {
-    originalConsoleLog.apply(console, arguments);
-    
-    // Add to debug panel
-    const logItem = document.createElement('div');
-    logItem.style.borderBottom = '1px solid #eee';
-    logItem.style.padding = '5px 0';
-    logItem.style.wordBreak = 'break-word';
-    
-    // Format arguments
-    const args = Array.from(arguments).map(arg => {
-      if (typeof arg === 'object') {
-        return JSON.stringify(arg);
-      }
-      return String(arg);
-    }).join(' ');
-    
-    logItem.textContent = args;
-    
-    // Add timestamp
-    const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
-    const timeSpan = document.createElement('span');
-    timeSpan.style.color = '#999';
-    timeSpan.style.fontSize = '10px';
-    timeSpan.textContent = `[${timestamp}] `;
-    
-    logItem.prepend(timeSpan);
-    
-    // Add to panel and scroll to bottom
-    content.appendChild(logItem);
-    debugPanel.scrollTop = debugPanel.scrollHeight;
-  };
 }
