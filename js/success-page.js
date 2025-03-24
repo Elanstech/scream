@@ -5,22 +5,38 @@
 
 /**
  * Verify the user came from a valid payment session
- * Redirect to quiz page if no valid session ID is found
+ * Redirect to quiz page if no valid token or session ID is found
  */
 function verifyPaymentAccess() {
   const urlParams = new URLSearchParams(window.location.search);
   const sessionId = urlParams.get('session_id');
+  const token = urlParams.get('token');
   
-  // If no session ID or it doesn't look like a Stripe session ID (they typically start with cs_)
-  if (!sessionId || !sessionId.startsWith('cs_')) {
-    // Redirect to quiz page
+  // Check for our security token first (from localStorage)
+  const storedToken = localStorage.getItem('scream_checkout_token');
+  const hasValidToken = token && storedToken && token === storedToken;
+  
+  // Check for a valid Stripe session ID (they typically start with cs_)
+  const hasValidSessionId = sessionId && sessionId.startsWith('cs_');
+  
+  // If neither validation method succeeds, redirect to quiz page
+  if (!hasValidToken && !hasValidSessionId) {
+    console.log('Invalid access attempt detected. Redirecting to quiz page.');
     window.location.href = 'quiz.html';
+    return false;
   }
+  
+  // If we successfully validated with token, clear it from storage for security
+  if (hasValidToken) {
+    localStorage.removeItem('scream_checkout_token');
+  }
+  
+  return true;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
     // Verify payment access first
-    verifyPaymentAccess();
+    if (!verifyPaymentAccess()) return;
     
     // Initialize the success page
     initSuccessPage();
