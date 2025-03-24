@@ -146,25 +146,77 @@ section {
 }
 
 /* ======================================
-   4. Header & Navigation
-====================================== */
-/* ======================================
-   Advanced Floating Pill-Shaped Header
+   4. Modern Pill Header (Hero-Integrated)
 ====================================== */
 
-/* Core Header Styles */
-.pill-header-wrapper {
-  position: fixed;
-  top: 1.5rem;
+/* Hero Section with integrated header */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: calc(var(--header-height) + 4rem) 0 var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Hero Background with Video (unchanged) */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Video Background Styles (unchanged) */
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+/* Pill Header Container */
+.hero-pill-header-wrapper {
+  position: absolute;
+  top: 2rem;
   left: 0;
   width: 100%;
   z-index: 1000;
   display: flex;
-  justify-content: center;
-  pointer-events: none; /* Important: lets clicks pass through to content below */
+  flex-direction: column;
+  align-items: center;
 }
 
-.pill-header {
+.hero-pill-header {
   position: relative;
   display: flex;
   align-items: center;
@@ -181,21 +233,9 @@ section {
     0 10px 30px rgba(0, 0, 0, 0.08),
     0 4px 10px rgba(0, 0, 0, 0.05),
     inset 0 1px 2px rgba(255, 255, 255, 0.9);
-  pointer-events: auto; /* Re-enable pointer events for the pill */
-  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   border: 1px solid rgba(255, 255, 255, 0.6);
-  overflow: hidden; /* For the dividers and hover effects */
-}
-
-/* Header Scroll State */
-.pill-header.scrolled {
-  height: 60px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 30px;
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.1),
-    0 4px 8px rgba(0, 0, 0, 0.08),
-    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 10;
 }
 
 /* Pill Sections */
@@ -252,10 +292,6 @@ section {
   width: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
   transition: all 0.3s ease;
-}
-
-.scrolled .logo-image {
-  height: 35px;
 }
 
 /* Navigation Section */
@@ -446,57 +482,12 @@ section {
   opacity: 1;
 }
 
-/* Background Elements */
-.pill-bg-elements {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.pill-glow {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(225, 122, 146, 0.05),
-    transparent 60%
-  );
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.pill-header:hover .pill-glow {
-  opacity: 1;
-}
-
-.pill-shadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 20px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.08),
-    transparent
-  );
-  opacity: 0.5;
-  border-radius: 35px 35px 0 0;
-}
-
 /* Mobile Navigation Panel */
 .mobile-nav-panel {
-  position: fixed;
-  top: 6rem;
-  right: 1rem;
-  width: calc(100% - 2rem);
+  position: absolute;
+  top: 80px;
+  right: 2.5%;
+  width: 95%;
   max-width: 350px;
   background: white;
   border-radius: 20px;
@@ -588,13 +579,19 @@ section {
   animation: button-shine 2.5s infinite;
 }
 
+/* Hero Content Modifications */
+.hero-content {
+  margin-top: 2rem;
+  padding-top: 3rem;
+}
+
 /* Responsive Adjustments */
 @media (min-width: 1024px) {
-  .pill-header-wrapper {
-    top: 2rem;
+  .hero-pill-header-wrapper {
+    top: 2.5rem;
   }
 
-  .pill-header {
+  .hero-pill-header {
     padding: 0 1.5rem;
   }
 
@@ -610,27 +607,31 @@ section {
     display: none;
   }
 
-  .mobile-nav-panel {
-    display: none;
+  .hero-content {
+    margin-top: 2.5rem;
   }
 }
 
 @media (max-width: 1023px) {
-  .pill-header {
+  .hero-pill-header {
     justify-content: space-between;
   }
 
   .logo-section {
     flex: 1;
   }
+  
+  .hero-content {
+    padding-top: 2rem;
+  }
 }
 
 @media (max-width: 767px) {
-  .pill-header-wrapper {
-    top: 1rem;
+  .hero-pill-header-wrapper {
+    top: 1.5rem;
   }
 
-  .pill-header {
+  .hero-pill-header {
     height: 60px;
     border-radius: 30px;
   }
@@ -638,17 +639,31 @@ section {
   .logo-image {
     height: 35px;
   }
-}
-
-/* Adjust top spacing to account for floating header */
-body {
-  padding-top: 5rem;
-}
-
-@media (min-width: 1024px) {
-  body {
-    padding-top: 7rem;
+  
+  .hero-content {
+    padding-top: 1rem;
   }
+}
+
+/* Animation for scroll state */
+.is-scrolled .hero-pill-header {
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
+  height: 60px;
+}
+
+/* Interactive indicator styling for desktop nav */
+.nav-indicator {
+  position: absolute;
+  bottom: 8px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--primary-gradient);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 0;
 }
 
 /* ======================================
