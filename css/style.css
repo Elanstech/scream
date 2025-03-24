@@ -352,7 +352,7 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
 }
 
 /* ======================================
-   5. Hero Section
+   5. Hero Section with Video Background
 ====================================== */
 .hero {
   position: relative;
@@ -374,6 +374,39 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   overflow: hidden;
 }
 
+/* Video Background Styles */
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2); /* Adjust opacity as needed */
+  z-index: -1;
+}
+
 .bg-gradient {
   position: absolute;
   top: 0;
@@ -381,7 +414,8 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   width: 100%;
   height: 100%;
   background: var(--background-gradient);
-  opacity: 0.8;
+  opacity: 0.6; /* Reduced opacity to let video show through */
+  z-index: 0;
 }
 
 .bg-particles {
@@ -393,12 +427,14 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(225, 122, 146, 0.05) 0%, rgba(225, 122, 146, 0.03) 30%, transparent 70%),
     radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.05) 0%, rgba(255, 107, 107, 0.03) 30%, transparent 70%);
+  z-index: 1;
 }
 
 .bg-circle {
   position: absolute;
   border-radius: 50%;
   opacity: 0.05;
+  z-index: 2;
 }
 
 .circle-1 {
@@ -432,6 +468,8 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   grid-template-columns: 1fr;
   gap: var(--spacing-xl);
   align-items: center;
+  position: relative;
+  z-index: 5; /* Ensure content is above background layers */
 }
 
 /* Hero Text Column */
@@ -442,6 +480,8 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
 .hero-title {
   font-size: clamp(2rem, 8vw, 3.5rem);
   margin-bottom: var(--spacing-lg);
+  color: white; /* Changed to white for better contrast with video */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Added shadow for readability */
 }
 
 .title-line {
@@ -458,11 +498,12 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
 
 .hero-description {
   font-size: clamp(1rem, 5vw, 1.25rem);
-  color: var(--text-muted);
+  color: white; /* Changed from var(--text-muted) for better contrast */
   margin-bottom: var(--spacing-xl);
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Added shadow for readability */
 }
 
 /* CTA Buttons */
@@ -509,14 +550,15 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: var(--text);
+  color: white; /* Changed from var(--text) for better contrast */
   font-weight: 500;
   padding: var(--spacing-md);
   transition: color var(--transition-fast);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added shadow for readability */
 }
 
 .secondary-cta:hover {
-  color: var(--accent);
+  color: var(--primary);
 }
 
 .secondary-cta svg {
@@ -728,8 +770,10 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    color: var(--text-muted);
+    color: white; /* Changed from var(--text-muted) for better contrast */
     animation: fadeInUp 0.5s ease 1.5s both;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added shadow for readability */
+    z-index: 10;
   }
   
   .scroll-indicator span {
@@ -745,6 +789,14 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   
   .sticky-cta-mobile {
     display: none;
+  }
+}
+
+/* Mobile optimization for video */
+@media (max-width: 768px) {
+  .hero-video {
+    /* Optional: provide a fallback for low-powered devices */
+    display: block;
   }
 }
 
