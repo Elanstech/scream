@@ -1,6 +1,7 @@
 /**
  * S-Cream Modern Quiz Page Stylesheet
  * A complete redesign for a full-screen, immersive quiz experience
+ * With fixes for icon styling issues
  */
 
 /* ======================================
@@ -109,7 +110,32 @@ img {
 }
 
 /* ======================================
-   3. Header & Navigation
+   3. SVG Icon Global Styles - FIXED
+====================================== */
+svg {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+svg[aria-hidden="true"] {
+  position: relative;
+  top: -1px;
+}
+
+/* Fix for SVG fill and stroke visibility */
+svg path, 
+svg circle, 
+svg rect, 
+svg polyline {
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ======================================
+   4. Header & Navigation
 ====================================== */
 .quiz-header {
   position: fixed;
@@ -163,7 +189,7 @@ img {
 }
 
 /* ======================================
-   4. Progress Indicator
+   5. Progress Indicator
 ====================================== */
 .quiz-progress-container {
   position: fixed;
@@ -250,7 +276,7 @@ img {
 }
 
 /* ======================================
-   5. Main Quiz Container
+   6. Main Quiz Container
 ====================================== */
 .quiz-main {
   flex: 1;
@@ -276,7 +302,7 @@ img {
 }
 
 /* ======================================
-   6. Quiz Visual Section (Left Column)
+   7. Quiz Visual Section (Left Column)
 ====================================== */
 .quiz-visual {
   background-color: #f5f6fa;
@@ -395,10 +421,13 @@ img {
   transform: translateX(5px);
 }
 
+/* FIXED: Feature SVG styling */
 .feature svg {
   width: 24px;
   height: 24px;
   color: var(--primary);
+  fill: none;
+  stroke: currentColor;
 }
 
 .feature span {
@@ -412,7 +441,7 @@ img {
 }
 
 /* ======================================
-   7. Quiz Content Section (Right Column)
+   8. Quiz Content Section (Right Column)
 ====================================== */
 .quiz-content {
   padding: 0 1.5rem;
@@ -462,7 +491,7 @@ img {
 }
 
 /* ======================================
-   8. Quiz Intro Styling
+   9. Quiz Intro Styling
 ====================================== */
 .quiz-heading {
   font-size: 2rem;
@@ -503,10 +532,13 @@ img {
   box-shadow: var(--shadow-md);
 }
 
+/* FIXED: Quiz fact SVG styling */
 .quiz-fact svg {
   width: 24px;
   height: 24px;
   color: var(--primary);
+  fill: none;
+  stroke: currentColor;
   flex-shrink: 0;
 }
 
@@ -532,9 +564,12 @@ img {
   box-shadow: var(--shadow-cta);
 }
 
+/* FIXED: Button SVG styling */
 .quiz-button svg {
   width: 20px;
   height: 20px;
+  fill: none;
+  stroke: currentColor;
   transition: transform var(--transition-fast);
 }
 
@@ -570,7 +605,7 @@ img {
 }
 
 /* ======================================
-   9. Quiz Questions Styling
+   10. Quiz Questions Styling
 ====================================== */
 .question-title {
   font-size: 1.5rem;
@@ -691,9 +726,12 @@ img {
   transform: translateX(-3px);
 }
 
+/* FIXED: Back button SVG styling */
 .quiz-back-button svg {
   width: 20px;
   height: 20px;
+  fill: none;
+  stroke: currentColor;
 }
 
 .quiz-next-button {
@@ -721,9 +759,12 @@ img {
   box-shadow: var(--shadow-cta);
 }
 
+/* FIXED: Next button SVG styling */
 .quiz-next-button svg {
   width: 20px;
   height: 20px;
+  fill: none;
+  stroke: currentColor;
   transition: transform var(--transition-fast);
 }
 
@@ -738,7 +779,7 @@ img {
 }
 
 /* ======================================
-   10. Processing Screen
+   11. Processing Screen
 ====================================== */
 .processing-container {
   display: flex;
@@ -830,6 +871,14 @@ img {
   color: var(--text-muted);
 }
 
+/* FIXED: Step icon SVG styling */
+.step-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+}
+
 .processing-step.completed .step-icon {
   color: var(--success);
   background-color: var(--success);
@@ -850,7 +899,7 @@ img {
 }
 
 /* ======================================
-   11. Results Screen
+   12. Results Screen
 ====================================== */
 .results-container {
   display: flex;
@@ -870,8 +919,11 @@ img {
   position: relative;
 }
 
+/* FIXED: Checkmark icon SVG styling */
 .checkmark-icon {
   stroke-width: 3;
+  fill: none;
+  stroke: currentColor;
   animation: checkmark 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
 
@@ -954,10 +1006,13 @@ img {
   margin-bottom: var(--spacing-sm);
 }
 
+/* FIXED: Highlight item SVG styling */
 .highlight-item svg {
   width: 20px;
   height: 20px;
   color: var(--primary);
+  fill: none;
+  stroke: currentColor;
   flex-shrink: 0;
 }
 
@@ -1016,9 +1071,12 @@ img {
   box-shadow: var(--shadow-cta);
 }
 
+/* FIXED: Checkout button SVG styling */
 .checkout-button svg {
   width: 20px;
   height: 20px;
+  fill: none;
+  stroke: currentColor;
   transition: transform var(--transition-fast);
 }
 
@@ -1042,10 +1100,13 @@ img {
   color: var(--text-muted);
 }
 
+/* FIXED: Security badge SVG styling */
 .security-badge svg {
   width: 16px;
   height: 16px;
   color: var(--text-muted);
+  fill: none;
+  stroke: currentColor;
 }
 
 @media (min-width: 768px) {
@@ -1064,7 +1125,7 @@ img {
 }
 
 /* ======================================
-   12. Loading Overlay
+   13. Loading Overlay
 ====================================== */
 .loading-overlay {
   position: fixed;
@@ -1095,6 +1156,8 @@ img {
 
 .loading-content .spinner {
   margin: 0 auto var(--spacing-lg);
+  width: 60px;
+  height: 60px;
 }
 
 .loading-content p {
@@ -1103,7 +1166,7 @@ img {
 }
 
 /* ======================================
-   13. Footer
+   14. Footer
 ====================================== */
 .quiz-footer {
   background-color: #1a202c;
@@ -1156,7 +1219,105 @@ img {
 }
 
 /* ======================================
-   14. Animations
+   15. Success Page Styles
+====================================== */
+.success-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  background-color: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.success-icon {
+  color: var(--success);
+  margin: 0 auto var(--spacing-lg);
+  animation: checkmark 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.success-icon svg {
+  fill: none;
+  stroke: currentColor;
+}
+
+.success-title {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--success);
+}
+
+.success-message {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: var(--spacing-xl);
+}
+
+.order-details {
+  margin-bottom: var(--spacing-xl);
+  background-color: var(--background-light);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  text-align: left;
+}
+
+.order-details h2 {
+  margin-bottom: var(--spacing-lg);
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.next-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.step {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: var(--border-radius-circle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  margin-bottom: var(--spacing-xs);
+  font-size: 1.1rem;
+}
+
+.step-content p {
+  color: var(--text-light);
+}
+
+.return-home-button {
+  display: inline-block;
+  background: var(--primary-gradient);
+  color: white;
+  font-weight: 600;
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--border-radius-xl);
+  transition: all var(--transition-medium);
+}
+
+.return-home-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-cta);
+}
+
+/* ======================================
+   16. Animations
 ====================================== */
 @keyframes slideInRight {
   from {
