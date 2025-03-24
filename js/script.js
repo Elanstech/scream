@@ -1,6 +1,6 @@
 /**
  * S-Cream Website JavaScript
- * Optimized version with modular structure
+ * Modern, organized script with modular structure
  */
 
 // Wait for DOM to be fully loaded
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const hero = new HeroSection();
   const ingredients = new IngredientsSection();
   const faq = new FAQSection();
-  const testimonials = new TestimonialsSection();
+  const reviews = new ReviewsSection();
   
   // Setup smooth scrolling
   setupSmoothScrolling();
@@ -24,7 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize GSAP animations if available
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     initGSAPAnimations();
+  } else {
+    // Fallback to basic animations
+    setupBasicAnimations();
   }
+  
+  // Initialize Analytics tracking if needed
+  setupAnalytics();
 });
 
 /**
@@ -40,6 +46,20 @@ const Utils = {
     };
   },
   
+  // Throttle function to limit execution frequency
+  throttle(func, limit = 100) {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    };
+  },
+  
   // Check if element is in viewport
   isInViewport(element, offset = 0) {
     const rect = element.getBoundingClientRect();
@@ -51,6 +71,8 @@ const Utils = {
   
   // Add class when element is in viewport
   addClassWhenInView(element, className, offset = 0) {
+    if (!element) return;
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -66,6 +88,13 @@ const Utils = {
   // Handle animation based on reduced motion preference
   handleReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  },
+  
+  // Get scroll percentage of page
+  getScrollPercentage() {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPosition = window.scrollY;
+    return (scrollPosition / docHeight) * 100;
   }
 };
 
@@ -84,6 +113,7 @@ class HeaderManager {
     this.isMenuOpen = false;
     this.lastScrollTop = 0;
     this.scrollThreshold = 50;
+    this.ticking = false;
     
     // Initialize
     this.init();
@@ -107,15 +137,43 @@ class HeaderManager {
     
     // Navigation links
     this.navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (this.mobileNav && this.mobileNav.classList.contains('active')) {
-          this.closeMobileMenu();
+      link.addEventListener('click', (e) => {
+        // If it's a hash link to an element on the page
+        const href = link.getAttribute('href');
+        if (href.startsWith('#') && href.length > 1) {
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+            e.preventDefault();
+            
+            // Close mobile menu if open
+            if (this.isMenuOpen) {
+              this.closeMobileMenu();
+            }
+            
+            // Smooth scroll to the target
+            const headerOffset = this.header.offsetHeight;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
         }
       });
     });
     
-    // Scroll handling
-    window.addEventListener('scroll', Utils.debounce(() => this.handleScroll(), 10));
+    // Optimized scroll handling with throttle
+    window.addEventListener('scroll', () => {
+      if (!this.ticking) {
+        window.requestAnimationFrame(() => {
+          this.handleScroll();
+          this.ticking = false;
+        });
+        this.ticking = true;
+      }
+    });
     
     // Close menu on Escape key
     document.addEventListener('keydown', e => {
@@ -134,6 +192,7 @@ class HeaderManager {
     // Close on outside click
     document.addEventListener('click', e => {
       if (this.isMenuOpen && 
+          this.mobileNav && 
           !this.mobileNav.contains(e.target) && 
           !this.menuToggle.contains(e.target)) {
         this.closeMobileMenu();
@@ -144,21 +203,27 @@ class HeaderManager {
   toggleMobileMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     document.body.classList.toggle('menu-open', this.isMenuOpen);
-    this.mobileNav.classList.toggle('active', this.isMenuOpen);
     
-    // Update ARIA attributes
-    this.menuToggle.setAttribute('aria-expanded', this.isMenuOpen);
-    this.mobileNav.setAttribute('aria-hidden', !this.isMenuOpen);
+    if (this.mobileNav) {
+      this.mobileNav.classList.toggle('active', this.isMenuOpen);
+      
+      // Update ARIA attributes
+      this.menuToggle.setAttribute('aria-expanded', this.isMenuOpen);
+      this.mobileNav.setAttribute('aria-hidden', !this.isMenuOpen);
+    }
   }
   
   closeMobileMenu() {
     this.isMenuOpen = false;
     document.body.classList.remove('menu-open');
-    this.mobileNav.classList.remove('active');
     
-    // Update ARIA attributes
-    this.menuToggle.setAttribute('aria-expanded', 'false');
-    this.mobileNav.setAttribute('aria-hidden', 'true');
+    if (this.mobileNav) {
+      this.mobileNav.classList.remove('active');
+      
+      // Update ARIA attributes
+      this.menuToggle.setAttribute('aria-expanded', 'false');
+      this.mobileNav.setAttribute('aria-hidden', 'true');
+    }
   }
   
   handleScroll() {
@@ -167,16 +232,24 @@ class HeaderManager {
     // Add or remove scrolled class
     if (currentScrollTop > this.scrollThreshold) {
       this.header.classList.add('header-scrolled');
+      this.header.style.boxShadow = 'var(--shadow-md)';
     } else {
       this.header.classList.remove('header-scrolled');
+      this.header.style.boxShadow = 'var(--shadow-sm)';
     }
     
-    // Hide/show header on scroll
-    if (currentScrollTop > this.lastScrollTop && currentScrollTop > this.header.offsetHeight) {
-      // Scrolling down
-      this.header.style.transform = 'translateY(-100%)';
+    // Hide/show header on scroll (only on larger screens)
+    if (window.innerWidth >= 768) {
+      // Check if scrolling down and past the threshold
+      if (currentScrollTop > this.lastScrollTop && currentScrollTop > this.header.offsetHeight) {
+        // Scrolling down - hide header
+        this.header.style.transform = 'translateY(-100%)';
+      } else {
+        // Scrolling up - show header
+        this.header.style.transform = 'translateY(0)';
+      }
     } else {
-      // Scrolling up
+      // Always show header on mobile
       this.header.style.transform = 'translateY(0)';
     }
     
@@ -185,7 +258,7 @@ class HeaderManager {
 }
 
 /**
- * Hero Section
+ * Hero Section Manager
  */
 class HeroSection {
   constructor() {
@@ -193,6 +266,7 @@ class HeroSection {
     this.section = document.querySelector('.hero');
     this.productImage = document.querySelector('.product-image');
     this.ctaButtons = document.querySelectorAll('.hero-cta-group a');
+    this.scrollIndicator = document.querySelector('.scroll-indicator');
     
     // Initialize if elements exist
     if (this.section) {
@@ -200,199 +274,132 @@ class HeroSection {
     }
   }
   
-  /**
-   * Initialize all hero section functionality
-   */
   init() {
-    // Set up 3D tilt effect
+    // Set up 3D tilt effect for product
     this.setupTiltEffect();
     
     // Set up parallax for background elements
-    this.setupParallax();
+    this.setupParallaxEffect();
     
-    // Track visibility for analytics
-    this.trackButtonVisibility();
+    // Set up CTA button interactions
+    this.setupCtaInteractions();
     
-    // Set up CTA button interaction tracking
-    this.trackCtaInteractions();
-    
-    // Set up scroll indicator interaction
+    // Set up scroll indicator
     this.setupScrollIndicator();
   }
   
-  /**
-   * Set up 3D tilt effect for product image
-   */
   setupTiltEffect() {
-    // Only setup on desktop devices
-    if (window.innerWidth >= 1024 && this.productImage) {
-      // Skip on devices with reduced motion preference
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Only setup on desktop devices and if product image exists
+    if (window.innerWidth >= 1024 && this.productImage && !Utils.handleReducedMotion()) {
+      const container = this.productImage;
+      const img = container.querySelector('img');
       
-      this.productImage.addEventListener('mousemove', (e) => {
-        const rect = this.productImage.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+      if (!img) return;
+      
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         
         // Calculate mouse position relative to center (range: -1 to 1)
-        const ratioX = (e.clientX - centerX) / (rect.width / 2);
-        const ratioY = (e.clientY - centerY) / (rect.height / 2);
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const percentX = (x - centerX) / centerX;
+        const percentY = (y - centerY) / centerY;
         
-        // Apply 3D tilt effect (limit tilt to 15 degrees)
-        this.productImage.style.transform = `perspective(1000px) rotateX(${-ratioY * 10}deg) rotateY(${ratioX * 10}deg) scale3d(1.05, 1.05, 1.05)`;
+        // Apply 3D tilt effect (limit tilt to 10 degrees)
+        img.style.transform = `perspective(1000px) rotateX(${-percentY * 10}deg) rotateY(${percentX * 10}deg) scale3d(1.05, 1.05, 1.05)`;
       });
       
       // Reset transform on mouse leave
-      this.productImage.addEventListener('mouseleave', () => {
-        this.productImage.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      container.addEventListener('mouseleave', () => {
+        img.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       });
     }
   }
   
-  /**
-   * Set up parallax effect for background elements
-   */
-  setupParallax() {
-    // Only if background circles exist
-    const circles = document.querySelectorAll('.bg-circle');
-    if (circles.length === 0) return;
+  setupParallaxEffect() {
+    // Set up parallax effect for background elements
+    const bgCircles = document.querySelectorAll('.bg-circle');
     
-    // Skip on devices with reduced motion preference
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (bgCircles.length === 0 || Utils.handleReducedMotion()) return;
     
-    // Apply parallax effect on mouse move
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', Utils.throttle((e) => {
       const mouseX = e.clientX / window.innerWidth;
       const mouseY = e.clientY / window.innerHeight;
       
-      circles.forEach((circle, index) => {
-        // Different parallax speeds for each circle
-        const speed = 1 - (index * 0.2);
-        const offsetX = 50 * (mouseX - 0.5) * speed;
-        const offsetY = 50 * (mouseY - 0.5) * speed;
+      bgCircles.forEach((circle, index) => {
+        // Different parallax intensity for each circle
+        const multiplier = 30 * (1 - (index * 0.2));
+        const offsetX = (mouseX - 0.5) * multiplier;
+        const offsetY = (mouseY - 0.5) * multiplier;
         
         circle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
       });
-    });
+    }, 50)); // Throttled for performance
   }
   
-  /**
-   * Track when CTA buttons become visible
-   * This can be used for analytics purposes
-   */
-  trackButtonVisibility() {
-    // Use Intersection Observer to detect when CTAs are visible
-    if (!this.ctaButtons.length || typeof IntersectionObserver === 'undefined') return;
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Button is now visible - could track this event
-          const buttonText = entry.target.querySelector('span').textContent;
-          
-          // Simple console log for demo purposes
-          // In a real implementation, send this to your analytics platform
-          console.log(`CTA Button visible: ${buttonText}`);
-          
-          // Stop observing once tracked
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    
-    // Observe each CTA button
-    this.ctaButtons.forEach(button => observer.observe(button));
-  }
-  
-  /**
-   * Track CTA interactions
-   */
-  trackCtaInteractions() {
+  setupCtaInteractions() {
+    // Add interaction effects to CTA buttons
     if (!this.ctaButtons.length) return;
     
     this.ctaButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        // Get button text for tracking
-        const buttonText = button.querySelector('span').textContent;
-        
-        // Simple console log for demo purposes
-        // In a real implementation, send this to your analytics platform
-        console.log(`CTA Button clicked: ${buttonText}`);
-        
-        // Add clicked animation
-        button.classList.add('clicked');
-        
-        // Remove the animation class after animation completes
-        setTimeout(() => {
-          button.classList.remove('clicked');
-        }, 300);
+      button.addEventListener('mouseenter', () => {
+        const svg = button.querySelector('svg');
+        if (svg) {
+          svg.style.transform = 'translateX(5px)';
+        }
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        const svg = button.querySelector('svg');
+        if (svg) {
+          svg.style.transform = '';
+        }
+      });
+      
+      // Track button clicks for analytics
+      button.addEventListener('click', () => {
+        const buttonText = button.querySelector('span')?.textContent || 'Button';
+        this.trackButtonClick(buttonText);
       });
     });
   }
   
-  /**
-   * Set up scroll indicator interaction
-   */
   setupScrollIndicator() {
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (!scrollIndicator) return;
+    // Set up scroll indicator click behavior
+    if (!this.scrollIndicator) return;
     
-    scrollIndicator.addEventListener('click', () => {
-      // Get section after hero
+    this.scrollIndicator.addEventListener('click', () => {
+      // Find the next section
       const nextSection = this.section.nextElementSibling;
       
       if (nextSection) {
-        // Scroll to the next section with smooth behavior
-        nextSection.scrollIntoView({ behavior: 'smooth' });
+        // Scroll to it with smooth behavior
+        const headerOffset = document.querySelector('.site-header')?.offsetHeight || 0;
+        const elementPosition = nextSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
     });
   }
-}
-
-/**
- * Enhanced Product Interaction
- * (Optional addition - enables interaction with product badges)
- */
-class ProductInteraction {
-  constructor() {
-    this.badges = document.querySelectorAll('.benefit-badge');
-    this.productImage = document.querySelector('.product-image');
-    
-    if (this.badges.length && this.productImage) {
-      this.init();
-    }
-  }
   
-  init() {
-    // Make badges interactive on hover
-    this.badges.forEach(badge => {
-      badge.style.pointerEvents = 'auto';
-      
-      badge.addEventListener('mouseenter', () => {
-        // Highlight badge
-        badge.style.transform = 'scale(1.1)';
-        badge.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.15)';
-        
-        // Pulse product
-        this.productImage.querySelector('img').style.transform = 'scale(1.05)';
-      });
-      
-      badge.addEventListener('mouseleave', () => {
-        // Reset badge
-        badge.style.transform = 'scale(1)';
-        badge.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
-        
-        // Reset product
-        this.productImage.querySelector('img').style.transform = 'scale(1)';
-      });
-    });
+  trackButtonClick(buttonText) {
+    // For future analytics implementation
+    console.log(`Hero CTA clicked: ${buttonText}`);
+    
+    // Example analytics call:
+    // if (typeof gtag !== 'undefined') {
+    //   gtag('event', 'click', {
+    //     'event_category': 'CTA',
+    //     'event_label': buttonText
+    //   });
+    // }
   }
-}
-
-// Initialize product interaction if appropriate
-if (window.innerWidth >= 1024) {
-  // Only on desktop devices
-  new ProductInteraction();
 }
 
 /**
@@ -407,27 +414,28 @@ class IngredientsSection {
     this.mobileNavItems = document.querySelectorAll('.quick-nav-item');
     
     // State
-    this.currentIngredient = 'aminophylline';
+    this.currentIngredient = this.tabs.length > 0 ? 
+      this.tabs[0].getAttribute('data-ingredient') : null;
     
-    // Initialize
+    // Initialize if section exists
     if (this.section) {
       this.init();
     }
   }
   
   init() {
-    // Set up tab functionality
+    // Setup tab functionality
     this.setupTabs();
     
-    // Set up animations
+    // Setup animations for elements
     this.setupAnimations();
     
-    // Handle scroll for mobile
+    // Setup scroll observer for mobile navigation updates
     this.setupScrollObserver();
   }
   
   setupTabs() {
-    // Desktop tab clicks
+    // Add click handlers to desktop tabs
     this.tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const ingredient = tab.getAttribute('data-ingredient');
@@ -436,7 +444,7 @@ class IngredientsSection {
         }
       });
       
-      // Keyboard navigation
+      // Add keyboard accessibility
       tab.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -448,7 +456,7 @@ class IngredientsSection {
       });
     });
     
-    // Mobile nav clicks
+    // Add click handlers to mobile navigation
     this.mobileNavItems.forEach(item => {
       item.addEventListener('click', () => {
         const ingredient = item.getAttribute('data-ingredient');
@@ -464,46 +472,63 @@ class IngredientsSection {
     // Store current ingredient
     this.currentIngredient = ingredient;
     
-    // Update tab state
+    // Update tab states
     this.tabs.forEach(tab => {
       const isActive = tab.getAttribute('data-ingredient') === ingredient;
       tab.classList.toggle('active', isActive);
       tab.setAttribute('aria-selected', isActive);
     });
     
-    // Update mobile nav
+    // Update mobile navigation
     this.mobileNavItems.forEach(item => {
-      item.classList.toggle('active', item.getAttribute('data-ingredient') === ingredient);
-      item.setAttribute('aria-selected', item.getAttribute('data-ingredient') === ingredient);
+      const isActive = item.getAttribute('data-ingredient') === ingredient;
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-selected', isActive);
     });
     
-    // Update details panels
+    // Update ingredient details
     this.details.forEach(detail => {
       if (detail.getAttribute('data-ingredient') === ingredient) {
+        // Make the matching detail visible
         detail.style.display = 'block';
-        // Use requestAnimationFrame to ensure display change has taken effect
-        requestAnimationFrame(() => {
+        
+        // Ensure display change has taken effect then add active class
+        window.requestAnimationFrame(() => {
           detail.classList.add('active');
         });
       } else {
+        // Remove active class from others
         detail.classList.remove('active');
-        // Wait for transition before hiding
+        
+        // Wait for transition to complete before hiding
         const handleTransitionEnd = () => {
           if (!detail.classList.contains('active')) {
             detail.style.display = 'none';
           }
           detail.removeEventListener('transitionend', handleTransitionEnd);
         };
-        detail.addEventListener('transitionend', handleTransitionEnd);
+        
+        // Only add listener if already displayed
+        if (detail.style.display !== 'none') {
+          detail.addEventListener('transitionend', handleTransitionEnd);
+        } else {
+          detail.style.display = 'none';
+        }
       }
     });
+    
+    // Track for analytics
+    this.trackTabChange(ingredient);
   }
   
   scrollToIngredient(ingredient) {
+    // Smooth scroll to ingredient detail
     const detailElement = document.querySelector(`.ingredient-detail[data-ingredient="${ingredient}"]`);
     if (!detailElement) return;
     
-    const offset = window.innerWidth < 768 ? 100 : 50;
+    const headerHeight = document.querySelector('.site-header')?.offsetHeight || 0;
+    const offset = headerHeight + 20; // Add extra padding
+    
     const elementTop = detailElement.getBoundingClientRect().top + window.pageYOffset - offset;
     
     window.scrollTo({
@@ -516,36 +541,56 @@ class IngredientsSection {
     // Skip if reduced motion is preferred
     if (Utils.handleReducedMotion()) return;
     
-    // Add animations to elements when they enter viewport
-    const animateElements = [
-      ...this.tabs,
-      ...document.querySelectorAll('.molecule-circle'),
-      ...document.querySelectorAll('.benefit-item')
-    ];
+    // Animate molecule circles
+    const moleculeCircles = document.querySelectorAll('.molecule-circle');
+    moleculeCircles.forEach(circle => {
+      Utils.addClassWhenInView(circle, 'animate-in');
+    });
     
-    animateElements.forEach(element => {
-      Utils.addClassWhenInView(element, 'animate-in');
+    // Animate benefit items with staggered delay
+    const benefitItems = document.querySelectorAll('.benefit-item');
+    benefitItems.forEach((item, index) => {
+      Utils.addClassWhenInView(item, 'animate-in');
+      item.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    // Animate clinical evidence stats
+    const statCircles = document.querySelectorAll('.stat-circle');
+    statCircles.forEach(circle => {
+      Utils.addClassWhenInView(circle, 'animate-in');
     });
   }
   
   setupScrollObserver() {
-    // Update mobile navigation based on which ingredient is in view
+    // Update mobile navigation when scrolling through sections
+    if (!this.mobileNavItems.length) return;
+    
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const ingredient = entry.target.getAttribute('data-ingredient');
-          if (ingredient) {
-            // Update mobile nav without scrolling
+          if (ingredient && ingredient !== this.currentIngredient) {
+            // Update navigation without scrolling
             this.mobileNavItems.forEach(item => {
-              item.classList.toggle('active', item.getAttribute('data-ingredient') === ingredient);
-              item.setAttribute('aria-selected', item.getAttribute('data-ingredient') === ingredient);
+              const isActive = item.getAttribute('data-ingredient') === ingredient;
+              item.classList.toggle('active', isActive);
+              item.setAttribute('aria-selected', isActive);
             });
+            
+            // Update state but don't scroll
+            this.currentIngredient = ingredient;
           }
         }
       });
     }, { threshold: 0.5 });
     
+    // Observe all ingredient details
     this.details.forEach(detail => observer.observe(detail));
+  }
+  
+  trackTabChange(ingredient) {
+    // For future analytics implementation
+    console.log(`Ingredient tab changed to: ${ingredient}`);
   }
 }
 
@@ -556,7 +601,7 @@ class FAQSection {
   constructor() {
     // Elements
     this.section = document.querySelector('.faq-section');
-    this.categoryButtons = document.querySelectorAll('.faq-section .category-btn');
+    this.categoryButtons = document.querySelectorAll('.faq-categories .category-btn');
     this.faqCards = document.querySelectorAll('.faq-card');
     this.faqTriggers = document.querySelectorAll('.faq-trigger');
     
@@ -564,24 +609,25 @@ class FAQSection {
     this.activeCategory = 'all';
     this.activeCard = null;
     
-    // Initialize
+    // Initialize if section exists
     if (this.section) {
       this.init();
     }
   }
   
   init() {
-    // Set up category filtering
-    this.setupCategories();
+    // Setup category filtering
+    this.setupCategoryFilters();
     
-    // Set up FAQ accordions
+    // Setup accordion functionality
     this.setupAccordions();
     
-    // Set up animations
+    // Setup animations
     this.setupAnimations();
   }
   
-  setupCategories() {
+  setupCategoryFilters() {
+    // Add click event listeners to category buttons
     this.categoryButtons.forEach(button => {
       button.addEventListener('click', () => {
         const category = button.getAttribute('data-category');
@@ -603,35 +649,51 @@ class FAQSection {
       button.setAttribute('aria-selected', isActive);
     });
     
-    // Filter cards
+    // Filter FAQ cards
     this.faqCards.forEach(card => {
       const cardCategory = card.getAttribute('data-category');
       const shouldShow = category === 'all' || cardCategory === category;
       
+      // Animate the filtering
       if (shouldShow) {
+        // First make sure display is block
         card.style.display = 'block';
-      } else {
-        // Close accordion if open
-        const trigger = card.querySelector('.faq-trigger');
-        if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
-          this.closeAccordion(trigger);
-        }
         
-        // Hide after transition
+        // Then animate in
+        setTimeout(() => {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 10);
+      } else {
+        // Animate out then hide
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        // Hide after animation completes
         setTimeout(() => {
           card.style.display = 'none';
         }, 300);
+        
+        // Close any open accordions in this card
+        const trigger = card.querySelector('.faq-trigger[aria-expanded="true"]');
+        if (trigger) {
+          this.closeAccordion(trigger);
+        }
       }
     });
+    
+    // Track for analytics
+    this.trackCategoryChange(category);
   }
   
   setupAccordions() {
+    // Setup click event listeners for accordion triggers
     this.faqTriggers.forEach(trigger => {
       trigger.addEventListener('click', () => {
         this.toggleAccordion(trigger);
       });
       
-      // Keyboard support
+      // Keyboard accessibility
       trigger.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
@@ -646,27 +708,34 @@ class FAQSection {
     const answer = document.getElementById(trigger.getAttribute('aria-controls'));
     const card = trigger.closest('.faq-card');
     
+    if (!answer || !card) return;
+    
     if (isExpanded) {
+      // Close this accordion
       this.closeAccordion(trigger);
     } else {
-      // Close currently open accordion if exists
+      // Close any other open accordion
       if (this.activeCard && this.activeCard !== card) {
-        const activeTrigger = this.activeCard.querySelector('.faq-trigger');
-        this.closeAccordion(activeTrigger);
+        const activeTrigger = this.activeCard.querySelector('.faq-trigger[aria-expanded="true"]');
+        if (activeTrigger) {
+          this.closeAccordion(activeTrigger);
+        }
       }
       
       // Open this accordion
       trigger.setAttribute('aria-expanded', 'true');
       card.classList.add('active');
       
-      // Show answer with animation
+      // Animate opening
       answer.style.display = 'block';
       answer.style.height = '0';
       answer.style.overflow = 'hidden';
       
       // Get the height and animate
       const height = answer.scrollHeight;
-      answer.style.height = height + 'px';
+      setTimeout(() => {
+        answer.style.height = `${height}px`;
+      }, 10);
       
       // Clean up after transition
       const handleTransitionEnd = () => {
@@ -677,8 +746,11 @@ class FAQSection {
       
       answer.addEventListener('transitionend', handleTransitionEnd);
       
-      // Update active card
+      // Update active card reference
       this.activeCard = card;
+      
+      // Track for analytics
+      this.trackAccordionOpen(trigger.querySelector('.question-content h3')?.textContent || 'FAQ item');
     }
   }
   
@@ -686,11 +758,14 @@ class FAQSection {
     const answer = document.getElementById(trigger.getAttribute('aria-controls'));
     const card = trigger.closest('.faq-card');
     
+    if (!answer || !card) return;
+    
     trigger.setAttribute('aria-expanded', 'false');
     card.classList.remove('active');
     
     // Animate closing
-    answer.style.height = answer.scrollHeight + 'px';
+    const height = answer.scrollHeight;
+    answer.style.height = `${height}px`;
     answer.style.overflow = 'hidden';
     
     // Trigger reflow
@@ -719,106 +794,60 @@ class FAQSection {
     // Skip if reduced motion is preferred
     if (Utils.handleReducedMotion()) return;
     
-    // Add animations when scrolling into view
+    // Animate FAQ cards when they enter viewport
     this.faqCards.forEach((card, index) => {
-      Utils.addClassWhenInView(card, 'fade-in');
-      // Add staggered delay
+      Utils.addClassWhenInView(card, 'fade-in', 50);
       card.style.transitionDelay = `${index * 0.1}s`;
     });
+  }
+  
+  trackCategoryChange(category) {
+    // For future analytics implementation
+    console.log(`FAQ category changed to: ${category}`);
+  }
+  
+  trackAccordionOpen(question) {
+    // For future analytics implementation
+    console.log(`FAQ opened: ${question}`);
   }
 }
 
 /**
- * Testimonials Section
+ * Reviews Section Manager
  */
-class TestimonialsSection {
+class ReviewsSection {
   constructor() {
     // Elements
-    this.section = document.querySelector('.testimonials-section');
-    this.cards = document.querySelectorAll('.review-card');
-    this.stats = document.querySelectorAll('.stat-number');
+    this.section = document.querySelector('.reviews-section');
+    this.reviewCards = document.querySelectorAll('.review-card');
+    this.ctaButton = document.querySelector('.btn-reviews-cta');
     
-    // Initialize
+    // Initialize if section exists
     if (this.section) {
       this.init();
     }
   }
   
   init() {
-    // Animate cards on scroll
-    this.animateCards();
+    // Setup animations for review cards
+    this.setupAnimations();
     
-    // Animate stat counters
-    this.animateStats();
-    
-    // Add card interactions
-    this.addCardInteractions();
+    // Setup CTA button interactions
+    this.setupCtaButton();
   }
   
-  animateCards() {
+  setupAnimations() {
     // Skip if reduced motion is preferred
     if (Utils.handleReducedMotion()) return;
     
-    this.cards.forEach((card, index) => {
-      Utils.addClassWhenInView(card, 'fade-in');
-      // Add staggered delay
-      card.style.transitionDelay = `${index * 0.2}s`;
-    });
-  }
-  
-  animateStats() {
-    // Skip if reduced motion is preferred
-    if (Utils.handleReducedMotion()) return;
-    
-    this.stats.forEach(stat => {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.countUp(stat);
-            observer.unobserve(stat);
-          }
-        });
-      }, { threshold: 0.5 });
+    // Animate review cards when they come into view
+    this.reviewCards.forEach((card, index) => {
+      Utils.addClassWhenInView(card, 'fade-in', 50);
+      card.style.transitionDelay = `${index * 0.15}s`;
       
-      observer.observe(stat);
-    });
-  }
-  
-  countUp(element) {
-    const target = parseFloat(element.textContent);
-    const duration = 2000; // 2 seconds
-    const steps = 60;
-    const stepDuration = duration / steps;
-    
-    let current = 0;
-    const increment = target / steps;
-    const isInteger = Number.isInteger(target);
-    
-    const updateNumber = () => {
-      current += increment;
-      
-      if (current <= target) {
-        if (isInteger) {
-          element.textContent = Math.round(current);
-        } else {
-          element.textContent = current.toFixed(1);
-        }
-        setTimeout(updateNumber, stepDuration);
-      } else {
-        element.textContent = target;
-      }
-    };
-    
-    updateNumber();
-  }
-  
-  addCardInteractions() {
-    // Skip if reduced motion is preferred
-    if (Utils.handleReducedMotion()) return;
-    
-    this.cards.forEach(card => {
+      // Add hover effect interactions
       card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px)';
+        card.style.transform = 'translateY(-8px)';
         card.style.boxShadow = 'var(--shadow-lg)';
       });
       
@@ -828,19 +857,128 @@ class TestimonialsSection {
       });
     });
   }
+  
+  setupCtaButton() {
+    // Add interaction effects to CTA button
+    if (!this.ctaButton) return;
+    
+    this.ctaButton.addEventListener('mouseenter', () => {
+      const svg = this.ctaButton.querySelector('svg');
+      if (svg) {
+        svg.style.transform = 'translateX(5px)';
+      }
+    });
+    
+    this.ctaButton.addEventListener('mouseleave', () => {
+      const svg = this.ctaButton.querySelector('svg');
+      if (svg) {
+        svg.style.transform = '';
+      }
+    });
+    
+    // Track button clicks for analytics
+    this.ctaButton.addEventListener('click', () => {
+      const buttonText = this.ctaButton.textContent.trim();
+      this.trackCtaClick(buttonText);
+    });
+  }
+  
+  trackCtaClick(buttonText) {
+    // For future analytics implementation
+    console.log(`Reviews CTA clicked: ${buttonText}`);
+  }
+}
+
+/**
+ * Setup Smooth Scrolling for Anchor Links
+ */
+function setupSmoothScrolling() {
+  // Get all anchor links that point to an ID on the page
+  const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+  
+  anchorLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const targetId = link.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        e.preventDefault();
+        
+        // Account for fixed header
+        const header = document.querySelector('.site-header');
+        const headerOffset = header ? header.offsetHeight : 0;
+        
+        // Calculate position
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        // Smooth scroll to target
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
+
+/**
+ * Basic Animation Setup (fallback when GSAP is not available)
+ */
+function setupBasicAnimations() {
+  // Skip if reduced motion is preferred
+  if (Utils.handleReducedMotion()) return;
+  
+  // Animate elements when they enter the viewport
+  const animateElements = [
+    '.section-title',
+    '.section-subtitle',
+    '.proof-column',
+    '.testimonial-card',
+    '.step-content',
+    '.benefit-item',
+    '.result-card',
+    '.review-card',
+    '.faq-card',
+    '.cta-feature'
+  ];
+  
+  animateElements.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach((element, index) => {
+      // Add staggered delay for groups of elements
+      element.style.transitionDelay = `${index * 0.1}s`;
+      Utils.addClassWhenInView(element, 'fade-in', 50);
+    });
+  });
 }
 
 /**
  * Initialize GSAP Animations
+ * Only runs if GSAP library is loaded
  */
 function initGSAPAnimations() {
   // Skip if reduced motion is preferred
   if (Utils.handleReducedMotion()) return;
   
+  // Only run if GSAP is available
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  
+  // Register ScrollTrigger plugin
   gsap.registerPlugin(ScrollTrigger);
   
-  // Hero animations
-  gsap.from('.hero-title .title-line', {
+  // Hero section animations
+  const heroElements = {
+    title: '.hero-title .title-line',
+    description: '.hero-description',
+    features: '.feature-highlights',
+    cta: '.hero-cta-group',
+    social: '.social-proof',
+    product: '.hero-product-column'
+  };
+  
+  // Animate hero elements
+  gsap.from(heroElements.title, {
     opacity: 0,
     y: 30,
     duration: 1,
@@ -848,7 +986,7 @@ function initGSAPAnimations() {
     ease: 'power3.out'
   });
   
-  gsap.from('.hero-description', {
+  gsap.from(heroElements.description, {
     opacity: 0,
     y: 20,
     duration: 1,
@@ -856,7 +994,7 @@ function initGSAPAnimations() {
     ease: 'power3.out'
   });
   
-  gsap.from('.hero-cta-group', {
+  gsap.from(heroElements.features, {
     opacity: 0,
     y: 20,
     duration: 1,
@@ -864,15 +1002,42 @@ function initGSAPAnimations() {
     ease: 'power3.out'
   });
   
-  // Section headers animations
+  gsap.from(heroElements.cta, {
+    opacity: 0,
+    y: 20,
+    duration: 1,
+    delay: 0.9,
+    ease: 'power3.out'
+  });
+  
+  gsap.from(heroElements.social, {
+    opacity: 0,
+    y: 20,
+    duration: 1,
+    delay: 1.1,
+    ease: 'power3.out'
+  });
+  
+  gsap.from(heroElements.product, {
+    opacity: 0,
+    y: 40,
+    duration: 1.2,
+    delay: 0.4,
+    ease: 'power3.out'
+  });
+  
+  // Section headers animations (for all main sections)
   const sections = [
     '.advanced-social-proof',
-    '.ingredients-showcase',
     '.how-it-works',
-    '.faq-section'
+    '.ingredients-showcase',
+    '.reviews-section',
+    '.faq-section',
+    '.final-cta-section'
   ];
   
   sections.forEach(section => {
+    // Animate section titles
     gsap.from(`${section} .section-title`, {
       opacity: 0,
       y: 30,
@@ -884,6 +1049,7 @@ function initGSAPAnimations() {
       }
     });
     
+    // Animate section subtitles
     gsap.from(`${section} .section-subtitle`, {
       opacity: 0,
       y: 20,
@@ -896,31 +1062,115 @@ function initGSAPAnimations() {
       }
     });
   });
+  
+  // Animate proof columns
+  gsap.from('.proof-column', {
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.social-proof-grid',
+      start: 'top 80%'
+    }
+  });
+  
+  // Animate timeline steps
+  gsap.from('.timeline-step', {
+    opacity: 0,
+    x: index => index % 2 === 0 ? -50 : 50,
+    y: 30,
+    duration: 0.8,
+    stagger: 0.3,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.process-timeline',
+      start: 'top 70%'
+    }
+  });
+  
+  // Animate ingredient detail
+  gsap.from('.ingredient-detail.active', {
+    opacity: 0,
+    y: 30,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.ingredient-details-container',
+      start: 'top 70%'
+    }
+  });
+  
+  // Animate review cards
+  gsap.from('.review-card', {
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.reviews-grid',
+      start: 'top 70%'
+    }
+  });
+  
+  // Animate FAQ cards
+  gsap.from('.faq-card', {
+    opacity: 0,
+    y: 30,
+    duration: 0.6,
+    stagger: 0.15,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.faq-grid',
+      start: 'top 70%'
+    }
+  });
+  
+  // Animate final CTA
+  gsap.from('.final-cta-content > *', {
+    opacity: 0,
+    y: 30,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: 'power3.out',
+    scrollTrigger: {
+      trigger: '.final-cta-section',
+      start: 'top 70%'
+    }
+  });
 }
 
 /**
- * Setup Smooth Scrolling for Anchor Links
+ * Analytics Setup
+ * Can be expanded to integrate with Google Analytics, Facebook Pixel, etc.
  */
-function setupSmoothScrolling() {
-  const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+function setupAnalytics() {
+  // For now, just track page load
+  console.log('Page loaded: S-Cream Website');
   
-  anchorLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      const targetId = link.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
-      
-      if (targetElement) {
-        e.preventDefault();
-        
-        const headerOffset = 80; // Adjust based on your header height
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+  // Track scroll depth
+  let lastScrollDepth = 0;
+  
+  window.addEventListener('scroll', Utils.throttle(() => {
+    const scrollPercent = Math.round(Utils.getScrollPercentage());
+    
+    // Log scroll depth at 25% intervals
+    const milestones = [25, 50, 75, 100];
+    
+    milestones.forEach(milestone => {
+      if (scrollPercent >= milestone && lastScrollDepth < milestone) {
+        console.log(`Scroll depth: ${milestone}%`);
+        // Could send to analytics:
+        // if (typeof gtag !== 'undefined') {
+        //   gtag('event', 'scroll_depth', {
+        //     'depth': milestone
+        //   });
+        // }
       }
     });
-  });
+    
+    lastScrollDepth = scrollPercent;
+  }, 1000));
 }
