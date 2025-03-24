@@ -1,0 +1,376 @@
+/**
+ * S-Cream Success Page Stylesheet
+ * Styling for the post-payment verification page
+ */
+
+/* ======================================
+   1. Success Page Base
+====================================== */
+.success-body {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.success-main {
+  flex: 1;
+  margin-top: 100px;
+  padding-bottom: 3rem;
+}
+
+.success-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* ======================================
+   2. Success Step Indicator
+====================================== */
+.success-step-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  padding: 0 var(--spacing-md);
+}
+
+.success-step-indicator::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--border);
+  z-index: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all var(--transition-medium);
+}
+
+.step-label {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-align: center;
+  transition: all var(--transition-medium);
+}
+
+.step.completed .step-circle {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.step.completed .step-label {
+  color: var(--success);
+}
+
+.step.active .step-circle {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 5px rgba(225, 122, 146, 0.2);
+}
+
+.step.active .step-label {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ======================================
+   3. Success Content Sections
+====================================== */
+.success-content {
+  margin-bottom: var(--spacing-xl);
+}
+
+.section {
+  background-color: white;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Order Confirmation Section */
+.order-confirmation {
+  text-align: center;
+}
+
+.success-icon {
+  color: var(--success);
+  margin: 0 auto var(--spacing-md);
+  animation: checkmark 0.8s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.success-icon svg {
+  stroke-width: 3;
+  fill: none;
+  stroke: currentColor;
+}
+
+@keyframes checkmark {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-title {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--success);
+}
+
+.success-message {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: var(--spacing-lg);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-summary {
+  background-color: var(--background-light);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  max-width: 450px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-sm);
+}
+
+.order-summary h2 {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--text);
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: var(--spacing-sm);
+}
+
+.order-product {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.product-image img {
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-name {
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text);
+}
+
+.product-price {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Medical Verification Section */
+.medical-verification {
+  text-align: center;
+}
+
+.medical-verification h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--primary);
+}
+
+.verification-intro {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-lg);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hipaa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background-color: rgba(72, 187, 120, 0.1);
+  color: var(--success);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+.hipaa-icon {
+  fill: none;
+  stroke: currentColor;
+}
+
+.jotform-container {
+  max-width: 600px;
+  margin: 0 auto var(--spacing-xl);
+  transition: all var(--transition-medium);
+}
+
+.jotform-container iframe {
+  width: 100%;
+  min-height: 500px;
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
+}
+
+.verification-notice {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ======================================
+   4. Order Support
+====================================== */
+.order-support {
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+}
+
+.order-support h3 {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text);
+}
+
+.order-support p {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.support-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: white;
+  color: var(--primary);
+  font-weight: 600;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
+}
+
+.support-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.support-button svg {
+  fill: none;
+  stroke: currentColor;
+}
+
+/* ======================================
+   5. Jotform Custom Styling
+====================================== */
+/* These styles will help match JotForm to your design theme */
+.form-all {
+  box-shadow: none !important;
+  border: none !important;
+  font-family: var(--font-base) !important;
+}
+
+.form-label-top {
+  color: var(--text) !important;
+  font-family: var(--font-heading) !important;
+}
+
+.form-textbox, .form-textarea {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--border-radius-md) !important;
+  padding: var(--spacing-md) !important;
+  color: var(--text) !important;
+}
+
+.form-buttons-wrapper {
+  text-align: center !important;
+}
+
+.form-submit-button {
+  background: var(--primary-gradient) !important;
+  border: none !important;
+  border-radius: var(--border-radius-xl) !important;
+  font-family: var(--font-cta) !important;
+  font-weight: 600 !important;
+  padding: var(--spacing-sm) var(--spacing-xl) !important;
+  transition: all var(--transition-medium) !important;
+}
+
+.form-submit-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-cta) !important;
+}
+
+/* ======================================
+   6. Responsive Adjustments
+====================================== */
+@media (max-width: 768px) {
+  .success-step-indicator {
+    display: none; /* Hide on mobile to save space */
+  }
+  
+  .section {
+    padding: var(--spacing-lg);
+  }
+  
+  .success-title {
+    font-size: 1.5rem;
+  }
+  
+  .success-message {
+    font-size: 1rem;
+  }
+  
+  .medical-verification h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-product {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .product-image {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .section {
+    padding: var(--spacing-md);
+  }
+}
