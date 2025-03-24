@@ -149,17 +149,26 @@ section {
 /* ======================================
    4. Header & Navigation
 ====================================== */
+/* ======================================
+   4. Modern Rounded Header & Navigation
+====================================== */
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 1000;
-  transition: transform 0.3s ease, background 0.3s ease;
-  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 0.5rem 0;
+}
+
+.site-header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
 }
 
 .header-container {
@@ -167,6 +176,9 @@ section {
   align-items: center;
   justify-content: space-between;
   height: var(--header-height);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
 }
 
 /* Logo */
@@ -174,16 +186,58 @@ section {
   display: flex;
   align-items: center;
   z-index: 1001;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .logo-image {
   height: 40px;
   width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-/* Desktop Navigation - Hidden on Mobile */
+/* Desktop Navigation */
 .nav-desktop {
   display: none;
+}
+
+.nav-desktop .nav-list {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.5rem 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  border-radius: 9999px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+  background-color: rgba(225, 122, 146, 0.08);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: width 0.3s ease, left 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-link:hover::after {
+  width: 80%;
+  left: 10%;
 }
 
 /* Mobile Navigation Toggle */
@@ -194,6 +248,14 @@ section {
   width: 24px;
   height: 18px;
   z-index: 1001;
+  background: transparent;
+  border-radius: 8px;
+  padding: 10px;
+  margin: -10px;
+}
+
+.menu-toggle:hover {
+  background: rgba(225, 122, 146, 0.08);
 }
 
 .menu-bar {
@@ -201,6 +263,7 @@ section {
   height: 2px;
   background: var(--text);
   transition: var(--transition-medium);
+  border-radius: 2px;
 }
 
 body.menu-open .menu-toggle .menu-bar:nth-child(1) {
@@ -223,12 +286,14 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   width: 100%;
   height: 100vh;
   background: white;
-  transition: right var(--transition-medium);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   visibility: hidden;
   opacity: 0;
   z-index: 999;
   display: flex;
   flex-direction: column;
+  border-radius: 0 0 0 30px;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
 }
 
 .mobile-nav.active {
@@ -253,9 +318,18 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
 .nav-mobile .nav-link {
   display: block;
   font-size: 1.25rem;
-  padding: var(--spacing-md) 0;
+  padding: var(--spacing-md);
   font-weight: 500;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  background: transparent;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.nav-mobile .nav-link:hover {
+  background: rgba(225, 122, 146, 0.08);
+  border-color: rgba(225, 122, 146, 0.1);
+  transform: translateX(5px);
 }
 
 .mobile-nav-footer {
@@ -273,6 +347,13 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
   border-radius: var(--border-radius-xl);
   font-weight: 600;
   font-family: var(--font-cta);
+  box-shadow: 0 6px 15px rgba(225, 122, 146, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-consultation-mobile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(225, 122, 146, 0.25);
 }
 
 /* Header Actions */
@@ -284,10 +365,31 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
 
 .btn-consultation {
   display: none;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary-gradient);
+  color: white;
+  padding: 0.8rem 1.4rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  white-space: nowrap;
+  font-family: var(--font-cta);
+  box-shadow: 0 4px 12px rgba(225, 122, 146, 0.2);
+}
+
+.btn-consultation:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(225, 122, 146, 0.3);
 }
 
 /* Responsive Navigation */
 @media (min-width: 1024px) {
+  .site-header {
+    padding: 0.75rem 0;
+  }
+  
   .logo-image {
     height: 50px;
   }
@@ -300,55 +402,29 @@ body.menu-open .menu-toggle .menu-bar:nth-child(3) {
     display: block;
   }
   
-  .nav-desktop .nav-list {
-    display: flex;
-    gap: 2rem;
-  }
-  
-  .nav-link {
-    position: relative;
-    padding: 0.5rem 0;
-    font-weight: 500;
-  }
-  
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary-gradient);
-    transition: width var(--transition-fast);
-  }
-  
-  .nav-link:hover {
-    color: var(--accent);
-  }
-  
-  .nav-link:hover::after {
-    width: 100%;
-  }
-  
   .btn-consultation {
     display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--primary-gradient);
-    color: white;
-    padding: 0.7rem 1.2rem;
-    border-radius: var(--border-radius-xl);
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    white-space: nowrap;
-    font-family: var(--font-cta);
   }
   
-  .btn-consultation:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-cta);
+  /* Optional: Add header animations on scroll */
+  .site-header.scrolled {
+    padding: 0.5rem 0;
   }
+  
+  .site-header.scrolled .logo-image {
+    height: 45px;
+  }
+}
+
+/* Optional: Add a subtle highlight for the active page */
+.nav-link.active {
+  color: var(--accent);
+  background-color: rgba(225, 122, 146, 0.08);
+}
+
+.nav-link.active::after {
+  width: 80%;
+  left: 10%;
 }
 
 /* ======================================
