@@ -2,9 +2,15 @@
  * =============================================================================
  * S-Cream Modern Quiz Page JavaScript
  * Complete integration with quiz flow, animations, and Stripe checkout
+ * With direct purchase option for returning customers
  * =============================================================================
  */
 
+/**
+ * =============================================================================
+ * 1. INITIALIZATION & EVENT LISTENERS
+ * =============================================================================
+ */
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize the quiz
   initQuiz();
@@ -17,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Update header on scroll
   window.addEventListener('scroll', handleScroll);
+  
+  // Add hover effect to product preview
+  initProductPreview();
 });
 
 /**
@@ -33,7 +42,38 @@ function handleScroll() {
 }
 
 /**
- * Initialize the quiz functionality
+ * Initialize product preview hover effects
+ */
+function initProductPreview() {
+  const productPreview = document.querySelector('.product-preview');
+  const productGlow = document.querySelector('.product-glow');
+  
+  if (productPreview && productGlow) {
+    productPreview.addEventListener('mousemove', e => {
+      const rect = productPreview.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Calculate position within the element (0 to 1)
+      const xPos = x / rect.width;
+      const yPos = y / rect.height;
+      
+      // Move glow to follow cursor
+      productGlow.style.transform = `translate(calc(-50% + ${(xPos - 0.5) * 20}px), calc(-50% + ${(yPos - 0.5) * 20}px))`;
+      productGlow.style.opacity = '0.8';
+    });
+    
+    productPreview.addEventListener('mouseleave', () => {
+      productGlow.style.transform = 'translate(-50%, -50%)';
+      productGlow.style.opacity = '0.4';
+    });
+  }
+}
+
+/**
+ * =============================================================================
+ * 2. QUIZ FUNCTIONALITY
+ * =============================================================================
  */
 function initQuiz() {
   const quizSlides = document.querySelectorAll('.quiz-slide');
@@ -50,6 +90,24 @@ function initQuiz() {
   
   // Store current question index
   let currentQuestionIndex = 0;
+  
+  // Set up direct purchase buttons - new code for Buy Now functionality
+  const directPurchaseButtons = document.querySelectorAll('.direct-purchase-button, .secondary-purchase-button');
+  if (directPurchaseButtons.length > 0) {
+    directPurchaseButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Show loading overlay
+        if (loadingOverlay) {
+          loadingOverlay.classList.add('active');
+        }
+        
+        // Redirect to Stripe checkout directly without quiz processing
+        redirectToStripeCheckout('S-Cream Premium Formula');
+      });
+    });
+  }
   
   // Navigate to next slide
   nextButtons.forEach(button => {
@@ -170,6 +228,12 @@ function initQuiz() {
 }
 
 /**
+ * =============================================================================
+ * 3. QUIZ PROGRESS & NAVIGATION
+ * =============================================================================
+ */
+
+/**
  * Update progress indicators
  * @param {number} step - Current step number (0-5)
  */
@@ -255,6 +319,12 @@ function showSlide(slideId, isBackNavigation) {
     });
   }, 200);
 }
+
+/**
+ * =============================================================================
+ * 4. PROCESSING & RECOMMENDATION
+ * =============================================================================
+ */
 
 /**
  * Simulate processing with animated steps
@@ -389,6 +459,12 @@ function animateTextUpdate(element, newText) {
 }
 
 /**
+ * =============================================================================
+ * 5. CHECKOUT & COMPLETION
+ * =============================================================================
+ */
+
+/**
  * Redirect to Stripe checkout page
  * @param {string} formulaName - Name of the recommended formula
  */
@@ -433,3 +509,38 @@ function handleSuccessPage() {
 
 // Check for success page parameters on load
 handleSuccessPage();
+
+/**
+ * =============================================================================
+ * 6. UTILITY FUNCTIONS
+ * =============================================================================
+ */
+
+/**
+ * Check if an element is visible in viewport
+ * @param {HTMLElement} element - The element to check
+ * @returns {boolean} - Whether the element is in viewport
+ */
+function isElementInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+/**
+ * Debounce function to limit execution frequency
+ * @param {Function} func - Function to debounce
+ * @param {number} wait - Wait time in milliseconds
+ * @returns {Function} - Debounced function
+ */
+function debounce(func, wait = 100) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
