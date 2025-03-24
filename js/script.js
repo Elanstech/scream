@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPillHeader();
   initHeroAnimations();
   initTestimonialSlider();
+  initExpertsSlider();
   initFaqAccordion();
   initQuizFlow();
   initCountdownTimer();
@@ -464,6 +465,62 @@ function initTestimonialSlider() {
   // Initialize
   showTestimonial(0);
   startInterval();
+}
+
+/**
+ * =============================================================================
+ * EXPERT ENDORSEMENTS SLIDER
+ * =============================================================================
+ */
+function initExpertsSlider() {
+  const expertCards = document.querySelectorAll('.expert-card');
+  const expertNavDots = document.querySelectorAll('.experts-navigation .nav-dot');
+  
+  if (expertCards.length === 0 || expertNavDots.length === 0) return;
+  
+  let currentExpertIndex = 0;
+  let expertInterval;
+  
+  // Show expert at specific index
+  const showExpert = (index) => {
+    expertCards.forEach(card => {
+      card.classList.remove('active');
+    });
+    
+    expertNavDots.forEach(dot => {
+      dot.classList.remove('active');
+    });
+    
+    expertCards[index].classList.add('active');
+    expertNavDots[index].classList.add('active');
+    currentExpertIndex = index;
+  };
+  
+  // Add click event to navigation dots
+  expertNavDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showExpert(index);
+      resetExpertInterval();
+    });
+  });
+  
+  // Start automatic rotation
+  const startExpertInterval = () => {
+    expertInterval = setInterval(() => {
+      const nextIndex = (currentExpertIndex + 1) % expertCards.length;
+      showExpert(nextIndex);
+    }, 6000); // Slightly longer than testimonials for variety
+  };
+  
+  // Reset interval after user interaction
+  const resetExpertInterval = () => {
+    clearInterval(expertInterval);
+    startExpertInterval();
+  };
+  
+  // Initialize
+  showExpert(0);
+  startExpertInterval();
 }
 
 /**
