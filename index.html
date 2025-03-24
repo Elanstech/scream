@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Experience the revolutionary S-Cream, designed to elevate intimacy and pleasure for women.">
-    <title>S-Cream | Premium Female Enhancement</title>
+    <meta name="description" content="Experience the revolutionary S-Cream, clinically formulated to enhance intimate wellness. Doctor-prescribed and discreetly delivered.">
+    <title>S-Cream | Doctor-Prescribed Solution for Intimacy</title>
     
     <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
     
     <!-- Core CSS -->
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <!-- Defer non-critical JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
@@ -25,22 +28,22 @@
         <div class="header-container">
             <!-- Logo -->
             <a href="/" class="logo" aria-label="S-Cream Home">
-                <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="100" height="50">
+                <img src="images/logo.svg" alt="S-Cream Logo" class="logo-image" width="120" height="40">
             </a>
 
             <!-- Desktop Navigation -->
             <nav class="nav-desktop" aria-label="Main navigation">
                 <ul class="nav-list">
                     <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
                     <li><a href="#science" class="nav-link">Science</a></li>
-                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
                     <li><a href="#faq" class="nav-link">FAQ</a></li>
                 </ul>
             </nav>
 
             <!-- Header Actions -->
             <div class="header-actions">
-                <a href="#consultation" class="btn-consultation">Start Free Consult</a>
+                <a href="#quiz" class="btn-consultation">Take the Quiz</a>
                 <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
                     <span class="menu-bar"></span>
                     <span class="menu-bar"></span>
@@ -55,986 +58,923 @@
                 <nav class="nav-mobile" aria-label="Mobile navigation">
                     <ul class="nav-list">
                         <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
                         <li><a href="#science" class="nav-link">Science</a></li>
-                        <li><a href="#reviews" class="nav-link">Reviews</a></li>
                         <li><a href="#faq" class="nav-link">FAQ</a></li>
                     </ul>
                 </nav>
                 <div class="mobile-nav-footer">
-                    <a href="#consultation" class="btn-consultation-mobile">Start Free Consultation</a>
+                    <a href="#quiz" class="btn-consultation-mobile">Take the Quiz</a>
                 </div>
             </div>
         </div>
     </header>
     
-   <!-- Hero Section with Modern Design -->
-<section class="hero" id="hero">
-    <!-- Animated Background Elements -->
-    <div class="hero-background">
-        <div class="bg-gradient"></div>
-        <div class="bg-particles"></div>
-        <div class="bg-circle circle-1"></div>
-        <div class="bg-circle circle-2"></div>
-        <div class="bg-circle circle-3"></div>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-background">
+            <div class="bg-gradient"></div>
+            <div class="bg-particles"></div>
+            <div class="bg-circle circle-1"></div>
+            <div class="bg-circle circle-2"></div>
+            <div class="bg-circle circle-3"></div>
+        </div>
 
-    <!-- Hero Content Container -->
-    <div class="hero-content-wrapper">
-        <div class="hero-content">
-            <!-- Text Column -->
-            <div class="hero-text-column">
-                <span class="hero-tagline">Premium Female Enhancement</span>
-                
-                <h1 class="hero-title">
-                    <span class="title-line">Elevate Your</span>
-                    <span class="title-line highlight">Intimate Moments</span>
-                    <span class="title-line">with S-Cream</span>
-                </h1>
-                
-                <p class="hero-description">
-                    Our scientifically formulated topical cream enhances sensitivity and transforms every intimate experience with clinically proven ingredients.
-                </p>
-                
-                <!-- Feature Highlights -->
-                <div class="feature-highlights">
-                    <div class="feature-item">
-                        <div class="feature-icon">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Text Column -->
+                <div class="hero-text-column">
+                    <h1 class="hero-title">
+                        <span class="title-line">Awaken Your Senses</span>
+                        <span class="title-line accent">A Doctor-Prescribed Solution for Intimacy</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Clinically formulated and tailored for you – discreetly delivered to your door.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="hero-cta-group">
+                        <a href="#quiz" class="primary-cta">
+                            <span>Take the Quiz & Get Yours</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
-                                <path d="M9 12l2 2 4-4" stroke-width="2"/>
+                                <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
                             </svg>
-                        </div>
-                        <span>Clinically Proven</span>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">
+                        </a>
+                        <a href="#benefits" class="secondary-cta">
+                            <span>Learn More</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M12 8v8M8 12h8" stroke-width="2" stroke-linecap="round"/>
-                                <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                <path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
-                        </div>
-                        <span>Fast Acting</span>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                                <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2"/>
-                            </svg>
-                        </div>
-                        <span>96% Satisfaction</span>
-                    </div>
-                </div>
-                
-                <!-- CTA Buttons -->
-                <div class="hero-cta-group">
-                    <a href="#buy-now" class="primary-cta btn-pulse">
-                        <span>Buy Now</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
-                    <a href="#consultation" class="secondary-cta">
-                        <span>Start Your Experience</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-width="2"/>
-                        </svg>
-                    </a>
-                    <a href="#learn-more" class="tertiary-cta">
-                        <span>Watch Demo</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                            <path d="M10 8l6 4-6 4V8z" stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-                
-                <!-- Social Proof -->
-                <div class="social-proof">
-                    <div class="ratings">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-count">4.9/5 from 10k+ reviews</span>
-                    </div>
-                    <div class="shipping-info">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8" stroke-width="2"/>
-                            <circle cx="8" cy="18" r="1" stroke-width="2"/>
-                            <circle cx="16" cy="18" r="1" stroke-width="2"/>
-                        </svg>
-                        <span>Free Discrete Shipping</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Product Column -->
-            <div class="hero-product-column">
-                <div class="product-container">
-                    <!-- Main Product Image with 3D effect -->
-                    <div class="product-image">
-                        <img src="cream.jpeg" alt="S-Cream Female Enhancement Product" class="floating" width="400" height="400">
-                        <div class="product-glow"></div>
+                        </a>
                     </div>
                     
-                    <!-- Animated Benefit Badges -->
-                    <div class="product-benefits">
-                        <div class="benefit-badge badge-1">
-                            <span class="badge-text">Enhanced Sensitivity</span>
+                    <!-- Trust Indicators -->
+                    <div class="trust-indicators">
+                        <div class="indicator">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>Doctor Approved</span>
                         </div>
-                        <div class="benefit-badge badge-2">
-                            <span class="badge-text">Natural Ingredients</span>
+                        <div class="indicator">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2"/>
+                            </svg>
+                            <span>Science Backed</span>
                         </div>
-                        <div class="benefit-badge badge-3">
-                            <span class="badge-text">Doctor Recommended</span>
+                        <div class="indicator">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>Discreet Shipping</span>
                         </div>
                     </div>
-                    
-                    <!-- Product Stats -->
-                    <div class="product-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">30<span>min</span></div>
-                            <div class="stat-label">Fast Acting</div>
+                </div>
+                
+                <!-- Product Column -->
+                <div class="hero-product-column">
+                    <div class="product-container">
+                        <div class="product-image">
+                            <img src="images/product.png" alt="S-Cream Product" class="floating" width="400" height="400">
+                            <div class="product-glow"></div>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">2<span>hr</span></div>
-                            <div class="stat-label">Duration</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">100<span>%</span></div>
-                            <div class="stat-label">Satisfaction Guarantee</div>
+                        
+                        <!-- Animated Benefit Badges -->
+                        <div class="product-benefits">
+                            <div class="benefit-badge">
+                                <div class="badge-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l4 4L3 21l4-4L13 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="badge-text">Enhanced Sensitivity</span>
+                            </div>
+                            <div class="benefit-badge">
+                                <div class="badge-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M12 14c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M16 14v8M8 14v8M4 22h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="badge-text">Natural Ingredients</span>
+                            </div>
+                            <div class="benefit-badge">
+                                <div class="badge-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="8.5" cy="7" r="4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M20 8v6M23 11h-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <span class="badge-text">Doctor Recommended</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Subtle scroll indicator -->
-    <div class="scroll-indicator">
-        <span>Scroll to Explore</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-    </div>
-</section>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <span>Scroll to Explore</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M7 13l5 5 5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
 
-    <!-- Social Proof Section -->
-    <section class="advanced-social-proof" id="benefits">
-        <div class="social-proof-container">
-            <header class="section-header">
-                <h2 class="section-title">Reclaim Your Confidence, Embrace Your Sensation</h2>
-                <p class="section-subtitle">Scientifically Formulated. Personally Transformative.</p>
-            </header>
-
-            <div class="social-proof-grid">
-                <div class="proof-column stats-column">
-                    <div class="column-header">
-                        <h3>Proven Impact</h3>
-                        <p>Backed by real data and customer experiences</p>
-                    </div>
-                    <div class="stats-marquee">
-                        <div class="stat-item">
-                            <span class="stat-number">10k+</span>
-                            <span class="stat-label">Satisfied Customers</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">96%</span>
-                            <span class="stat-label">Satisfaction Rate</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">30</span>
-                            <span class="stat-label">Days to Results</span>
-                        </div>
-                    </div>
-                    <div class="stat-disclaimer">
-                        <p>*Based on internal surveys and clinical studies</p>
-                    </div>
-                </div>
-
-                <div class="proof-column results-column">
-                    <div class="column-header">
-                        <h3>Clinical Insights</h3>
-                        <p>Measurable improvements in intimate wellness</p>
-                    </div>
-                    <div class="results-grid">
-                        <div class="result-card">
-                            <div class="result-icon" aria-hidden="true">📈</div>
-                            <div class="result-percentage">87%</div>
-                            <div class="result-description">Enhanced Sensation</div>
-                            <div class="result-subtext">Clinically Observed</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-icon" aria-hidden="true">❤️</div>
-                            <div class="result-percentage">92%</div>
-                            <div class="result-description">Customer Satisfaction</div>
-                            <div class="result-subtext">Verified Experiences</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-icon" aria-hidden="true">🌟</div>
-                            <div class="result-percentage">95%</div>
-                            <div class="result-description">Recommending Rate</div>
-                            <div class="result-subtext">Consistent Users</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="proof-column testimonial-column">
-                    <div class="column-header">
-                        <h3>Real Stories</h3>
-                        <p>Authentic experiences from our community</p>
-                    </div>
-                    <div class="testimonial-cards">
-                        <blockquote class="testimonial-card">
-                            <div class="testimonial-avatar" aria-hidden="true">JD</div>
-                            <p>"Incredible product that changed everything for me! I feel more confident and connected to myself than ever before."</p>
-                            <footer class="testimonial-meta">
-                                <cite class="name">Jessica D.</cite>
-                                <span class="verified">Verified Customer</span>
-                            </footer>
-                        </blockquote>
-                        <blockquote class="testimonial-card">
-                            <div class="testimonial-avatar" aria-hidden="true">MR</div>
-                            <p>"Professional, discrete, and absolutely effective. This has been a game-changer for my intimate wellness journey."</p>
-                            <footer class="testimonial-meta">
-                                <cite class="name">Michelle R.</cite>
-                                <span class="verified">Verified Customer</span>
-                            </footer>
-                        </blockquote>
-                    </div>
-                    <div class="testimonial-cta">
-                        <a href="#more-stories" class="btn-more-stories">Read More Stories</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="medical-endorsement">
-                <div class="endorsement-content">
-                    <figure class="doctor-profile">
-                        <img src="doctor-image.jpg" alt="Dr. Sarah Mitchell" class="doctor-image" width="80" height="80" loading="lazy">
-                        <figcaption class="doctor-info">
-                            <h3>Dr. Sarah Mitchell, MD</h3>
-                            <span class="doctor-credentials">Board Certified Gynecologist</span>
-                        </figcaption>
-                    </figure>
-                    <blockquote class="doctor-quote">
-                        "As a gynecologist with over 15 years of experience, I've seen the transformative potential of targeted intimate wellness solutions. S-Cream represents a breakthrough in understanding and addressing women's sexual health."
-                    </blockquote>
-                </div>
-            </div>
+        <!-- Mobile sticky CTA -->
+        <div class="sticky-cta-mobile">
+            <a href="#quiz" class="primary-cta">
+                <span>Take the Quiz</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </a>
         </div>
     </section>
 
-    <!-- Ingredients Showcase Section -->
-    <section class="ingredients-showcase" id="science" aria-label="Active Ingredients">
+    <!-- Benefits Section -->
+    <section class="benefits-section" id="benefits">
         <div class="container">
-            <header class="ingredients-header">
-                <h2 class="section-title">Advanced Formula Technologies</h2>
-                <p class="section-subtitle">A synergistic blend of clinically-proven ingredients</p>
+            <header class="section-header">
+                <h2 class="section-title">Why Women Love It</h2>
+                <p class="section-subtitle">Experience the benefits backed by science and thousands of satisfied customers</p>
             </header>
 
-            <!-- Ingredient Navigation -->
-            <div class="ingredients-nav" role="tablist">
-                <button class="ingredient-tab active" data-ingredient="aminophylline" role="tab" aria-selected="true" aria-controls="aminophylline-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2"/>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <span>Aminophylline</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="ergoloid" role="tab" aria-selected="false" aria-controls="ergoloid-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <h3 class="benefit-title">Enhanced Sensation</h3>
+                    <p class="benefit-description">Clinically formulated to increase sensitivity and intensify pleasure during intimate moments.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 8v4l2 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <span>Ergoloid Mesylate</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="pentoxifylline" role="tab" aria-selected="false" aria-controls="pentoxifylline-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M12 2v8m0 4v8M4.93 19.07a10 10 0 010-14.14m14.14 0a10 10 0 010 14.14" stroke-width="2" stroke-linecap="round"/>
+                    <h3 class="benefit-title">Fast Acting</h3>
+                    <p class="benefit-description">Feel the difference within 15-30 minutes, with effects lasting up to 2 hours for extended pleasure.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M20.42 4.58a5.4 5.4 0 00-7.65 0l-.77.78-.77-.78a5.4 5.4 0 00-7.65 7.65l8.42 8.42 8.42-8.42a5.4 5.4 0 000-7.65z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <span>Pentoxifylline</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="sildenafil" role="tab" aria-selected="false" aria-controls="sildenafil-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="2"/>
+                    <h3 class="benefit-title">Personalized Formula</h3>
+                    <p class="benefit-description">Tailored to your unique needs based on your quiz results and doctor consultation.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                    <span>Sildenafil Citrate</span>
-                </button>
-                <button class="ingredient-tab" data-ingredient="arginine" role="tab" aria-selected="false" aria-controls="arginine-panel">
-                    <div class="tab-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M20 12H4m16 0l-4 4m4-4l-4-4" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
+                    <h3 class="benefit-title">Doctor Prescribed</h3>
+                    <p class="benefit-description">Safely formulated and approved by licensed physicians for your peace of mind.</p>
+                </div>
+            </div>
+
+            <!-- Results Stats -->
+            <div class="results-stats">
+                <div class="stat-card">
+                    <div class="stat-number">96<span>%</span></div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">87<span>%</span></div>
+                    <div class="stat-label">Enhanced Sensitivity</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">91<span>%</span></div>
+                    <div class="stat-label">Would Recommend</div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="testimonials-slider">
+                <h3 class="testimonials-title">Real Stories from Real Women</h3>
+                
+                <div class="testimonials-container">
+                    <div class="testimonial-card active">
+                        <div class="testimonial-quote">"This product changed everything for me. I feel more confident and connected during intimate moments than I have in years."</div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JD</div>
+                            <div class="author-info">
+                                <div class="author-name">Jessica D.</div>
+                                <div class="author-detail">34, Verified Customer</div>
+                            </div>
+                            <div class="testimonial-rating">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
-                    <span>L-Arginine</span>
-                </button>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"After having children, I noticed changes in sensitivity. This cream brought back feelings I hadn't experienced in years. My husband noticed the difference immediately."</div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MS</div>
+                            <div class="author-info">
+                                <div class="author-name">Michelle S.</div>
+                                <div class="author-detail">41, Verified Customer</div>
+                            </div>
+                            <div class="testimonial-rating">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-quote">"I was skeptical at first, but decided to give it a try. The difference was noticeable right away. Just knowing I had something that worked gave me so much more confidence."</div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">AL</div>
+                            <div class="author-info">
+                                <div class="author-name">Amanda L.</div>
+                                <div class="author-detail">29, Verified Customer</div>
+                            </div>
+                            <div class="testimonial-rating">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonials-navigation">
+                    <button class="nav-dot active" aria-label="View testimonial 1" data-index="0"></button>
+                    <button class="nav-dot" aria-label="View testimonial 2" data-index="1"></button>
+                    <button class="nav-dot" aria-label="View testimonial 3" data-index="2"></button>
+                </div>
             </div>
             
-            <!-- Ingredient Details Container -->
-            <div class="ingredient-details-container">
-                <!-- Aminophylline Details -->
-                <div id="aminophylline-panel" class="ingredient-detail active" data-ingredient="aminophylline" role="tabpanel" aria-labelledby="tab-aminophylline">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">30</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Aminophylline</h3>
-                            <p class="ingredient-tagline">Enhanced Vascular Response</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Blood Flow Enhancement</h4>
-                                        <p>Promotes increased blood circulation to sensitive tissues</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Tissue Sensitivity</h4>
-                                        <p>Enhances natural responsiveness to stimulation</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Fast Acting</h4>
-                                        <p>Begins working within 30 minutes of application</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="85, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">85%</text>
-                                        </svg>
-                                    </div>
-                                    <p>of users reported enhanced sensation within first use</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ergoloid Mesylate Details -->
-                <div id="ergoloid-panel" class="ingredient-detail" data-ingredient="ergoloid" role="tabpanel" aria-labelledby="tab-ergoloid">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">0.5</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Ergoloid Mesylate</h3>
-                            <p class="ingredient-tagline">Neural Response Amplifier</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Neural Sensitivity</h4>
-                                        <p>Enhances nerve signal transmission for heightened sensation</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Sustained Response</h4>
-                                        <p>Maintains enhanced sensitivity throughout intimate encounters</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Balanced Action</h4>
-                                        <p>Works in harmony with natural bodily responses</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="92, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">92%</text>
-                                        </svg>
-                                    </div>
-                                    <p>improvement in sensory response reported in clinical trials</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pentoxifylline Details -->
-                <div id="pentoxifylline-panel" class="ingredient-detail" data-ingredient="pentoxifylline" role="tabpanel" aria-labelledby="tab-pentoxifylline">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M12 2v8m0 4v8M4.93 19.07a10 10 0 010-14.14m14.14 0a10 10 0 010 14.14" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">50</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Pentoxifylline</h3>
-                            <p class="ingredient-tagline">Microcirculation Enhancer</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Micro-Vessel Dilation</h4>
-                                        <p>Improves blood flow in small vessels for enhanced sensitivity</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Tissue Oxygenation</h4>
-                                        <p>Increases oxygen delivery to intimate areas</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Long-Lasting Effect</h4>
-                                        <p>Provides sustained improvement in local circulation</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="88, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">88%</text>
-                                        </svg>
-                                    </div>
-                                    <p>of participants experienced improved microcirculation</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sildenafil Citrate Details -->
-                <div id="sildenafil-panel" class="ingredient-detail" data-ingredient="sildenafil" role="tabpanel" aria-labelledby="tab-sildenafil">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-width="2"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">10</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">Sildenafil Citrate</h3>
-                            <p class="ingredient-tagline">Enhanced Blood Flow Activator</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Vasodilation</h4>
-                                        <p>Promotes relaxation of blood vessels for improved flow</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Heightened Response</h4>
-                                        <p>Enhances natural arousal response</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Proven Efficacy</h4>
-                                        <p>Extensively studied for intimate wellness</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="94, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">94%</text>
-                                        </svg>
-                                    </div>
-                                    <p>effectiveness rate in clinical studies</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- L-Arginine Details -->
-                <div id="arginine-panel" class="ingredient-detail" data-ingredient="arginine" role="tabpanel" aria-labelledby="tab-arginine">
-                    <div class="detail-grid">
-                        <div class="detail-visual">
-                            <div class="molecule-animation" aria-hidden="true">
-                                <div class="molecule-circle">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="100" height="100">
-                                        <path d="M20 12H4m16 0l-4 4m4-4l-4-4" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                </div>
-                                <div class="molecule-paths"></div>
-                            </div>
-                            <div class="dosage-indicator">
-                                <span class="dosage-amount">60</span>
-                                <span class="dosage-unit">mg/mL</span>
-                            </div>
-                        </div>
-                        <div class="detail-content">
-                            <h3 class="ingredient-name">L-Arginine</h3>
-                            <p class="ingredient-tagline">Natural Enhancement Amplifier</p>
-                            <div class="benefit-list">
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Nitric Oxide Production</h4>
-                                        <p>Supports natural vasodilation processes</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Enhanced Sensitivity</h4>
-                                        <p>Improves tissue response to stimulation</p>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <span class="benefit-icon" aria-hidden="true">✦</span>
-                                    <div class="benefit-text">
-                                        <h4>Natural Support</h4>
-                                        <p>Works with body's natural processes</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clinical-evidence">
-                                <h4>Clinical Evidence</h4>
-                                <div class="evidence-stat">
-                                    <div class="stat-circle">
-                                        <svg viewBox="0 0 36 36">
-                                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="90, 100"/>
-                                            <text x="18" y="20" text-anchor="middle" fill="currentColor">90%</text>
-                                        </svg>
-                                    </div>
-                                    <p>increased satisfaction in clinical studies</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile Ingredient Navigation -->
-            <div class="mobile-ingredient-nav">
-                <div class="nav-scroll" role="tablist">
-                    <button class="quick-nav-item active" data-ingredient="aminophylline" role="tab" aria-selected="true">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Aminophylline</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="ergoloid" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Ergoloid</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="pentoxifylline" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Pentoxifylline</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="sildenafil" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">Sildenafil</span>
-                    </button>
-                    <button class="quick-nav-item" data-ingredient="arginine" role="tab" aria-selected="false">
-                        <span class="nav-dot"></span>
-                        <span class="nav-label">L-Arginine</span>
-                    </button>
-                </div>
+            <div class="section-cta">
+                <a href="#quiz" class="primary-cta">
+                    <span>Find Out What Works For You</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- How It Works Section -->
-    <section class="how-it-works" aria-label="Process Steps">
+    <section class="process-section" id="how-it-works">
         <div class="container">
-            <header class="how-it-works-header">
-                <h2 class="section-title">Your Journey to Enhanced Wellness</h2>
-                <p class="section-subtitle">Simple, Discrete, and Professional Process</p>
+            <header class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Four simple steps to enhanced intimacy, all from the comfort of your home</p>
             </header>
 
-            <div class="process-timeline">
-                <!-- Step 1 -->
-                <div class="timeline-step" data-step="1">
-                    <div class="step-content">
-                        <div class="step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
-                                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Complete Your Assessment</h3>
-                        <p class="step-description">Answer a few questions about your needs and medical history in our secure, confidential questionnaire.</p>
-                        <div class="step-features">
-                            <span class="feature-tag">5 Minutes</span>
-                            <span class="feature-tag">Secure & Private</span>
-                        </div>
+            <div class="process-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M19 12l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Take the Quiz</h3>
+                    <p class="step-description">Complete our confidential questionnaire to receive a personalized recommendation.</p>
+                    <div class="step-tags">
+                        <span class="step-tag">2 Minutes</span>
+                        <span class="step-tag">Private</span>
                     </div>
                 </div>
-
-                <!-- Step 2 -->
-                <div class="timeline-step" data-step="2">
-                    <div class="step-content">
-                        <div class="step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
-                                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Medical Review</h3>
-                        <p class="step-description">A licensed healthcare provider reviews your assessment and determines if treatment is right for you.</p>
-                        <div class="step-features">
-                            <span class="feature-tag">Board Certified</span>
-                            <span class="feature-tag">24hr Review</span>
-                        </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M2 5l7 5 9-7 6 3v11l-6-3-9 7-7-5V5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Purchase</h3>
+                    <p class="step-description">Secure checkout via Stripe with a money-back satisfaction guarantee.</p>
+                    <div class="step-tags">
+                        <span class="step-tag">Secure</span>
+                        <span class="step-tag">Guaranteed</span>
                     </div>
                 </div>
-
-                <!-- Step 3 -->
-                <div class="timeline-step" data-step="3">
-                    <div class="step-content">
-                        <div class="step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
-                                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Custom Formulation</h3>
-                        <p class="step-description">Our pharmacy crafts your personalized formula based on your provider's prescription.</p>
-                        <div class="step-features">
-                            <span class="feature-tag">Personalized</span>
-                            <span class="feature-tag">FDA Approved</span>
-                        </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 14l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Medical Review</h3>
+                    <p class="step-description">A licensed physician reviews your case and writes a prescription if appropriate.</p>
+                    <div class="step-tags">
+                        <span class="step-tag">Professional</span>
+                        <span class="step-tag">24hr Review</span>
                     </div>
                 </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M12 13v.01" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="step-title">Discreet Delivery</h3>
+                    <p class="step-description">Your personalized formula arrives in unmarked packaging directly to your door.</p>
+                    <div class="step-tags">
+                        <span class="step-tag">Free Shipping</span>
+                        <span class="step-tag">Private</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-cta">
+                <a href="#quiz" class="primary-cta">
+                    <span>Start Your Quiz Now</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+                <p class="guarantee-text">30-Day Satisfaction Guarantee • Cancel Anytime</p>
+            </div>
+        </div>
+    </section>
 
-                <!-- Step 4 -->
-                <div class="timeline-step" data-step="4">
-                    <div class="step-content">
-                        <div class="step-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="24" height="24">
-                                <path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
+    <!-- Science Section -->
+    <section class="science-section" id="science">
+        <div class="container">
+            <header class="section-header">
+                <h2 class="section-title">The Science Behind S-Cream</h2>
+                <p class="section-subtitle">Clinically formulated with advanced ingredients for maximum effectiveness</p>
+            </header>
+
+            <div class="science-content">
+                <div class="science-visual">
+                    <div class="formula-animation">
+                        <div class="molecule molecule-1"></div>
+                        <div class="molecule molecule-2"></div>
+                        <div class="molecule molecule-3"></div>
+                        <div class="formula-glow"></div>
+                    </div>
+                </div>
+                
+                <div class="science-text">
+                    <div class="ingredient-list">
+                        <div class="ingredient-item">
+                            <h3 class="ingredient-name">L-Arginine</h3>
+                            <p class="ingredient-description">Supports nitric oxide production, enhancing blood flow and sensitivity in intimate areas.</p>
                         </div>
-                        <h3 class="step-title">Discrete Delivery</h3>
-                        <p class="step-description">Receive your treatment in discreet packaging, delivered right to your door with free shipping.</p>
-                        <div class="step-features">
-                            <span class="feature-tag">Free Shipping</span>
-                            <span class="feature-tag">Private Package</span>
+                        
+                        <div class="ingredient-item">
+                            <h3 class="ingredient-name">Niacin</h3>
+                            <p class="ingredient-description">Creates a warming sensation that increases sensitivity and enhances natural responses.</p>
+                        </div>
+                        
+                        <div class="ingredient-item">
+                            <h3 class="ingredient-name">Menthol</h3>
+                            <p class="ingredient-description">Provides a cooling effect that heightens sensitivity and creates pleasurable sensations.</p>
+                        </div>
+                        
+                        <div class="ingredient-item">
+                            <h3 class="ingredient-name">Botanical Extracts</h3>
+                            <p class="ingredient-description">A proprietary blend of natural ingredients that enhance arousal and pleasure.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="clinical-stats">
+                        <div class="clinical-result">
+                            <div class="result-number">87%</div>
+                            <div class="result-text">Reported enhanced sensation</div>
+                        </div>
+                        <div class="clinical-result">
+                            <div class="result-number">93%</div>
+                            <div class="result-text">Experienced improved satisfaction</div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Call to Action -->
-            <div class="process-cta">
-                <a href="#start-assessment" class="btn-start-process">
-                    <span>Start Your Assessment</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
+            
+            <!-- Doctor Endorsement -->
+            <div class="doctor-endorsement">
+                <div class="doctor-image">
+                    <img src="images/doctor.jpg" alt="Dr. Sarah Mitchell" width="120" height="120">
+                </div>
+                <div class="doctor-content">
+                    <div class="doctor-quote">
+                        "S-Cream represents a breakthrough in understanding and addressing women's intimate wellness needs. The formulation is based on clinical research and has helped thousands of my patients enhance their intimate experiences."
+                    </div>
+                    <div class="doctor-signature">
+                        <div class="doctor-name">Dr. Sarah Mitchell, MD</div>
+                        <div class="doctor-title">Board Certified Gynecologist • Medical Director</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-cta">
+                <a href="#quiz" class="primary-cta">
+                    <span>Take the Quiz – See If It's Right for You</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                         <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                 </a>
-                <p class="process-guarantee">30-Day Satisfaction Guarantee • Cancel Anytime</p>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="faq-section" id="faq" aria-label="Frequently Asked Questions">
+    <section class="faq-section" id="faq">
         <div class="container">
-            <!-- Section Header -->
             <header class="section-header">
-                <span class="section-eyebrow">Expert Answers</span>
-                <h2 class="section-title">
-                    <span class="title-line">Frequently Asked</span>
-                    <span class="title-emphasis">Questions</span>
-                </h2>
-                <p class="section-subtitle">Find answers to common questions about S-Cream</p>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about S-Cream</p>
             </header>
 
-            <!-- FAQ Categories -->
-            <div class="faq-categories" role="tablist">
-                <button class="category-btn active" data-category="all" role="tab" aria-selected="true">All Questions</button>
-                <button class="category-btn" data-category="usage" role="tab" aria-selected="false">Usage & Effects</button>
-                <button class="category-btn" data-category="safety" role="tab" aria-selected="false">Safety</button>
-                <button class="category-btn" data-category="medical" role="tab" aria-selected="false">Medical</button>
-            </div>
-
-            <!-- FAQ Grid -->
             <div class="faq-grid">
-                <!-- How quickly does it work? -->
-                <div class="faq-card" data-category="usage">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-1">
-                        <div class="question-content">
-                            <h3>How quickly does S-Cream work?</h3>
-                            <p class="preview-text">Learn about onset time and duration</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Is S-Cream safe to use?</span>
+                        <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
                     </button>
-                    <div id="faq-answer-1" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>S-Cream begins working within 15-30 minutes of application, with effects lasting up to 2 hours. For optimal results:</p>
-                            <ul>
-                                <li>Apply as directed before intimate activity</li>
-                                <li>Allow 15-30 minutes for full effect</li>
-                                <li>Effects typically last 1-2 hours</li>
-                            </ul>
-                            <div class="info-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">15-30</span>
-                                    <span class="metric-label">Minutes to Act</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">2+</span>
-                                    <span class="metric-label">Hours Duration</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="faq-answer">
+                        <p>Yes, S-Cream is doctor-formulated and prescribed only after a medical review of your health history. It contains FDA-approved ingredients and undergoes rigorous testing for safety. As with any topical product, we recommend doing a small patch test first to ensure you don't have any sensitivity to the ingredients.</p>
                     </div>
                 </div>
-
-                <!-- Is it safe? -->
-                <div class="faq-card" data-category="safety">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-2">
-                        <div class="question-content">
-                            <h3>Is S-Cream safe for all women?</h3>
-                            <p class="preview-text">Learn about safety and suitability</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How quickly does it work?</span>
+                        <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
                     </button>
-                    <div id="faq-answer-2" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>S-Cream is safe for most healthy adult women. However, consultation is recommended if you:</p>
-                            <ul>
-                                <li>Are pregnant or nursing</li>
-                                <li>Have underlying medical conditions</li>
-                                <li>Are taking specific medications</li>
-                            </ul>
-                            <div class="safety-badge">
-                                <span class="badge-icon">✓</span>
-                                <span>96% Customer Satisfaction Rate</span>
-                            </div>
-                        </div>
+                    <div class="faq-answer">
+                        <p>Most women experience effects within 15-30 minutes of application. The sensations typically last for 1-2 hours, though this can vary based on individual response. For best results, apply as directed before intimate activity.</p>
                     </div>
                 </div>
-
-                <!-- Side Effects -->
-                <div class="faq-card" data-category="safety">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-3">
-                        <div class="question-content">
-                            <h3>Are there any side effects?</h3>
-                            <p class="preview-text">Information about potential effects</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Will this work for me?</span>
+                        <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
                     </button>
-                    <div id="faq-answer-3" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>Most women experience no significant side effects. Some may notice:</p>
-                            <ul>
-                                <li>Mild warming sensation (common)</li>
-                                <li>Temporary increased sensitivity</li>
-                                <li>Brief tingling feeling</li>
-                            </ul>
-                            <div class="info-metrics">
-                                <div class="metric">
-                                    <span class="metric-value">99%</span>
-                                    <span class="metric-label">Well Tolerated</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value">&lt;1%</span>
-                                    <span class="metric-label">Discontinuation</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="faq-answer">
+                        <p>S-Cream works for 96% of women who try it. Our quiz helps determine if you're a good candidate, and our medical team reviews your information to ensure it's appropriate for you. If it doesn't work for you, we offer a 30-day money-back guarantee.</p>
                     </div>
                 </div>
-
-                <!-- Prescription -->
-                <div class="faq-card" data-category="medical">
-                    <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-4">
-                        <div class="question-content">
-                            <h3>Do I need a prescription?</h3>
-                            <p class="preview-text">Understanding the consultation process</p>
-                        </div>
-                        <span class="trigger-icon" aria-hidden="true"></span>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Is the packaging discreet?</span>
+                        <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
                     </button>
-                    <div id="faq-answer-4" class="faq-answer">
-                        <div class="answer-inner">
-                            <p>Yes, S-Cream requires a prescription. We've made the process simple:</p>
-                            <ol class="process-steps">
-                                <li><strong>Online Consultation:</strong> Complete our secure questionnaire</li>
-                                <li><strong>Medical Review:</strong> A licensed provider reviews your case</li>
-                                <li><strong>Prescription:</strong> If approved, your prescription is processed</li>
-                                <li><strong>Delivery:</strong> Discrete shipping to your door</li>
-                            </ol>
-                            <div class="info-note">
-                                <span class="note-icon">ℹ</span>
-                                <span>Most consultations are reviewed within 24 hours</span>
-                            </div>
-                        </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. S-Cream arrives in plain, unmarked packaging with no indication of the contents. Your privacy is our priority, and all shipments are handled with the utmost discretion.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Do I need a prescription?</span>
+                        <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, S-Cream is a prescription product. However, we've simplified the process: take our online quiz, complete the medical questionnaire, and our licensed physicians will review your information. If approved, your prescription is sent directly to our pharmacy for fulfillment.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What's your refund policy?</span>
+                        <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                            <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We offer a 30-day satisfaction guarantee. If you're not completely satisfied with your results, contact our customer service team for a full refund, no questions asked.</p>
                     </div>
                 </div>
             </div>
+            
+            <div class="section-cta">
+                <a href="#quiz" class="primary-cta">
+                    <span>Still Have Questions? Take the Quiz</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
 
-            <!-- FAQ Call to Action -->
-            <div class="faq-cta">
-                <h3>Still have questions?</h3>
-                <p>Our medical team is here to help you make an informed decision.</p>
-                <div class="cta-buttons">
-                    <a href="/faq" class="btn-main">
-                        <span>See More FAQs</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2"/>
-                        </svg>
-                    </a>
-                    <a href="/contact" class="btn-outline">
-                        <span>Contact Support</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="24" height="24">
-                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-width="2"/>
-                        </svg>
-                    </a>
+    <!-- Limited Time Offer -->
+    <section class="offer-section">
+        <div class="container">
+            <div class="offer-content">
+                <h2 class="offer-title">Limited-Time Offer</h2>
+                <h3 class="offer-subtitle">Get 20% Off Your First Prescription!</h3>
+                
+                <div class="offer-details">
+                    <div class="countdown-timer">
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="countdown-days">02</div>
+                            <div class="countdown-label">Days</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="countdown-hours">23</div>
+                            <div class="countdown-label">Hours</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="countdown-minutes">59</div>
+                            <div class="countdown-label">Minutes</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="countdown-seconds">59</div>
+                            <div class="countdown-label">Seconds</div>
+                        </div>
+                    </div>
+                    
+                    <p class="scarcity-notice">Due to high demand, prescriptions are limited per week.</p>
+                </div>
+                
+                <a href="#quiz" class="primary-cta cta-large">
+                    <span>Claim Your 20% Off – Take the Quiz</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="quiz-section" id="quiz">
+        <div class="container">
+            <header class="section-header">
+                <h2 class="section-title">Find Your Perfect Formula</h2>
+                <p class="section-subtitle">Take our short quiz to get a personalized recommendation</p>
+            </header>
+
+            <div class="quiz-container">
+                <!-- Quiz intro screen -->
+                <div class="quiz-slide active" data-slide="intro">
+                    <div class="quiz-intro">
+                        <h3 class="quiz-heading">Ready to Enhance Your Intimate Experience?</h3>
+                        <p class="quiz-description">Answer a few quick questions to help us understand your needs. Your responses are confidential and secure.</p>
+                        <div class="quiz-facts">
+                            <div class="quiz-fact">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M12 8v4l4 2" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Takes only 2 minutes</span>
+                            </div>
+                            <div class="quiz-fact">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>100% private &amp; secure</span>
+                            </div>
+                            <div class="quiz-fact">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M12 17h.01" stroke-width="3" stroke-linecap="round"/>
+                                </svg>
+                                <span>Personalized recommendation</span>
+                            </div>
+                        </div>
+                        <button class="quiz-button" data-next="question-1">
+                            <span>Start Quiz</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Question 1 -->
+                <div class="quiz-slide" data-slide="question-1">
+                    <div class="quiz-question">
+                        <div class="quiz-progress">
+                            <div class="progress-bar">
+                                <div class="progress-filled" style="width: 20%"></div>
+                            </div>
+                            <div class="progress-text">Question 1/5</div>
+                        </div>
+                        <h3 class="question-title">What are you looking to improve in your intimate experience?</h3>
+                        <div class="answer-options">
+                            <label class="answer-option">
+                                <input type="radio" name="question-1" value="sensitivity">
+                                <div class="option-content">
+                                    <div class="option-checkmark"></div>
+                                    <span>Increased Sensitivity</span>
+                                </div>
+                            </label>
+                            <label class="answer-option">
+                                <input type="radio" name="question-1" value="arousal">
+                                <div class="option-content">
+                                    <div class="option-checkmark"></div>
+                                    <span>Enhanced Arousal</span>
+                                </div>
+                            </label>
+                            <label class="answer-option">
+                                <input type="radio" name="question-1" value="satisfaction">
+                                <div class="option-content">
+                                    <div class="option-checkmark"></div>
+                                    <span>Overall Satisfaction</span>
+                                </div>
+                            </label>
+                            <label class="answer-option">
+                                <input type="radio" name="question-1" value="all">
+                                <div class="option-content">
+                                    <div class="option-checkmark"></div>
+                                    <span>All of the Above</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="question-navigation">
+                            <button class="quiz-back-button" data-prev="intro">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M19 12H5m7 7l-7-7 7-7" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Back</span>
+                            </button>
+                            <button class="quiz-next-button" data-next="question-2" disabled>
+                                <span>Next</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Remaining questions would follow the same pattern -->
+                
+                <!-- Results screen -->
+                <div class="quiz-slide" data-slide="results">
+                    <div class="quiz-results">
+                        <div class="results-header">
+                            <svg class="checkmark-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="48" height="48">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 4L12 14.01l-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3 class="results-title">We've Found Your Perfect Formula!</h3>
+                            <p class="results-subtitle">Based on your answers, we recommend:</p>
+                        </div>
+                        
+                        <div class="results-product">
+                            <div class="product-image">
+                                <img src="images/product-recommended.png" alt="S-Cream Recommended Formula" width="200" height="200">
+                            </div>
+                            <div class="product-details">
+                                <h4 class="product-name">S-Cream Sensitivity+ Formula</h4>
+                                <div class="product-highlights">
+                                    <div class="highlight-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                            <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Enhanced blood flow for maximum sensitivity</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                            <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Fast-acting formula (15-30 minutes)</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                            <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Personalized for your unique needs</span>
+                                    </div>
+                                </div>
+                                <div class="product-price">
+                                    <div class="price-original">$89.00</div>
+                                    <div class="price-current">$71.20</div>
+                                    <div class="price-savings">Save 20% Today!</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="results-actions">
+                            <a href="#checkout" class="primary-cta cta-large">
+                                <span>Continue to Checkout</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </a>
+                            <div class="security-badge">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Secure Checkout • Discreet Shipping • Money-Back Guarantee</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer class="site-footer">
-        <div class="footer-video-container" aria-hidden="true">
-            <video autoplay loop muted playsinline class="footer-background-video">
-                <source src="promocream1.mp4" type="video/mp4">
-            </video>
-            <div class="video-overlay"></div>
-        </div>
-
-        <div class="container">
-            <div class="footer-grid">
-                <!-- Company Info -->
-                <div class="footer-column brand-column">
-                    <div class="footer-logo">
-                        <img src="logo.png" alt="S-Cream Logo" width="160" height="80" loading="lazy">
+    <!-- Live Chat -->
+    <div class="live-chat-container">
+        <button class="chat-toggle" aria-label="Open chat" aria-expanded="false">
+            <svg class="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Chat with a Specialist</span>
+        </button>
+        
+        <div class="chat-window" aria-hidden="true">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="chat-avatar">
+                        <img src="images/chat-specialist.jpg" alt="Chat Specialist" width="32" height="32">
+                        <span class="status-indicator"></span>
+                    </div>
+                    <div class="chat-info">
+                        <div class="chat-name">Dr. Emily White</div>
+                        <div class="chat-status">Online • Medical Consultant</div>
                     </div>
                 </div>
+                <button class="chat-close" aria-label="Close chat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="chat-messages">
+                <div class="message received">
+                    <div class="message-content">Hi there! I'm Dr. Emily, a medical consultant for S-Cream. How can I help you today?</div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <textarea placeholder="Type your message..." aria-label="Type your message"></textarea>
+                <button class="send-button" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
-                <!-- Support -->
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column brand-column">
+                    <a href="/" class="footer-logo">
+                        <img src="images/logo-white.svg" alt="S-Cream Logo" width="160" height="60">
+                    </a>
+                    <p class="brand-tagline">Enhancing intimate wellness through science and care</p>
+                </div>
+                
                 <div class="footer-column">
-                    <h3>Support</h3>
+                    <h3 class="footer-heading">Company</h3>
                     <ul class="footer-links">
-                        <li><a href="/contact">Contact Us</a></li>
-                        <li><a href="/track">Track Order</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/team">Medical Team</a></li>
+                        <li><a href="/science">Our Science</a></li>
+                        <li><a href="/press">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 class="footer-heading">Support</h3>
+                    <ul class="footer-links">
                         <li><a href="/faq">FAQ</a></li>
-                        <li><a href="/support">Help Center</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/shipping">Shipping</a></li>
+                        <li><a href="/returns">Returns</a></li>
                     </ul>
                 </div>
-
-                <!-- Legal -->
+                
                 <div class="footer-column">
-                    <h3>Legal</h3>
+                    <h3 class="footer-heading">Legal</h3>
                     <ul class="footer-links">
-                        <li><a href="/privacy">Privacy Policy</a></li>
                         <li><a href="/terms">Terms of Service</a></li>
-                        <li><a href="/shipping">Shipping Info</a></li>
-                        <li><a href="/returns">Returns Policy</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/hipaa">HIPAA Compliance</a></li>
+                        <li><a href="/disclaimer">Medical Disclaimer</a></li>
                     </ul>
                 </div>
-
-                <!-- Newsletter -->
-                <div class="footer-column">
-                    <h3>Stay Updated</h3>
-                    <p class="newsletter-text">Subscribe for exclusive offers and updates</p>
+                
+                <div class="footer-column newsletter-column">
+                    <h3 class="footer-heading">Stay Updated</h3>
+                    <p class="newsletter-text">Get exclusive offers and wellness tips</p>
                     <form class="newsletter-form">
                         <div class="input-group">
-                            <input type="email" placeholder="Enter your email" required aria-label="Email for newsletter">
-                            <button type="submit" class="subscribe-btn" aria-label="Subscribe">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" width="18" height="18">
-                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-width="2"/>
+                            <input type="email" placeholder="Your email address" required aria-label="Your email address">
+                            <button type="submit" class="submit-button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                                    <path d="M5 12h14m-7-7l7 7-7 7" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
-
-            <!-- Footer Bottom -->
+            
             <div class="footer-bottom">
-                <div class="footer-info">
-                    <p>&copy; <span id="currentYear">2025</span> S-Cream. All rights reserved.</p>
+                <div class="copyright">
+                    &copy; <span id="current-year">2023</span> S-Cream. All rights reserved.
                 </div>
                 <div class="social-links">
                     <a href="#" class="social-link" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
-                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Twitter">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
-                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
                     </a>
                     <a href="#" class="social-link" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
                         </svg>
                     </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Pinterest">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 0a12 12 0 0 0-4.5 23.3c0-.17-.03-.43-.03-.73 0-1.37.84-3.24.84-3.24.3.55 1.16 1.01 2.08 1.01 3.54 0 5.6-3.3 5.6-7.7 0-4.09-2.11-7.15-5.33-7.15-3.99 0-6.14 2.68-6.14 6.16 0 1.7.55 3.21 1.72 3.77.16.08.3.04.35-.16l.23-.85c.02-.08.04-.18-.02-.29-.12-.17-.25-.39-.25-.7 0-1.95 1.43-3.43 3.29-3.43 1.78 0 3.14 1.13 3.14 3.32 0 2.34-.89 4.15-2.18 4.15-.7 0-1.22-.59-1.05-1.32.2-.87.59-1.81.59-2.45 0-.56-.3-1.03-.92-1.03-.74 0-1.33.78-1.33 1.82 0 .67.23 1.12.23 1.12l-.91 3.93c-.27 1.16-.04 2.59-.02 2.73.01.08.11.1.16.04.07-.1.97-1.23 1.28-2.37.09-.31.48-1.94.48-1.94.25.48.97.9 1.73.9 2.28 0 3.92-2.12 3.92-4.97C17.24 2.39 13.91 0 11.58 0 8.57 0 6 2.54 6 5.62 6 8.5 7.54 11 10.03 11c1.58 0 3-1.06 3-2.38 0-1.25-.84-2.25-1.9-2.25-1.06 0-1.85.74-1.85 1.67 0 .93.65 1.67 1.5 1.67.83 0 1.5-.74 1.5-1.67 0-.93-.67-1.67-1.5-1.67M12 0z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="payment-methods">
+                    <img src="images/payment-methods.svg" alt="Accepted Payment Methods" width="240" height="24">
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- Main JavaScript (properly linked) -->
-    <script src="js/script.js"></script>
 </body>
 </html>
