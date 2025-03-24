@@ -853,9 +853,9 @@ function initCountdownTimer() {
   
   if (!daysElement || !hoursElement || !minutesElement || !secondsElement) return;
   
-  // Set end date to 3 days from now
+  // Set end date to 14 days (2 weeks) from now
   const now = new Date();
-  const endDate = new Date(now.getTime() + (3 * 24 * 60 * 60 * 1000));
+  const endDate = new Date(now.getTime() + (14 * 24 * 60 * 60 * 1000));
   
   // Update countdown
   function updateCountdown() {
@@ -863,8 +863,8 @@ function initCountdownTimer() {
     const timeDifference = endDate - currentTime;
     
     if (timeDifference <= 0) {
-      // Reset countdown to another 3 days when it reaches zero
-      endDate.setTime(currentTime.getTime() + (3 * 24 * 60 * 60 * 1000));
+      // Reset countdown to another 14 days when it reaches zero
+      endDate.setTime(currentTime.getTime() + (14 * 24 * 60 * 60 * 1000));
     }
     
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
