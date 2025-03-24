@@ -3,7 +3,25 @@
  * Handles JotForm integration and form prefilling from Stripe
  */
 
+/**
+ * Verify the user came from a valid payment session
+ * Redirect to quiz page if no valid session ID is found
+ */
+function verifyPaymentAccess() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const sessionId = urlParams.get('session_id');
+  
+  // If no session ID or it doesn't look like a Stripe session ID (they typically start with cs_)
+  if (!sessionId || !sessionId.startsWith('cs_')) {
+    // Redirect to quiz page
+    window.location.href = 'quiz.html';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Verify payment access first
+    verifyPaymentAccess();
+    
     // Initialize the success page
     initSuccessPage();
     
@@ -66,7 +84,7 @@ function loadJotForm(sessionId) {
     const currentDate = new Date().toISOString().split('T')[0];
     
     // Get order number
-    const orderNumber = localStorage.getItem('scream_order_number') || document.getElementById('order-number').textContent;
+    const orderNumber = localStorage.getItem('scream_order_number') || document.getElementById('order-number')?.textContent;
     
     // Create JotForm embed with prefilled values
     const jotformEmbed = document.createElement('script');
