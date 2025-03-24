@@ -35,7 +35,7 @@ function initHeader() {
   let lastScrollTop = 0;
   const scrollThreshold = 50;
   
-  // Toggle mobile menu
+  // Toggle mobile menu with smooth animation
   if (menuToggle && mobileNav) {
     menuToggle.addEventListener('click', () => {
       const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
@@ -43,26 +43,37 @@ function initHeader() {
       mobileNav.setAttribute('aria-hidden', isExpanded);
       mobileNav.classList.toggle('active');
       document.body.classList.toggle('menu-open');
+      
+      // Optional: Add body scroll lock when menu is open
+      if (!isExpanded) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     });
   }
   
-  // Close mobile menu when clicking a nav link
+  // Close mobile menu when clicking a nav link with smooth transition
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       if (mobileNav && mobileNav.classList.contains('active')) {
-        mobileNav.classList.remove('active');
-        mobileNav.setAttribute('aria-hidden', 'true');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('menu-open');
+        // Optional: Add a slight delay before closing the menu
+        setTimeout(() => {
+          mobileNav.classList.remove('active');
+          mobileNav.setAttribute('aria-hidden', 'true');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('menu-open');
+          document.body.style.overflow = '';
+        }, 100);
       }
     });
   });
   
-  // Handle scroll effects
+  // Handle scroll effects with smoother transitions
   window.addEventListener('scroll', () => {
     const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
-    // Add/remove scrolled class to header
+    // Add/remove scrolled class to header with smooth transition
     if (currentScrollTop > scrollThreshold) {
       header.classList.add('scrolled');
       
@@ -81,12 +92,12 @@ function initHeader() {
       }
     }
     
-    // Hide/show header on scroll
+    // Hide/show header on scroll with smoother transition
     if (currentScrollTop > lastScrollTop && currentScrollTop > 200) {
-      // Scrolling down
+      // Scrolling down - hide header with subtle transition
       header.style.transform = 'translateY(-100%)';
     } else {
-      // Scrolling up
+      // Scrolling up - show header with subtle transition
       header.style.transform = 'translateY(0)';
     }
     
@@ -100,8 +111,34 @@ function initHeader() {
       mobileNav.setAttribute('aria-hidden', 'true');
       menuToggle.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
+      document.body.style.overflow = '';
     }
   });
+  
+  // Add active class to navigation link based on current section
+  function setActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPosition = window.scrollY + 100; // Offset for header height
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute('id');
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }
+  
+  // Call on scroll and initial load
+  window.addEventListener('scroll', setActiveNavLink);
+  setActiveNavLink();
 }
 
 /**
