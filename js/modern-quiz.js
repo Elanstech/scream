@@ -1,7 +1,7 @@
 /**
  * =============================================================================
  * S-Cream Modern Quiz Page JavaScript
- * Handles quiz flow, animations, and recommendation logic
+ * Complete integration with quiz flow, animations, and Stripe checkout
  * =============================================================================
  */
 
@@ -160,7 +160,7 @@ function initQuiz() {
         loadingOverlay.classList.add('active');
       }
       
-      // Redirect to Stripe checkout (this would be replaced with actual Stripe integration)
+      // Redirect to Stripe checkout
       redirectToStripeCheckout(formulaName);
     });
   }
@@ -295,29 +295,24 @@ function simulateProcessing(callback) {
 function determineRecommendation(answers) {
   console.log('User answers:', answers);
   
-  // Default recommendation
+  // Since we only have one formula, always recommend Premium Formula
   let recommendation = {
-    formulaName: 'S-Cream Sensitivity+ Formula',
-    highlight1: 'Enhanced blood flow for maximum sensitivity',
+    formulaName: 'S-Cream Premium Formula',
+    highlight1: 'Our most advanced formula for maximum results',
     highlight2: 'Fast-acting formula (15-30 minutes)',
-    highlight3: 'Personalized for your unique needs'
+    highlight3: 'Doctor-formulated with premium ingredients'
   };
   
-  // Simple logic to determine recommendation based on answers
-  // This would be expanded with more sophisticated logic based on actual formulations
+  // Personalize some highlights based on answers for better user experience
   
   // Question 1: What are you looking to improve?
   if (answers['question-1'] === 'sensitivity') {
-    recommendation.formulaName = 'S-Cream Sensitivity+ Formula';
     recommendation.highlight1 = 'Enhanced sensitivity through increased blood flow';
   } else if (answers['question-1'] === 'arousal') {
-    recommendation.formulaName = 'S-Cream Arousal+ Formula';
     recommendation.highlight1 = 'Specialized blend for enhanced arousal response';
   } else if (answers['question-1'] === 'satisfaction') {
-    recommendation.formulaName = 'S-Cream Complete Formula';
     recommendation.highlight1 = 'Comprehensive formula for overall satisfaction';
   } else if (answers['question-1'] === 'all') {
-    recommendation.formulaName = 'S-Cream Premium Formula';
     recommendation.highlight1 = 'Our most complete formula for all aspects of intimacy';
   }
   
@@ -381,6 +376,7 @@ function updateResultsWithRecommendation(recommendation) {
  */
 function animateTextUpdate(element, newText) {
   // Fade out
+  element.style.transition = 'opacity 0.3s, transform 0.3s';
   element.style.opacity = '0';
   element.style.transform = 'translateY(10px)';
   
@@ -397,45 +393,43 @@ function animateTextUpdate(element, newText) {
  * @param {string} formulaName - Name of the recommended formula
  */
 function redirectToStripeCheckout(formulaName) {
-  // In a real implementation, this would create a Stripe Checkout session
-  // and redirect the user to the Stripe-hosted checkout page
+  // Show loading overlay if not already visible
+  const loadingOverlay = document.getElementById('loading-overlay');
+  if (loadingOverlay && !loadingOverlay.classList.contains('active')) {
+    loadingOverlay.classList.add('active');
+  }
   
+  // Your specific Stripe checkout URL
+  const stripeCheckoutUrl = 'https://buy.stripe.com/test_6oE8yM1y7atV9qM8ww';
+  
+  // Track the event (for analytics purposes)
   console.log('Redirecting to Stripe checkout for:', formulaName);
   
-  // Example of how this might be implemented with Stripe
-  /*
-  fetch('/create-checkout-session', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      product: formulaName,
-      price: '99.00'
-    }),
-  })
-  .then(response => response.json())
-  .then(session => {
-    // Redirect to Stripe Checkout
-    window.location.href = session.url;
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    
-    // Hide loading overlay on error
-    const loadingOverlay = document.getElementById('loading-overlay');
-    if (loadingOverlay) {
-      loadingOverlay.classList.remove('active');
-    }
-  });
-  */
-  
-  // For demo purposes, simulate API call and redirect after delay
+  // Short delay to show loading animation
   setTimeout(() => {
-    // In production, this would be the Stripe checkout URL
-    // window.location.href = session.url;
-    
-    // For demo, redirect back to index page
-    window.location.href = 'index.html';
-  }, 2000);
+    // Redirect to Stripe Checkout
+    window.location.href = stripeCheckoutUrl;
+  }, 800);
 }
+
+/**
+ * Handle success page URL parameters (if applicable)
+ * Can be used to verify the checkout was completed
+ */
+function handleSuccessPage() {
+  // Check if we're on the success page
+  if (window.location.pathname.includes('success')) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    
+    if (sessionId) {
+      console.log('Successful checkout session:', sessionId);
+      
+      // You could verify the session on your server if needed
+      // or trigger additional events like conversion tracking
+    }
+  }
+}
+
+// Check for success page parameters on load
+handleSuccessPage();
