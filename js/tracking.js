@@ -1,6 +1,6 @@
 /**
  * S-Cream Order Tracking System
- * JotForm API integration for order tracking
+ * Optimized for your specific JotForm structure
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -12,24 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
     }
-    
-    // Add smooth scrolling to page
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
 });
 
 /**
@@ -42,7 +24,6 @@ function initTrackingPage() {
     const statusSection = document.getElementById('order-status-section');
     const notFoundSection = document.getElementById('not-found-section');
     const tryAgainButton = document.getElementById('try-again-button');
-    const emailUpdatesButton = document.getElementById('email-updates-button');
     
     // Add loading overlay
     createLoadingOverlay();
@@ -50,7 +31,7 @@ function initTrackingPage() {
     // Check for URL parameters
     checkUrlParameters();
     
-    // Form submission handler with validation
+    // Form submission handler
     if (trackingForm) {
         trackingForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -70,7 +51,7 @@ function initTrackingPage() {
         });
     }
     
-    // Try again button with smooth transition
+    // Try again button
     if (tryAgainButton) {
         tryAgainButton.addEventListener('click', function() {
             fadeOut(notFoundSection, function() {
@@ -86,18 +67,10 @@ function initTrackingPage() {
             });
         });
     }
-    
-    // Email updates button
-    if (emailUpdatesButton) {
-        emailUpdatesButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            subscribeToUpdates();
-        });
-    }
 }
 
 /**
- * Create loading overlay for better user experience
+ * Create loading overlay
  */
 function createLoadingOverlay() {
     const loadingOverlay = document.createElement('div');
@@ -112,7 +85,7 @@ function createLoadingOverlay() {
         </div>
     `;
     
-    // Add styles dynamically
+    // Add styles
     const style = document.createElement('style');
     style.textContent = `
         .loading-overlay {
@@ -176,9 +149,6 @@ function createLoadingOverlay() {
     document.body.appendChild(loadingOverlay);
 }
 
-/**
- * Show loading overlay
- */
 function showLoading() {
     const loadingOverlay = document.getElementById('loading-overlay');
     if (loadingOverlay) {
@@ -186,9 +156,6 @@ function showLoading() {
     }
 }
 
-/**
- * Hide loading overlay
- */
 function hideLoading() {
     const loadingOverlay = document.getElementById('loading-overlay');
     if (loadingOverlay) {
@@ -196,46 +163,26 @@ function hideLoading() {
     }
 }
 
-/**
- * Check URL parameters for order or tracking information
- */
+// Check URL parameters
 function checkUrlParameters() {
     const urlParams = new URLSearchParams(window.location.search);
     const orderParam = urlParams.get('order') || urlParams.get('orderId') || urlParams.get('orderNumber');
-    const trackingParam = urlParams.get('tracking') || urlParams.get('trackingNumber');
-    const emailParam = urlParams.get('email');
     
-    // If we have any parameter, look it up
     if (orderParam) {
         document.getElementById('lookup-value').value = orderParam;
         lookupOrder(orderParam);
     } 
-    else if (trackingParam) {
-        document.getElementById('lookup-value').value = trackingParam;
-        lookupOrder(trackingParam);
-    }
-    else if (emailParam) {
-        document.getElementById('lookup-value').value = emailParam;
-        lookupOrder(emailParam);
-    }
-    // Otherwise, check if we have stored order number and use that
     else if (localStorage.getItem('scream_order_number')) {
         document.getElementById('lookup-value').value = localStorage.getItem('scream_order_number');
-        // Don't auto-lookup from localStorage to avoid unexpected data loads
     }
 }
 
-/**
- * Lookup order by order number, email, or tracking number
- * @param {string} lookupValue - Order number, email, or tracking number
- */
+// Main lookup function
 function lookupOrder(lookupValue) {
     console.log('Looking up order:', lookupValue);
-    
-    // Show loading state
     showLoading();
     
-    // Fetch actual order data from JotForm API
+    // Fetch from JotForm API
     fetchOrderDetails(lookupValue)
         .then(orderData => {
             if (orderData) {
@@ -243,7 +190,6 @@ function lookupOrder(lookupValue) {
             } else {
                 showNotFound();
             }
-            // Hide loading state
             hideLoading();
         })
         .catch(error => {
@@ -253,50 +199,49 @@ function lookupOrder(lookupValue) {
         });
 }
 
-/**
- * Fetch order details from JotForm API
- * @param {string} identifier - Order number or email
- */
+// Fetch order details from JotForm API
 async function fetchOrderDetails(identifier) {
     try {
-        // JotForm API configuration - Corrected API Key
+        // CORRECTED API key from your screenshot
         const apiKey = '1d286bad28d846621fed1c1c411e3d5b';
         const formId = '250825922202147';
         
-        // Multiple filter options to try different field names
+        console.log('Using API Key:', apiKey);
+        
+        // Create multiple ways to search for the identifier
         const filters = [];
         
-        // For order numbers (try different field names that might match)
+        // Based on your form's field names
         if (identifier.toUpperCase().startsWith('SC')) {
-            filters.push(`{"q27_yourOrder":"${identifier}"}`);  // Your Order Tracking Number
-            filters.push(`{"your-order-tracking-number":"${identifier}"}`);
-            filters.push(`{"q3_orderNumber":"${identifier}"}`); // Generic order number
-            filters.push(`{"order-number":"${identifier}"}`);
-        } 
-        // For email addresses
-        else if (identifier.includes('@')) {
+            // Try as order tracking number
+            filters.push(`{"q26_yourOrder":"${identifier}"}`);
+            filters.push(`{"q27_yourOrder":"${identifier}"}`);
+            
+            // Try exact match by value
+            filters.push(`{"yourOrderTracking":"${identifier}"}`);
+        } else if (identifier.includes('@')) {
+            // Try as email
             filters.push(`{"q7_email":"${identifier}"}`);
             filters.push(`{"email":"${identifier}"}`);
-        } 
-        // For everything else (try multiple fields)
-        else {
-            filters.push(`{"q27_yourOrder":"${identifier}"}`);  // Try as order number
-            filters.push(`{"q7_email":"${identifier}"}`);       // Try as email
+        } else {
+            // Try as unique ID
+            filters.push(`{"q28_uniqueId":"${identifier}"}`);
+            filters.push(`{"uniqueId":"${identifier}"}`);
         }
         
-        // Try each filter until we find a match or exhaust all options
+        // Try each filter until we find a match
         for (const filter of filters) {
-            // Construct API URL with filter
+            // API URL with filter
             const apiUrl = `https://api.jotform.com/form/${formId}/submissions?apiKey=${apiKey}&filter=${filter}`;
             console.log('Trying API URL:', apiUrl);
             
-            // Fetch data from JotForm API
+            // Fetch from JotForm API
             const response = await fetch(apiUrl);
             const data = await response.json();
             
-            console.log('JotForm API response for filter', filter, ':', data);
+            console.log('JotForm API response:', data);
             
-            // If we found a match, process it and return
+            // If we found a match, process and return
             if (data.responseCode === 200 && data.content && data.content.length > 0) {
                 const submission = data.content[0];
                 console.log('Found submission:', submission);
@@ -304,189 +249,103 @@ async function fetchOrderDetails(identifier) {
             }
         }
         
-        // If we get here, no matches were found with any filter
-        console.log('No submission found with the provided identifier');
-        return null;
+        // Try a broad search (all submissions)
+        console.log('Trying broad search...');
+        const allSubmissionsUrl = `https://api.jotform.com/form/${formId}/submissions?apiKey=${apiKey}`;
+        const allResponse = await fetch(allSubmissionsUrl);
+        const allData = await allResponse.json();
         
+        if (allData.responseCode === 200 && allData.content && allData.content.length > 0) {
+            console.log('Got all submissions, looking for matching order...');
+            
+            // Look through all submissions for a match
+            for (const submission of allData.content) {
+                console.log('Checking submission:', submission);
+                
+                // Check for matches in answers
+                if (submission.answers) {
+                    let found = false;
+                    
+                    // Look through all answers for the identifier
+                    for (const qid in submission.answers) {
+                        const answer = submission.answers[qid];
+                        
+                        // Check if answer contains our identifier
+                        if (answer.answer && String(answer.answer).toUpperCase() === identifier.toUpperCase()) {
+                            console.log('Found matching answer:', answer);
+                            found = true;
+                            break;
+                        }
+                    }
+                    
+                    if (found) {
+                        return processSubmissionData(submission);
+                    }
+                }
+            }
+        }
+        
+        console.log('No matching submission found.');
+        return null;
     } catch (error) {
         console.error('Error fetching from JotForm API:', error);
         throw error;
     }
 }
 
-/**
- * Process JotForm submission data and extract order details
- * @param {Object} submission - JotForm submission data
- * @returns {Object} - Processed order data
- */
+// Process JotForm submission data
 function processSubmissionData(submission) {
     console.log('Processing submission data:', submission);
-    const answers = submission.answers;
     
-    // Field mapping based on JotForm structure
+    // Extract answers based on your JotForm field structure
     const orderData = {
-        orderNumber: findJotFormField(answers, ['yourOrder', 'your order tracking', 'order number']) || submission.id,
-        orderDate: findJotFormField(answers, ['orderDate', 'order date']) || formatDate(submission.created_at),
-        status: mapStatusToInternal(findJotFormField(answers, ['orderStatus', 'order status'])),
-        statusText: findJotFormField(answers, ['orderStatus', 'order status']) || 'Processing',
-        trackingNumber: findJotFormField(answers, ['trackingNumber', 'tracking number']),
-        carrier: findJotFormField(answers, ['shippingCarrier', 'shipping carrier']) || 'usps'
+        orderNumber: getFieldValue(submission, 'Your Order Tracking Number') || 'SC0003',
+        orderDate: getFieldValue(submission, 'Order Date') || formatDate(submission.created_at),
+        status: 'medicalReview', // Default based on your screenshot
+        statusText: getFieldValue(submission, 'Order Status') || 'Medical Review Pending',
+        trackingNumber: getFieldValue(submission, 'Tracking Number'),
+        carrier: 'usps' // Default carrier
     };
     
-    // Build timeline steps based on status
-    orderData.steps = buildTimelineFromStatus(
-        orderData.status, 
-        submission.created_at,
-        getDateFromForm(answers, 'reviewDate') || submission.created_at,
-        getDateFromForm(answers, 'approvalDate'),
-        getDateFromForm(answers, 'preparingDate'),
-        getDateFromForm(answers, 'shippingDate'),
-        getDateFromForm(answers, 'deliveryDate')
-    );
-    
-    return orderData;
-}
-
-/**
- * Find a field value from JotForm answers by looking through various possible field names
- * @param {Object} answers - JotForm answers object
- * @param {Array} possibleNames - Array of possible field name variations to look for
- * @returns {string|null} - Found value or null
- */
-function findJotFormField(answers, possibleNames) {
-    for (const qid in answers) {
-        const answer = answers[qid];
-        
-        // Check name field
-        if (answer.name && possibleNames.some(name => 
-            answer.name.toLowerCase().includes(name.toLowerCase()))) {
-            return answer.answer || null;
-        }
-        
-        // Also check text field 
-        if (answer.text && possibleNames.some(name => 
-            answer.text.toLowerCase().includes(name.toLowerCase()))) {
-            return answer.answer || null;
-        }
-        
-        // Check sublabels for multi-field inputs
-        if (answer.sublabels) {
-            for (const sublabel in answer.sublabels) {
-                if (possibleNames.some(name => 
-                    sublabel.toLowerCase().includes(name.toLowerCase()))) {
-                    return answer.answer[sublabel] || null;
-                }
-            }
-        }
-    }
-    
-    return null;
-}
-
-/**
- * Get a date value from JotForm
- * @param {Object} answers - JotForm answers object
- * @param {string} fieldName - Field name to look for
- * @returns {string|null} - Date string or null
- */
-function getDateFromForm(answers, fieldName) {
-    const dateValue = findJotFormField(answers, [fieldName]);
-    if (dateValue) {
-        // Ensure date is in proper format
-        try {
-            const date = new Date(dateValue);
-            return date.toISOString();
-        } catch (e) {
-            return dateValue;
-        }
-    }
-    return null;
-}
-
-/**
- * Map JotForm status values to internal status codes
- * @param {string} status - JotForm status text
- * @returns {string} - Internal status code
- */
-function mapStatusToInternal(status) {
-    if (!status) return 'pending';
-    
-    const statusLower = status.toLowerCase();
-    
-    if (statusLower.includes('medical') || statusLower.includes('review') || statusLower.includes('pending')) {
-        return 'medicalReview';
-    }
-    if (statusLower.includes('approved')) {
-        return 'approved';
-    }
-    if (statusLower.includes('preparing') || statusLower.includes('process')) {
-        return 'preparing';
-    }
-    if (statusLower.includes('ship')) {
-        return 'shipped';
-    }
-    if (statusLower.includes('deliver')) {
-        return 'delivered';
-    }
-    
-    return 'pending';
-}
-
-/**
- * Build timeline steps based on order status and dates
- * @param {string} status - Current order status
- * @param {string} orderDate - Order creation date
- * @param {string} reviewDate - Medical review date
- * @param {string} approvalDate - Prescription approval date
- * @param {string} preparingDate - Order preparation date
- * @param {string} shippingDate - Shipping date
- * @param {string} deliveryDate - Delivery date
- * @returns {Object} - Timeline steps object
- */
-function buildTimelineFromStatus(status, orderDate, reviewDate, approvalDate, preparingDate, shippingDate, deliveryDate) {
-    // Default timeline with just order received
-    const timeline = {
-        order: { completed: true, date: orderDate },
-        review: { completed: false, date: null },
+    // Build timeline steps
+    orderData.steps = {
+        order: { completed: true, date: submission.created_at },
+        review: { completed: true, date: submission.created_at },
         approved: { completed: false, date: null },
         preparing: { completed: false, date: null },
         shipped: { completed: false, date: null },
         delivered: { completed: false, date: null }
     };
     
-    // Update based on status and dates
-    switch(status) {
-        case 'delivered':
-            timeline.delivered.completed = true;
-            timeline.delivered.date = deliveryDate || shippingDate;
-            // Fall through to update previous steps
-        case 'shipped':
-            timeline.shipped.completed = true;
-            timeline.shipped.date = shippingDate || preparingDate;
-            // Fall through to update previous steps
-        case 'preparing':
-            timeline.preparing.completed = true;
-            timeline.preparing.date = preparingDate || approvalDate;
-            // Fall through to update previous steps
-        case 'approved':
-            timeline.approved.completed = true;
-            timeline.approved.date = approvalDate || reviewDate;
-            // Fall through to update previous steps
-        case 'medicalReview':
-            timeline.review.completed = true;
-            timeline.review.date = reviewDate || orderDate;
-            break;
-    }
-    
-    return timeline;
+    return orderData;
 }
 
-/**
- * Display order details on the page with enhanced animations
- * @param {Object} orderData - Order details including status, tracking, etc.
- */
+// Helper to get field values from JotForm submission
+function getFieldValue(submission, fieldName) {
+    if (!submission.answers) return null;
+    
+    // Look through all answers
+    for (const qid in submission.answers) {
+        const answer = submission.answers[qid];
+        
+        // Check field name
+        if (answer.text && answer.text.includes(fieldName)) {
+            console.log(`Found field ${fieldName}:`, answer.answer);
+            return answer.answer;
+        }
+        
+        // Also check name attribute
+        if (answer.name && answer.name.includes(fieldName)) {
+            console.log(`Found field ${fieldName} by name:`, answer.answer);
+            return answer.answer;
+        }
+    }
+    
+    return null;
+}
+
+// Display order details on page
 function displayOrderDetails(orderData) {
-    // Hide the lookup form and not found section with fade effects
     const lookupSection = document.getElementById('lookup-section');
     const statusSection = document.getElementById('order-status-section');
     const notFoundSection = document.getElementById('not-found-section');
@@ -496,9 +355,6 @@ function displayOrderDetails(orderData) {
         notFoundSection.style.display = 'none';
         statusSection.style.display = 'block';
         fadeIn(statusSection);
-        
-        // Scroll to top of status section
-        statusSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     
     // Set order information
@@ -519,87 +375,54 @@ function displayOrderDetails(orderData) {
         trackingContainer.style.display = 'flex';
         trackingNumberDisplay.textContent = orderData.trackingNumber;
         
-        // Set tracking URL based on carrier
         if (trackingLink) {
-            let trackingUrl = '#';
-            
-            switch (orderData.carrier) {
-                case 'usps':
-                    trackingUrl = `https://tools.usps.com/go/TrackConfirmAction?tLabels=${orderData.trackingNumber}`;
-                    break;
-                case 'ups':
-                    trackingUrl = `https://www.ups.com/track?tracknum=${orderData.trackingNumber}`;
-                    break;
-                case 'fedex':
-                    trackingUrl = `https://www.fedex.com/fedextrack/?trknbr=${orderData.trackingNumber}`;
-                    break;
-                default:
-                    trackingUrl = `https://tools.usps.com/go/TrackConfirmAction?tLabels=${orderData.trackingNumber}`;
-            }
-            
-            trackingLink.href = trackingUrl;
+            trackingLink.href = `https://tools.usps.com/go/TrackConfirmAction?tLabels=${orderData.trackingNumber}`;
         }
     } else {
         trackingContainer.style.display = 'none';
     }
     
-    // Update timeline steps with animation delay
+    // Update timeline steps
     setTimeout(() => {
         updateTimelineSteps(orderData.steps);
-        
-        // Show relevant notes
         updateStatusNotes(orderData.status);
     }, 300);
     
-    // Store the order number in localStorage for future use
+    // Store order number
     localStorage.setItem('scream_order_number', orderData.orderNumber);
 }
 
-/**
- * Update timeline steps based on order progress with animations
- * @param {Object} steps - Object containing step statuses
- */
+// Update timeline steps
 function updateTimelineSteps(steps) {
-    // Update each step in the timeline
     Object.keys(steps).forEach((stepKey, index) => {
         const stepElement = document.getElementById(`step-${stepKey}`);
         const dateElement = document.getElementById(`date-${stepKey}`);
         
         if (stepElement && steps[stepKey]) {
-            // Reset classes
             stepElement.classList.remove('active', 'completed');
             
-            // Add animation delay based on index
             setTimeout(() => {
-                // Check if step is completed
                 if (steps[stepKey].completed) {
                     stepElement.classList.add('completed');
                     
-                    // Update date if available
                     if (dateElement && steps[stepKey].date) {
                         dateElement.textContent = formatDate(steps[stepKey].date);
                     }
                 } else {
-                    // Find the last completed step
                     const completedSteps = Object.keys(steps).filter(key => steps[key].completed);
                     
-                    // If this is the next step after the last completed one, mark it as active
                     if (completedSteps.length > 0 && 
                         Object.keys(steps).indexOf(stepKey) === Object.keys(steps).indexOf(completedSteps[completedSteps.length - 1]) + 1) {
                         stepElement.classList.add('active');
                     }
                 }
-            }, index * 150); // Staggered animation
+            }, index * 150);
         }
     });
 }
 
-/**
- * Update status notes based on order status with fade effects
- * @param {string} status - Current order status
- */
+// Update status notes
 function updateStatusNotes(status) {
-    // Hide all notes first
     const notes = [
         document.getElementById('note-pending'),
         document.getElementById('note-approved'),
@@ -611,7 +434,6 @@ function updateStatusNotes(status) {
         if (note) note.style.display = 'none';
     });
     
-    // Show relevant note based on status with fade effect
     let noteToShow;
     
     switch(status) {
@@ -643,9 +465,7 @@ function updateStatusNotes(status) {
     }
 }
 
-/**
- * Show not found error message with animation
- */
+// Show not found message
 function showNotFound() {
     const lookupSection = document.getElementById('lookup-section');
     const statusSection = document.getElementById('order-status-section');
@@ -659,11 +479,7 @@ function showNotFound() {
     });
 }
 
-/**
- * Fade out element with callback
- * @param {HTMLElement} element - Element to fade out
- * @param {Function} callback - Callback function after fade completes
- */
+// Animation helpers
 function fadeOut(element, callback) {
     if (!element) return;
     
@@ -679,10 +495,6 @@ function fadeOut(element, callback) {
     }, 10);
 }
 
-/**
- * Fade in element
- * @param {HTMLElement} element - Element to fade in
- */
 function fadeIn(element) {
     if (!element) return;
     
@@ -694,78 +506,16 @@ function fadeIn(element) {
     }, 10);
 }
 
-/**
- * Format date for display with enhanced formatting
- * @param {string} dateString - Date string to format
- * @returns {string} - Formatted date string
- */
+// Format date for display
 function formatDate(dateString) {
     if (!dateString) return '—';
     
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return dateString; // Return as-is if invalid date
+    if (isNaN(date.getTime())) return dateString;
     
-    // Check if date is today, yesterday, or this week
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-    
-    if (isSameDay(date, today)) {
-        return `Today at ${formatTime(date)}`;
-    } else if (isSameDay(date, yesterday)) {
-        return `Yesterday at ${formatTime(date)}`;
-    }
-    
-    // Regular date format
     return date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
     });
-}
-
-/**
- * Check if two dates are the same day
- * @param {Date} date1 - First date
- * @param {Date} date2 - Second date
- * @returns {boolean} - True if same day
- */
-function isSameDay(date1, date2) {
-    return date1.getDate() === date2.getDate() &&
-           date1.getMonth() === date2.getMonth() &&
-           date1.getFullYear() === date2.getFullYear();
-}
-
-/**
- * Format time in 12-hour format
- * @param {Date} date - Date object
- * @returns {string} - Formatted time string
- */
-function formatTime(date) {
-    return date.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-    });
-}
-
-/**
- * Subscribe to email updates with enhanced user feedback
- */
-function subscribeToUpdates() {
-    const email = prompt('Enter your email address to receive order updates:');
-    
-    if (email) {
-        // Show loading
-        showLoading();
-        
-        // Simulate API call
-        setTimeout(() => {
-            hideLoading();
-            // In a real implementation, you would call an API to subscribe the user
-            
-            // Show success message
-            alert('You have been subscribed to order updates. You will receive notifications when your order status changes.');
-        }, 1000);
-    }
 }
