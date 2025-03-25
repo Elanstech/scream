@@ -1,431 +1,857 @@
-/**
- * S-Cream Tracking Page Stylesheet
- * Extends success-page.css with tracking-specific styles
+/* 
+ * S-Cream Modern Tracking Page Stylesheet
+ * Modern, sleek design with emphasis on user experience
  */
 
 /* ======================================
-   1. Core Tracking Styles
+   1. Base Styles & Variables
 ====================================== */
-.tracking-body {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+:root {
+  /* Colors - using existing brand colors from style.css */
+  --tracking-background: #F8F9FC;
+  --tracking-card: #FFFFFF;
+  --tracking-text: #333333;
+  --tracking-text-light: #777777;
+  --tracking-border: #E0E0E0;
+  --tracking-accent: #E17A92;
+  --tracking-accent-light: #F9E0E0;
+  --tracking-cta: #FF6B6B;
+  --tracking-success: #4CAF50;
+  --tracking-warning: #FF9800;
+  --tracking-info: #2196F3;
+  --tracking-error: #F44336;
+  
+  /* Status Colors */
+  --status-pending: #9E9E9E;
+  --status-medicalReview: #2196F3;
+  --status-approved: #4CAF50;
+  --status-preparing: #FF9800;
+  --status-shipped: #9C27B0;
+  --status-delivered: #4CAF50;
+  --status-error: #F44336;
+  
+  /* Shadows */
+  --tracking-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --tracking-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --tracking-shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+  
+  /* Spacings */
+  --tracking-space-xs: 0.5rem;
+  --tracking-space-sm: 1rem;
+  --tracking-space-md: 1.5rem;
+  --tracking-space-lg: 2rem;
+  --tracking-space-xl: 3rem;
+  
+  /* Transitions */
+  --tracking-transition: 0.3s ease;
 }
 
-.tracking-title {
-  font-size: 1.75rem;
-  margin-bottom: var(--spacing-sm);
-  color: var(--primary);
-  text-align: center;
-}
-
-.tracking-description {
-  color: var(--text-light);
-  text-align: center;
-  margin-bottom: var(--spacing-lg);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+body {
+  background-color: var(--tracking-background);
+  color: var(--tracking-text);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ======================================
-   2. Order Lookup Form
+   2. Header Styles
 ====================================== */
-.tracking-form {
+.tracking-header {
+  padding: var(--tracking-space-md) 0;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-pill-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--tracking-card);
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  box-shadow: var(--tracking-shadow-sm);
+  border: 1px solid rgba(225, 122, 146, 0.1);
+}
+
+.pill-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo-section {
+  padding-right: var(--tracking-space-md);
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+  transition: transform var(--tracking-transition);
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.05);
+}
+
+.action-section {
+  display: flex;
+  align-items: center;
+}
+
+.pill-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.25rem;
+  background: linear-gradient(135deg, var(--tracking-accent), var(--tracking-cta));
+  color: white;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--tracking-transition);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.pill-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: buttonShine 2s infinite;
+}
+
+@keyframes buttonShine {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/* ======================================
+   3. Main Content
+====================================== */
+.tracking-main {
+  flex: 1;
+  padding: var(--tracking-space-md) 0 var(--tracking-space-xl);
+}
+
+.tracking-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--tracking-space-sm);
+}
+
+.tracking-section {
+  background-color: var(--tracking-card);
+  border-radius: 20px;
+  box-shadow: var(--tracking-shadow-md);
+  padding: var(--tracking-space-lg);
+  margin-bottom: var(--tracking-space-lg);
+  transition: all var(--tracking-transition);
+  border: 1px solid rgba(225, 122, 146, 0.05);
+  overflow: hidden;
+}
+
+.section-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.form-group {
-  margin-bottom: var(--spacing-lg);
+.section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--tracking-accent-light), rgba(255, 107, 107, 0.1));
+  border-radius: 50%;
+  margin-bottom: var(--tracking-space-md);
+  color: var(--tracking-accent);
 }
 
-.form-group label {
-  display: block;
-  font-weight: 500;
-  margin-bottom: var(--spacing-xs);
-  color: var(--text);
+.error-icon {
+  background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+  color: var(--tracking-error);
+}
+
+.section-title {
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--tracking-space-sm);
+  color: var(--tracking-text);
+}
+
+.section-description {
+  font-size: 1.1rem;
+  color: var(--tracking-text-light);
+  margin-bottom: var(--tracking-space-lg);
+  max-width: 80%;
+}
+
+/* ======================================
+   4. Lookup Form
+====================================== */
+.tracking-form {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: var(--tracking-space-lg);
+}
+
+.form-group {
+  margin-bottom: var(--tracking-space-md);
 }
 
 .input-wrapper {
   display: flex;
+  width: 100%;
   position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--tracking-shadow-sm);
+  border: 1px solid var(--tracking-border);
+  transition: all var(--tracking-transition);
 }
 
-.input-wrapper input {
+.input-wrapper:focus-within {
+  box-shadow: var(--tracking-shadow-md);
+  border-color: var(--tracking-accent);
+}
+
+.tracking-form input {
   flex: 1;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--border-radius-md);
-  transition: all var(--transition-fast);
-}
-
-.input-wrapper input:focus {
+  padding: 1.2rem 1.5rem;
+  border: none;
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(225, 122, 146, 0.2);
+  font-size: 1rem;
+  background-color: white;
+  color: var(--tracking-text);
 }
 
-.lookup-button {
-  position: absolute;
-  right: 4px;
-  top: 4px;
-  bottom: 4px;
+.submit-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0 1rem;
-  background: var(--primary-gradient);
+  padding: 0 1.5rem;
+  background: linear-gradient(135deg, var(--tracking-accent), var(--tracking-cta));
   color: white;
   border: none;
-  border-radius: var(--border-radius-md);
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--tracking-transition);
+  min-width: 140px;
+  justify-content: center;
 }
 
-.lookup-button:hover {
-  opacity: 0.9;
+.submit-button:hover {
+  background: linear-gradient(135deg, var(--tracking-cta), var(--tracking-accent));
 }
 
-.lookup-button svg {
-  width: 18px;
-  height: 18px;
-  stroke: currentColor;
+.submit-button svg {
+  transition: transform var(--tracking-transition);
+}
+
+.submit-button:hover svg {
+  transform: translateX(3px);
 }
 
 .form-note {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: var(--spacing-xs);
+  font-size: 0.875rem;
+  color: var(--tracking-text-light);
+  margin-top: var(--tracking-space-xs);
+  text-align: center;
 }
 
 /* ======================================
-   3. Order Status
+   5. Tracking Features
 ====================================== */
-.status-header {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-  position: relative;
-}
-
-.status-badge {
-  display: inline-block;
-  padding: 0.35rem 0.75rem;
-  background: var(--primary-light);
-  color: var(--primary-dark);
-  font-size: 0.85rem;
-  font-weight: 600;
-  border-radius: var(--border-radius-xl);
-  margin-bottom: var(--spacing-sm);
-}
-
-.status-badge.approved {
-  background-color: rgba(72, 187, 120, 0.1);
-  color: var(--success);
-}
-
-.status-badge.shipped {
-  background-color: rgba(79, 70, 229, 0.1);
-  color: var(--accent);
-}
-
-.status-badge.delivered {
-  background-color: rgba(17, 24, 39, 0.1);
-  color: #4B5563;
-}
-
-.status-badge.error {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #EF4444;
-}
-
-.order-details {
+.tracking-features {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-md);
+  justify-content: center;
+  gap: var(--tracking-space-md);
+  margin-top: var(--tracking-space-md);
+  flex-wrap: wrap;
 }
 
-.order-detail {
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(225, 122, 146, 0.05);
+  border-radius: 30px;
+  transition: all var(--tracking-transition);
+}
+
+.feature-item:hover {
+  background-color: rgba(225, 122, 146, 0.1);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  color: var(--tracking-accent);
+}
+
+.feature-text {
+  font-weight: 500;
   font-size: 0.95rem;
 }
 
+/* ======================================
+   6. Order Status Section
+====================================== */
+.status-header {
+  margin-bottom: var(--tracking-space-lg);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--tracking-space-sm);
+}
+
+.status-badge {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+  background-color: var(--status-pending);
+}
+
+/* Status Badge Colors */
+.status-badge.pending { background-color: var(--status-pending); }
+.status-badge.medicalReview { background-color: var(--status-medicalReview); }
+.status-badge.approved { background-color: var(--status-approved); }
+.status-badge.preparing { background-color: var(--status-preparing); }
+.status-badge.shipped { background-color: var(--status-shipped); }
+.status-badge.delivered { background-color: var(--status-delivered); }
+.status-badge.error { background-color: var(--status-error); }
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--tracking-text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all var(--tracking-transition);
+}
+
+.back-link:hover {
+  color: var(--tracking-accent);
+}
+
+.order-card {
+  background-color: #FAFAFA;
+  border-radius: 15px;
+  padding: var(--tracking-space-md);
+  margin-top: var(--tracking-space-md);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--tracking-space-md);
+}
+
+.order-details {
+  flex: 1;
+  min-width: 250px;
+}
+
+.order-detail {
+  margin-bottom: var(--tracking-space-sm);
+  display: flex;
+  flex-direction: column;
+}
+
 .detail-label {
+  font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-muted);
-  margin-right: 0.5rem;
+  color: var(--tracking-text-light);
+  margin-bottom: 0.25rem;
 }
 
 .detail-value {
+  font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text);
-}
-
-.tracking-number-container {
+  color: var(--tracking-text);
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
 
 .track-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  color: var(--accent);
+  gap: 0.3rem;
+  padding: 0.3rem 0.75rem;
+  background-color: rgba(225, 122, 146, 0.1);
+  color: var(--tracking-accent);
+  border-radius: 30px;
   font-size: 0.85rem;
   font-weight: 500;
-  padding: 0.25rem 0.5rem;
-  background: rgba(93, 95, 239, 0.1);
-  border-radius: var(--border-radius-md);
-  transition: all var(--transition-fast);
+  text-decoration: none;
+  transition: all var(--tracking-transition);
 }
 
 .track-link:hover {
-  background: rgba(93, 95, 239, 0.2);
+  background-color: rgba(225, 122, 146, 0.2);
 }
 
-.track-link svg {
-  stroke-width: 2;
+.order-product {
+  display: flex;
+  align-items: center;
+  gap: var(--tracking-space-sm);
+  padding: var(--tracking-space-sm);
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid var(--tracking-border);
+}
+
+.product-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.product-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.product-price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--tracking-accent);
 }
 
 /* ======================================
-   4. Status Timeline
+   7. Timeline
 ====================================== */
 .status-timeline {
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--tracking-space-lg);
+}
+
+.status-timeline h2 {
+  font-family: var(--font-heading, 'Poppins', sans-serif);
+  font-size: 1.5rem;
+  margin-bottom: var(--tracking-space-md);
+  font-weight: 600;
 }
 
 .timeline-container {
   position: relative;
-  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tracking-space-lg);
+  padding-left: 40px;
 }
 
-.timeline-track {
+.timeline-container::before {
+  content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 24px;
   left: 24px;
   width: 2px;
-  background-color: var(--border);
-  transform: translateX(-50%);
+  height: calc(100% - 48px);
+  background-color: #E0E0E0;
   z-index: 1;
 }
 
 .timeline-step {
   position: relative;
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  padding-left: 2.5rem;
   z-index: 2;
+  display: flex;
+  gap: var(--tracking-space-md);
 }
 
-.timeline-step:last-child {
-  margin-bottom: 0;
-}
-
-.step-circle {
+.step-icon {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 24px;
-  height: 24px;
-  background-color: white;
-  border: 2px solid var(--border);
-  border-radius: 50%;
+  left: -40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 600;
-  z-index: 2;
+  width: 48px;
+  height: 48px;
+  background-color: white;
+  border: 2px solid #E0E0E0;
+  border-radius: 50%;
+  color: #9E9E9E;
+  transition: all var(--tracking-transition);
 }
 
-.timeline-step.active .step-circle {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: white;
+.timeline-step.completed .step-icon {
+  background-color: var(--tracking-accent-light);
+  border-color: var(--tracking-accent);
+  color: var(--tracking-accent);
 }
 
-.timeline-step.completed .step-circle {
-  background-color: var(--success);
-  border-color: var(--success);
-  color: white;
-}
-
-.timeline-step.completed .step-circle svg {
-  width: 14px;
-  height: 14px;
-  stroke: white;
-  stroke-width: 2.5;
+.timeline-step.active .step-icon {
+  background-color: rgba(255, 107, 107, 0.1);
+  border-color: var(--tracking-cta);
+  color: var(--tracking-cta);
+  box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.1);
 }
 
 .step-content {
   flex: 1;
-  padding-bottom: var(--spacing-md);
-}
-
-.step-title {
-  font-size: 1.1rem;
-  margin-bottom: 0.25rem;
-  color: var(--text);
-}
-
-.timeline-step.active .step-title {
-  color: var(--primary);
-  font-weight: 600;
-}
-
-.timeline-step.completed .step-title {
-  color: var(--success);
-}
-
-.step-description {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-bottom: 0.25rem;
+  padding-bottom: var(--tracking-space-md);
+  position: relative;
 }
 
 .step-date {
   font-size: 0.85rem;
-  color: var(--text-muted);
-  font-style: italic;
+  font-weight: 500;
+  color: var(--tracking-accent);
+  margin-bottom: 0.25rem;
+}
+
+.step-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--tracking-text);
+}
+
+.step-description {
+  font-size: 0.95rem;
+  color: var(--tracking-text-light);
+  margin: 0;
 }
 
 /* ======================================
-   5. Status Notes and Actions
+   8. Status Notes
 ====================================== */
 .status-notes {
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--tracking-space-lg);
 }
 
 .note-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-md);
-  padding: var(--spacing-md);
-  background-color: var(--background);
-  border-radius: var(--border-radius-md);
-  margin-bottom: var(--spacing-md);
+  gap: var(--tracking-space-md);
+  padding: var(--tracking-space-md);
+  background-color: #F8F9FC;
+  border-radius: 12px;
+  border-left: 4px solid var(--tracking-accent);
 }
 
 .note-item svg {
   flex-shrink: 0;
-  color: var(--primary);
+  color: var(--tracking-accent);
+  margin-top: 0.25rem;
 }
 
 .note-item p {
   margin: 0;
-  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--tracking-text);
 }
 
+/* ======================================
+   9. Action Buttons
+====================================== */
 .tracking-actions {
   display: flex;
-  justify-content: center;
-  gap: var(--spacing-lg);
+  gap: var(--tracking-space-md);
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .action-button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: var(--border-radius-xl);
-  font-weight: 500;
-  transition: all var(--transition-medium);
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all var(--tracking-transition);
+  min-width: 180px;
 }
 
 .primary-button {
-  background: var(--primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.75rem;
+  background: linear-gradient(135deg, var(--tracking-accent), var(--tracking-cta));
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--border-radius-xl);
+  border-radius: 30px;
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all var(--transition-medium);
+  transition: all var(--tracking-transition);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+  min-width: 180px;
 }
 
-.primary-button:hover {
+.primary-button:hover, 
+.action-button.primary-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+}
+
+.action-button.primary-button {
+  background: linear-gradient(135deg, var(--tracking-accent), var(--tracking-cta));
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.action-button.secondary-button {
+  background-color: rgba(225, 122, 146, 0.1);
+  color: var(--tracking-accent);
+}
+
+.action-button.secondary-button:hover {
+  background-color: rgba(225, 122, 146, 0.15);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-cta);
 }
 
-.secondary-button {
-  background-color: white;
-  color: var(--text);
-  border: 1px solid var(--border);
+.action-button svg, 
+.primary-button svg {
+  transition: transform var(--tracking-transition);
 }
 
-.secondary-button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-  color: var(--primary);
-  border-color: var(--primary-light);
-}
-
-.action-button svg {
-  width: 18px;
-  height: 18px;
-  stroke: currentColor;
+.action-button:hover svg, 
+.primary-button:hover svg {
+  transform: translateX(3px);
 }
 
 /* ======================================
-   6. Not Found Section
+   10. Help Options (Not Found)
 ====================================== */
-.not-found-container {
+.help-options {
+  margin-top: var(--tracking-space-lg);
   text-align: center;
-  padding: var(--spacing-xl) 0;
+  width: 100%;
 }
 
-.not-found-container svg {
-  margin: 0 auto var(--spacing-md);
-  color: var(--text-muted);
+.help-options p {
+  font-size: 1rem;
+  color: var(--tracking-text-light);
+  margin-bottom: var(--tracking-space-sm);
 }
 
-.not-found-container h2 {
-  margin-bottom: var(--spacing-md);
-  color: var(--text);
+.options-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--tracking-space-md);
+  flex-wrap: wrap;
 }
 
-.not-found-container p {
-  max-width: 500px;
-  margin: 0 auto var(--spacing-lg);
-  color: var(--text-muted);
+.help-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #F5F5F5;
+  border-radius: 30px;
+  color: var(--tracking-text);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all var(--tracking-transition);
+}
+
+.help-button:hover {
+  background-color: #E0E0E0;
+  transform: translateY(-2px);
 }
 
 /* ======================================
-   7. Responsive Adjustments
+   11. Footer
 ====================================== */
-@media (min-width: 768px) {
-  .order-details {
-    flex-direction: row;
-    justify-content: center;
-    gap: var(--spacing-lg);
+.tracking-footer {
+  background-color: #333333;
+  color: white;
+  padding: var(--tracking-space-md) 0;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tracking-space-md);
+  text-align: center;
+}
+
+.footer-logo {
+  opacity: 0.9;
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--tracking-space-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color var(--tracking-transition);
+}
+
+.footer-links a:hover {
+  color: var(--tracking-accent-light);
+}
+
+.footer-copyright {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ======================================
+   12. Responsive Styles
+====================================== */
+@media (max-width: 768px) {
+  .tracking-section {
+    padding: var(--tracking-space-md);
   }
   
-  .tracking-title {
-    font-size: 2rem;
+  .section-icon {
+    width: 60px;
+    height: 60px;
   }
-}
-
-@media (max-width: 480px) {
+  
+  .section-title {
+    font-size: 1.75rem;
+  }
+  
+  .section-description {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+  
+  .tracking-form {
+    width: 100%;
+  }
+  
+  .input-wrapper {
+    flex-direction: column;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 0.9rem;
+  }
+  
+  .order-card {
+    flex-direction: column;
+  }
+  
   .tracking-actions {
     flex-direction: column;
-    gap: var(--spacing-md);
+    width: 100%;
   }
   
   .action-button {
     width: 100%;
-    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-pill-header {
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
   }
   
-  .order-details {
-    gap: var(--spacing-xs);
+  .pill-button {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
   }
+  
+  .logo-image {
+    height: 30px;
+  }
+  
+  .step-title {
+    font-size: 1rem;
+  }
+  
+  .timeline-container {
+    padding-left: 30px;
+  }
+  
+  .timeline-container::before {
+    left: 14px;
+  }
+  
+  .step-icon {
+    width: 30px;
+    height: 30px;
+    left: -30px;
+  }
+  
+  .step-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ======================================
+   13. Animations
+====================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tracking-section {
+  animation: fadeIn 0.5s ease forwards;
 }
