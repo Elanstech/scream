@@ -1,0 +1,431 @@
+/**
+ * S-Cream Tracking Page Stylesheet
+ * Extends success-page.css with tracking-specific styles
+ */
+
+/* ======================================
+   1. Core Tracking Styles
+====================================== */
+.tracking-body {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.tracking-title {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--primary);
+  text-align: center;
+}
+
+.tracking-description {
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ======================================
+   2. Order Lookup Form
+====================================== */
+.tracking-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text);
+}
+
+.input-wrapper {
+  display: flex;
+  position: relative;
+}
+
+.input-wrapper input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(225, 122, 146, 0.2);
+}
+
+.lookup-button {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.lookup-button:hover {
+  opacity: 0.9;
+}
+
+.lookup-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+.form-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+/* ======================================
+   3. Order Status
+====================================== */
+.status-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-xl);
+  margin-bottom: var(--spacing-sm);
+}
+
+.status-badge.approved {
+  background-color: rgba(72, 187, 120, 0.1);
+  color: var(--success);
+}
+
+.status-badge.shipped {
+  background-color: rgba(79, 70, 229, 0.1);
+  color: var(--accent);
+}
+
+.status-badge.delivered {
+  background-color: rgba(17, 24, 39, 0.1);
+  color: #4B5563;
+}
+
+.status-badge.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #EF4444;
+}
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.order-detail {
+  font-size: 0.95rem;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-right: 0.5rem;
+}
+
+.detail-value {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.tracking-number-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.track-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  background: rgba(93, 95, 239, 0.1);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
+}
+
+.track-link:hover {
+  background: rgba(93, 95, 239, 0.2);
+}
+
+.track-link svg {
+  stroke-width: 2;
+}
+
+/* ======================================
+   4. Status Timeline
+====================================== */
+.status-timeline {
+  margin-bottom: var(--spacing-xl);
+}
+
+.timeline-container {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 24px;
+  width: 2px;
+  background-color: var(--border);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timeline-step {
+  position: relative;
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-left: 2.5rem;
+  z-index: 2;
+}
+
+.timeline-step:last-child {
+  margin-bottom: 0;
+}
+
+.step-circle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.timeline-step.active .step-circle {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.timeline-step.completed .step-circle {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.timeline-step.completed .step-circle svg {
+  width: 14px;
+  height: 14px;
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+.step-content {
+  flex: 1;
+  padding-bottom: var(--spacing-md);
+}
+
+.step-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.timeline-step.active .step-title {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.timeline-step.completed .step-title {
+  color: var(--success);
+}
+
+.step-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.step-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ======================================
+   5. Status Notes and Actions
+====================================== */
+.status-notes {
+  margin-bottom: var(--spacing-xl);
+}
+
+.note-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--background);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.note-item svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+.note-item p {
+  margin: 0;
+  color: var(--text);
+}
+
+.tracking-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--border-radius-xl);
+  font-weight: 500;
+  transition: all var(--transition-medium);
+}
+
+.primary-button {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-xl);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-cta);
+}
+
+.secondary-button {
+  background-color: white;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.secondary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  color: var(--primary);
+  border-color: var(--primary-light);
+}
+
+.action-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+/* ======================================
+   6. Not Found Section
+====================================== */
+.not-found-container {
+  text-align: center;
+  padding: var(--spacing-xl) 0;
+}
+
+.not-found-container svg {
+  margin: 0 auto var(--spacing-md);
+  color: var(--text-muted);
+}
+
+.not-found-container h2 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text);
+}
+
+.not-found-container p {
+  max-width: 500px;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--text-muted);
+}
+
+/* ======================================
+   7. Responsive Adjustments
+====================================== */
+@media (min-width: 768px) {
+  .order-details {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-lg);
+  }
+  
+  .tracking-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tracking-actions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .action-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .order-details {
+    gap: var(--spacing-xs);
+  }
+}
