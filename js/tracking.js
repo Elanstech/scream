@@ -1,17 +1,7 @@
 /**
- * S-Cream Modern Order Tracking System
- * Enhanced tracking functionality with JotForm API integration
- * 
- * This script handles the order tracking functionality with a modern interface:
- * - Retrieves order details from JotForm using API
- * - Displays order status and timeline with visual enhancements
- * - Updates tracking information in real-time
- * - Manages user interface elements with smooth transitions
+ * S-Cream Order Tracking System
+ * JotForm API integration for order tracking
  */
-
-// =============================================================================
-// INITIALIZATION
-// =============================================================================
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the tracking page
@@ -43,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * Initialize tracking page functionality with enhanced UI
+ * Initialize tracking page functionality
  */
 function initTrackingPage() {
     // DOM elements
@@ -60,7 +50,7 @@ function initTrackingPage() {
     // Check for URL parameters
     checkUrlParameters();
     
-    // Form submission handler with enhanced validation and feedback
+    // Form submission handler with validation
     if (trackingForm) {
         trackingForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -105,10 +95,6 @@ function initTrackingPage() {
         });
     }
 }
-
-// =============================================================================
-// LOADING INDICATOR
-// =============================================================================
 
 /**
  * Create loading overlay for better user experience
@@ -210,13 +196,8 @@ function hideLoading() {
     }
 }
 
-// =============================================================================
-// ORDER LOOKUP AND DISPLAY
-// =============================================================================
-
 /**
  * Check URL parameters for order or tracking information
- * Enhanced to support various parameter formats
  */
 function checkUrlParameters() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -246,7 +227,6 @@ function checkUrlParameters() {
 
 /**
  * Lookup order by order number, email, or tracking number
- * Enhanced with better error handling and user feedback
  * @param {string} lookupValue - Order number, email, or tracking number
  */
 function lookupOrder(lookupValue) {
@@ -279,112 +259,121 @@ function lookupOrder(lookupValue) {
  */
 async function fetchOrderDetails(identifier) {
     try {
-        // JotForm API configuration
+        // JotForm API configuration - Corrected API Key
         const apiKey = '1d286bad28d846621fed1c1c411e3d5b';
-        const formId = '250825922202147'; // Replace with your actual form ID
+        const formId = '250825922202147';
         
-        // Determine the search field based on identifier format
-        let filterField = 'orderNumber'; // Default to order number
+        // Multiple filter options to try different field names
+        const filters = [];
         
-        if (identifier.includes('@')) {
-            filterField = 'email'; // If it looks like an email, search by email
-        } else if (!identifier.startsWith('SC-')) {
-            filterField = 'trackingNumber'; // If not an order number or email, try tracking number
+        // For order numbers (try different field names that might match)
+        if (identifier.toUpperCase().startsWith('SC')) {
+            filters.push(`{"q27_yourOrder":"${identifier}"}`);  // Your Order Tracking Number
+            filters.push(`{"your-order-tracking-number":"${identifier}"}`);
+            filters.push(`{"q3_orderNumber":"${identifier}"}`); // Generic order number
+            filters.push(`{"order-number":"${identifier}"}`);
+        } 
+        // For email addresses
+        else if (identifier.includes('@')) {
+            filters.push(`{"q7_email":"${identifier}"}`);
+            filters.push(`{"email":"${identifier}"}`);
+        } 
+        // For everything else (try multiple fields)
+        else {
+            filters.push(`{"q27_yourOrder":"${identifier}"}`);  // Try as order number
+            filters.push(`{"q7_email":"${identifier}"}`);       // Try as email
         }
         
-        // Construct API URL with proper filter
-        // Note: JotForm's API requires proper filter parameter formatting
-        const apiUrl = `https://api.jotform.com/form/${formId}/submissions?apiKey=${apiKey}&filter={"q3_orderNumber:eq":"${identifier}"}`;
-
-        console.log('Fetching from:', apiUrl);
-        
-        // Fetch data from JotForm API
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        
-        console.log('JotForm API response:', data);
-        
-        if (data.responseCode === 200 && data.content && data.content.length > 0) {
-            // Found matching submission
-            const submission = data.content[0];
-            console.log('Found submission:', submission);
+        // Try each filter until we find a match or exhaust all options
+        for (const filter of filters) {
+            // Construct API URL with filter
+            const apiUrl = `https://api.jotform.com/form/${formId}/submissions?apiKey=${apiKey}&filter=${filter}`;
+            console.log('Trying API URL:', apiUrl);
             
-            // Process the submission data
-            return processSubmissionData(submission);
-        } else {
-            // No matching submission found
-            console.log('No submission found with the provided identifier');
-            return null;
+            // Fetch data from JotForm API
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            
+            console.log('JotForm API response for filter', filter, ':', data);
+            
+            // If we found a match, process it and return
+            if (data.responseCode === 200 && data.content && data.content.length > 0) {
+                const submission = data.content[0];
+                console.log('Found submission:', submission);
+                return processSubmissionData(submission);
+            }
         }
+        
+        // If we get here, no matches were found with any filter
+        console.log('No submission found with the provided identifier');
+        return null;
+        
     } catch (error) {
         console.error('Error fetching from JotForm API:', error);
         throw error;
     }
 }
 
-// =============================================================================
-// DATA PROCESSING
-// =============================================================================
-
 /**
- * Process JotForm submission data and return order details object
+ * Process JotForm submission data and extract order details
  * @param {Object} submission - JotForm submission data
  * @returns {Object} - Processed order data
  */
 function processSubmissionData(submission) {
-    // Extract answers from submission
+    console.log('Processing submission data:', submission);
     const answers = submission.answers;
     
-    // Map JotForm fields to our order data model
-    // Note: The actual field numbers (q3, q8, etc.) may differ in your form
-    // You'll need to adjust these based on your actual JotForm structure
+    // Field mapping based on JotForm structure
     const orderData = {
-        orderNumber: getAnswerValue(answers, 'orderNumber') || submission.id,
-        orderDate: getAnswerValue(answers, 'orderDate') || formatDate(submission.created_at),
-        status: getAnswerValue(answers, 'orderStatus') || 'pending',
-        statusText: getStatusText(getAnswerValue(answers, 'orderStatus')),
-        trackingNumber: getAnswerValue(answers, 'trackingNumber'),
-        carrier: getAnswerValue(answers, 'shippingCarrier') || 'usps'
+        orderNumber: findJotFormField(answers, ['yourOrder', 'your order tracking', 'order number']) || submission.id,
+        orderDate: findJotFormField(answers, ['orderDate', 'order date']) || formatDate(submission.created_at),
+        status: mapStatusToInternal(findJotFormField(answers, ['orderStatus', 'order status'])),
+        statusText: findJotFormField(answers, ['orderStatus', 'order status']) || 'Processing',
+        trackingNumber: findJotFormField(answers, ['trackingNumber', 'tracking number']),
+        carrier: findJotFormField(answers, ['shippingCarrier', 'shipping carrier']) || 'usps'
     };
     
     // Build timeline steps based on status
     orderData.steps = buildTimelineFromStatus(
         orderData.status, 
         submission.created_at,
-        getAnswerValue(answers, 'reviewDate'),
-        getAnswerValue(answers, 'approvalDate'),
-        getAnswerValue(answers, 'preparingDate'),
-        getAnswerValue(answers, 'shippingDate'),
-        getAnswerValue(answers, 'deliveryDate')
+        getDateFromForm(answers, 'reviewDate') || submission.created_at,
+        getDateFromForm(answers, 'approvalDate'),
+        getDateFromForm(answers, 'preparingDate'),
+        getDateFromForm(answers, 'shippingDate'),
+        getDateFromForm(answers, 'deliveryDate')
     );
     
     return orderData;
 }
 
 /**
- * Helper function to extract answer value from JotForm answers object
+ * Find a field value from JotForm answers by looking through various possible field names
  * @param {Object} answers - JotForm answers object
- * @param {string} fieldName - The field name to look for
- * @returns {string|null} - The answer value or null if not found
+ * @param {Array} possibleNames - Array of possible field name variations to look for
+ * @returns {string|null} - Found value or null
  */
-function getAnswerValue(answers, fieldName) {
-    // JotForm stores answers with question IDs as keys
-    // We need to find the right question ID for our field
-    
-    // This is a simplified approach - you might need to adjust based on your form
+function findJotFormField(answers, possibleNames) {
     for (const qid in answers) {
         const answer = answers[qid];
         
-        // Check if this is the field we're looking for
-        // JotForm often uses the field name in the field title or name attribute
-        if (answer.name && answer.name.toLowerCase().includes(fieldName.toLowerCase())) {
+        // Check name field
+        if (answer.name && possibleNames.some(name => 
+            answer.name.toLowerCase().includes(name.toLowerCase()))) {
             return answer.answer || null;
         }
         
-        // Also check in the sub-labels for multi-line inputs or subfields
+        // Also check text field 
+        if (answer.text && possibleNames.some(name => 
+            answer.text.toLowerCase().includes(name.toLowerCase()))) {
+            return answer.answer || null;
+        }
+        
+        // Check sublabels for multi-field inputs
         if (answer.sublabels) {
             for (const sublabel in answer.sublabels) {
-                if (sublabel.toLowerCase().includes(fieldName.toLowerCase())) {
+                if (possibleNames.some(name => 
+                    sublabel.toLowerCase().includes(name.toLowerCase()))) {
                     return answer.answer[sublabel] || null;
                 }
             }
@@ -395,22 +384,52 @@ function getAnswerValue(answers, fieldName) {
 }
 
 /**
- * Get human-readable status text from status code
- * @param {string} status - Status code
- * @returns {string} - Human-readable status text
+ * Get a date value from JotForm
+ * @param {Object} answers - JotForm answers object
+ * @param {string} fieldName - Field name to look for
+ * @returns {string|null} - Date string or null
  */
-function getStatusText(status) {
-    const statusMap = {
-        'pending': 'Processing',
-        'medicalReview': 'Medical Review',
-        'approved': 'Approved',
-        'preparing': 'Preparing',
-        'shipped': 'Shipped',
-        'delivered': 'Delivered',
-        'error': 'Additional Information Needed'
-    };
+function getDateFromForm(answers, fieldName) {
+    const dateValue = findJotFormField(answers, [fieldName]);
+    if (dateValue) {
+        // Ensure date is in proper format
+        try {
+            const date = new Date(dateValue);
+            return date.toISOString();
+        } catch (e) {
+            return dateValue;
+        }
+    }
+    return null;
+}
+
+/**
+ * Map JotForm status values to internal status codes
+ * @param {string} status - JotForm status text
+ * @returns {string} - Internal status code
+ */
+function mapStatusToInternal(status) {
+    if (!status) return 'pending';
     
-    return statusMap[status] || 'Processing';
+    const statusLower = status.toLowerCase();
+    
+    if (statusLower.includes('medical') || statusLower.includes('review') || statusLower.includes('pending')) {
+        return 'medicalReview';
+    }
+    if (statusLower.includes('approved')) {
+        return 'approved';
+    }
+    if (statusLower.includes('preparing') || statusLower.includes('process')) {
+        return 'preparing';
+    }
+    if (statusLower.includes('ship')) {
+        return 'shipped';
+    }
+    if (statusLower.includes('deliver')) {
+        return 'delivered';
+    }
+    
+    return 'pending';
 }
 
 /**
@@ -461,10 +480,6 @@ function buildTimelineFromStatus(status, orderDate, reviewDate, approvalDate, pr
     
     return timeline;
 }
-
-// =============================================================================
-// UI DISPLAY AND UPDATES
-// =============================================================================
 
 /**
  * Display order details on the page with enhanced animations
@@ -644,10 +659,6 @@ function showNotFound() {
     });
 }
 
-// =============================================================================
-// ANIMATION HELPERS
-// =============================================================================
-
 /**
  * Fade out element with callback
  * @param {HTMLElement} element - Element to fade out
@@ -682,10 +693,6 @@ function fadeIn(element) {
         element.style.opacity = 1;
     }, 10);
 }
-
-// =============================================================================
-// UTILITY FUNCTIONS
-// =============================================================================
 
 /**
  * Format date for display with enhanced formatting
@@ -762,44 +769,3 @@ function subscribeToUpdates() {
         }, 1000);
     }
 }
-
-// =============================================================================
-// MOCK DATA FOR TESTING WITHOUT JOTFORM API
-// =============================================================================
-
-/**
- * Mock order data for testing purposes
- * Uncomment this function to test without JotForm API
- */
-/*
-function fetchOrderDetails(identifier) {
-    return new Promise((resolve, reject) => {
-        // Simulate API delay
-        setTimeout(() => {
-            // Check if lookup value matches test data
-            if (identifier === 'SC-123456-7890' || identifier === 'test@example.com') {
-                // Return mock data
-                resolve({
-                    orderNumber: 'SC-123456-7890',
-                    orderDate: new Date().toISOString(),
-                    status: 'shipped',
-                    statusText: 'Shipped',
-                    trackingNumber: '9400123456789012345678',
-                    carrier: 'usps',
-                    steps: {
-                        order: { completed: true, date: new Date(new Date().setDate(new Date().getDate() - 5)).toISOString() },
-                        review: { completed: true, date: new Date(new Date().setDate(new Date().getDate() - 4)).toISOString() },
-                        approved: { completed: true, date: new Date(new Date().setDate(new Date().getDate() - 3)).toISOString() },
-                        preparing: { completed: true, date: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString() },
-                        shipped: { completed: true, date: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString() },
-                        delivered: { completed: false, date: null }
-                    }
-                });
-            } else {
-                // No order found
-                resolve(null);
-            }
-        }, 1500);
-    });
-}
-*/
