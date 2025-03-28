@@ -490,7 +490,7 @@ function redirectToStripeCheckout(formulaName) {
   const successUrl = `${window.location.origin}${basePath}success.html?token=${secureToken}`;
   
   // Set up the Stripe checkout URL with both token and return_url parameters
-  const baseStripeUrl = 'https://buy.stripe.com/test_6oE8yM1y7atV9qM8ww';
+  const baseStripeUrl = 'https://buy.stripe.com/14k8yg4dh58LdTWfZ0';
   const stripeCheckoutUrl = `${baseStripeUrl}?success_url=${encodeURIComponent(successUrl)}&return_url=${encodeURIComponent(successUrl)}`;
   
   // Log for debugging purposes
