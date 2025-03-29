@@ -11,8 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initPageLoader();
   initFloatingHeader();
   initTopBanner();
+  initScrollIndicator();
   initMobileMenu();
-  initHeroEffects();
+  initHeroSection();
+  initCTAEffects();
+  initHeaderScroll();
   initTrustBar();
   initBenefitsAnimations();
   initCounterAnimations();
@@ -173,6 +176,42 @@ function initTopBanner() {
 }
 
 /**
+ * Initialize scroll indicator functionality
+ */
+function initScrollIndicator() {
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (!scrollIndicator) return;
+  
+  // Fade out scroll indicator as user scrolls down
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    if (scrollPosition > windowHeight * 0.1) {
+      const opacity = Math.max(0, 1 - (scrollPosition - windowHeight * 0.1) / (windowHeight * 0.3));
+      scrollIndicator.style.opacity = opacity;
+    } else {
+      scrollIndicator.style.opacity = 1;
+    }
+  });
+  
+  // Scroll down when indicator is clicked
+  scrollIndicator.addEventListener('click', () => {
+    const targetSection = document.querySelector('#benefits') || document.querySelector('section:nth-of-type(2)');
+    
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Fallback if no specific section is found
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
+    }
+  });
+}
+
+/**
  * Initialize mobile menu functionality
  */
 function initMobileMenu() {
@@ -187,11 +226,7 @@ function initMobileMenu() {
       mobileNav.setAttribute('aria-hidden', isExpanded);
       
       // Toggle body scroll
-      if (!isExpanded) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
+      document.body.style.overflow = !isExpanded ? 'hidden' : '';
     });
     
     // Close mobile menu when clicking on a link
@@ -213,111 +248,13 @@ function initMobileMenu() {
         document.body.style.overflow = '';
       }
     });
-    
-    // Close menu on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && mobileNav.getAttribute('aria-hidden') === 'false') {
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        mobileNav.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-    });
   }
 }
 
 /**
  * Initialize Hero section interactive effects
  */
-function initHeroEffects() {
-  // 3D card hover effect
-  const product3DContainer = document.getElementById('product3DContainer');
-  if (product3DContainer && window.innerWidth > 768) {
-    product3DContainer.addEventListener('mousemove', (e) => {
-      const { left, top, width, height } = product3DContainer.getBoundingClientRect();
-      
-      // Calculate mouse position relative to container
-      const x = (e.clientX - left) / width - 0.5;
-      const y = (e.clientY - top) / height - 0.5;
-      
-      // Apply rotation based on mouse position
-      if (typeof gsap !== 'undefined') {
-        gsap.to(product3DContainer.querySelector('.product-3d-card'), {
-          rotationY: x * 10,
-          rotationX: -y * 10,
-          transformPerspective: 1000,
-          duration: 0.4,
-          ease: 'power1.out'
-        });
-        
-        // Move glow to follow mouse
-        const productGlow = product3DContainer.querySelector('.product-glow');
-        if (productGlow) {
-          gsap.to(productGlow, {
-            x: x * 50,
-            y: y * 50,
-            opacity: 0.7,
-            duration: 0.4
-          });
-        }
-      } else {
-        // Fallback if GSAP is not available
-        const card = product3DContainer.querySelector('.product-3d-card');
-        if (card) {
-          card.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
-        }
-        
-        const productGlow = product3DContainer.querySelector('.product-glow');
-        if (productGlow) {
-          productGlow.style.transform = `translate(${x * 50}px, ${y * 50}px)`;
-          productGlow.style.opacity = '0.7';
-        }
-      }
-    });
-    
-    // Reset on mouse leave
-    product3DContainer.addEventListener('mouseleave', () => {
-      if (typeof gsap !== 'undefined') {
-        gsap.to(product3DContainer.querySelector('.product-3d-card'), {
-          rotationY: 0,
-          rotationX: 0,
-          duration: 0.6,
-          ease: 'power3.out'
-        });
-        
-        const productGlow = product3DContainer.querySelector('.product-glow');
-        if (productGlow) {
-          gsap.to(productGlow, {
-            x: 0,
-            y: 0,
-            opacity: 0.3,
-            duration: 0.6
-          });
-        }
-      } else {
-        // Fallback if GSAP is not available
-        const card = product3DContainer.querySelector('.product-3d-card');
-        if (card) {
-          card.style.transform = '';
-        }
-        
-        const productGlow = product3DContainer.querySelector('.product-glow');
-        if (productGlow) {
-          productGlow.style.transform = '';
-          productGlow.style.opacity = '0.3';
-        }
-      }
-    });
-    
-    // Animate product features on load
-    const features = product3DContainer.querySelectorAll('.feature');
-    features.forEach((feature, index) => {
-      setTimeout(() => {
-        feature.style.opacity = '1';
-        feature.style.transform = 'translateX(0)';
-      }, 500 + (index * 300));
-    });
-  }
-  
+function initHeroSection() {
   // Video background handling
   const heroVideo = document.getElementById('heroVideo');
   if (heroVideo) {
@@ -348,6 +285,227 @@ function initHeroEffects() {
       observer.observe(heroVideo);
     }
   }
+  
+  // Product image interactive effects
+  const productImage = document.getElementById('product-image');
+  const productContainer = document.querySelector('.product-image-container');
+  
+  if (productImage && productContainer) {
+    // 3D tilt effect on product image
+    productContainer.addEventListener('mousemove', (e) => {
+      const { left, top, width, height } = productContainer.getBoundingClientRect();
+      
+      // Calculate mouse position relative to container
+      const x = (e.clientX - left) / width - 0.5;
+      const y = (e.clientY - top) / height - 0.5;
+      
+      // Apply subtle rotation and shadow effects
+      productContainer.style.transform = `translate(-50%, -50%) perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+      productContainer.style.boxShadow = `${-x * 20}px ${-y * 20}px 30px rgba(255, 107, 107, 0.3)`;
+    });
+    
+    // Reset on mouse leave
+    productContainer.addEventListener('mouseleave', () => {
+      productContainer.style.transform = 'translate(-50%, -50%)';
+      productContainer.style.boxShadow = '0 0 50px rgba(255, 107, 107, 0.5)';
+    });
+  }
+  
+  // Animate callouts to appear one by one
+  const callouts = document.querySelectorAll('.callout-item');
+  callouts.forEach((callout, index) => {
+    setTimeout(() => {
+      callout.classList.add('active');
+    }, 300 + (index * 200));
+  });
+  
+  // Limited offer countdown timer
+  const offerBanner = document.querySelector('.limited-offer-banner');
+  if (offerBanner) {
+    // Add pulsing effect after a delay
+    setTimeout(() => {
+      offerBanner.classList.add('pulse-attention');
+    }, 5000);
+  }
+}
+
+/**
+ * Add dynamic CTA button effects
+ */
+function initCTAEffects() {
+  const ctaButton = document.getElementById('hero-cta-button');
+  if (!ctaButton) return;
+  
+  // Track views for urgency effects
+  let hasViewed = sessionStorage.getItem('hasViewedCTA');
+  
+  if (!hasViewed) {
+    // Add attention-grabbing animation after 3 seconds
+    setTimeout(() => {
+      ctaButton.classList.add('attention-pulse');
+      
+      setTimeout(() => {
+        ctaButton.classList.remove('attention-pulse');
+      }, 3000);
+    }, 3000);
+    
+    sessionStorage.setItem('hasViewedCTA', 'true');
+  }
+  
+  // Dynamic text on CTA button hover
+  const originalText = ctaButton.querySelector('span').textContent;
+  
+  ctaButton.addEventListener('mouseenter', () => {
+    ctaButton.querySelector('span').textContent = 'Yes, I Want This!';
+  });
+  
+  ctaButton.addEventListener('mouseleave', () => {
+    ctaButton.querySelector('span').textContent = originalText;
+  });
+  
+  // Add success feedback on click
+  ctaButton.addEventListener('click', (e) => {
+    // If not navigating to another page (for demo purposes)
+    if (ctaButton.getAttribute('href') === '#' || ctaButton.getAttribute('href') === '') {
+      e.preventDefault();
+      
+      // Change button text and style to indicate success
+      ctaButton.querySelector('span').textContent = 'Perfect Choice!';
+      ctaButton.classList.add('success');
+      
+      // Reset after delay
+      setTimeout(() => {
+        ctaButton.querySelector('span').textContent = originalText;
+        ctaButton.classList.remove('success');
+      }, 2000);
+    }
+  });
+}
+
+/**
+ * Make header transparent/solid based on scroll position
+ */
+function initHeaderScroll() {
+  const header = document.querySelector('.hero-header');
+  if (!header) return;
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+}
+
+/**
+ * Initialize advanced animations with GSAP if available
+ */
+function initAdvancedAnimations() {
+  // Stagger animations for hero content
+  gsap.from('.hero-left > *', {
+    y: 30,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: 'power2.out'
+  });
+  
+  // Subtle parallax effect on scroll
+  gsap.to('.hero-background', {
+    yPercent: 20,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero-section',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+  
+  // Animated callouts for product features
+  gsap.from('.product-callouts .callout-item', {
+    opacity: 0,
+    scale: 0.8,
+    y: 20,
+    duration: 0.6,
+    stagger: 0.2,
+    delay: 0.8,
+    ease: 'back.out(1.7)'
+  });
+  
+  // Advanced hero brand text animation
+  const heroText = document.querySelector('.hero-brand');
+  if (heroText) {
+    const textTimeline = gsap.timeline({ repeat: -1, repeatDelay: 5 });
+    
+    textTimeline
+      .to(heroText, { 
+        backgroundPosition: '200% 0', 
+        duration: 1.5, 
+        ease: 'power2.inOut' 
+      })
+      .to(heroText, { 
+        scale: 1.05, 
+        duration: 0.3, 
+        ease: 'power2.out' 
+      }, '<0.5')
+      .to(heroText, { 
+        scale: 1, 
+        duration: 0.3, 
+        ease: 'power2.in' 
+      }, '>0.2');
+  }
+  
+  // Subtle animation for background video overlay
+  gsap.to('.video-overlay', {
+    opacity: 0.7,
+    duration: 2,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut'
+  });
+}
+
+/**
+ * Add urgency with countdown timer
+ * (Only active if GSAP is available and configured for hero)
+ */
+function initCountdownTimer() {
+  const ctaButton = document.getElementById('hero-cta-button');
+  if (!ctaButton) return;
+  
+  // Create countdown element
+  const countdown = document.createElement('div');
+  countdown.className = 'cta-countdown';
+  countdown.innerHTML = 'Offer ends in: <span id="countdown-time">10:00</span>';
+  
+  // Insert before CTA button
+  ctaButton.parentNode.insertBefore(countdown, ctaButton);
+  
+  // Set countdown timer
+  let timeLeft = 10 * 60; // 10 minutes in seconds
+  const countdownDisplay = document.getElementById('countdown-time');
+  
+  const timer = setInterval(() => {
+    timeLeft--;
+    
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    
+    countdownDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    
+    // Add urgency class when time is running low
+    if (timeLeft < 60) {
+      countdown.classList.add('urgent');
+    }
+    
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      countdown.innerHTML = 'Last chance to claim offer!';
+      countdown.classList.add('last-chance');
+    }
+  }, 1000);
 }
 
 /**
