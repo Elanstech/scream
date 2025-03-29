@@ -1401,7 +1401,9 @@ section {
   overflow: hidden;
   position: relative;
   margin-top: var(--spacing-lg);
-  padding: var(--spacing-sm) 0;
+  padding: var(--spacing-md) 0;
+  background: var(--background);
+  border-radius: var(--border-radius-lg);
 }
 
 .partners-carousel::before,
@@ -1410,19 +1412,19 @@ section {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 50px;
+  width: 80px;
   z-index: 2;
   pointer-events: none;
 }
 
 .partners-carousel::before {
   left: 0;
-  background: linear-gradient(to right, var(--white), transparent);
+  background: linear-gradient(to right, var(--background), transparent);
 }
 
 .partners-carousel::after {
   right: 0;
-  background: linear-gradient(to left, var(--white), transparent);
+  background: linear-gradient(to left, var(--background), transparent);
 }
 
 .partners-track {
@@ -1437,13 +1439,17 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 var(--spacing-md);
+  flex-shrink: 0;
 }
 
 .partner-logo {
   height: 30px;
+  width: auto;
   opacity: 0.6;
   filter: grayscale(100%);
   transition: all var(--transition-medium);
+  object-fit: contain;
 }
 
 .partner-item:hover .partner-logo {
@@ -1457,7 +1463,7 @@ section {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-50% - var(--spacing-xl)));
+    transform: translateX(calc(-50%));
   }
 }
 
