@@ -5,19 +5,15 @@
  * =============================================================================
  */
 
-// Wait for the DOM to be fully loaded
+// Main initialization function to run when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize the page loader
+  // Initialize core components
   initPageLoader();
-  
-  // Initialize all components when DOM is loaded
   initFloatingHeader();
   initTopBanner();
   initMobileMenu();
   initHeroEffects();
-  initTrustSlider();
-  initTrustItemHover();
-  initEndlessCarousel();
+  initTrustBar();
   initBenefitsAnimations();
   initCounterAnimations();
   initBeforeAfterSlider();
@@ -30,13 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqAccordion();
   initCountdownTimer();
   initPromoCodeCopy();
-  initLogoSlider();
   initLiveChat();
   initBackToTop();
   initCookieConsent();
   initSmoothScrolling();
   
-  // Initialize AOS library for scroll animations
+  // FIXED: Partner logo carousel - only initialize once
+  initPartnerLogoCarousel();
+  
+  // Initialize AOS library for scroll animations if it exists
   if (typeof AOS !== 'undefined') {
     AOS.init({
       duration: 800,
@@ -47,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
-  // Particles.js initialization if available
+  // Initialize particles.js if available
   if (typeof particlesJS !== 'undefined') {
     initParticles();
   }
@@ -242,43 +240,71 @@ function initHeroEffects() {
       const y = (e.clientY - top) / height - 0.5;
       
       // Apply rotation based on mouse position
-      gsap.to(product3DContainer.querySelector('.product-3d-card'), {
-        rotationY: x * 10,
-        rotationX: -y * 10,
-        transformPerspective: 1000,
-        duration: 0.4,
-        ease: 'power1.out'
-      });
-      
-      // Move glow to follow mouse
-      const productGlow = product3DContainer.querySelector('.product-glow');
-      if (productGlow) {
-        gsap.to(productGlow, {
-          x: x * 50,
-          y: y * 50,
-          opacity: 0.7,
-          duration: 0.4
+      if (typeof gsap !== 'undefined') {
+        gsap.to(product3DContainer.querySelector('.product-3d-card'), {
+          rotationY: x * 10,
+          rotationX: -y * 10,
+          transformPerspective: 1000,
+          duration: 0.4,
+          ease: 'power1.out'
         });
+        
+        // Move glow to follow mouse
+        const productGlow = product3DContainer.querySelector('.product-glow');
+        if (productGlow) {
+          gsap.to(productGlow, {
+            x: x * 50,
+            y: y * 50,
+            opacity: 0.7,
+            duration: 0.4
+          });
+        }
+      } else {
+        // Fallback if GSAP is not available
+        const card = product3DContainer.querySelector('.product-3d-card');
+        if (card) {
+          card.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+        }
+        
+        const productGlow = product3DContainer.querySelector('.product-glow');
+        if (productGlow) {
+          productGlow.style.transform = `translate(${x * 50}px, ${y * 50}px)`;
+          productGlow.style.opacity = '0.7';
+        }
       }
     });
     
     // Reset on mouse leave
     product3DContainer.addEventListener('mouseleave', () => {
-      gsap.to(product3DContainer.querySelector('.product-3d-card'), {
-        rotationY: 0,
-        rotationX: 0,
-        duration: 0.6,
-        ease: 'power3.out'
-      });
-      
-      const productGlow = product3DContainer.querySelector('.product-glow');
-      if (productGlow) {
-        gsap.to(productGlow, {
-          x: 0,
-          y: 0,
-          opacity: 0.3,
-          duration: 0.6
+      if (typeof gsap !== 'undefined') {
+        gsap.to(product3DContainer.querySelector('.product-3d-card'), {
+          rotationY: 0,
+          rotationX: 0,
+          duration: 0.6,
+          ease: 'power3.out'
         });
+        
+        const productGlow = product3DContainer.querySelector('.product-glow');
+        if (productGlow) {
+          gsap.to(productGlow, {
+            x: 0,
+            y: 0,
+            opacity: 0.3,
+            duration: 0.6
+          });
+        }
+      } else {
+        // Fallback if GSAP is not available
+        const card = product3DContainer.querySelector('.product-3d-card');
+        if (card) {
+          card.style.transform = '';
+        }
+        
+        const productGlow = product3DContainer.querySelector('.product-glow');
+        if (productGlow) {
+          productGlow.style.transform = '';
+          productGlow.style.opacity = '0.3';
+        }
       }
     });
     
@@ -325,123 +351,15 @@ function initHeroEffects() {
 }
 
 /**
- * Initialize trust slider animation
+ * Initialize trust bar animations
  */
-function initTrustSlider() {
-  const trustSlider = document.getElementById('trustSlider');
-  if (!trustSlider) return;
+function initTrustBar() {
+  const trustBar = document.querySelector('.trust-bar');
+  if (!trustBar) return;
   
-  // Clone items for infinite scroll effect
-  const trustItems = trustSlider.querySelectorAll('.trust-item');
-  const clonedItems = Array.from(trustItems).map(item => item.cloneNode(true));
-  
-  clonedItems.forEach(item => {
-    trustSlider.appendChild(item);
-  });
-}
-
-/**
- * Initialize partners logo carousel
- */
-function initEndlessCarousel() {
-  const partnersTrack = document.getElementById('partnersTrack');
-  if (!partnersTrack) return;
-  
-  // Get all partner items
-  const partnerItems = partnersTrack.querySelectorAll('.partner-item');
-  if (partnerItems.length === 0) return;
-  
-  // First, remove any existing clones to start fresh
-  partnersTrack.querySelectorAll('.partner-clone').forEach(clone => clone.remove());
-  
-  // Clone each item twice to ensure smooth endless scrolling
-  partnerItems.forEach(item => {
-    // Create two clones for each item
-    const clone1 = item.cloneNode(true);
-    const clone2 = item.cloneNode(true);
-    
-    // Add class to identify clones 
-    clone1.classList.add('partner-clone');
-    clone2.classList.add('partner-clone');
-    
-    // Append to the track
-    partnersTrack.appendChild(clone1);
-    partnersTrack.appendChild(clone2);
-  });
-  
-  // Calculate the proper width of the track to ensure smooth looping
-  // This sets the width to exactly accommodate the original items plus one set of clones
-  const trackWidth = Array.from(partnerItems).reduce((width, item) => {
-    return width + item.offsetWidth + parseInt(getComputedStyle(item).marginLeft) + 
-           parseInt(getComputedStyle(item).marginRight);
-  }, 0) * 2; // Multiply by 2 to include one set of clones
-  
-  // Set animation duration based on the number of items for smoother movement
-  const animationDuration = partnerItems.length * 5; // 5 seconds per item
-  partnersTrack.style.animationDuration = `${animationDuration}s`;
-  
-  // Add pause on hover functionality
-  partnersTrack.addEventListener('mouseenter', () => {
-    partnersTrack.style.animationPlayState = 'paused';
-  });
-  
-  partnersTrack.addEventListener('mouseleave', () => {
-    partnersTrack.style.animationPlayState = 'running';
-  });
-  
-  // Add touch support for mobile to pause animation
-  partnersTrack.addEventListener('touchstart', () => {
-    partnersTrack.style.animationPlayState = 'paused';
-  }, { passive: true });
-  
-  partnersTrack.addEventListener('touchend', () => {
-    partnersTrack.style.animationPlayState = 'running';
-  }, { passive: true });
-  
-  // Handle animation reset to create truly endless effect
-  partnersTrack.addEventListener('animationiteration', () => {
-    // Reset scroll position instantly but invisibly when animation completes
-    // This creates the illusion of an endless carousel
-    const firstItemWidth = partnerItems[0].offsetWidth + 
-                          parseInt(getComputedStyle(partnerItems[0]).marginLeft) + 
-                          parseInt(getComputedStyle(partnerItems[0]).marginRight);
-    
-    // Quick reset when the animation completes one cycle
-    setTimeout(() => {
-      partnersTrack.style.animation = 'none';
-      partnersTrack.style.transform = 'translateX(0)';
-      
-      // Force reflow
-      void partnersTrack.offsetWidth;
-      
-      // Restart animation
-      partnersTrack.style.animation = `scrollPartners ${animationDuration}s linear infinite`;
-    }, 10);
-  });
-}
-
-// Call this function on document ready
-document.addEventListener('DOMContentLoaded', () => {
-  initEndlessCarousel();
-  
-  // Handle window resize to maintain proper carousel behavior
-  window.addEventListener('resize', () => {
-    // Debounce resize event for better performance
-    clearTimeout(window.resizeTimeout);
-    window.resizeTimeout = setTimeout(() => {
-      initEndlessCarousel();
-    }, 250);
-  });
-});
-
-/**
- * Add interactive hover effects to trust items
- */
-function initTrustItemHover() {
-  const trustItems = document.querySelectorAll('.trust-item');
-  
+  // Add hover effects to trust items
+  const trustItems = trustBar.querySelectorAll('.trust-item');
   trustItems.forEach(item => {
-    // Add subtle pulse animation on hover
     item.addEventListener('mouseenter', () => {
       const icon = item.querySelector('.trust-icon');
       if (icon) {
@@ -457,45 +375,89 @@ function initTrustItemHover() {
       }
     });
   });
-}
-
-// Add to document ready function in your main script
-document.addEventListener('DOMContentLoaded', () => {
-  initTrustBar();
   
   // Intersection Observer for animation when scrolled into view
   if ('IntersectionObserver' in window) {
-    const trustBar = document.querySelector('.trust-bar');
-    if (trustBar) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            // Animate trust items when visible
-            const trustItems = trustBar.querySelectorAll('.trust-item');
-            trustItems.forEach((item, index) => {
-              setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-              }, 100 * index);
-            });
-            
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      
-      // Set initial state
-      const trustItems = trustBar.querySelectorAll('.trust-item');
-      trustItems.forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Animate trust items when visible
+          trustItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, 100 * index);
+          });
+          
+          observer.unobserve(entry.target);
+        }
       });
-      
-      observer.observe(trustBar);
-    }
+    }, { threshold: 0.2 });
+    
+    // Set initial state
+    trustItems.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(20px)';
+      item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+    
+    observer.observe(trustBar);
   }
-});
+}
+
+/**
+ * FIXED: Initialize partner logo carousel without duplicates
+ */
+function initPartnerLogoCarousel() {
+  const partnersTrack = document.getElementById('partnersTrack');
+  if (!partnersTrack) return;
+  
+  // Get all partner items (non-clones only)
+  const partnerItems = partnersTrack.querySelectorAll('.partner-item:not(.partner-clone)');
+  if (partnerItems.length === 0) return;
+  
+  // First, remove any existing clones to prevent duplicate cloning
+  partnersTrack.querySelectorAll('.partner-clone').forEach(clone => clone.remove());
+  
+  // Create only one set of clones - enough for continuous scrolling
+  partnerItems.forEach(item => {
+    // Create just one clone for each item
+    const clone = item.cloneNode(true);
+    
+    // Add class to identify clones
+    clone.classList.add('partner-clone');
+    
+    // Append to the track
+    partnersTrack.appendChild(clone);
+  });
+  
+  // Calculate the proper width
+  const itemWidth = partnerItems[0].offsetWidth + 
+                    parseInt(getComputedStyle(partnerItems[0]).marginLeft || 0) + 
+                    parseInt(getComputedStyle(partnerItems[0]).marginRight || 0);
+  
+  // Set animation duration based on the number of items
+  const animationDuration = partnerItems.length * 5; // 5 seconds per item
+  partnersTrack.style.animationDuration = `${animationDuration}s`;
+  
+  // Add pause on hover functionality
+  partnersTrack.addEventListener('mouseenter', () => {
+    partnersTrack.style.animationPlayState = 'paused';
+  });
+  
+  partnersTrack.addEventListener('mouseleave', () => {
+    partnersTrack.style.animationPlayState = 'running';
+  });
+  
+  // Add touch support for mobile
+  partnersTrack.addEventListener('touchstart', () => {
+    partnersTrack.style.animationPlayState = 'paused';
+  }, { passive: true });
+  
+  partnersTrack.addEventListener('touchend', () => {
+    partnersTrack.style.animationPlayState = 'running';
+  }, { passive: true });
+}
 
 /**
  * Initialize benefits section animations
@@ -710,9 +672,6 @@ function init3DMolecule() {
     scene.add(orbit);
     atoms.push({ orbit, speed: 0.005 + Math.random() * 0.01 });
   }
-  
-  // Add bonds (lines between atoms)
-  const lineMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.4 });
   
   // Add ambient light
   const ambientLight = new THREE.AmbientLight(0x404040);
@@ -1017,10 +976,9 @@ function initReviewsMasonry() {
  */
 function initFaqAccordion() {
   const faqQuestions = document.querySelectorAll('.faq-question');
-  const faqAnswers = document.querySelectorAll('.faq-answer');
   
   if (faqQuestions.length) {
-    faqQuestions.forEach((question, index) => {
+    faqQuestions.forEach((question) => {
       const answer = question.nextElementSibling;
       
       // Set initial height to 0 for closed state
@@ -1030,7 +988,7 @@ function initFaqAccordion() {
         const isExpanded = question.getAttribute('aria-expanded') === 'true';
         
         // Close all other questions
-        faqQuestions.forEach((q, i) => {
+        faqQuestions.forEach((q) => {
           if (q !== question) {
             q.setAttribute('aria-expanded', 'false');
             q.nextElementSibling.style.maxHeight = '0px';
@@ -1137,32 +1095,8 @@ function initPromoCodeCopy() {
       setTimeout(() => {
         copyButton.innerHTML = originalIcon;
       }, 2000);
-      
-      // Tooltip feedback
-      copyButton.setAttribute('data-tooltip', 'Copied!');
-      copyButton.classList.add('tooltip-visible');
-      
-      setTimeout(() => {
-        copyButton.classList.remove('tooltip-visible');
-      }, 2000);
     });
   }
-}
-
-/**
- * Initialize partner logo slider
- */
-function initLogoSlider() {
-  const logoSlider = document.getElementById('logoSlider');
-  if (!logoSlider) return;
-  
-  // Clone the logo items for infinite scroll effect
-  const logoItems = logoSlider.querySelectorAll('.logo-item');
-  const clonedItems = Array.from(logoItems).map(item => item.cloneNode(true));
-  
-  clonedItems.forEach(item => {
-    logoSlider.appendChild(item);
-  });
 }
 
 /**
@@ -1179,7 +1113,7 @@ function initLiveChat() {
   if (!chatToggle || !chatWindow) return;
   
   // Toggle chat window
-  chatToggle.addEventListener('click', () => {
+  chatToggle?.addEventListener('click', () => {
     const isExpanded = chatToggle.getAttribute('aria-expanded') === 'true';
     chatToggle.setAttribute('aria-expanded', !isExpanded);
     chatWindow.setAttribute('aria-hidden', isExpanded);
@@ -1193,12 +1127,10 @@ function initLiveChat() {
   });
   
   // Close chat window
-  if (chatClose) {
-    chatClose.addEventListener('click', () => {
-      chatToggle.setAttribute('aria-expanded', 'false');
-      chatWindow.setAttribute('aria-hidden', 'true');
-    });
-  }
+  chatClose?.addEventListener('click', () => {
+    chatToggle.setAttribute('aria-expanded', 'false');
+    chatWindow.setAttribute('aria-hidden', 'true');
+  });
   
   // Send message functionality
   if (sendButton && chatInput && chatMessages) {
@@ -1358,44 +1290,25 @@ function initSmoothScrolling() {
  * Initialize particles.js effect
  */
 function initParticles() {
+  if (typeof particlesJS === 'undefined' || !document.getElementById('particles-js')) return;
+  
   particlesJS('particles-js', {
     particles: {
-      number: {
-        value: 80,
-        density: {
-          enable: true,
-          value_area: 800
-        }
-      },
-      color: {
-        value: "#ffffff"
-      },
-      shape: {
-        type: "circle",
-        stroke: {
-          width: 0,
-          color: "#000000"
-        }
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#ffffff" },
+      shape: { 
+        type: "circle", 
+        stroke: { width: 0, color: "#000000" }
       },
       opacity: {
         value: 0.3,
         random: true,
-        anim: {
-          enable: true,
-          speed: 1,
-          opacity_min: 0.1,
-          sync: false
-        }
+        anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
       },
       size: {
         value: 3,
         random: true,
-        anim: {
-          enable: true,
-          speed: 2,
-          size_min: 0.1,
-          sync: false
-        }
+        anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
       },
       line_linked: {
         enable: true,
@@ -1411,51 +1324,19 @@ function initParticles() {
         random: true,
         straight: false,
         out_mode: "out",
-        bounce: false,
-        attract: {
-          enable: false,
-          rotateX: 600,
-          rotateY: 1200
-        }
+        bounce: false
       }
     },
     interactivity: {
       detect_on: "canvas",
       events: {
-        onhover: {
-          enable: true,
-          mode: "bubble"
-        },
-        onclick: {
-          enable: true,
-          mode: "push"
-        },
+        onhover: { enable: true, mode: "bubble" },
+        onclick: { enable: true, mode: "push" },
         resize: true
       },
       modes: {
-        grab: {
-          distance: 400,
-          line_linked: {
-            opacity: 1
-          }
-        },
-        bubble: {
-          distance: 200,
-          size: 4,
-          duration: 2,
-          opacity: 0.8,
-          speed: 3
-        },
-        repulse: {
-          distance: 200,
-          duration: 0.4
-        },
-        push: {
-          particles_nb: 4
-        },
-        remove: {
-          particles_nb: 2
-        }
+        bubble: { distance: 200, size: 4, duration: 2, opacity: 0.8, speed: 3 },
+        push: { particles_nb: 4 }
       }
     },
     retina_detect: true
