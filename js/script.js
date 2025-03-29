@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initHeroEffects();
   initTrustSlider();
+  initTrustItemHover();
+  initPartnersCarousel();
   initBenefitsAnimations();
   initCounterAnimations();
   initBeforeAfterSlider();
@@ -337,6 +339,107 @@ function initTrustSlider() {
     trustSlider.appendChild(item);
   });
 }
+
+/**
+ * Initialize partners logo carousel
+ */
+function initPartnersCarousel() {
+  const partnersTrack = document.getElementById('partnersTrack');
+  if (!partnersTrack) return;
+  
+  // Clone the partner items for infinite scroll effect
+  const partnerItems = partnersTrack.querySelectorAll('.partner-item');
+  
+  // Only clone if we have items
+  if (partnerItems.length === 0) return;
+  
+  // Clone all items
+  partnerItems.forEach(item => {
+    const clone = item.cloneNode(true);
+    partnersTrack.appendChild(clone);
+  });
+  
+  // Add pause on hover functionality
+  partnersTrack.addEventListener('mouseenter', () => {
+    partnersTrack.style.animationPlayState = 'paused';
+  });
+  
+  partnersTrack.addEventListener('mouseleave', () => {
+    partnersTrack.style.animationPlayState = 'running';
+  });
+  
+  // Add touch support for mobile to pause animation
+  partnersTrack.addEventListener('touchstart', () => {
+    partnersTrack.style.animationPlayState = 'paused';
+  }, { passive: true });
+  
+  partnersTrack.addEventListener('touchend', () => {
+    partnersTrack.style.animationPlayState = 'running';
+  }, { passive: true });
+}
+
+/**
+ * Add interactive hover effects to trust items
+ */
+function initTrustItemHover() {
+  const trustItems = document.querySelectorAll('.trust-item');
+  
+  trustItems.forEach(item => {
+    // Add subtle pulse animation on hover
+    item.addEventListener('mouseenter', () => {
+      const icon = item.querySelector('.trust-icon');
+      if (icon) {
+        icon.style.transform = 'scale(1.1)';
+        icon.style.transition = 'transform 0.3s ease';
+      }
+    });
+    
+    item.addEventListener('mouseleave', () => {
+      const icon = item.querySelector('.trust-icon');
+      if (icon) {
+        icon.style.transform = 'scale(1)';
+      }
+    });
+  });
+}
+
+// Add to document ready function in your main script
+document.addEventListener('DOMContentLoaded', () => {
+  initTrustBar();
+  
+  // Intersection Observer for animation when scrolled into view
+  if ('IntersectionObserver' in window) {
+    const trustBar = document.querySelector('.trust-bar');
+    if (trustBar) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Animate trust items when visible
+            const trustItems = trustBar.querySelectorAll('.trust-item');
+            trustItems.forEach((item, index) => {
+              setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+              }, 100 * index);
+            });
+            
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      
+      // Set initial state
+      const trustItems = trustBar.querySelectorAll('.trust-item');
+      trustItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      });
+      
+      observer.observe(trustBar);
+    }
+  }
+});
 
 /**
  * Initialize benefits section animations
