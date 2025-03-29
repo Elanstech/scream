@@ -1280,62 +1280,192 @@ section {
 }
 
 /* ======================================
-   9. Trust Bar Section
+   9. Trust Bar Section - Modern Redesign
 ====================================== */
 .trust-bar {
-  background: white;
+  background: var(--white);
   padding: var(--spacing-lg) 0;
   box-shadow: var(--shadow-sm);
   position: relative;
   z-index: 3;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.trust-bar-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-lg);
+.trust-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.trust-title {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  width: 100%;
 }
 
 .trust-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-xs);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-muted);
+  justify-content: center;
   text-align: center;
-  flex: 1;
-  min-width: 120px;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  background: var(--background);
+  transition: all var(--transition-medium);
+  gap: var(--spacing-xs);
+}
+
+.trust-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
 }
 
 .trust-icon {
-  width: 32px;
-  height: 32px;
-  margin-bottom: var(--spacing-xs);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Trust Slider */
-.trust-slider {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.trust-icon svg {
   width: 100%;
-  padding: var(--spacing-xs) 0;
-  overflow: hidden;
+  height: 100%;
+  color: var(--accent);
 }
 
 .trust-logo {
-  height: 30px;
+  height: 36px;
   width: auto;
-  opacity: 0.7;
-  transition: opacity var(--transition-medium);
+  object-fit: contain;
+  filter: grayscale(80%);
+  transition: all var(--transition-medium);
 }
 
-.trust-logo:hover {
+.trust-item:hover .trust-logo {
+  filter: grayscale(0%);
+}
+
+.trust-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-top: var(--spacing-xs);
+}
+
+/* Badge-style variant for smaller screens */
+.trust-badge {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-lg);
+  background: var(--background);
+  transition: all var(--transition-medium);
+  gap: var(--spacing-xs);
+}
+
+.trust-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.trust-badge-icon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.trust-badge-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Partners carousel for larger screens */
+.partners-carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-sm) 0;
+}
+
+.partners-carousel::before,
+.partners-carousel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.partners-carousel::before {
+  left: 0;
+  background: linear-gradient(to right, var(--white), transparent);
+}
+
+.partners-carousel::after {
+  right: 0;
+  background: linear-gradient(to left, var(--white), transparent);
+}
+
+.partners-track {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  animation: scrollPartners 30s linear infinite;
+  width: max-content;
+}
+
+.partner-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-logo {
+  height: 30px;
+  opacity: 0.6;
+  filter: grayscale(100%);
+  transition: all var(--transition-medium);
+}
+
+.partner-item:hover .partner-logo {
   opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+@keyframes scrollPartners {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - var(--spacing-xl)));
+  }
+}
+
+/* Media queries for responsive design */
+@media (min-width: 640px) {
+  .trust-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (min-width: 768px) {
@@ -1343,14 +1473,40 @@ section {
     padding: var(--spacing-xl) 0;
   }
   
+  .trust-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-lg);
+  }
+  
+  .trust-title {
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-lg);
+  }
+  
   .trust-item {
-    flex-direction: row;
-    gap: var(--spacing-sm);
-    font-size: 1rem;
+    padding: var(--spacing-lg);
   }
   
   .trust-logo {
+    height: 45px;
+  }
+  
+  .trust-text {
+    font-size: 0.95rem;
+  }
+  
+  .partner-logo {
     height: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .trust-grid {
+    gap: var(--spacing-xl);
+  }
+  
+  .trust-logo {
+    height: 50px;
   }
 }
 
