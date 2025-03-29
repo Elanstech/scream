@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroEffects();
   initTrustSlider();
   initTrustItemHover();
-  initPartnersCarousel();
+  initEndlessCarousel();
   initBenefitsAnimations();
   initCounterAnimations();
   initBeforeAfterSlider();
@@ -343,21 +343,42 @@ function initTrustSlider() {
 /**
  * Initialize partners logo carousel
  */
-function initPartnersCarousel() {
+function initEndlessCarousel() {
   const partnersTrack = document.getElementById('partnersTrack');
   if (!partnersTrack) return;
   
-  // Clone the partner items for infinite scroll effect
+  // Get all partner items
   const partnerItems = partnersTrack.querySelectorAll('.partner-item');
-  
-  // Only clone if we have items
   if (partnerItems.length === 0) return;
   
-  // Clone all items
+  // First, remove any existing clones to start fresh
+  partnersTrack.querySelectorAll('.partner-clone').forEach(clone => clone.remove());
+  
+  // Clone each item twice to ensure smooth endless scrolling
   partnerItems.forEach(item => {
-    const clone = item.cloneNode(true);
-    partnersTrack.appendChild(clone);
+    // Create two clones for each item
+    const clone1 = item.cloneNode(true);
+    const clone2 = item.cloneNode(true);
+    
+    // Add class to identify clones 
+    clone1.classList.add('partner-clone');
+    clone2.classList.add('partner-clone');
+    
+    // Append to the track
+    partnersTrack.appendChild(clone1);
+    partnersTrack.appendChild(clone2);
   });
+  
+  // Calculate the proper width of the track to ensure smooth looping
+  // This sets the width to exactly accommodate the original items plus one set of clones
+  const trackWidth = Array.from(partnerItems).reduce((width, item) => {
+    return width + item.offsetWidth + parseInt(getComputedStyle(item).marginLeft) + 
+           parseInt(getComputedStyle(item).marginRight);
+  }, 0) * 2; // Multiply by 2 to include one set of clones
+  
+  // Set animation duration based on the number of items for smoother movement
+  const animationDuration = partnerItems.length * 5; // 5 seconds per item
+  partnersTrack.style.animationDuration = `${animationDuration}s`;
   
   // Add pause on hover functionality
   partnersTrack.addEventListener('mouseenter', () => {
@@ -376,7 +397,42 @@ function initPartnersCarousel() {
   partnersTrack.addEventListener('touchend', () => {
     partnersTrack.style.animationPlayState = 'running';
   }, { passive: true });
+  
+  // Handle animation reset to create truly endless effect
+  partnersTrack.addEventListener('animationiteration', () => {
+    // Reset scroll position instantly but invisibly when animation completes
+    // This creates the illusion of an endless carousel
+    const firstItemWidth = partnerItems[0].offsetWidth + 
+                          parseInt(getComputedStyle(partnerItems[0]).marginLeft) + 
+                          parseInt(getComputedStyle(partnerItems[0]).marginRight);
+    
+    // Quick reset when the animation completes one cycle
+    setTimeout(() => {
+      partnersTrack.style.animation = 'none';
+      partnersTrack.style.transform = 'translateX(0)';
+      
+      // Force reflow
+      void partnersTrack.offsetWidth;
+      
+      // Restart animation
+      partnersTrack.style.animation = `scrollPartners ${animationDuration}s linear infinite`;
+    }, 10);
+  });
 }
+
+// Call this function on document ready
+document.addEventListener('DOMContentLoaded', () => {
+  initEndlessCarousel();
+  
+  // Handle window resize to maintain proper carousel behavior
+  window.addEventListener('resize', () => {
+    // Debounce resize event for better performance
+    clearTimeout(window.resizeTimeout);
+    window.resizeTimeout = setTimeout(() => {
+      initEndlessCarousel();
+    }, 250);
+  });
+});
 
 /**
  * Add interactive hover effects to trust items
