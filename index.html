@@ -56,176 +56,160 @@
         </div>
     </div>
 
-    <!-- Hero Section with Floating Nav -->
-    <section class="hero" id="hero">
-        <!-- Hero Background with Video -->
-        <div class="hero-background">
-            <div class="video-container">
-                <video autoplay muted loop playsinline class="hero-video" id="heroVideo">
-                    <source src="promocream1.mp4" type="video/mp4">
-                    <!-- Fallback for browsers that don't support video -->
-                    <img src="https://images.unsplash.com/photo-1516401266446-6432a8a07d41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Intimate moments" class="fallback-image">
-                </video>
+    <!-- BOLD, High-Converting Hero Section -->
+<div class="limited-offer-banner">
+    <span>🔥 LIMITED TIME OFFER: Get 20% OFF your first order with code <span class="highlight">WELCOME20</span> 🔥</span>
+</div>
+
+<section class="hero-section" id="hero">
+    <!-- Video Background Container -->
+    <div class="hero-background">
+        <div class="video-container">
+            <video autoplay muted loop playsinline class="hero-video" id="heroVideo">
+                <source src="promocream1.mp4" type="video/mp4">
+                <!-- Fallback image if video fails to load -->
+                <img src="https://images.unsplash.com/photo-1516401266446-6432a8a07d41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80" alt="Intimate moments" class="fallback-image">
+            </video>
+        </div>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header with Navigation -->
+    <header class="hero-header">
+        <div class="container">
+            <div class="header-inner">
+                <!-- Logo -->
+                <div class="header-logo">
+                    <a href="/" class="logo" aria-label="S-Cream Home">
+                        <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="header-nav" aria-label="Main navigation">
+                    <ul class="nav-list">
+                        <li><a href="#benefits" class="nav-link"><i class="bi bi-lightning-charge"></i> Benefits</a></li>
+                        <li><a href="#how-it-works" class="nav-link"><i class="bi bi-diagram-3"></i> How It Works</a></li>
+                        <li><a href="#science" class="nav-link"><i class="bi bi-flask"></i> Science</a></li>
+                        <li><a href="#reviews" class="nav-link"><i class="bi bi-stars"></i> Reviews</a></li>
+                        <li><a href="tracking.html" class="nav-link"><i class="bi bi-box-seam"></i> Track Order</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
+                    <span class="toggle-icon"></span>
+                </button>
             </div>
-            <div class="video-overlay"></div>
-            <div class="bg-gradient"></div>
-            
-            <!-- Modern particle effect -->
-            <div id="particles-js"></div>
         </div>
 
-        <!-- Modern Floating Header -->
-        <header class="floating-header">
-            <div class="container">
-                <div class="header-inner">
-                    <!-- Logo -->
-                    <div class="header-logo">
-                        <a href="/" class="logo" aria-label="S-Cream Home">
-                            <img src="logo.png" alt="S-Cream Logo" class="logo-image" width="120" height="40">
-                        </a>
-                    </div>
-
-                    <!-- Navigation -->
-                    <nav class="header-nav" aria-label="Main navigation">
-                        <ul class="nav-list">
-                            <li><a href="#benefits" class="nav-link"><i class="bi bi-lightning-charge"></i> Benefits</a></li>
-                            <li><a href="#how-it-works" class="nav-link"><i class="bi bi-diagram-3"></i> How It Works</a></li>
-                            <li><a href="#science" class="nav-link"><i class="bi bi-flask"></i> Science</a></li>
-                            <li><a href="#clinical-proof" class="nav-link"><i class="bi bi-clipboard-check"></i> Clinical Proof</a></li>
-                            <li><a href="#reviews" class="nav-link"><i class="bi bi-stars"></i> Reviews</a></li>
-                            <li><a href="tracking.html" class="nav-link"><i class="bi bi-box-seam"></i> Track Order</a></li>
-                        </ul>
-                    </nav>
-
-                    <!-- Action Button -->
-                    <div class="header-action">
-                        <a href="quiz.html" class="action-button">
-                            <span>Find Your Formula</span>
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <!-- Mobile Menu Toggle -->
-                    <button class="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-nav">
-                        <span class="toggle-icon"></span>
-                    </button>
-                </div>
+        <!-- Mobile Navigation Panel -->
+        <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+            <div class="mobile-nav-content">
+                <nav class="mobile-nav-menu">
+                    <ul class="mobile-nav-list">
+                        <li><a href="#benefits" class="mobile-nav-link"><i class="bi bi-lightning-charge"></i> Benefits</a></li>
+                        <li><a href="#how-it-works" class="mobile-nav-link"><i class="bi bi-diagram-3"></i> How It Works</a></li>
+                        <li><a href="#science" class="mobile-nav-link"><i class="bi bi-flask"></i> Science</a></li>
+                        <li><a href="#reviews" class="mobile-nav-link"><i class="bi bi-stars"></i> Reviews</a></li>
+                        <li><a href="tracking.html" class="mobile-nav-link"><i class="bi bi-box-seam"></i> Track Order</a></li>
+                    </ul>
+                </nav>
             </div>
+        </div>
+    </header>
 
-            <!-- Mobile Navigation Panel -->
-            <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
-                <div class="mobile-nav-content">
-                    <nav class="mobile-nav-menu">
-                        <ul class="mobile-nav-list">
-                            <li><a href="#benefits" class="mobile-nav-link"><i class="bi bi-lightning-charge"></i> Benefits</a></li>
-                            <li><a href="#how-it-works" class="mobile-nav-link"><i class="bi bi-diagram-3"></i> How It Works</a></li>
-                            <li><a href="#science" class="mobile-nav-link"><i class="bi bi-flask"></i> Science</a></li>
-                            <li><a href="#clinical-proof" class="mobile-nav-link"><i class="bi bi-clipboard-check"></i> Clinical Proof</a></li>
-                            <li><a href="#reviews" class="mobile-nav-link"><i class="bi bi-stars"></i> Reviews</a></li>
-                            <li><a href="#faq" class="mobile-nav-link"><i class="bi bi-question-circle"></i> FAQ</a></li>
-                        </ul>
-                    </nav>
-                    <div class="mobile-nav-action">
-                        <a href="quiz.html" class="mobile-cta-button">
-                            <span>Take the Quiz</span>
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
+    <!-- Main Hero Content -->
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-left">
+                <!-- Clear Product Description -->
+                <div class="product-badge">Clinically Proven • Doctor Approved</div>
+                
+                <h1 class="hero-title">
+                    <span class="hero-brand">S-CREAM</span>
+                    <span class="hero-tagline">Experience 215% More Pleasure</span>
+                </h1>
+                
+                <p class="hero-description">
+                    Our revolutionary premium formula enhances intimate sensitivity where it matters most. Used by thousands to transform their experiences from ordinary to extraordinary.
+                </p>
+                
+                <!-- Feature Highlights -->
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span>215% More<br>Sensitivity</span>
                     </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Hero Content -->
-        <div class="container">
-            <div class="hero-content">
-                <!-- Text Column -->
-                <div class="hero-text-column" data-aos="fade-right" data-aos-duration="1000">
-                    <h1 class="hero-title animate__animated animate__fadeInUp">
-                        <span class="title-line">Awaken Your Senses</span>
-                        <span class="title-line accent">Experience Enhanced Pleasure</span>
-                    </h1>
-                    
-                    <p class="hero-description animate__animated animate__fadeInUp animate__delay-1s">
-                        Our doctor-formulated cream enhances sensitivity and intensifies pleasure where it matters most – discreetly delivered to your door.
-                    </p>
-                    
-                    <!-- CTA Buttons -->
-                    <div class="hero-cta-group animate__animated animate__fadeInUp animate__delay-2s">
-                        <a href="quiz.html" class="primary-cta">
-                            <span>Take the Quiz & Get Yours</span>
-                            <i class="bi bi-arrow-right"></i>
-                        </a>
-                        <a href="#benefits" class="secondary-cta">
-                            <span>Learn More</span>
-                            <i class="bi bi-chevron-down"></i>
-                        </a>
+                    <div class="feature-item">
+                        <i class="bi bi-clock"></i>
+                        <span>Fast-Acting<br>15-30 Minutes</span>
                     </div>
-                    
-                    <!-- Trust Badges -->
-                    <div class="trust-badges animate__animated animate__fadeInUp animate__delay-3s">
-                        <div class="badge">
-                            <i class="bi bi-shield-check"></i>
-                            <span>Doctor Approved</span>
-                        </div>
-                        <div class="badge">
-                            <i class="bi bi-award"></i>
-                            <span>Clinically Tested</span>
-                        </div>
-                        <div class="badge">
-                            <i class="bi bi-box-seam"></i>
-                            <span>Discreet Shipping</span>
-                        </div>
+                    <div class="feature-item">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Premium<br>Ingredients</span>
                     </div>
                 </div>
                 
-                <!-- Product Column with 3D effect -->
-                <div class="hero-product-column" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                    <div class="product-3d-container" id="product3DContainer">
-                        <div class="product-3d-card">
-                            <div class="product-image">
-                                <img src="cream.jpeg" alt="S-Cream Premium Formula" class="product-img">
-                                <div class="product-glow"></div>
+                <!-- CTA Section -->
+                <div class="hero-cta">
+                    <a href="quiz.html" class="primary-cta-button" id="hero-cta-button">
+                        <span>Get Your Formula</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <div class="satisfaction-guarantee">
+                        <i class="bi bi-check-circle"></i>
+                        <span>30-Day Money-Back Guarantee</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-right">
+                <!-- Product Visualization -->
+                <div class="product-showcase">
+                    <div class="product-image-container">
+                        <img src="cream.jpeg" alt="S-Cream Premium Formula" class="product-image" id="product-image">
+                        <div class="product-glow"></div>
+                    </div>
+                    
+                    <!-- Key Benefits Callouts -->
+                    <div class="product-callouts">
+                        <div class="callout-item top-right">
+                            <div class="callout-line"></div>
+                            <div class="callout-content">
+                                <i class="bi bi-lightning"></i>
+                                <span>Enhanced Sensation</span>
                             </div>
-                            
-                            <!-- Floating Features -->
-                            <div class="product-features">
-                                <div class="feature">
-                                    <i class="bi bi-lightning-fill"></i>
-                                    <span>Enhanced Sensitivity</span>
-                                </div>
-                                <div class="feature">
-                                    <i class="bi bi-droplet-fill"></i>
-                                    <span>Premium Ingredients</span>
-                                </div>
-                                <div class="feature">
-                                    <i class="bi bi-star-fill"></i>
-                                    <span>Clinically Proven</span>
-                                </div>
+                        </div>
+                        
+                        <div class="callout-item bottom-left">
+                            <div class="callout-content">
+                                <i class="bi bi-stars"></i>
+                                <span>Clinically Proven</span>
+                            </div>
+                            <div class="callout-line"></div>
+                        </div>
+                        
+                        <div class="callout-item bottom-right">
+                            <div class="callout-line"></div>
+                            <div class="callout-content">
+                                <i class="bi bi-droplet"></i>
+                                <span>Premium Formula</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Modern scroll indicator -->
-        <div class="scroll-indicator">
-      <span>Scroll to discover</span>
-      <div class="scroll-arrows">
-        <div class="scroll-arrow"></div>
-        <div class="scroll-arrow"></div>
-      </div>
     </div>
-
-        <!-- Floating sticky CTA for mobile -->
-        <div class="floating-cta-mobile">
-            <a href="quiz.html" class="floating-cta-button">
-                <span>Find Your Formula</span>
-                <i class="bi bi-arrow-right"></i>
-            </a>
-        </div>
-    </section>
-
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <span>Discover the Science</span>
+        <div class="scroll-arrow"></div>
+    </div>
+</section>
+    
     <!-- Trust Bar with Modern Design -->
 <section class="trust-bar">
     <div class="trust-container">
