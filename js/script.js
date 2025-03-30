@@ -2,11 +2,14 @@
  * =============================================================================
  * S-Cream Website - Modern JavaScript
  * Interactive functionality for premium user experience
+ * Version: 1.0.0
  * =============================================================================
  */
 
 // Main initialization function to run when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('Initializing S-Cream website...');
+  
   // Initialize core components
   initPageLoader();
   initFloatingHeader();
@@ -21,11 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounterAnimations();
   initBeforeAfterSlider();
   initTimelineAnimations();
-  initIngredientsSlider();
-  initParticleBackground();
-  initAnimations();
-  initProductInteraction();
-  initMeterAnimations();
   initTabsSystem();
   initClinicalChart();
   initVideoTestimonials();
@@ -37,6 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initCookieConsent();
   initSmoothScrolling();
+  
+  // Initialize ingredients section components
+  initIngredientsSlider();
+  initParticleBackground();
+  initAnimations();
+  initProductInteraction();
+  initMeterAnimations();
   
   // FIXED: Partner logo carousel - only initialize once
   initPartnerLogoCarousel();
@@ -357,33 +362,36 @@ function initCTAEffects() {
   }
   
   // Dynamic text on CTA button hover
-  const originalText = ctaButton.querySelector('span').textContent;
-  
-  ctaButton.addEventListener('mouseenter', () => {
-    ctaButton.querySelector('span').textContent = 'Yes, I Want This!';
-  });
-  
-  ctaButton.addEventListener('mouseleave', () => {
-    ctaButton.querySelector('span').textContent = originalText;
-  });
-  
-  // Add success feedback on click
-  ctaButton.addEventListener('click', (e) => {
-    // If not navigating to another page (for demo purposes)
-    if (ctaButton.getAttribute('href') === '#' || ctaButton.getAttribute('href') === '') {
-      e.preventDefault();
-      
-      // Change button text and style to indicate success
-      ctaButton.querySelector('span').textContent = 'Perfect Choice!';
-      ctaButton.classList.add('success');
-      
-      // Reset after delay
-      setTimeout(() => {
-        ctaButton.querySelector('span').textContent = originalText;
-        ctaButton.classList.remove('success');
-      }, 2000);
-    }
-  });
+  const ctaSpan = ctaButton.querySelector('span');
+  if (ctaSpan) {
+    const originalText = ctaSpan.textContent;
+    
+    ctaButton.addEventListener('mouseenter', () => {
+      ctaSpan.textContent = 'Yes, I Want This!';
+    });
+    
+    ctaButton.addEventListener('mouseleave', () => {
+      ctaSpan.textContent = originalText;
+    });
+    
+    // Add success feedback on click
+    ctaButton.addEventListener('click', (e) => {
+      // If not navigating to another page (for demo purposes)
+      if (ctaButton.getAttribute('href') === '#' || ctaButton.getAttribute('href') === '') {
+        e.preventDefault();
+        
+        // Change button text and style to indicate success
+        ctaSpan.textContent = 'Perfect Choice!';
+        ctaButton.classList.add('success');
+        
+        // Reset after delay
+        setTimeout(() => {
+          ctaSpan.textContent = originalText;
+          ctaButton.classList.remove('success');
+        }, 2000);
+      }
+    });
+  }
 }
 
 /**
@@ -406,6 +414,8 @@ function initHeaderScroll() {
  * Initialize advanced animations with GSAP if available
  */
 function initAdvancedAnimations() {
+  if (typeof gsap === 'undefined') return;
+  
   // Stagger animations for hero content
   gsap.from('.hero-left > *', {
     y: 30,
@@ -472,47 +482,6 @@ function initAdvancedAnimations() {
 }
 
 /**
- * Add urgency with countdown timer
- * (Only active if GSAP is available and configured for hero)
- */
-function initCountdownTimer() {
-  const ctaButton = document.getElementById('hero-cta-button');
-  if (!ctaButton) return;
-  
-  // Create countdown element
-  const countdown = document.createElement('div');
-  countdown.className = 'cta-countdown';
-  countdown.innerHTML = 'Offer ends in: <span id="countdown-time">10:00</span>';
-  
-  // Insert before CTA button
-  ctaButton.parentNode.insertBefore(countdown, ctaButton);
-  
-  // Set countdown timer
-  let timeLeft = 10 * 60; // 10 minutes in seconds
-  const countdownDisplay = document.getElementById('countdown-time');
-  
-  const timer = setInterval(() => {
-    timeLeft--;
-    
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-    
-    countdownDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    
-    // Add urgency class when time is running low
-    if (timeLeft < 60) {
-      countdown.classList.add('urgent');
-    }
-    
-    if (timeLeft <= 0) {
-      clearInterval(timer);
-      countdown.innerHTML = 'Last chance to claim offer!';
-      countdown.classList.add('last-chance');
-    }
-  }, 1000);
-}
-
-/**
  * Initialize trust bar animations
  */
 function initTrustBar() {
@@ -568,7 +537,7 @@ function initTrustBar() {
 }
 
 /**
- * FIXED: Initialize partner logo carousel without duplicates
+ * Initialize partner logo carousel without duplicates
  */
 function initPartnerLogoCarousel() {
   const partnersTrack = document.getElementById('partnersTrack');
@@ -662,7 +631,7 @@ function initCounterAnimations() {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const target = parseInt(entry.target.getAttribute('data-target'));
+          const target = parseInt(entry.target.getAttribute('data-target') || '0');
           const duration = 2000; // 2 seconds
           const step = 30; // Update every 30ms
           const increment = target / (duration / step);
@@ -698,6 +667,8 @@ function initBeforeAfterSlider() {
   
   const handle = document.getElementById('sliderHandle');
   const sliderAfter = slider.querySelector('.slider-after');
+  
+  if (!handle || !sliderAfter) return;
   
   // Set initial position
   sliderAfter.style.width = '50%';
@@ -857,7 +828,7 @@ function initIngredientsSlider() {
         }
     });
    
-  // Function to animate meter bars in current slide
+    // Function to animate meter bars in current slide
     function animateCurrentSlideMeter(swiper) {
         // Reset all meters first
         document.querySelectorAll('.meter-fill').forEach(meter => {
@@ -875,7 +846,15 @@ function initIngredientsSlider() {
         meters.forEach((meter, index) => {
             setTimeout(() => {
                 meter.style.transition = "width 1s ease-out";
-                meter.style.width = meter.getAttribute('style').split('width:')[1];
+                
+                // FIXED: Safely get the width value
+                const style = meter.getAttribute('style');
+                let targetWidth = '0%'; // Default value
+                if (style && style.includes('width:')) {
+                    targetWidth = style.split('width:')[1];
+                }
+                
+                meter.style.width = targetWidth;
             }, 100 * index);
         });
     }
@@ -888,7 +867,7 @@ function initIngredientsSlider() {
         });
         
         // Add highlight to active card
-        const activeCard = swiper.slides[swiper.activeIndex].querySelector('.ingredient-card');
+        const activeCard = swiper.slides[swiper.activeIndex]?.querySelector('.ingredient-card');
         if (activeCard) {
             activeCard.classList.add('active-card');
         }
@@ -1122,6 +1101,7 @@ function initProductInteraction() {
 
 /**
  * Initialize meter animations for ingredients cards
+ * FIXED: Safely handle style attribute extraction
  */
 function initMeterAnimations() {
     // Find all meter bars
@@ -1134,8 +1114,12 @@ function initMeterAnimations() {
                 if (entry.isIntersecting) {
                     const meter = entry.target.querySelector('.meter-fill');
                     if (meter) {
-                        // Get target width from inline style
-                        const targetWidth = meter.getAttribute('style').split('width:')[1];
+                        // FIXED: Safely get target width from inline style
+                        const style = meter.getAttribute('style');
+                        let targetWidth = '0%'; // Default value
+                        if (style && style.includes('width:')) {
+                            targetWidth = style.split('width:')[1];
+                        }
                         
                         // Reset width first
                         meter.style.width = '0%';
@@ -1161,20 +1145,33 @@ function initMeterAnimations() {
 }
 
 /**
- * Handle responsive adjustments
+ * Initialize tabs system
  */
-window.addEventListener('resize', () => {
-    // Reinitialize components as needed for different screen sizes
-    const slider = document.querySelector('.ingredients-slider');
-    if (slider && typeof Swiper !== 'undefined') {
-        // Destroy and reinitialize slider for proper responsiveness
-        const swiperInstance = slider.swiper;
-        if (swiperInstance) {
-            swiperInstance.destroy();
-            initIngredientsSlider();
+function initTabsSystem() {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+  
+  if (tabButtons.length && tabPanes.length) {
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTab = button.getAttribute('data-tab');
+        if (!targetTab) return;
+        
+        // Deactivate all tabs
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+        
+        // Activate target tab
+        button.classList.add('active');
+        
+        const tabPane = document.getElementById(`tab-${targetTab}`);
+        if (tabPane) {
+            tabPane.classList.add('active');
         }
-    }
-});
+      });
+    });
+  }
+}
 
 /**
  * Initialize clinical chart visualization
@@ -1386,6 +1383,7 @@ function initFaqAccordion() {
   if (faqQuestions.length) {
     faqQuestions.forEach((question) => {
       const answer = question.nextElementSibling;
+      if (!answer) return;
       
       // Set initial height to 0 for closed state
       answer.style.maxHeight = '0px';
@@ -1395,7 +1393,7 @@ function initFaqAccordion() {
         
         // Close all other questions
         faqQuestions.forEach((q) => {
-          if (q !== question) {
+          if (q !== question && q.nextElementSibling) {
             q.setAttribute('aria-expanded', 'false');
             q.nextElementSibling.style.maxHeight = '0px';
           }
@@ -1519,7 +1517,7 @@ function initLiveChat() {
   if (!chatToggle || !chatWindow) return;
   
   // Toggle chat window
-  chatToggle?.addEventListener('click', () => {
+  chatToggle.addEventListener('click', () => {
     const isExpanded = chatToggle.getAttribute('aria-expanded') === 'true';
     chatToggle.setAttribute('aria-expanded', !isExpanded);
     chatWindow.setAttribute('aria-hidden', isExpanded);
@@ -1533,10 +1531,12 @@ function initLiveChat() {
   });
   
   // Close chat window
-  chatClose?.addEventListener('click', () => {
-    chatToggle.setAttribute('aria-expanded', 'false');
-    chatWindow.setAttribute('aria-hidden', 'true');
-  });
+  if (chatClose) {
+    chatClose.addEventListener('click', () => {
+      chatToggle.setAttribute('aria-expanded', 'false');
+      chatWindow.setAttribute('aria-hidden', 'true');
+    });
+  }
   
   // Send message functionality
   if (sendButton && chatInput && chatMessages) {
@@ -1747,4 +1747,17 @@ function initParticles() {
     },
     retina_detect: true
   });
+}
+
+/**
+ * Handle responsive layout adjustments
+ */
+function handleResponsiveLayout() {
+  // Reinitialize components as needed for different screen sizes
+  const slider = document.querySelector('.ingredients-slider');
+  if (slider && typeof Swiper !== 'undefined' && slider.swiper) {
+    // Destroy and reinitialize slider for proper responsiveness
+    slider.swiper.destroy();
+    initIngredientsSlider();
+  }
 }
