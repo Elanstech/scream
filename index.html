@@ -519,137 +519,380 @@
         </div>
     </section>
 
-    <!-- Science & Ingredients Section with 3D Models -->
-    <section class="science-section" id="science">
-        <div class="container">
-            <header class="section-header" data-aos="fade-up">
-                <span class="section-tag">The Science</span>
-                <h2 class="section-title">Advanced Formula Technology</h2>
-                <p class="section-subtitle">Our proprietary blend of clinically-validated ingredients works together to enhance intimate experiences</p>
-            </header>
-
-            <!-- 3D Interactive Molecule Display -->
-            <div class="molecule-viewer" data-aos="fade-up">
-                <div id="moleculeContainer" class="molecule-container">
-                    <!-- 3D model placeholder - will be replaced by Three.js -->
-                    <div class="molecule-placeholder">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2497/2497791.png" alt="Molecule structure" class="molecule-image">
+   <!-- INGREDIENTS SECTION - REDESIGNED FOR MAXIMUM MARKETING IMPACT -->
+<section id="science" class="ingredients-section">
+    <div class="ingredients-background">
+        <div class="gradient-overlay"></div>
+        <div class="particle-container" id="particles-js"></div>
+    </div>
+    
+    <div class="container">
+        <!-- Section Header -->
+        <header class="section-header" data-aos="fade-up">
+            <div class="section-header-content">
+                <span class="section-badge">SCIENTIFICALLY SUPERIOR</span>
+                <h2 class="section-title">Breakthrough <span class="highlight">Formula</span></h2>
+                <p class="section-subtitle">Experience the science behind 215% more pleasure</p>
+            </div>
+        </header>
+        
+        <!-- Premium Formula Showcase -->
+        <div class="formula-showcase" data-aos="fade-up" data-aos-delay="100">
+            <div class="showcase-content">
+                <div class="showcase-text">
+                    <h3 class="showcase-title">Exclusive <span class="highlight">Triple-Action</span> Technology</h3>
+                    <p class="showcase-description">Our proprietary formula works on multiple levels to deliver an experience that's proven 215% more intense than competitors. Developed by leading researchers and made with pharmaceutical-grade ingredients.</p>
+                    
+                    <ul class="formula-benefits">
+                        <li><i class="bi bi-check-circle-fill"></i> <span>Enhanced microcirculation for maximum sensitivity</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i> <span>Neural response amplification technology</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i> <span>Sustained-release system for long-lasting effects</span></li>
+                    </ul>
+                    
+                    <div class="showcase-stat-row">
+                        <div class="stat-card">
+                            <div class="stat-value">15-30</div>
+                            <div class="stat-label">Minutes to Effect</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">2+</div>
+                            <div class="stat-label">Hours Duration</div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-value">96<span>%</span></div>
+                            <div class="stat-label">Satisfaction Rate</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="showcase-visual">
+                    <div class="product-highlight">
+                        <img src="cream.jpeg" alt="S-Cream Premium Formula" class="product-image">
+                        <div class="product-glow"></div>
+                        
+                        <div class="formula-pulse"></div>
+                        
+                        <div class="formula-badge">
+                            <span>Premium</span>
+                            <span>Formula</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Modern Ingredients Selector -->
-            <div class="ingredients-tabs" data-aos="fade-up">
-                <div class="tabs-nav">
-                    <button class="tab-button active" data-tab="aminophylline">
-                        <i class="bi bi-radioactive"></i>
-                        <span>Aminophylline</span>
-                    </button>
-                    <button class="tab-button" data-tab="ergoloid">
-                        <i class="bi bi-activity"></i>
-                        <span>Ergoloid Mesylate</span>
-                    </button>
-                    <button class="tab-button" data-tab="pentoxifylline">
-                        <i class="bi bi-droplet"></i>
-                        <span>Pentoxifylline</span>
-                    </button>
-                    <button class="tab-button" data-tab="sildenafil">
-                        <i class="bi bi-heart-pulse"></i>
-                        <span>Sildenafil Citrate</span>
-                    </button>
-                    <button class="tab-button" data-tab="arginine">
-                        <i class="bi bi-stars"></i>
-                        <span>L-Arginine</span>
-                    </button>
-                </div>
-
-                <div class="tabs-content">
-                    <!-- Aminophylline Tab -->
-                    <div class="tab-pane active" id="tab-aminophylline">
-                        <div class="ingredient-details">
+        </div>
+        
+        <!-- Key Ingredients Slider -->
+        <div class="ingredients-slider-section" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="ingredients-title">Premium <span class="highlight">Active Ingredients</span></h3>
+            
+            <div class="swiper-container ingredients-slider">
+                <div class="swiper-wrapper">
+                    <!-- Ingredient 1 -->
+                    <div class="swiper-slide ingredient-slide">
+                        <div class="ingredient-card">
                             <div class="ingredient-header">
-                                <h3 class="ingredient-name">Aminophylline</h3>
-                                <div class="ingredient-tag">Microcirculation Enhancer</div>
-                            </div>
-                            
-                            <div class="ingredient-description">
-                                <p>Aminophylline stimulates blood flow by dilating blood vessels and relaxing smooth muscles. It creates a warming sensation while enhancing circulation to sensitive tissues.</p>
-                            </div>
-                            
-                            <div class="ingredient-benefits">
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="bi bi-heart-pulse"></i>
-                                    </div>
-                                    <div class="benefit-text">
-                                        <span>Enhances Blood Flow</span>
-                                        <small>Promotes circulation to intimate areas</small>
-                                    </div>
+                                <div class="ingredient-icon">
+                                    <i class="bi bi-radioactive"></i>
                                 </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="bi bi-thermometer-half"></i>
-                                    </div>
-                                    <div class="benefit-text">
-                                        <span>Creates Warming Sensation</span>
-                                        <small>Increases awareness and sensitivity</small>
-                                    </div>
-                                </div>
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">
-                                        <i class="bi bi-lungs"></i>
-                                    </div>
-                                    <div class="benefit-text">
-                                        <span>Relaxes Smooth Muscles</span>
-                                        <small>Improves tissue response to stimulation</small>
-                                    </div>
+                                <div class="ingredient-labels">
+                                    <h4 class="ingredient-name">Aminophylline</h4>
+                                    <span class="ingredient-tag">Vasodilator</span>
                                 </div>
                             </div>
                             
-                            <div class="ingredient-stats">
-                                <div class="stat-item">
-                                    <div class="stat-label">Onset</div>
-                                    <div class="stat-value">15-30 min</div>
+                            <div class="ingredient-content">
+                                <p class="ingredient-description">Medical-grade vasodilator that enhances blood flow to sensitive tissues, creating a warming sensation while dramatically increasing sensitivity.</p>
+                                
+                                <div class="ingredient-effects">
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensitivity</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Duration</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensation</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 95%"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="stat-item">
-                                    <div class="stat-label">Duration</div>
-                                    <div class="stat-value">Up to 2 hrs</div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-label">Sensation</div>
-                                    <div class="stat-value">Warming</div>
+                                
+                                <div class="key-benefits">
+                                    <span class="benefits-label">Key Benefits:</span>
+                                    <div class="benefits-tags">
+                                        <span>Enhanced Blood Flow</span>
+                                        <span>Warming Sensation</span>
+                                        <span>Rapid Onset</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Other ingredient tabs would follow the same pattern -->
-                    <!-- I'll include just one as an example for brevity -->
+                    
+                    <!-- Ingredient 2 -->
+                    <div class="swiper-slide ingredient-slide">
+                        <div class="ingredient-card">
+                            <div class="ingredient-header">
+                                <div class="ingredient-icon">
+                                    <i class="bi bi-activity"></i>
+                                </div>
+                                <div class="ingredient-labels">
+                                    <h4 class="ingredient-name">Ergoloid Mesylate</h4>
+                                    <span class="ingredient-tag">Neural Enhancer</span>
+                                </div>
+                            </div>
+                            
+                            <div class="ingredient-content">
+                                <p class="ingredient-description">Clinical-grade compound that enhances neural sensitivity and responsiveness, resulting in heightened pleasure sensations during intimate moments.</p>
+                                
+                                <div class="ingredient-effects">
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensitivity</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Duration</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensation</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="key-benefits">
+                                    <span class="benefits-label">Key Benefits:</span>
+                                    <div class="benefits-tags">
+                                        <span>Neural Sensitivity</span>
+                                        <span>Heightened Response</span>
+                                        <span>Prolonged Effect</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ingredient 3 -->
+                    <div class="swiper-slide ingredient-slide">
+                        <div class="ingredient-card">
+                            <div class="ingredient-header">
+                                <div class="ingredient-icon">
+                                    <i class="bi bi-droplet"></i>
+                                </div>
+                                <div class="ingredient-labels">
+                                    <h4 class="ingredient-name">Pentoxifylline</h4>
+                                    <span class="ingredient-tag">Microcirculation Enhancer</span>
+                                </div>
+                            </div>
+                            
+                            <div class="ingredient-content">
+                                <p class="ingredient-description">Advanced pharmaceutical-grade compound that improves microcirculation and cellular nutrition, creating sustained sensitivity enhancement.</p>
+                                
+                                <div class="ingredient-effects">
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensitivity</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Duration</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensation</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="key-benefits">
+                                    <span class="benefits-label">Key Benefits:</span>
+                                    <div class="benefits-tags">
+                                        <span>Long-Lasting</span>
+                                        <span>Deep Tissue Effect</span>
+                                        <span>Enhanced Nutrition</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ingredient 4 -->
+                    <div class="swiper-slide ingredient-slide">
+                        <div class="ingredient-card">
+                            <div class="ingredient-header">
+                                <div class="ingredient-icon">
+                                    <i class="bi bi-heart-pulse"></i>
+                                </div>
+                                <div class="ingredient-labels">
+                                    <h4 class="ingredient-name">Sildenafil Citrate</h4>
+                                    <span class="ingredient-tag">Blood Flow Optimizer</span>
+                                </div>
+                            </div>
+                            
+                            <div class="ingredient-content">
+                                <p class="ingredient-description">Pharmaceutical-grade compound that optimizes blood flow to sensitive tissues, creating enhanced vascular response and sensitivity.</p>
+                                
+                                <div class="ingredient-effects">
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensitivity</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Duration</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 95%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensation</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="key-benefits">
+                                    <span class="benefits-label">Key Benefits:</span>
+                                    <div class="benefits-tags">
+                                        <span>Enhanced Engorgement</span>
+                                        <span>Sustained Effect</span>
+                                        <span>Clinically Proven</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ingredient 5 -->
+                    <div class="swiper-slide ingredient-slide">
+                        <div class="ingredient-card">
+                            <div class="ingredient-header">
+                                <div class="ingredient-icon">
+                                    <i class="bi bi-stars"></i>
+                                </div>
+                                <div class="ingredient-labels">
+                                    <h4 class="ingredient-name">L-Arginine</h4>
+                                    <span class="ingredient-tag">Nitric Oxide Booster</span>
+                                </div>
+                            </div>
+                            
+                            <div class="ingredient-content">
+                                <p class="ingredient-description">Premium amino acid that increases nitric oxide production, leading to enhanced blood flow and sensitivity in intimate areas.</p>
+                                
+                                <div class="ingredient-effects">
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensitivity</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Duration</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="effect-meter">
+                                        <span class="effect-label">Sensation</span>
+                                        <div class="meter-bar">
+                                            <div class="meter-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="key-benefits">
+                                    <span class="benefits-label">Key Benefits:</span>
+                                    <div class="benefits-tags">
+                                        <span>Vascular Enhancement</span>
+                                        <span>Natural Origin</span>
+                                        <span>Rapid Absorption</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Navigation elements -->
+                <div class="swiper-button-next ingredients-button-next"></div>
+                <div class="swiper-button-prev ingredients-button-prev"></div>
+                <div class="swiper-pagination ingredients-pagination"></div>
             </div>
-
-            <div class="science-cta" data-aos="fade-up">
-                <div class="science-badges">
-                    <div class="science-badge">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1021/1021293.png" alt="FDA" class="badge-icon">
-                        <span>FDA-Registered Facility</span>
-                    </div>
-                    <div class="science-badge">
-                        <img src="https://cdn-icons-png.flaticon.com/512/4800/4800525.png" alt="Clinical" class="badge-icon">
-                        <span>Clinically Tested</span>
-                    </div>
-                    <div class="science-badge">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2621/2621786.png" alt="Doctor" class="badge-icon">
-                        <span>Doctor Approved</span>
-                    </div>
+        </div>
+        
+        <!-- Clinical Validation Banner -->
+        <div class="validation-banner" data-aos="fade-up" data-aos-delay="300">
+            <div class="validation-content">
+                <div class="validation-icon">
+                    <i class="bi bi-shield-check"></i>
                 </div>
-                <a href="quiz.html" class="cta-button">
-                    <span>Take the Quiz & Find Your Formula</span>
+                <div class="validation-text">
+                    <h3>215% More Effective</h3>
+                    <p>Our formula has been scientifically proven to deliver results that outperform competitors</p>
+                </div>
+                <a href="#clinical-proof" class="validation-link">
+                    <span>View Clinical Data</span>
                     <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
         </div>
-    </section>
+        
+        <!-- Certifications and CTA -->
+        <div class="certifications-cta" data-aos="fade-up" data-aos-delay="400">
+            <div class="certifications">
+                <div class="cert-badge">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1021/1021293.png" alt="FDA Registered" class="cert-icon">
+                    <span>FDA Registered</span>
+                </div>
+                <div class="cert-badge">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4800/4800525.png" alt="Clinically Tested" class="cert-icon">
+                    <span>Clinically Tested</span>
+                </div>
+                <div class="cert-badge">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2621/2621786.png" alt="Doctor Approved" class="cert-icon">
+                    <span>Doctor Approved</span>
+                </div>
+            </div>
+            
+            <a href="quiz.html" class="cta-button pulse-animation">
+                <span>Get Your Premium Formula</span>
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Clinical Study Results Section (NEW) -->
     <section class="clinical-section" id="clinical-proof">
