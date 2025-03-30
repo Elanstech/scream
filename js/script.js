@@ -1078,52 +1078,7 @@ window.addEventListener('load', () => {
     // Fix any title issues again after full page load
     fixSectionTitles();
 });
-   
-    // Function to animate meter bars in current slide
-    function animateCurrentSlideMeter(swiper) {
-        // Reset all meters first
-        document.querySelectorAll('.meter-fill').forEach(meter => {
-            meter.style.width = "0%";
-            meter.style.transition = "none";
-        });
-        
-        // Get current active slide and animate its meters
-        const activeSlide = swiper.slides[swiper.activeIndex];
-        if (!activeSlide) return;
-        
-        const meters = activeSlide.querySelectorAll('.meter-fill');
-        
-        // Animate each meter with a slight delay
-        meters.forEach((meter, index) => {
-            setTimeout(() => {
-                meter.style.transition = "width 1s ease-out";
-                
-                // FIXED: Safely get the width value
-                const style = meter.getAttribute('style');
-                let targetWidth = '0%'; // Default value
-                if (style && style.includes('width:')) {
-                    targetWidth = style.split('width:')[1];
-                }
-                
-                meter.style.width = targetWidth;
-            }, 100 * index);
-        });
-    }
-    
-    // Highlight the active card with effects
-    function highlightActiveCard(swiper) {
-        // Remove highlight from all cards
-        document.querySelectorAll('.ingredient-card').forEach(card => {
-            card.classList.remove('active-card');
-        });
-        
-        // Add highlight to active card
-        const activeCard = swiper.slides[swiper.activeIndex]?.querySelector('.ingredient-card');
-        if (activeCard) {
-            activeCard.classList.add('active-card');
-        }
-    }
-}
+
 
 /**
  * Initialize particle background for premium visual effect
