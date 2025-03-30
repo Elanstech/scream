@@ -758,18 +758,71 @@ function initTimelineAnimations() {
  * Initialize the ingredients slider with Swiper
  */
 function initIngredientsSlider() {
-    const slider = document.querySelector('.ingredients-slider');
-    if (!slider || typeof Swiper === 'undefined') return;
-
-    // Initialize the Swiper slider with premium effects
+    // Check if Swiper and the container exist
+    if (typeof Swiper === 'undefined') {
+        console.warn('Swiper library is not loaded. The ingredients carousel requires Swiper.');
+        return;
+    }
+    
+    const sliderContainer = document.querySelector('.ingredients-slider');
+    if (!sliderContainer) {
+        console.warn('Ingredients slider container not found.');
+        return;
+    }
+    
+    // Initialize the Swiper slider with optimized configuration
     const swiper = new Swiper('.ingredients-slider', {
-        // Modern, high-end slider options
-        slidesPerView: 'auto',
-        spaceBetween: 30,
-        centeredSlides: true,
+        // Core configuration
+        slidesPerView: 1,
+        spaceBetween: 20,
+        grabCursor: true,
         loop: false,
         speed: 600,
-        grabCursor: true,
+        autoHeight: false,
+        
+        // Center the active slide for better visibility
+        centeredSlides: true,
+        
+        // Enable free mode for smoother sliding experience
+        freeMode: {
+            enabled: true,
+            sticky: true,
+            momentumBounce: false
+        },
+        
+        // Responsive breakpoints
+        breakpoints: {
+            // Small mobile devices
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            },
+            // Tablets
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20
+            },
+            // Desktops
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            }
+        },
+        
+        // Navigation
+        navigation: {
+            nextEl: '.ingredients-button-next',
+            prevEl: '.ingredients-button-prev',
+        },
+        
+        // Pagination (bullets)
+        pagination: {
+            el: '.ingredients-pagination',
+            clickable: true,
+            dynamicBullets: true,
+        },
+        
+        // Extra effects
         effect: 'coverflow',
         coverflowEffect: {
             rotate: 0,
@@ -778,38 +831,17 @@ function initIngredientsSlider() {
             modifier: 1,
             slideShadows: true,
         },
-        // Breakpoints for responsive design
-        breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                effect: 'slide',
-            },
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-            },
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-            },
-        },
-        // Navigation
-        navigation: {
-            nextEl: '.ingredients-button-next',
-            prevEl: '.ingredients-button-prev',
-        },
-        // Pagination
-        pagination: {
-            el: '.ingredients-pagination',
-            clickable: true,
-            dynamicBullets: true,
-            renderBullet: function (index, className) {
-                return '<span class="' + className + ' premium-bullet"></span>';
-            },
-        },
-        // Custom animations and effects
+        
+        // Events
         on: {
+            init: function() {
+                console.log('Ingredients slider initialized successfully');
+                // Initialize the first slide
+                setTimeout(() => {
+                    animateCurrentSlideMeter(this);
+                    highlightActiveCard(this);
+                }, 500);
+            },
             slideChange: function() {
                 // Animate meters in the current slide
                 animateCurrentSlideMeter(this);
@@ -818,15 +850,234 @@ function initIngredientsSlider() {
                 // Additional effects after slide change
                 highlightActiveCard(this);
             },
-            init: function() {
-                // Initialize the first slide
-                setTimeout(() => {
-                    animateCurrentSlideMeter(this);
-                    highlightActiveCard(this);
-                }, 500);
+            resize: function() {
+                // Re-calculate swiper dimensions on window resize
+                this.update();
             }
         }
     });
+    
+    // Function to animate meter bars in the current slide
+    function animateCurrentSlideMeter(swiper) {
+        // Reset all meters first
+        document.querySelectorAll('.meter-fill').forEach(meter => {
+            meter.style.width = "0%";
+            meter.style.transition = "none";
+        });
+        
+        // Get current active slide
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        if (!activeSlide) return;
+        
+        // Get all meters in the active slide
+        const meters = activeSlide.querySelectorAll('.meter-fill');
+        
+        // Animate each meter with a slight delay
+        meters.forEach((meter, index) => {
+            setTimeout(() => {
+                meter.style.transition = "width 1s ease-out";
+                
+                // Get target width from inline style
+                const targetWidth = getTargetWidth(meter);
+                meter.style.width = targetWidth;
+            }, 100 * index);
+        });
+    }
+    
+    // Helper function to safely extract target width from meter element
+    function getTargetWidth(meter) {
+        // Check for inline style first
+        if (meter.style.width && meter.style.width !== "0%") {
+            return meter.style.width;
+        }
+        
+        // Try to get width from style attribute
+        const styleAttr = meter.getAttribute('style');
+        if (styleAttr && styleAttr.includes('width:')) {
+            const widthMatch = styleAttr.match(/width:\s*([^;]+)/);
+            if (widthMatch && widthMatch[1]) {
+                return widthMatch[1].trim();
+            }
+        }
+        
+        // Default fallback - check dataset or use a default value
+        return meter.dataset.width || "80%";
+    }
+    
+    // Function to highlight the currently active card with visual effects
+    function highlightActiveCard(swiper) {
+        // Remove highlight from all cards
+        document.querySelectorAll('.ingredient-card').forEach(card => {
+            card.classList.remove('active-card');
+        });
+        
+        // Add highlight class to active card
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        if (activeSlide) {
+            const activeCard = activeSlide.querySelector('.ingredient-card');
+            if (activeCard) {
+                activeCard.classList.add('active-card');
+                
+                // Add subtle animation
+                activeCard.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    activeCard.style.transform = '';
+                }, 300);
+            }
+        }
+    }
+    
+    // Handle touch interactions for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    sliderContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    sliderContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipeGesture();
+    }, { passive: true });
+    
+    function handleSwipeGesture() {
+        if (touchEndX < touchStartX) {
+            // Swipe left - go to next slide
+            swiper.slideNext();
+        }
+        if (touchEndX > touchStartX) {
+            // Swipe right - go to previous slide
+            swiper.slidePrev();
+        }
+    }
+    
+    // Add extra interaction for ingredient cards
+    const ingredientCards = document.querySelectorAll('.ingredient-card');
+    ingredientCards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            // Go to this slide when card is clicked
+            swiper.slideTo(index);
+        });
+        
+        // Add hover effects
+        card.addEventListener('mouseenter', () => {
+            if (!card.classList.contains('active-card')) {
+                card.style.transform = 'translateY(-5px)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            if (!card.classList.contains('active-card')) {
+                card.style.transform = '';
+            }
+        });
+    });
+    
+    // Return the swiper instance for potential external access
+    return swiper;
+}
+
+/**
+ * Add to document ready function
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize the ingredients slider if not already initialized
+    if (typeof initIngredientsSlider === 'function') {
+        initIngredientsSlider();
+    }
+    
+    // Also initialize section title fixing
+    fixSectionTitles();
+});
+
+/**
+ * Function to fix section title spacing and display issues
+ */
+function fixSectionTitles() {
+    // Find all section headers
+    const sectionHeaders = document.querySelectorAll('.section-header');
+    
+    sectionHeaders.forEach(header => {
+        // Ensure section-header-content wrapper is present
+        if (!header.querySelector('.section-header-content')) {
+            // Create wrapper if it doesn't exist
+            const content = document.createElement('div');
+            content.className = 'section-header-content';
+            
+            // Move children inside wrapper
+            while (header.firstChild) {
+                content.appendChild(header.firstChild);
+            }
+            
+            // Append wrapper back to header
+            header.appendChild(content);
+        }
+        
+        // Fix badge/tag margins
+        const badge = header.querySelector('.section-badge, .section-tag');
+        if (badge) {
+            badge.style.marginBottom = '1rem';
+        }
+        
+        // Fix title margins
+        const title = header.querySelector('.section-title');
+        if (title) {
+            title.style.marginBottom = '1rem';
+            title.style.lineHeight = '1.2';
+        }
+        
+        // Fix subtitle margins
+        const subtitle = header.querySelector('.section-subtitle');
+        if (subtitle) {
+            subtitle.style.marginTop = '0';
+        }
+    });
+    
+    // Fix ingredients title specifically
+    const ingredientsTitle = document.querySelector('.ingredients-title');
+    if (ingredientsTitle) {
+        ingredientsTitle.style.position = 'relative';
+        
+        // Add bottom decoration line if not present
+        if (!ingredientsTitle.getAttribute('data-decorated')) {
+            ingredientsTitle.setAttribute('data-decorated', 'true');
+            
+            // Add pseudoelement styling with CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                .ingredients-title::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 60px;
+                    height: 3px;
+                    background: linear-gradient(90deg, #FF3166, #FF85A1);
+                    border-radius: 3px;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+}
+
+// Ensure proper initialization when page loads
+window.addEventListener('load', () => {
+    // Re-initialize on load to ensure everything is in place
+    const swiper = document.querySelector('.ingredients-slider')?.swiper;
+    
+    if (swiper) {
+        // Update swiper if it exists
+        swiper.update();
+    } else {
+        // Initialize if it doesn't exist
+        initIngredientsSlider();
+    }
+    
+    // Fix any title issues again after full page load
+    fixSectionTitles();
+});
    
     // Function to animate meter bars in current slide
     function animateCurrentSlideMeter(swiper) {
