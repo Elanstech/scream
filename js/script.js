@@ -21,7 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initCounterAnimations();
   initBeforeAfterSlider();
   initTimelineAnimations();
-  init3DMolecule();
+  initIngredientsSlider();
+  initParticleBackground();
+  initAnimations();
+  initProductInteraction();
+  initMeterAnimations();
   initTabsSystem();
   initClinicalChart();
   initVideoTestimonials();
@@ -780,153 +784,397 @@ function initTimelineAnimations() {
 }
 
 /**
- * Initialize 3D molecule visualization
+ * Initialize the ingredients slider with Swiper
  */
-function init3DMolecule() {
-  const moleculeContainer = document.getElementById('moleculeContainer');
-  if (!moleculeContainer || typeof THREE === 'undefined') return;
-  
-  // Set up the scene
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, moleculeContainer.offsetWidth / moleculeContainer.offsetHeight, 0.1, 1000);
-  
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(moleculeContainer.offsetWidth, moleculeContainer.offsetHeight);
-  moleculeContainer.innerHTML = '';
-  moleculeContainer.appendChild(renderer.domElement);
-  
-  // Create molecule geometry
-  const mainSphere = new THREE.Mesh(
-    new THREE.SphereGeometry(2, 32, 32),
-    new THREE.MeshPhongMaterial({ color: 0xE17A92, shininess: 100 })
-  );
-  scene.add(mainSphere);
-  
-  // Create orbiting atoms
-  const atomMaterial = new THREE.MeshPhongMaterial({ color: 0xFF6B6B, shininess: 80 });
-  const atoms = [];
-  
-  for (let i = 0; i < 5; i++) {
-    const atom = new THREE.Mesh(
-      new THREE.SphereGeometry(0.5, 24, 24),
-      atomMaterial
-    );
-    
-    const orbit = new THREE.Object3D();
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 3 + Math.random() * 2;
-    
-    atom.position.set(
-      Math.cos(angle) * distance,
-      (Math.random() - 0.5) * 3,
-      Math.sin(angle) * distance
-    );
-    
-    // Randomize orbit axis
-    orbit.rotation.x = Math.random() * Math.PI;
-    orbit.rotation.y = Math.random() * Math.PI;
-    
-    orbit.add(atom);
-    scene.add(orbit);
-    atoms.push({ orbit, speed: 0.005 + Math.random() * 0.01 });
-  }
-  
-  // Add ambient light
-  const ambientLight = new THREE.AmbientLight(0x404040);
-  scene.add(ambientLight);
-  
-  // Add directional light
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(1, 1, 1);
-  scene.add(directionalLight);
-  
-  // Position camera
-  camera.position.z = 10;
-  
-  // Animation function
-  const animate = () => {
-    requestAnimationFrame(animate);
-    
-    // Rotate main molecule
-    mainSphere.rotation.y += 0.005;
-    
-    // Rotate orbits
-    atoms.forEach(atom => {
-      atom.orbit.rotation.y += atom.speed;
-      atom.orbit.rotation.x += atom.speed * 0.5;
+function initIngredientsSlider() {
+    const slider = document.querySelector('.ingredients-slider');
+    if (!slider || typeof Swiper === 'undefined') return;
+
+    // Initialize the Swiper slider with premium effects
+    const swiper = new Swiper('.ingredients-slider', {
+        // Modern, high-end slider options
+        slidesPerView: 'auto',
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop: false,
+        speed: 600,
+        grabCursor: true,
+        effect: 'coverflow',
+        coverflowEffect: {
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+        // Breakpoints for responsive design
+        breakpoints: {
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                effect: 'slide',
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
+        },
+        // Navigation
+        navigation: {
+            nextEl: '.ingredients-button-next',
+            prevEl: '.ingredients-button-prev',
+        },
+        // Pagination
+        pagination: {
+            el: '.ingredients-pagination',
+            clickable: true,
+            dynamicBullets: true,
+            renderBullet: function (index, className) {
+                return '<span class="' + className + ' premium-bullet"></span>';
+            },
+        },
+        // Custom animations and effects
+        on: {
+            slideChange: function() {
+                // Animate meters in the current slide
+                animateCurrentSlideMeter(this);
+            },
+            slideChangeTransitionEnd: function() {
+                // Additional effects after slide change
+                highlightActiveCard(this);
+            },
+            init: function() {
+                // Initialize the first slide
+                setTimeout(() => {
+                    animateCurrentSlideMeter(this);
+                    highlightActiveCard(this);
+                }, 500);
+            }
+        }
     });
-    
-    // Render the scene
-    renderer.render(scene, camera);
-  };
-  
-  // Start animation
-  animate();
-  
-  // Handle resize
-  window.addEventListener('resize', () => {
-    camera.aspect = moleculeContainer.offsetWidth / moleculeContainer.offsetHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(moleculeContainer.offsetWidth, moleculeContainer.offsetHeight);
-  });
-  
-  // Add interactive rotation
-  let isDragging = false;
-  let previousMousePosition = { x: 0, y: 0 };
-  
-  moleculeContainer.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    previousMousePosition = {
-      x: e.clientX,
-      y: e.clientY
-    };
-  });
-  
-  document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-      const deltaMove = {
-        x: e.clientX - previousMousePosition.x,
-        y: e.clientY - previousMousePosition.y
-      };
-      
-      mainSphere.rotation.y += deltaMove.x * 0.01;
-      mainSphere.rotation.x += deltaMove.y * 0.01;
-      
-      previousMousePosition = {
-        x: e.clientX,
-        y: e.clientY
-      };
+   
+  // Function to animate meter bars in current slide
+    function animateCurrentSlideMeter(swiper) {
+        // Reset all meters first
+        document.querySelectorAll('.meter-fill').forEach(meter => {
+            meter.style.width = "0%";
+            meter.style.transition = "none";
+        });
+        
+        // Get current active slide and animate its meters
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        if (!activeSlide) return;
+        
+        const meters = activeSlide.querySelectorAll('.meter-fill');
+        
+        // Animate each meter with a slight delay
+        meters.forEach((meter, index) => {
+            setTimeout(() => {
+                meter.style.transition = "width 1s ease-out";
+                meter.style.width = meter.getAttribute('style').split('width:')[1];
+            }, 100 * index);
+        });
     }
-  });
-  
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
+    
+    // Highlight the active card with effects
+    function highlightActiveCard(swiper) {
+        // Remove highlight from all cards
+        document.querySelectorAll('.ingredient-card').forEach(card => {
+            card.classList.remove('active-card');
+        });
+        
+        // Add highlight to active card
+        const activeCard = swiper.slides[swiper.activeIndex].querySelector('.ingredient-card');
+        if (activeCard) {
+            activeCard.classList.add('active-card');
+        }
+    }
 }
 
 /**
- * Initialize tabs system
+ * Initialize particle background for premium visual effect
  */
-function initTabsSystem() {
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const tabPanes = document.querySelectorAll('.tab-pane');
-  
-  if (tabButtons.length && tabPanes.length) {
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const targetTab = button.getAttribute('data-tab');
-        
-        // Deactivate all tabs
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabPanes.forEach(pane => pane.classList.remove('active'));
-        
-        // Activate target tab
-        button.classList.add('active');
-        document.getElementById(`tab-${targetTab}`)?.classList.add('active');
-      });
+function initParticleBackground() {
+    const particlesContainer = document.getElementById('particles-js');
+    if (!particlesContainer || typeof particlesJS === 'undefined') return;
+    
+    particlesJS('particles-js', {
+        particles: {
+            number: {
+                value: 40,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: "#ff6b8f"
+            },
+            shape: {
+                type: "circle",
+                stroke: {
+                    width: 0,
+                    color: "#000000"
+                },
+                polygon: {
+                    nb_sides: 5
+                }
+            },
+            opacity: {
+                value: 0.3,
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 1,
+                    opacity_min: 0.1,
+                    sync: false
+                }
+            },
+            size: {
+                value: 5,
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 2,
+                    size_min: 0.1,
+                    sync: false
+                }
+            },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#ff6b8f",
+                opacity: 0.2,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 1,
+                direction: "none",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+                attract: {
+                    enable: false,
+                    rotateX: 600,
+                    rotateY: 1200
+                }
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: "bubble"
+                },
+                onclick: {
+                    enable: true,
+                    mode: "push"
+                },
+                resize: true
+            },
+            modes: {
+                grab: {
+                    distance: 400,
+                    line_linked: {
+                        opacity: 1
+                    }
+                },
+                bubble: {
+                    distance: 200,
+                    size: 6,
+                    duration: 2,
+                    opacity: 0.8,
+                    speed: 3
+                },
+                repulse: {
+                    distance: 200,
+                    duration: 0.4
+                },
+                push: {
+                    particles_nb: 4
+                },
+                remove: {
+                    particles_nb: 2
+                }
+            }
+        },
+        retina_detect: true
     });
-  }
 }
+
+/**
+ * Initialize custom animations for premium effects
+ */
+function initAnimations() {
+    // Animated highlight effect for text
+    const highlights = document.querySelectorAll('.highlight');
+    highlights.forEach(highlight => {
+        setInterval(() => {
+            highlight.classList.add('pulse-highlight');
+            setTimeout(() => {
+                highlight.classList.remove('pulse-highlight');
+            }, 1000);
+        }, 3000);
+    });
+    
+    // Animate validation banner
+    const validationBanner = document.querySelector('.validation-banner');
+    if (validationBanner) {
+        // Add slight movement animation
+        setInterval(() => {
+            validationBanner.classList.add('pulse-banner');
+            setTimeout(() => {
+                validationBanner.classList.remove('pulse-banner');
+            }, 1000);
+        }, 5000);
+    }
+    
+    // Animate CTA button
+    const ctaButton = document.querySelector('.cta-button');
+    if (ctaButton) {
+        // Pulsing animation
+        setInterval(() => {
+            ctaButton.classList.add('pulse-strong');
+            setTimeout(() => {
+                ctaButton.classList.remove('pulse-strong');
+            }, 1000);
+        }, 4000);
+    }
+    
+    // Animate certification badges
+    const certBadges = document.querySelectorAll('.cert-badge');
+    certBadges.forEach((badge, index) => {
+        // Staggered subtle animations
+        setInterval(() => {
+            badge.classList.add('badge-highlight');
+            setTimeout(() => {
+                badge.classList.remove('badge-highlight');
+            }, 1000);
+        }, 6000 + (index * 1000));
+    });
+}
+
+/**
+ * Initialize product interaction effects
+ */
+function initProductInteraction() {
+    const productContainer = document.querySelector('.product-highlight');
+    const productImage = document.querySelector('.product-image');
+    
+    if (!productContainer || !productImage) return;
+    
+    // 3D tilt effect on product image
+    productContainer.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = productContainer.getBoundingClientRect();
+        
+        // Calculate mouse position relative to container
+        const x = (e.clientX - left) / width - 0.5;
+        const y = (e.clientY - top) / height - 0.5;
+        
+        // Apply subtle rotation and shadow effects
+        productContainer.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+        productContainer.style.boxShadow = `${-x * 20}px ${-y * 20}px 30px rgba(255, 49, 102, 0.3)`;
+        
+        // Move the glow effect
+        const glow = productContainer.querySelector('.product-glow');
+        if (glow) {
+            glow.style.background = `radial-gradient(circle at ${x * 100 + 50}% ${y * 100 + 50}%, rgba(255, 107, 107, 0.8), transparent 70%)`;
+        }
+    });
+    
+    // Reset on mouse leave
+    productContainer.addEventListener('mouseleave', () => {
+        productContainer.style.transform = '';
+        productContainer.style.boxShadow = '';
+        
+        const glow = productContainer.querySelector('.product-glow');
+        if (glow) {
+            glow.style.background = `radial-gradient(circle at center, rgba(255, 107, 107, 0.5), transparent 70%)`;
+        }
+    });
+    
+    // Product pulse animation
+    const pulse = document.querySelector('.formula-pulse');
+    if (pulse) {
+        setInterval(() => {
+            pulse.classList.add('pulse-animation');
+            setTimeout(() => {
+                pulse.classList.remove('pulse-animation');
+            }, 1500);
+        }, 3000);
+    }
+    
+    // Zoom effect on click
+    productContainer.addEventListener('click', () => {
+        productContainer.classList.add('product-zoom');
+        setTimeout(() => {
+            productContainer.classList.remove('product-zoom');
+        }, 500);
+    });
+}
+
+/**
+ * Initialize meter animations for ingredients cards
+ */
+function initMeterAnimations() {
+    // Find all meter bars
+    const meterBars = document.querySelectorAll('.meter-bar');
+    
+    // Add observer to animate meters when they come into view
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const meter = entry.target.querySelector('.meter-fill');
+                    if (meter) {
+                        // Get target width from inline style
+                        const targetWidth = meter.getAttribute('style').split('width:')[1];
+                        
+                        // Reset width first
+                        meter.style.width = '0%';
+                        
+                        // Animate to target width
+                        setTimeout(() => {
+                            meter.style.transition = 'width 1s ease-out';
+                            meter.style.width = targetWidth;
+                        }, 200);
+                    }
+                    
+                    // Unobserve after animation
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        // Observe all meter bars
+        meterBars.forEach(bar => {
+            observer.observe(bar);
+        });
+    }
+}
+
+/**
+ * Handle responsive adjustments
+ */
+window.addEventListener('resize', () => {
+    // Reinitialize components as needed for different screen sizes
+    const slider = document.querySelector('.ingredients-slider');
+    if (slider && typeof Swiper !== 'undefined') {
+        // Destroy and reinitialize slider for proper responsiveness
+        const swiperInstance = slider.swiper;
+        if (swiperInstance) {
+            swiperInstance.destroy();
+            initIngredientsSlider();
+        }
+    }
+});
 
 /**
  * Initialize clinical chart visualization
